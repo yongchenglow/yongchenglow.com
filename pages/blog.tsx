@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <Box height="100vh" display="flex" flexDirection="column">
+    <Box height="100vh" marginTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
       <Container maxWidth="xl">
         <Box py={3} textAlign="center">

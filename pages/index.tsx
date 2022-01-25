@@ -54,7 +54,7 @@ const Index = () => {
   };
 
   return (
-    <Box height="100vh" display="flex" flexDirection="column">
+    <Box height="100vh" marginTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
       <Container maxWidth="xl">
         <Box textAlign="center" mt={2}>
