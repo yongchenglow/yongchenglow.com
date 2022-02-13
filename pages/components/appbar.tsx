@@ -43,10 +43,12 @@ const ResponsiveAppBar = () => {
             }}
           >
             {pages.map((page) => (
-              <Link href={page === "Home" ? "/" : "/" + page.toLowerCase()}>
+              <Link
+                key={page}
+                href={page === "Home" ? "/" : "/" + page.toLowerCase()}
+              >
                 <a style={{ textDecoration: "none" }}>
                   <Button
-                    key={page}
                     sx={{
                       color: "white",
                       display: "block",

@@ -85,9 +85,9 @@ const Index = () => {
                   Journey to the Web
                 </Typography>
                 <Typography variant="body1">
-                  I have just finished my bootcamp, got my computer science
-                  degree or build my first full stack web application, what's
-                  next for me and where do I go from here?
+                  I have just finished my coding bootcamp, got my computer
+                  science degree or build my first full stack web application,
+                  what's next for me and where do I go from here?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
@@ -101,7 +101,7 @@ const Index = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  Time to join the scrum!
+                  Join the Scrum!
                 </Typography>
                 <Typography variant="body1">
                   How does a software engineering team typically operate and
