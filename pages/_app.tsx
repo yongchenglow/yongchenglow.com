@@ -34,21 +34,21 @@ export default function App(props: MyAppProps) {
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           ></script>
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-0YZD5J7B2T"
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-0YZD5J7B2T');
-          `}
-          </Script>
         </Head>
         <ThemeProvider theme={theme}>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-0YZD5J7B2T"
+          ></script>
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-0YZD5J7B2T');
+            `}
+          </Script>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Component {...pageProps} />
