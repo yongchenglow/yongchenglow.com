@@ -24,7 +24,17 @@ const About = () => {
           <Box maxWidth={theme.spacing(80)} mx="auto" mb={3}>
             Welcome to my blog! Here, you will find interesting Articles are
             that I have written and hopefully they do make an impact and learn
-            something useful!
+            something useful! The plan is to release an article every Monday.
+          </Box>
+          <Box
+            maxWidth={theme.spacing(80)}
+            mx="auto"
+            mb={3}
+            style={{ color: theme.palette.error.main }}
+          >
+            Its Story Time have been delayed to Wednesday 23rd Feb. My sincere
+            apologies. It is going to be a long one so please bear with me for
+            awhile longer.
           </Box>
           <Box display="flex" justifyContent="center">
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
