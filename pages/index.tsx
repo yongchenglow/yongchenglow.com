@@ -82,35 +82,16 @@ const Index = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  Journey to the Web
+                  It's Story Time
                 </Typography>
                 <Typography variant="body1">
-                  I have just finished my coding bootcamp, got my computer
-                  science degree or build my first full stack web application,
-                  what's next for me and where do I go from here?
+                  Now that we have learned about Scrum, what actually goes on
+                  during the Sprint Planning session? How do we organise our
+                  tasks? How do we allocate them?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-                <Link href="/blog/1">
-                  <a style={{ textDecoration: "none" }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
-                </Link>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: 350, marginX: 1 }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  Join the Scrum!
-                </Typography>
-                <Typography variant="body1">
-                  How does a software engineering team typically operate and
-                  what are the different rituals that they do in a typical
-                  sprint? Who should a team consist of?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-                <Link href="/blog/2">
+                <Link href="/blog/3">
                   <a style={{ textDecoration: "none" }}>
                     <Button size="small">Read Now</Button>
                   </a>

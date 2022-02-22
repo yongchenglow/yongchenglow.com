@@ -21,22 +21,39 @@ const About = () => {
           <Box mb={1}>
             <Typography variant="h4">Blog</Typography>
           </Box>
-          <Box maxWidth={theme.spacing(80)} mx="auto" mb={3}>
+          <Box maxWidth={theme.spacing(80)} mx="auto" mb={7}>
             Welcome to my blog! Here, you will find interesting Articles are
             that I have written and hopefully they do make an impact and learn
             something useful! The plan is to release an article every Monday.
           </Box>
-          <Box
-            maxWidth={theme.spacing(80)}
-            mx="auto"
-            mb={3}
-            style={{ color: theme.palette.error.main }}
-          >
-            Its Story Time have been delayed to Wednesday 23rd Feb. My sincere
-            apologies. It is going to be a long one so please bear with me for
-            awhile longer.
+          <Typography variant="h5" style={{ fontWeight: 450 }}>
+            New Articles
+          </Typography>
+          <Box display="flex" justifyContent="center" mt={3} mb={7}>
+            <Card sx={{ maxWidth: 350, marginX: 1 }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  It's Story Time
+                </Typography>
+                <Typography variant="body1">
+                  Now that we have learned about Scrum, what actually goes on
+                  during the Sprint Planning session? How do we organise our
+                  tasks? How do we allocate them?
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+                <Link href="/blog/3">
+                  <a style={{ textDecoration: "none" }}>
+                    <Button size="small">Read Now</Button>
+                  </a>
+                </Link>
+              </CardActions>
+            </Card>
           </Box>
-          <Box display="flex" justifyContent="center">
+          <Typography variant="h5" style={{ fontWeight: 450 }}>
+            Previous Articles
+          </Typography>
+          <Box display="flex" justifyContent="center" mt={3}>
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
