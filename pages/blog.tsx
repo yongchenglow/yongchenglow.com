@@ -33,16 +33,16 @@ const About = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  It's Story Time
+                  Single Source of Truth
                 </Typography>
                 <Typography variant="body1">
-                  Now that we have learned about Scrum, what actually goes on
-                  during the Sprint Planning session? How do we organise our
-                  tasks? How do we allocate them?
+                  The database is every web application's single source of
+                  truth. So how to we design a database that is reliable and
+                  error free?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-                <Link href="/blog/3">
+                <Link href="/blog/4">
                   <a style={{ textDecoration: "none" }}>
                     <Button size="small">Read Now</Button>
                   </a>
@@ -86,6 +86,25 @@ const About = () => {
               </CardContent>
               <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
                 <Link href="/blog/2">
+                  <a style={{ textDecoration: "none" }}>
+                    <Button size="small">Read Now</Button>
+                  </a>
+                </Link>
+              </CardActions>
+            </Card>
+            <Card sx={{ maxWidth: 350, marginX: 1 }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  It's Story Time
+                </Typography>
+                <Typography variant="body1">
+                  Now that we have learned about Scrum, what actually goes on
+                  during the Sprint Planning session? How do we organise our
+                  tasks? How do we allocate them?
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+                <Link href="/blog/3">
                   <a style={{ textDecoration: "none" }}>
                     <Button size="small">Read Now</Button>
                   </a>

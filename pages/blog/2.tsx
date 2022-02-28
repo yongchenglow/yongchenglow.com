@@ -581,4 +581,5 @@ const About = () => {
   );
 };
 
+export { StyledTableRow, StyledTableCell };
 export default About;

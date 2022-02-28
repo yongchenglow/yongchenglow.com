@@ -113,7 +113,7 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Personas help us understand the user’s needs, wants and goals. By
+              Personas help us understand the user's needs, wants and goals. By
               creating the persona, we understand who we are building the
               product for. Using a very basic Airbnb as an example, we can start
               with 2 personas, a home owner and traveler. The smaller the
@@ -131,7 +131,7 @@ const About = () => {
               the persona to understand your core audience. This is because if
               you have been playing the game of business long enough, a close
               substitute will eventually come along. When this happens, it is
-              natural that some of these users will flood to your competitor’s
+              natural that some of these users will flood to your competitor's
               product. On the other hand, if you do things right and meet the
               needs and wants of your core user group, they will stay.
             </Typography>
@@ -383,7 +383,7 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Now that we have talked about the different terminologies, it’s
+              Now that we have talked about the different terminologies, it's
               time talk about the Sprint Planning session itself.
             </Typography>
             <Typography
