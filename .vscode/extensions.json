@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "betterer.betterer-vscode",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "ms-vsliveshare.vsliveshare"
+  ],
+  "unwantedRecommendations": []
+}
