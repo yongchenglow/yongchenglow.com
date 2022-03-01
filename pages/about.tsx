@@ -1,8 +1,8 @@
-import { Box, Container, Typography, Link as MuiLink } from "@mui/material";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Footer from "./components/footer";
-import ResponsiveAppBar from "./components/appbar";
-import theme from "../src/theme";
+import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Footer from './components/footer';
+import ResponsiveAppBar from './components/appbar';
+import theme from '../src/theme';
 
 const About = () => {
   return (
@@ -22,7 +22,7 @@ const About = () => {
             target="_blank"
           >
             <LinkedInIcon
-              sx={{ color: "#0072B1", fontSize: theme.spacing(8) }}
+              sx={{ color: '#0072B1', fontSize: theme.spacing(8) }}
             />
           </MuiLink>
         </Box>

@@ -1,19 +1,19 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Link from "next/link";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 
-const pages = ["Home", "About", "Blog"];
+const pages = ['Home', 'About', 'Blog'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,20 +39,20 @@ const ResponsiveAppBar = () => {
             justifyContent="center"
             sx={{
               flexGrow: 1,
-              display: "flex",
+              display: 'flex',
             }}
           >
             {pages.map((page) => (
               <Link
                 key={page}
-                href={page === "Home" ? "/" : "/" + page.toLowerCase()}
+                href={page === 'Home' ? '/' : '/' + page.toLowerCase()}
               >
-                <a style={{ textDecoration: "none" }}>
+                <a style={{ textDecoration: 'none' }}>
                   <Button
                     sx={{
-                      color: "white",
-                      display: "block",
-                      textTransform: "unset",
+                      color: 'white',
+                      display: 'block',
+                      textTransform: 'unset',
                     }}
                   >
                     {page}

@@ -12,13 +12,13 @@ import {
   Paper,
   styled,
   tableCellClasses,
-} from "@mui/material";
-import Footer from "../components/footer";
-import ResponsiveAppBar from "../components/appbar";
-import theme from "src/theme";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import { StyledTableCell, StyledTableRow } from "./2";
+} from '@mui/material';
+import Footer from '../components/footer';
+import ResponsiveAppBar from '../components/appbar';
+import theme from 'src/theme';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { StyledTableCell, StyledTableRow } from './2';
 
 type OnDelete = {
   action: string;
@@ -27,16 +27,16 @@ type OnDelete = {
 
 const deleteActions: OnDelete[] = [
   {
-    action: "NO ACTION (Default)",
-    description: "Referenced row will not be deleted",
+    action: 'NO ACTION (Default)',
+    description: 'Referenced row will not be deleted',
   },
   {
-    action: "RESTRICT",
-    description: "Prevents Deletion of Primary Key",
+    action: 'RESTRICT',
+    description: 'Prevents Deletion of Primary Key',
   },
   {
-    action: "CASCADE",
-    description: "Referenced rows will be deleted as well",
+    action: 'CASCADE',
+    description: 'Referenced rows will be deleted as well',
   },
 ];
 
@@ -59,7 +59,7 @@ const About = () => {
           </Typography>
           <Box maxWidth="sm" mx="auto" mb={4}>
             <img
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               src="/img/database-schema-gf6a494e82_1280.png"
               alt="database"
             />
@@ -71,7 +71,7 @@ const About = () => {
             >
               One of the most important software engineering principles is to
               ensure that we have a single source of truth. For the context of
-              creating web applications, the single source of truth <b>is</b>{" "}
+              creating web applications, the single source of truth <b>is</b>{' '}
               the database. Therefore, designing a database to reliably store
               and manipulate data is one of our utmost priorities.
             </Typography>
@@ -97,7 +97,7 @@ const About = () => {
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/server-gebd52a943_1280.jpg"
                 alt="constraints"
               />
@@ -107,14 +107,14 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <MuiLink
                   href="https://www.postgresql.org/docs/current/datatype.html"
                   target="_blank"
                 >
                   <b>Database constraints </b>
-                </MuiLink>{" "}
+                </MuiLink>{' '}
                 give you control over the data stored inside the tables
               </Typography>
             </Box>
@@ -144,7 +144,7 @@ const About = () => {
             >
               <SyntaxHighlighter language="sql" style={docco}>
                 {
-                  "CREATE TABLE user(id serial primary key, username varchar(50));"
+                  'CREATE TABLE user(id serial primary key, username varchar(50));'
                 }
               </SyntaxHighlighter>
             </Typography>
@@ -175,8 +175,8 @@ const About = () => {
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -193,20 +193,20 @@ CREATE TABLE products (
               fontSize={theme.typography.h6.fontSize}
               marginBottom={10}
             >
-              The{" "}
+              The{' '}
               <SyntaxHighlighter
                 language="sql"
                 style={docco}
                 customStyle={{
-                  display: "inline-block",
+                  display: 'inline-block',
                   margin: 0,
                   padding: 0,
-                  overflowX: "visible",
-                  fontSize: "20px",
+                  overflowX: 'visible',
+                  fontSize: '20px',
                 }}
               >
                 {`numeric(5,2)`}
-              </SyntaxHighlighter>{" "}
+              </SyntaxHighlighter>{' '}
               allows us to have a maximum and minimum of 5 digits of which 2 are
               decimal points(-999.99 to 999.99)
             </Typography>
@@ -223,7 +223,7 @@ CREATE TABLE products (
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Primary Keys</b> are a unique identifier for a row of data
               </Typography>
@@ -250,7 +250,7 @@ CREATE TABLE products (
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Foreign keys</b> are references to a row with a primary key
                 in another table
@@ -272,8 +272,8 @@ CREATE TABLE products (
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -301,7 +301,7 @@ CREATE TABLE order_items (
                   {deleteActions.map((deleteEvent) => (
                     <StyledTableRow
                       key={deleteEvent.action}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <StyledTableCell
                         component="th"
@@ -332,7 +332,7 @@ CREATE TABLE order_items (
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Not Null</b> constraint does not allow null values
               </Typography>
@@ -354,8 +354,8 @@ CREATE TABLE order_items (
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -380,7 +380,7 @@ CREATE TABLE user (
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Unique</b> contraint means that every value in the column
                 must be unique
@@ -406,8 +406,8 @@ CREATE TABLE user (
                 language="ruby"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -436,7 +436,7 @@ end
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/database-g2fad27680_1280.jpg"
                 alt="database normalization"
               />
@@ -445,14 +445,14 @@ end
               fontSize={theme.typography.h6.fontSize}
               textAlign="center"
               marginBottom={3}
-              sx={{ fontStyle: "italic" }}
+              sx={{ fontStyle: 'italic' }}
             >
               <MuiLink
                 href="https://opentextbc.ca/dbdesign01/chapter/chapter-12-normalization/"
                 target="_blank"
               >
                 <b>Normalization</b>
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               is a database design technique that reduces data redundancy, and
               anomalies.
             </Typography>
@@ -462,16 +462,16 @@ end
             >
               Now that we have talk about the different database constrains for
               each column, we will now turn our attention to the table itself.
-              To keep things simple, we will only focus from 1<sup>st</sup>{" "}
+              To keep things simple, we will only focus from 1<sup>st</sup>{' '}
               Normal Form to 3.5 Normal Form, otherwise known as Boyce-Codd
               normal form(BCNF) which is usually the requirements needed to pass
-              most technical assessments. There are greater levels of{" "}
+              most technical assessments. There are greater levels of{' '}
               <MuiLink
                 href="https://www.guru99.com/database-normalization.html"
                 target="_blank"
               >
                 normalization
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               but we won't be covering them here.
             </Typography>
             <Typography
@@ -496,7 +496,7 @@ end
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Each Table Cell should contain a single value
               </Typography>
@@ -504,7 +504,7 @@ end
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Values stored in a column should be of the same data type
               </Typography>
@@ -512,7 +512,7 @@ end
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Columns and Tables should have unique names
               </Typography>
@@ -520,7 +520,7 @@ end
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Order in which the data is stored should not matter
               </Typography>
@@ -542,8 +542,8 @@ end
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -571,8 +571,8 @@ Student_Grade_Report (StudentId, Student, Major, Advisor, [Course, Grade])
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -602,8 +602,8 @@ StudentCourse (StudentId, Course, Grade)
                 language=""
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -629,7 +629,7 @@ Result: Row1 = student, [course1]
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Be in 1<sup>st</sup> Normal Form
               </Typography>
@@ -637,7 +637,7 @@ Result: Row1 = student, [course1]
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 There should be no partial dependency
               </Typography>
@@ -664,8 +664,8 @@ Result: Row1 = student, [course1]
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -707,7 +707,7 @@ Course (CourseId, Course)
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Be in 2<sup>nd</sup> Normal Form
               </Typography>
@@ -715,7 +715,7 @@ Course (CourseId, Course)
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 No transitive functional dependencies
               </Typography>
@@ -745,8 +745,8 @@ Course (CourseId, Course)
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -771,7 +771,7 @@ Course (CourseId, Course)
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 Be in 3<sup>rd</sup> Normal Form
               </Typography>
@@ -779,7 +779,7 @@ Course (CourseId, Course)
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 A relation is in BCNF if, and only if, every determinant is a
                 candidate key.
@@ -811,8 +811,8 @@ Course (CourseId, Course)
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -841,8 +841,8 @@ StudentMajor (StudentId, Advisor, Major)
                 language="sql"
                 style={docco}
                 customStyle={{
-                  textAlign: "left",
-                  display: "inline-block",
+                  textAlign: 'left',
+                  display: 'inline-block',
                   padding: theme.spacing(0, 5),
                 }}
               >
@@ -899,7 +899,7 @@ Major (MajorId, Major)
               the following week.
             </Typography>
             <Box textAlign="center" my={5}>
-              {" "}
+              {' '}
               <Typography
                 color="textSecondary"
                 textAlign="center"
