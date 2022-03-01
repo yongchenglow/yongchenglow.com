@@ -12,10 +12,10 @@ import {
   Paper,
   styled,
   tableCellClasses,
-} from "@mui/material";
-import Footer from "../components/footer";
-import ResponsiveAppBar from "../components/appbar";
-import theme from "src/theme";
+} from '@mui/material';
+import Footer from '../components/footer';
+import ResponsiveAppBar from '../components/appbar';
+import theme from 'src/theme';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,11 +29,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
+  '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  "&:last-child td, &:last-child th": {
+  '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
@@ -46,28 +46,28 @@ type Scrum = {
 };
 const scrumEvents: Scrum[] = [
   {
-    name: "Sprint Planning",
-    duration: "2 hours per week",
-    frequency: "Once per sprint",
-    attendance: "All",
+    name: 'Sprint Planning',
+    duration: '2 hours per week',
+    frequency: 'Once per sprint',
+    attendance: 'All',
   },
   {
-    name: "Daily Scrum",
-    duration: "15 mins per day",
-    frequency: "Daily",
-    attendance: "Development Team",
+    name: 'Daily Scrum',
+    duration: '15 mins per day',
+    frequency: 'Daily',
+    attendance: 'Development Team',
   },
   {
-    name: "Sprint Review",
-    duration: "1 hour per week",
-    frequency: "Once per sprint",
-    attendance: "All",
+    name: 'Sprint Review',
+    duration: '1 hour per week',
+    frequency: 'Once per sprint',
+    attendance: 'All',
   },
   {
-    name: "Sprint Retrospective",
-    duration: "45 mins per week",
-    frequency: "Once per sprint",
-    attendance: "All",
+    name: 'Sprint Retrospective',
+    duration: '45 mins per week',
+    frequency: 'Once per sprint',
+    attendance: 'All',
   },
 ];
 
@@ -90,7 +90,7 @@ const About = () => {
           </Typography>
           <Box maxWidth="sm" mx="auto" mb={4}>
             <img
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               src="/img/team-ga2cffa5b1_1920.jpg"
               alt="children coding"
             />
@@ -110,21 +110,21 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Most development teams work using some kind of{" "}
+              Most development teams work using some kind of{' '}
               <MuiLink
                 href="https://www.wrike.com/project-management-guide/faq/what-is-agile-methodology-in-project-management/"
                 target="_blank"
               >
                 Agile methodology
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               . One of the most common framework in the industry that adopts
-              this is{" "}
+              this is{' '}
               <MuiLink
                 href="https://www.scrum.org/resources/what-is-scrum"
                 target="_blank"
               >
                 Scrum
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               . By adhering to the Scrum framework, the team delivers software
               in an incremental manner. This gives stakeholders the flexibility
               to review the increment periodically and make adjustments if
@@ -135,7 +135,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 An <b>increment</b> is a working, production ready piece of
                 software.
@@ -159,10 +159,10 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={7}
             >
-              To find out exactly how Scrum works, you can read the{" "}
+              To find out exactly how Scrum works, you can read the{' '}
               <MuiLink href="https://scrumguides.org" target="_blank">
                 scrum guide
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               for detailed information. But let me give you a brief overview, in
               my own definition, for a basic understanding.
             </Typography>
@@ -176,7 +176,7 @@ const About = () => {
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/what-is-scrum-team.png"
                 alt="scrum team"
               />
@@ -249,7 +249,7 @@ const About = () => {
               important to understand that a team does not need to consist of
               all the roles mentioned above. If you want to find out more about
               some of the roles above and the skills needed, I recommend you
-              visit{" "}
+              visit{' '}
               <MuiLink href="https://roadmap.sh/" target="_blank">
                 roadmap
               </MuiLink>
@@ -267,7 +267,7 @@ const About = () => {
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/scrum-of-scrums-01.png.webp"
                 alt="scrum of scrums"
               />
@@ -277,12 +277,12 @@ const About = () => {
               marginBottom={5}
             >
               Now you may be wondering, wait a minute if a scrum team can have
-              only 10 people, how come tech companies are so big? The answer is{" "}
+              only 10 people, how come tech companies are so big? The answer is{' '}
               <b>Scaled up Scrum</b>. A Product Owner and a Scrum Master can be
-              running one or multiple Scrum teams. Using the{" "}
+              running one or multiple Scrum teams. Using the{' '}
               <MuiLink href="https://www.airbnb.com.sg" target="_blank">
                 Airbnb
-              </MuiLink>{" "}
+              </MuiLink>{' '}
               products of hosting, experience and online experience as an
               example, it is possible that they are running scaled up Scrum with
               each scrum team working on a certain product:
@@ -349,7 +349,7 @@ const About = () => {
                   {scrumEvents.map((event) => (
                     <StyledTableRow
                       key={event.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <StyledTableCell
                         component="th"
@@ -438,7 +438,7 @@ const About = () => {
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/bonus-gf0956773a_1280.png"
                 alt="scrum of scrums"
               />
@@ -511,7 +511,7 @@ const About = () => {
               It is also important to note that although Scrum is one of the
               most popular ways of delivering a piece of software, there are
               other agile frameworks that a company may use. Some companies also
-              don't adopt the agile workflow and prefer to work more towards{" "}
+              don't adopt the agile workflow and prefer to work more towards{' '}
               <MuiLink
                 href="https://www.workfront.com/project-management/methodologies/waterfall"
                 target="_blank"
@@ -542,21 +542,21 @@ const About = () => {
               Planning. These will include user stories, database design and
               wireframes before we move on to the actual coding stuff. For those
               of you who are die hard coders, I ask for you all to bear with me
-              a little while longer. It is important to understand that{" "}
+              a little while longer. It is important to understand that{' '}
               <strong>
                 the industry is moving away from focusing on the speed of
                 delivery, and focusing more on the quality of the delivery
               </strong>
               . From your coding bootcamp or university education you should be
               able to see that creating a web application is easy, but the
-              question is,{" "}
+              question is,{' '}
               <strong>
                 how do we write code that is clean, efficient and scalable
               </strong>
               ? That is something you have to stay around to find out.
             </Typography>
             <Box textAlign="center" my={5}>
-              {" "}
+              {' '}
               <Typography
                 color="textSecondary"
                 textAlign="center"

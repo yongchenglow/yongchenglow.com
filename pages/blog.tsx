@@ -6,11 +6,11 @@ import {
   CardContent,
   Typography,
   Button,
-} from "@mui/material";
-import Footer from "./components/footer";
-import ResponsiveAppBar from "./components/appbar";
-import theme from "../src/theme";
-import Link from "next/link";
+} from '@mui/material';
+import Footer from './components/footer';
+import ResponsiveAppBar from './components/appbar';
+import theme from '../src/theme';
+import Link from 'next/link';
 
 const About = () => {
   return (
@@ -41,9 +41,9 @@ const About = () => {
                   error free?
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/4">
-                  <a style={{ textDecoration: "none" }}>
+                  <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
                 </Link>
@@ -65,9 +65,9 @@ const About = () => {
                   what's next for me and where do I go from here?
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/1">
-                  <a style={{ textDecoration: "none" }}>
+                  <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
                 </Link>
@@ -84,9 +84,9 @@ const About = () => {
                   sprint? Who should a team consist of?
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/2">
-                  <a style={{ textDecoration: "none" }}>
+                  <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
                 </Link>
@@ -103,9 +103,9 @@ const About = () => {
                   tasks? How do we allocate them?
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/3">
-                  <a style={{ textDecoration: "none" }}>
+                  <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
                 </Link>

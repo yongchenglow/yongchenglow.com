@@ -12,10 +12,10 @@ import {
   Paper,
   styled,
   tableCellClasses,
-} from "@mui/material";
-import Footer from "../components/footer";
-import ResponsiveAppBar from "../components/appbar";
-import theme from "src/theme";
+} from '@mui/material';
+import Footer from '../components/footer';
+import ResponsiveAppBar from '../components/appbar';
+import theme from 'src/theme';
 
 const About = () => {
   return (
@@ -36,7 +36,7 @@ const About = () => {
           </Typography>
           <Box maxWidth="sm" mx="auto" mb={4}>
             <img
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               src="/img/meeting-gf7ea04404_1280.jpg"
               alt="children coding"
             />
@@ -86,7 +86,7 @@ const About = () => {
                 target="_blank"
               >
                 <img
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   src="/img/4317364.jpg"
                   alt="Infographic vector created by freepik - www.freepik.com"
                 />
@@ -97,14 +97,14 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <MuiLink
                   href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
                   target="_blank"
                 >
                   <b>Personas</b>
-                </MuiLink>{" "}
+                </MuiLink>{' '}
                 are fictional characters that are created to represent the
                 different user groups of your product.
               </Typography>
@@ -178,7 +178,7 @@ const About = () => {
                 target="_blank"
               >
                 <img
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   src="/img/epics-vs-stories-agile-development.png"
                   alt="epics-vs-stories-agile-development"
                 />
@@ -199,7 +199,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 An <b>Initiative</b> is a product goal. It can be further broken
                 down into multiple epics to be worked on
@@ -208,7 +208,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 An <b>Epic</b> breaks the Initiative down into smaller parts. It
                 contains a collection of user stories or things that the user
@@ -218,7 +218,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Stories or User stories</b> are requirements from the
                 perspective of the end users
@@ -227,7 +227,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 A <b>Task</b> is a breakdown of a story into smaller tasks.
               </Typography>
@@ -235,7 +235,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 A <b>Sub-task</b> is a breakdown of a task
               </Typography>
@@ -270,7 +270,7 @@ const About = () => {
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg"
                 alt="scrum team"
               />
@@ -280,7 +280,7 @@ const About = () => {
                 fontSize={theme.typography.h6.fontSize}
                 textAlign="center"
                 marginBottom={2}
-                sx={{ fontStyle: "italic" }}
+                sx={{ fontStyle: 'italic' }}
               >
                 <b>Definition of Done</b> is the acceptance criteria to a
                 particular type of user story
@@ -359,7 +359,7 @@ const About = () => {
                 <li>Pass Code Review</li>
                 <li>Write the necessary documentation</li>
                 <li>Release to Staging</li>
-                <li>Pass QA Stating</li>
+                <li>Pass QA Staging</li>
                 <li>Release to Production</li>
               </ol>
             </Typography>
@@ -370,11 +370,11 @@ const About = () => {
               marginTop={7}
               marginBottom={2}
             >
-              Spring Planning
+              Sprint Planning
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 src="/img/meeting-g10f292b56_1280.png"
                 alt="sprint planning"
               />
@@ -468,7 +468,7 @@ const About = () => {
               particular, it is all because of the database.
             </Typography>
             <Box textAlign="center" my={5}>
-              {" "}
+              {' '}
               <Typography
                 color="textSecondary"
                 textAlign="center"
@@ -483,7 +483,7 @@ const About = () => {
               textAlign="right"
               marginBottom={3}
             >
-              Last Updated: 23/02/2022
+              Last Updated: 02/03/2022
             </Typography>
           </Box>
         </Box>

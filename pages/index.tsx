@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Box,
   Avatar,
@@ -9,22 +9,22 @@ import {
   CardContent,
   Button,
   Link as MuiLink,
-} from "@mui/material";
+} from '@mui/material';
 import {
   ViewerQuery,
   useViewerQuery,
   useUpdateNameMutation,
   ViewerDocument,
-} from "../lib/viewer.graphql";
-import { initializeApollo } from "../lib/apollo";
-import ResponsiveAppBar from "./components/appbar";
-import Footer from "./components/footer";
-import theme from "../src/theme";
-import Link from "next/link";
+} from '../lib/viewer.graphql';
+import { initializeApollo } from '../lib/apollo';
+import ResponsiveAppBar from './components/appbar';
+import Footer from './components/footer';
+import theme from '../src/theme';
+import Link from 'next/link';
 
 const Index = () => {
   const { viewer } = useViewerQuery().data!;
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState('');
   const [updateNameMutation] = useUpdateNameMutation();
 
   const onChangeName = () => {
@@ -64,7 +64,7 @@ const Index = () => {
             sx={{
               width: theme.spacing(20),
               height: theme.spacing(20),
-              marginX: "auto",
+              marginX: 'auto',
             }}
           />
           <Box mt={1}>
@@ -90,9 +90,9 @@ const Index = () => {
                   error free?
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/4">
-                  <a style={{ textDecoration: "none" }}>
+                  <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
                 </Link>

@@ -1,13 +1,13 @@
 import {
   QueryResolvers,
   MutationResolvers,
-} from "graphql-let/__generated__/__types__";
-import { ResolverContext } from "./apollo";
+} from 'graphql-let/__generated__/__types__';
+import { ResolverContext } from './apollo';
 
 const userProfile = {
   id: String(1),
-  name: "John Smith",
-  status: "cached",
+  name: 'John Smith',
+  status: 'cached',
 };
 
 const Query: Required<QueryResolvers<ResolverContext>> = {
