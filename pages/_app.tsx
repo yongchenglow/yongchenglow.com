@@ -29,17 +29,17 @@ export default function App(props: MyAppProps) {
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
-          <script
+        </Head>
+        <ThemeProvider theme={theme}>
+          <Script
             data-ad-client="ca-pub-5565145070747476"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
-        </Head>
-        <ThemeProvider theme={theme}>
-          <script
+          />
+          <Script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-0YZD5J7B2T"
-          ></script>
+          />
           <Script id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
