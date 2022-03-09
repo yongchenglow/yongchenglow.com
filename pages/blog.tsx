@@ -33,16 +33,16 @@ const About = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  Single Source of Truth
+                  Designing the Interface
                 </Typography>
                 <Typography variant="body1">
-                  The database is every web application's single source of
-                  truth. So how to we design a database that is reliable and
-                  error free?
+                  The User Interface of every web application is what causes the
+                  customer to stay and use the site. How do designers come up
+                  with the design? What is a good design?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/4">
+                <Link href="/blog/5">
                   <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
@@ -105,6 +105,25 @@ const About = () => {
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
                 <Link href="/blog/3">
+                  <a style={{ textDecoration: 'none' }}>
+                    <Button size="small">Read Now</Button>
+                  </a>
+                </Link>
+              </CardActions>
+            </Card>
+            <Card sx={{ maxWidth: 350, marginX: 1 }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  Single Source of Truth
+                </Typography>
+                <Typography variant="body1">
+                  The database is every web application's single source of
+                  truth. So how to we design a database that is reliable and
+                  error free?
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <Link href="/blog/4">
                   <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
