@@ -4,6 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import theme from '../../src/theme';
+import React from 'react';
 
 const Footer = () => {
   return (

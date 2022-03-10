@@ -10,9 +10,10 @@ import {
   TableContainer,
   Paper,
 } from '@mui/material';
+import theme from 'src/theme';
+import React from 'react';
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
-import theme from 'src/theme';
 import { StyledTableCell, StyledTableRow } from './2';
 
 type FacetsOfWebDesign = {
@@ -48,7 +49,7 @@ const facetsOfWebDesign: FacetsOfWebDesign[] = [
   },
 ];
 
-const About = () => {
+function About() {
   return (
     <Box height="100vh" marginTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -97,8 +98,8 @@ const About = () => {
                 design system
               </MuiLink>{' '}
               to be used throughout the entire company. This ensures that the
-              user experience remain similar across all the company's products.
-              An example of this is{' '}
+              user experience remain similar across all the company&apos;s
+              products. An example of this is{' '}
               <MuiLink
                 href="https://developer.apple.com/design/"
                 target="_blank"
@@ -227,24 +228,24 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              <b>Empathize</b> is about understand the user's needs and goals.
-              This is the stage where the designer conducts user interviews to
-              find out more about how the users feel and what are their
-              frustrations or pain points.
+              <b>Empathize</b> is about understand the user&apos;s needs and
+              goals. This is the stage where the designer conducts user
+              interviews to find out more about how the users feel and what are
+              their frustrations or pain points.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              <b>Define</b> is identifying the problem base on the users' needs
-              and goals. Using the information gathered from the empathy phase,
-              the designers then defines a problem statement. The designers can
-              create something called a user journey map to help visualize the
-              problem. Personas can also be created to understand the different
-              user groups, interests and goals. If there are a lot of problems
-              identified from the user interviews, the problems are ranked in
-              terms of severity and the Product Owner would then choose one of
-              the most severe one to work on.
+              <b>Define</b> is identifying the problem base on the users&apos;
+              needs and goals. Using the information gathered from the empathy
+              phase, the designers then defines a problem statement. The
+              designers can create something called a user journey map to help
+              visualize the problem. Personas can also be created to understand
+              the different user groups, interests and goals. If there are a lot
+              of problems identified from the user interviews, the problems are
+              ranked in terms of severity and the Product Owner would then
+              choose one of the most severe one to work on.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -270,10 +271,11 @@ const About = () => {
               marginBottom={7}
             >
               <b>Test</b> the product with relevant users and gather feedback.
-              Repeat this process if necessary. If the users don't like the
-              prototype, or don't think that the proposed product will resolve
-              the problem, don't waste the engineering effort to build the
-              product, it would be a waste of time, resources and money.
+              Repeat this process if necessary. If the users don&apos;t like the
+              prototype, or don&apos;t think that the proposed product will
+              resolve the problem, don&apos;t waste the engineering effort to
+              build the product, it would be a waste of time, resources and
+              money.
             </Typography>
             <Typography
               variant="h4"
@@ -342,7 +344,7 @@ const About = () => {
               such as Figma, Invision or AdobeXD. The low fidelity prototype is
               usually sent to the client or users for review. For smaller
               features, a high fidelity prototype may be created without the
-              user's or client's review.
+              user&apos;s or client&apos;s review.
             </Typography>
             <Box maxWidth="sm" mx="auto" mb={4}>
               <MuiLink
@@ -364,7 +366,7 @@ const About = () => {
               however it lacks backend functionality and full user interactions.
               This is what the frontend engineers usually reference when they
               try to create the website in code. It is almost like the final
-              product except it done in a prototyping software's mentioned
+              product except it done in a prototyping software&apos;s mentioned
               above.
             </Typography>
             <Typography
@@ -405,7 +407,7 @@ const About = () => {
               While prototyping is important, what do designers take into
               considerations when creating a prototype for a feature? How do we
               judge if a product is good or user friendly? While there are more
-              advance metrics such as nelson's heuristics, we will stick to
+              advance metrics such as nelson&apos;s heuristics, we will stick to
               these 6 principles to keep things simple.
             </Typography>
             <TableContainer component={Paper}>
@@ -499,6 +501,6 @@ const About = () => {
       <Footer />
     </Box>
   );
-};
+}
 
 export default About;

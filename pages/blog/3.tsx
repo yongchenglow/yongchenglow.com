@@ -1,21 +1,8 @@
-import {
-  Box,
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-  Link as MuiLink,
-  TableContainer,
-  Paper,
-  styled,
-  tableCellClasses,
-} from '@mui/material';
+import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import theme from 'src/theme';
+import React from 'react';
 
 const About = () => {
   return (
@@ -24,7 +11,7 @@ const About = () => {
       <Container maxWidth="xl">
         <Box py={3}>
           <Typography variant="h3" textAlign="center" marginBottom={1}>
-            It's Story Time
+            It&apos;s Story Time
           </Typography>
           <Typography
             variant="h6"
@@ -113,10 +100,10 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Personas help us understand the user's needs, wants and goals. By
-              creating the persona, we understand who we are building the
-              product for. Using a very basic Airbnb as an example, we can start
-              with 2 personas, a home owner and traveler. The smaller the
+              Personas help us understand the user&apos;s needs, wants and
+              goals. By creating the persona, we understand who we are building
+              the product for. Using a very basic Airbnb as an example, we can
+              start with 2 personas, a home owner and traveler. The smaller the
               company is, the more specific the Personas are. A product is
               usually niche at the start, but as they flourish, the
               characteristics of the personas becomes broader and cover a wider
@@ -131,9 +118,10 @@ const About = () => {
               the persona to understand your core audience. This is because if
               you have been playing the game of business long enough, a close
               substitute will eventually come along. When this happens, it is
-              natural that some of these users will flood to your competitor's
-              product. On the other hand, if you do things right and meet the
-              needs and wants of your core user group, they will stay.
+              natural that some of these users will flood to your
+              competitor&apos;s product. On the other hand, if you do things
+              right and meet the needs and wants of your core user group, they
+              will stay.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -154,15 +142,15 @@ const About = () => {
               marginBottom={7}
             >
               Yes, yes you may say Instagram should have identified these
-              persona's earlier and perhaps adjust their product to cater for
-              these users. However, we won't be debating about this, but this is
-              why it is important to constantly conduct user research to
-              understand the demographics of the users and what are your users
-              using the product for. UI/UX researchers are usually the ones
-              creating and refining the personas from time to time to ensure
-              that they accurately represent the current users of your product.
-              Only after understanding our users, we can then start to plan out
-              our initiatives.
+              persona&apos;s earlier and perhaps adjust their product to cater
+              for these users. However, we won&apos;t be debating about this,
+              but this is why it is important to constantly conduct user
+              research to understand the demographics of the users and what are
+              your users using the product for. UI/UX researchers are usually
+              the ones creating and refining the personas from time to time to
+              ensure that they accurately represent the current users of your
+              product. Only after understanding our users, we can then start to
+              plan out our initiatives.
             </Typography>
             <Typography
               variant="h4"
@@ -383,8 +371,8 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Now that we have talked about the different terminologies, it's
-              time talk about the Sprint Planning session itself.
+              Now that we have talked about the different terminologies,
+              it&apos;s time talk about the Sprint Planning session itself.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -422,25 +410,25 @@ const About = () => {
               marginBottom={3}
             >
               In most companies, the how portion is where most controversies
-              arise. Don't worry if it turns into a negotiation and tensions may
-              arise. Good teams will know how to use this tension to make the
-              product better. This is because everybody is thinking for the
-              product itself, and a simple task may become very complicated if
-              done correctly to make it future proof.
+              arise. Don&apos;t worry if it turns into a negotiation and
+              tensions may arise. Good teams will know how to use this tension
+              to make the product better. This is because everybody is thinking
+              for the product itself, and a simple task may become very
+              complicated if done correctly to make it future proof.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
               There are also companies that run the top-down approach where
-              bosses just say, I don't care how, just complete this set of work
-              within a given time. This is where you start to build products in
-              the fastest way possible almost as if you are back in a bootcamp.
-              For short lived projects or products that mean to last 1 to 2
-              years max that are only used by 100 to 1000 users you will be
-              quite safe. However, for project maintenance and adjustments, it
-              is likely that just by reading the code, you will want to jump off
-              a building.
+              bosses just say, I don&apos;t care how, just complete this set of
+              work within a given time. This is where you start to build
+              products in the fastest way possible almost as if you are back in
+              a bootcamp. For short lived projects or products that mean to last
+              1 to 2 years max that are only used by 100 to 1000 users you will
+              be quite safe. However, for project maintenance and adjustments,
+              it is likely that just by reading the code, you will want to jump
+              off a building.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -463,9 +451,9 @@ const About = () => {
               In conclusion, we have learned a lot today about project planning.
               It might have been an information overload so you may need to read
               the article a couple of times to understand. In the next article,
-              we will be focusing on "the how" portion of the Spring Planning,
-              and why a simple task may seem more complex than it is, in
-              particular, it is all because of the database.
+              we will be focusing on &quot;the how&quot; portion of the Spring
+              Planning, and why a simple task may seem more complex than it is,
+              in particular, it is all because of the database.
             </Typography>
             <Box textAlign="center" my={5}>
               {' '}
