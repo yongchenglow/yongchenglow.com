@@ -9,6 +9,7 @@ import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import theme from 'src/theme';
 import Link from 'next/link';
+import React from 'react';
 
 const About = () => {
   return (
@@ -105,7 +106,7 @@ const About = () => {
               textAlign="center"
               marginBottom={2}
             >
-              What's next?
+              What&apos;s next?
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -129,8 +130,8 @@ const About = () => {
               >
                 junior to mid-level software engineers
               </MuiLink>
-              , so don't expect examples to be super complex as the focus will
-              mainly be on{' '}
+              , so don&apos;t expect examples to be super complex as the focus
+              will mainly be on{' '}
               <MuiLink
                 href="https://en.wikipedia.org/wiki/Monolithic_application"
                 target="_blank"
@@ -195,7 +196,7 @@ const About = () => {
             <Typography fontSize={theme.typography.h6.fontSize}>
               <ol>
                 <li>Join the Scrum</li>
-                <li>It's Story Time</li>
+                <li>It&apos;s Story Time</li>
                 <li>Single source of truth</li>
               </ol>
             </Typography>

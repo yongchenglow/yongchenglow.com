@@ -3,22 +3,20 @@ import {
   Container,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableRow,
   Typography,
   Link as MuiLink,
   TableContainer,
   Paper,
-  styled,
-  tableCellClasses,
 } from '@mui/material';
-import Footer from '../components/footer';
-import ResponsiveAppBar from '../components/appbar';
-import theme from 'src/theme';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import theme from 'src/theme';
+import ResponsiveAppBar from '../components/appbar';
+import Footer from '../components/footer';
 import { StyledTableCell, StyledTableRow } from './2';
+import React from 'react';
 
 type OnDelete = {
   action: string;
@@ -40,7 +38,7 @@ const deleteActions: OnDelete[] = [
   },
 ];
 
-const About = () => {
+function About() {
   return (
     <Box height="100vh" marginTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -132,10 +130,10 @@ const About = () => {
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              Let's say we want to store a user's username into our database. We
-              will be using a character varying data type. We can further
-              strengthen the database validation by limiting the username to be
-              a maximum of 50 characters long:
+              Let&apos;s say we want to store a user&apos;s username into our
+              database. We will be using a character varying data type. We can
+              further strengthen the database validation by limiting the
+              username to be a maximum of 50 characters long:
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -143,9 +141,7 @@ const About = () => {
               marginBottom={7}
             >
               <SyntaxHighlighter language="sql" style={docco}>
-                {
-                  'CREATE TABLE user(id serial primary key, username varchar(50));'
-                }
+                CREATE TABLE user(id serial primary key, username varchar(50));
               </SyntaxHighlighter>
             </Typography>
             <Typography
@@ -161,8 +157,8 @@ const About = () => {
               marginBottom={3}
             >
               In addition to using the different data types that Postgres
-              provides, we can also add additional constraints. Let's say we
-              want to store the price of an item in the database. Logically
+              provides, we can also add additional constraints. Let&apos;s say
+              we want to store the price of an item in the database. Logically
               speaking we would want to store the price as a non-negative number
               with 2 decimal places. We can achieve this in the following manner
             </Typography>
@@ -205,7 +201,7 @@ CREATE TABLE products (
                   fontSize: '20px',
                 }}
               >
-                {`numeric(5,2)`}
+                numeric(5,2)
               </SyntaxHighlighter>{' '}
               allows us to have a maximum and minimum of 5 digits of which 2 are
               decimal points(-999.99 to 999.99)
@@ -472,7 +468,7 @@ end
               >
                 normalization
               </MuiLink>{' '}
-              but we won't be covering them here.
+              but we won&apos;t be covering them here.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -530,8 +526,8 @@ end
               marginTop={5}
               marginBottom={3}
             >
-              Let's say we have to store the following information in the
-              database about a students' grade report.
+              Let&apos;s say we have to store the following information in the
+              database about a students&apos; grade report.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -792,8 +788,8 @@ Course (CourseId, Course)
             >
               BCNF is actually a special case of 3<sup>rd</sup> Normal Form and
               is highly depended on the business rules. To keep things simple we
-              will be focusing on the StudentMajor table. Let's say we have the
-              following business rules:
+              will be focusing on the StudentMajor table. Let&apos;s say we have
+              the following business rules:
               <ol>
                 <li>A Student can have multiple Majors</li>
                 <li>For each Major, a Student have 1 Advisor</li>
@@ -873,11 +869,11 @@ Major (MajorId, Major)
               fontSize={theme.typography.h6.fontSize}
               marginBottom={3}
             >
-              The database of our web application is our user's single source of
-              truth. Therefore, we need to design it using the normalization
-              rules to reduce redundancies and anomalies. To help developers,
-              some companies employ a Database Administrator to approve the
-              database design.
+              The database of our web application is our user&apos;s single
+              source of truth. Therefore, we need to design it using the
+              normalization rules to reduce redundancies and anomalies. To help
+              developers, some companies employ a Database Administrator to
+              approve the database design.
             </Typography>
             <Typography
               fontSize={theme.typography.h6.fontSize}
@@ -922,6 +918,6 @@ Major (MajorId, Major)
       <Footer />
     </Box>
   );
-};
+}
 
 export default About;

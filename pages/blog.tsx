@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import ResponsiveAppBar from './components/appbar';
 import theme from '../src/theme';
 import Link from 'next/link';
+import React from 'react';
 
 const About = () => {
   return (
@@ -62,7 +63,7 @@ const About = () => {
                 <Typography variant="body1">
                   I have just finished my coding bootcamp, got my computer
                   science degree or build my first full stack web application,
-                  what's next for me and where do I go from here?
+                  what&apos;s next for me and where do I go from here?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
@@ -95,7 +96,7 @@ const About = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  It's Story Time
+                  It&apos;s Story Time
                 </Typography>
                 <Typography variant="body1">
                   Now that we have learned about Scrum, what actually goes on
@@ -117,7 +118,7 @@ const About = () => {
                   Single Source of Truth
                 </Typography>
                 <Typography variant="body1">
-                  The database is every web application's single source of
+                  The database is every web application&apos;s single source of
                   truth. So how to we design a database that is reliable and
                   error free?
                 </Typography>

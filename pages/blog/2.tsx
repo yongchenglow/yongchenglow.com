@@ -16,6 +16,7 @@ import {
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import theme from 'src/theme';
+import React from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -244,7 +245,7 @@ const About = () => {
                 <li>Tech Anchor</li>
                 <li>Architect</li>
               </ul>
-              Each team member has a slightly different role and don't be
+              Each team member has a slightly different role and don&apos;t be
               surprised if a person has to take up multiple roles. It is also
               important to understand that a team does not need to consist of
               all the roles mentioned above. If you want to find out more about
@@ -511,7 +512,8 @@ const About = () => {
               It is also important to note that although Scrum is one of the
               most popular ways of delivering a piece of software, there are
               other agile frameworks that a company may use. Some companies also
-              don't adopt the agile workflow and prefer to work more towards{' '}
+              don&apos;t adopt the agile workflow and prefer to work more
+              towards{' '}
               <MuiLink
                 href="https://www.workfront.com/project-management/methodologies/waterfall"
                 target="_blank"
@@ -562,7 +564,7 @@ const About = () => {
                 textAlign="center"
                 marginBottom={3}
               >
-                Next Article: It's Story Time coming on 21/02/2022
+                Next Article: It&apos;s Story Time coming on 21/02/2022
               </Typography>
             </Box>
             <Typography
