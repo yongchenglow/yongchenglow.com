@@ -37,3 +37,18 @@ yarn-error.log*
 .cache
 *.graphql.d.ts
 *.graphqls.d.ts
+
+# betterer
+.betterer.results
+
+# git
+.gitignore
+
+# prettier
+.prettierignore
+
+# license
+LICENSE
+
+# yarn
+yarn.lock

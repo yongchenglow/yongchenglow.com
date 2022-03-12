@@ -20,6 +20,8 @@ module.exports = {
         'Blog',
         'About',
         'Index',
+        'Workflow',
+        'Test',
       ],
     ],
   },

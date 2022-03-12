@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+
+      - name: yarn build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
