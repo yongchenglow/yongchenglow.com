@@ -83,16 +83,16 @@ const Index = () => {
             <Card sx={{ maxWidth: 350, marginX: 1 }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
-                  Designing the Interface
+                  Setting up your Project
                 </Typography>
                 <Typography variant="body1">
-                  The User Interface of every web application is what causes the
-                  customer to stay and use the site. How do designers come up
-                  with the design? What is a good design?
+                  What is the proper way to setup a group project? How do we
+                  make the best our of our IDE to increase code quality and
+                  productivity?
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/5">
+                <Link href="/blog/6">
                   <a style={{ textDecoration: 'none' }}>
                     <Button size="small">Read Now</Button>
                   </a>
