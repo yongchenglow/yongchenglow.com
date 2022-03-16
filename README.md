@@ -1,42 +1,47 @@
-# TypeScript and GraphQL Example
+# Yong Cheng Low's Website
 
-One of the strengths of GraphQL is [enforcing data types on runtime](https://graphql.github.io/graphql-spec/June2018/#sec-Value-Completion). Further, TypeScript and [GraphQL Code Generator](https://graphql-code-generator.com/) (graphql-codegen) make it safer by typing data statically, so you can write truly type-protected code with rich IDE assists.
+Visit [https://www.yongchenglow.com](https://www.yongchenglow.com)
 
-This template extends [Apollo Server and Client Example](https://github.com/vercel/next.js/tree/canary/examples/api-routes-apollo-server-and-client#readme) by rewriting in TypeScript and integrating [graphql-let](https://github.com/piglovesyou/graphql-let#readme), which runs [TypeScript React Apollo](https://graphql-code-generator.com/docs/plugins/typescript-react-apollo) in [graphql-codegen](https://github.com/dotansimha/graphql-code-generator#readme) under the hood. It enhances the typed GraphQL use as below:
+## Table of Contents
 
-```tsx
-import { useNewsQuery } from './news.graphql'
+1. [Application Commands](#application-commands)
+2. [Git Conventions](#git-conventions)
+   1. [Branching](#branching)
+   2. [Commits](#commits)
+3. [Acknowledgements](#acknowledgements)
+4. [License](#license)
 
-const News = () => {
-	// Typed already️⚡️
-	const { data: { news } } = useNewsQuery()
+## Application Commands
 
-	return <div>{news.map(...)}</div>
-}
+```
+yarn dev
+yarn build
+yarn start
+yarn betterer
+yarn prettier:fix
+yarn prettier:check
 ```
 
-By default `**/*.graphqls` is recognized as GraphQL schema and `**/*.graphql` as GraphQL documents. If you prefer the other extensions, make sure the settings of the webpack loader in `next.config.js` and `.graphql-let.yml` are consistent.
+## Git Conventions
 
-## Preview
+### Branching
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+feature/<branch_name>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript-graphql)
+hotfix/<branch_name>
 
-## Deploy your own
+### Commits
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+Refer to [commitlint.config.js](./commitlint.config.js) for keyword
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-graphql&project-name=with-typescript-graphql&repository-name=with-typescript-graphql)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript-graphql with-typescript-graphql-app
-# or
-yarn create next-app --example with-typescript-graphql with-typescript-graphql-app
+```
+<Keyword>: description
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Acknowledgements
+
+1. Adapted from nextjs [with-typescript-graphql](https://github.com/vercel/next.js/tree/canary/examples/with-typescript-graphql)
+
+## License
+
+[GNU GENERAL PUBLIC LICENSE](./LICENSE)
