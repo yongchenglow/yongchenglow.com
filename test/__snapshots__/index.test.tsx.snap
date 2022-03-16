@@ -162,19 +162,19 @@ exports[`Index renders the html we want 1`] = `
             <h6
               className="MuiTypography-root MuiTypography-h6 css-14y9ogl-MuiTypography-root"
             >
-              Designing the Interface
+              Setting up your Project
             </h6>
             <p
               className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
             >
-              The User Interface of every web application is what causes the customer to stay and use the site. How do designers come up with the design? What is a good design?
+              What is the proper way to setup a group project? How do we make the best our of our IDE to increase code quality and productivity?
             </p>
           </div>
           <div
             className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
           >
             <a
-              href="/blog/5"
+              href="/blog/6"
               onClick={[Function]}
               onMouseEnter={[Function]}
               style={
