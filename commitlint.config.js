@@ -22,6 +22,7 @@ module.exports = {
         'Index',
         'Workflow',
         'Test',
+        'Readme',
       ],
     ],
   },
