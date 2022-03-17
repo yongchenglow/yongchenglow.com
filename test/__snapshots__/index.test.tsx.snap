@@ -2,7 +2,7 @@
 
 exports[`Index renders the html we want 1`] = `
 <div
-  className="MuiBox-root css-bx7oc5"
+  className="MuiBox-root css-18cije8"
 >
   <header
     className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
