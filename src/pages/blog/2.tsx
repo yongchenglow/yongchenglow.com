@@ -11,10 +11,7 @@ import {
   Paper,
 } from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
-import {
-  StyledTableCell,
-  StyledTableRow,
-} from '@/src/pages/components/atoms/table';
+import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 
 type Scrum = {
   name: string;

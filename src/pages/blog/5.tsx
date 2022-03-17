@@ -10,10 +10,7 @@ import {
   TableContainer,
   Paper,
 } from '@mui/material';
-import {
-  StyledTableCell,
-  StyledTableRow,
-} from '@/src/pages/components/atoms/table';
+import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
 
 type FacetsOfWebDesign = {

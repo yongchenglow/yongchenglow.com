@@ -12,10 +12,7 @@ import {
 } from '@mui/material';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import {
-  StyledTableCell,
-  StyledTableRow,
-} from '@/src/pages/components/atoms/table';
+import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
 
 type OnDelete = {
