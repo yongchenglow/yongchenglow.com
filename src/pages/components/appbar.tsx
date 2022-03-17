@@ -1,9 +1,4 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import { AppBar, Box, Container, Button, Toolbar } from '@mui/material';
 import Link from 'next/link';
 
 const pages = ['Home', 'About', 'Blog'];

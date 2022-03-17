@@ -1,11 +1,11 @@
-import { Box, Container, Grid, Link as MuiLink } from '@mui/material';
+import { Box, Container, Grid, Link as MuiLink, useTheme } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import theme from '../../theme';
 
 const Footer = () => {
+  const theme = useTheme();
   return (
     <footer style={{ marginTop: 'auto' }}>
       <Box bgcolor="text.secondary" color="white" p={1} pt={1.5}>
