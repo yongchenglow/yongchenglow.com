@@ -51,7 +51,7 @@ const facetsOfWebDesign: FacetsOfWebDesign[] = [
 
 function About() {
   return (
-    <Box height="100vh" marginTop={8} display="flex" flexDirection="column">
+    <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
       <Container maxWidth="xl">
         <Box py={3}>
