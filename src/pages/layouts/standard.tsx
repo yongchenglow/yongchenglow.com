@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material';
-import ResponsiveAppBar from '@/src/pages/components/appbar';
-import Footer from '@/src/pages/components/footer';
+import ResponsiveAppBar from '@/src/pages/components/organisms/appbar';
+import Footer from '@/src/pages/components/organisms/footer';
 
 const StandardLayout: React.FunctionComponent = ({ children }) => {
   return (

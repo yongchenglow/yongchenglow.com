@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
-import { useApollo } from '../../lib/apollo';
+import { useApollo } from '@/lib/apollo';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
