@@ -2,9 +2,8 @@ import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import theme from 'src/theme';
-import React from 'react';
 
-const About = () => {
+const Blog3 = () => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -481,4 +480,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Blog3;

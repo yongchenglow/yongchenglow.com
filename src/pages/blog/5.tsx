@@ -11,7 +11,6 @@ import {
   Paper,
 } from '@mui/material';
 import theme from 'src/theme';
-import React from 'react';
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import { StyledTableCell, StyledTableRow } from './2';
@@ -49,7 +48,7 @@ const facetsOfWebDesign: FacetsOfWebDesign[] = [
   },
 ];
 
-function About() {
+const Blog5 = () => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -501,6 +500,6 @@ function About() {
       <Footer />
     </Box>
   );
-}
+};
 
-export default About;
+export default Blog5;

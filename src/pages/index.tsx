@@ -21,7 +21,6 @@ import ResponsiveAppBar from './components/appbar';
 import Footer from './components/footer';
 import theme from '../theme';
 import Link from 'next/link';
-import React from 'react';
 
 const Index = () => {
   const { viewer } = useViewerQuery().data!;

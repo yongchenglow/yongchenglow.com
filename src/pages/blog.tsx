@@ -11,7 +11,6 @@ import Footer from './components/footer';
 import ResponsiveAppBar from './components/appbar';
 import theme from '../theme';
 import Link from 'next/link';
-import React from 'react';
 
 const About = () => {
   return (

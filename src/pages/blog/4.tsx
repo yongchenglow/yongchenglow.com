@@ -16,7 +16,6 @@ import theme from 'src/theme';
 import ResponsiveAppBar from '../components/appbar';
 import Footer from '../components/footer';
 import { StyledTableCell, StyledTableRow } from './2';
-import React from 'react';
 
 type OnDelete = {
   action: string;
@@ -38,7 +37,7 @@ const deleteActions: OnDelete[] = [
   },
 ];
 
-function About() {
+const Blog4 = () => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -918,6 +917,6 @@ Major (MajorId, Major)
       <Footer />
     </Box>
   );
-}
+};
 
-export default About;
+export default Blog4;

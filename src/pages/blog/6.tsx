@@ -1,12 +1,11 @@
 import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
 import theme from 'src/theme';
-import React from 'react';
 import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
-function About() {
+const Blog6 = () => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -491,6 +490,6 @@ touch extensions.json
       <Footer />
     </Box>
   );
-}
+};
 
-export default About;
+export default Blog6;

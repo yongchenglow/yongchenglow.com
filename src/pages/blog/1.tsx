@@ -9,9 +9,8 @@ import Footer from '../components/footer';
 import ResponsiveAppBar from '../components/appbar';
 import theme from 'src/theme';
 import Link from 'next/link';
-import React from 'react';
 
-const About = () => {
+const Blog1 = () => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
@@ -260,4 +259,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Blog1;
