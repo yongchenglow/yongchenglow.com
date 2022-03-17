@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import Footer from './components/footer';
 import ResponsiveAppBar from './components/appbar';
-import theme from '../src/theme';
+import theme from '../theme';
 import Link from 'next/link';
 import React from 'react';
 

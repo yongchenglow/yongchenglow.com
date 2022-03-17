@@ -15,11 +15,11 @@ import {
   useViewerQuery,
   useUpdateNameMutation,
   ViewerDocument,
-} from '../lib/viewer.graphql';
-import { initializeApollo } from '../lib/apollo';
+} from '../../lib/viewer.graphql';
+import { initializeApollo } from '../../lib/apollo';
 import ResponsiveAppBar from './components/appbar';
 import Footer from './components/footer';
-import theme from '../src/theme';
+import theme from '../theme';
 import Link from 'next/link';
 import React from 'react';
 

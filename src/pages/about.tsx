@@ -2,7 +2,7 @@ import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Footer from './components/footer';
 import ResponsiveAppBar from './components/appbar';
-import theme from '../src/theme';
+import theme from '../theme';
 import React from 'react';
 
 const About = () => {

@@ -52,3 +52,6 @@ LICENSE
 
 # yarn
 yarn.lock
+
+# node version
+.nvmrc
