@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Avatar,
@@ -8,14 +7,8 @@ import {
   CardActions,
   CardContent,
   Button,
-  Link as MuiLink,
 } from '@mui/material';
-import {
-  ViewerQuery,
-  useViewerQuery,
-  useUpdateNameMutation,
-  ViewerDocument,
-} from '../../lib/viewer.graphql';
+import { ViewerDocument } from '../../lib/viewer.graphql';
 import { initializeApollo } from '../../lib/apollo';
 import ResponsiveAppBar from './components/appbar';
 import Footer from './components/footer';
@@ -23,36 +16,6 @@ import theme from '../theme';
 import Link from 'next/link';
 
 const Index = () => {
-  const { viewer } = useViewerQuery().data!;
-  const [newName, setNewName] = useState('');
-  const [updateNameMutation] = useUpdateNameMutation();
-
-  const onChangeName = () => {
-    updateNameMutation({
-      variables: {
-        name: newName,
-      },
-      //Follow apollo suggestion to update cache
-      //https://www.apollographql.com/docs/angular/features/cache-updates/#update
-      update: (cache, mutationResult) => {
-        const { data } = mutationResult;
-        if (!data) return; // Cancel updating name in cache if no data is returned from mutation.
-        // Read the data from our cache for this query.
-        const { viewer } = cache.readQuery({
-          query: ViewerDocument,
-        }) as ViewerQuery;
-        const newViewer = { ...viewer };
-        // Add our comment from the mutation to the end.
-        newViewer.name = data.updateName.name;
-        // Write our data back to the cache.
-        cache.writeQuery({
-          query: ViewerDocument,
-          data: { viewer: newViewer },
-        });
-      },
-    });
-  };
-
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
