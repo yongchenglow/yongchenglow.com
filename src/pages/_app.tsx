@@ -1,8 +1,7 @@
-import * as React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
-import { useApollo } from '../../lib/apollo';
+import { useApollo } from '@/lib/apollo';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -10,8 +9,8 @@ import '@fontsource/roboto/700.css';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import theme from '../theme';
-import createEmotionCache from '../createEmotionCache';
+import theme from '@/src/theme';
+import createEmotionCache from '@/src/createEmotionCache';
 import Script from 'next/script';
 
 // Client-side cache, shared for the whole session of the user in the browser.
