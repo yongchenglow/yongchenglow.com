@@ -2,7 +2,11 @@ import { Box, Container } from '@mui/material';
 import ResponsiveAppBar from '@/src/components/organisms/appbar';
 import Footer from '@/src/components/organisms/footer';
 
-const StandardLayout: React.FunctionComponent = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+const StandardLayout: React.FunctionComponent<Props> = ({ children }) => {
   return (
     <Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
       <ResponsiveAppBar />
