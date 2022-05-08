@@ -19,7 +19,7 @@ module.exports = {
         'Config',
         'Blog',
         'About',
-        'Index',
+        'Home',
         'Workflow',
         'Test',
         'Readme',
