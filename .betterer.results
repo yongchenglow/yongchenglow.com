@@ -3,10 +3,3 @@
 // If this file contains merge conflicts, use `betterer merge` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //
-exports[`stricter compilation`] = {
-  value: `{
-    "src/pages/api/graphql.ts:64262533": [
-      [1, 23, 21, "Cannot find module \'../../../lib/schema\' or its corresponding type declarations.", "2495542387"]
-    ]
-  }`
-};

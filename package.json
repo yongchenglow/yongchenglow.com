@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "test": "jest",
+    "codegen": "graphql-let",
+    "dev": "yarn next",
+    "build": "yarn next build",
+    "test": "yarn jest",
     "start": "next start",
     "betterer": "betterer",
     "prettier:fix": "yarn prettier --write '*'",

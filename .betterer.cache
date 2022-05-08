@@ -1,10 +1,4 @@
 {
   "version": 2,
-  "testCache": {
-    "stricter compilation": {
-      "src/createEmotionCache.ts": "2c3a3d99f22909cfff1266e4da6e5318ec5c9a4b4bc81ecfeaf28ee2d457ae912fc2abf3331f02b5",
-      "src/pages/api/graphql.ts": "2c3a3d99f22909cfff1266e4da6e5318ec5c9a4b95a9df3e613e99a6ca42348f7c38272a8e1047e8",
-      "src/theme.ts": "2c3a3d99f22909cfff1266e4da6e5318ec5c9a4b050b11a7d1e1b74f3e88efbcc5c61589d5d622f7"
-    }
-  }
+  "testCache": {}
 }
