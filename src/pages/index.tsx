@@ -9,8 +9,6 @@ import {
   Grid,
   Link as MuiLink,
 } from '@mui/material';
-import { ViewerDocument } from '@/lib/viewer.graphql';
-import { initializeApollo } from '@/lib/apollo';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
 
@@ -257,19 +255,5 @@ const Index = () => {
     </StandardLayout>
   );
 };
-
-export async function getStaticProps() {
-  const apolloClient = initializeApollo();
-
-  await apolloClient.query({
-    query: ViewerDocument,
-  });
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
-}
 
 export default Index;

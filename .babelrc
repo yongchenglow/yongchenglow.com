@@ -1,4 +1,3 @@
 {
-  "presets": ["next/babel"],
-  "plugins": ["graphql-let/babel"]
+  "presets": ["next/babel"]
 }
