@@ -117,25 +117,61 @@ exports[`Index renders the html we want 1`] = `
     className="MuiContainer-root MuiContainer-maxWidthXl css-19r6kue-MuiContainer-root"
   >
     <div
-      className="MuiBox-root css-16j30i3"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-17nb0l2-MuiGrid-root"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular css-15v5bzx-MuiAvatar-root"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 css-k3f0g4-MuiGrid-root"
       >
-        <img
-          alt="Low Yong Cheng"
-          className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
-          src="/img/YongCheng.jpg"
-        />
+        <div
+          className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+        >
+          <img
+            alt="Low Yong Cheng"
+            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="/img/yong-cheng-badminton.jpg"
+          />
+        </div>
       </div>
       <div
-        className="MuiBox-root css-164r41r"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 css-fgchuq-MuiGrid-root"
       >
-        <h4
-          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+        <div
+          className="MuiBox-root css-19t1w01"
         >
-          Hello and welcome to my webpage!
-        </h4>
+          <h4
+            className="MuiTypography-root MuiTypography-h4 css-escpob-MuiTypography-root"
+          >
+            Hello everyone!
+          </h4>
+          <h5
+            className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+          >
+            I am Yong Cheng or YC for short. I am a Web Software Engineer at
+             
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://glints.com"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              Glints
+            </a>
+            , part-time teacher at
+             
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://www.lewagon.com/singapore"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              Le Wagon
+            </a>
+             
+            and a Sports Enthusiast.
+          </h5>
+        </div>
       </div>
     </div>
     <div
@@ -144,11 +180,11 @@ exports[`Index renders the html we want 1`] = `
       <div
         className="MuiBox-root css-1qm1lh"
       >
-        <h5
-          className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+        <h4
+          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
         >
-          Check out my latest content
-        </h5>
+          Lastest Tech Article
+        </h4>
       </div>
       <div
         className="MuiBox-root css-1l4w6pd"
@@ -212,18 +248,330 @@ exports[`Index renders the html we want 1`] = `
       className="MuiBox-root css-14fwub4"
     >
       <div
-        className="MuiBox-root css-19idom"
+        className="MuiBox-root css-1qm1lh"
       >
-        <h5
-          className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+        <h4
+          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
         >
-          Who am I?
-        </h5>
+          Project highlights
+        </h4>
       </div>
       <div
-        className="MuiBox-root css-1359uyy"
+        className="MuiBox-root css-1l4w6pd"
       >
-        I am Yong Cheng, sometimes my friends call me YC for short. I am a Web Software Engineer currently working at Glints and I teach at Le Wagon Singapore part time. Check out some of my articles that I write as I try to share with others about my software engineering journey. You can find out more about me at my about page.
+        <div
+          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1o5cq17-MuiPaper-root-MuiCard-root"
+        >
+          <div
+            className="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+          >
+            <h6
+              className="MuiTypography-root MuiTypography-h6 css-14y9ogl-MuiTypography-root"
+            >
+              NUS Students' Sports Club
+            </h6>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+            >
+              I coded a website for them display the information about the club. This includes Member Clubs, Sports Club Projects and the Management Committee. Pardon me if the code is very low quality as this was my first big project using React.
+            </p>
+          </div>
+          <div
+            className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
+          >
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://www.nussportsclub.org"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              <button
+                className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Website
+              </button>
+            </a>
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://github.com/yongchenglow/nus-students-sports-club"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              <button
+                className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Code
+              </button>
+            </a>
+          </div>
+        </div>
+        <div
+          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1o5cq17-MuiPaper-root-MuiCard-root"
+        >
+          <div
+            className="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+          >
+            <h6
+              className="MuiTypography-root MuiTypography-h6 css-14y9ogl-MuiTypography-root"
+            >
+              My Personal Website
+            </h6>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+            >
+              Checkout the code to this website. It is done using NextJS as expect it to change a lot over time. It is still very primitive as most of the items are hard coded. It is deployed through my own personal webserver on a RaspberryPi3.
+            </p>
+          </div>
+          <div
+            className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
+          >
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://github.com/yongchenglow/yongchenglow.com"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              <button
+                className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Code
+              </button>
+            </a>
+          </div>
+        </div>
+        <div
+          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1o5cq17-MuiPaper-root-MuiCard-root"
+        >
+          <div
+            className="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+          >
+            <h6
+              className="MuiTypography-root MuiTypography-h6 css-14y9ogl-MuiTypography-root"
+            >
+              AirBnB Clone
+            </h6>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+            >
+              This is a project done using Ruby on Rails, mainly for students in Le Wagon students to see my twist on it. The code is still a work in progress. However, do take note of the different features that it include e.g. CI/CD, Commit Linting etc.
+            </p>
+          </div>
+          <div
+            className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
+          >
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://airbnb-yongchenglow.herokuapp.com/"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              <button
+                className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Website
+              </button>
+            </a>
+            <a
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+              href="https://github.com/yongchenglow/airbnb-clone"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              target="_blank"
+            >
+              <button
+                className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Code
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiBox-root css-14fwub4"
+    >
+      <div
+        className="MuiBox-root css-19idom"
+      >
+        <h4
+          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+        >
+          Who am I?
+        </h4>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-17nb0l2-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 css-k3f0g4-MuiGrid-root"
+        >
+          <div
+            className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+          >
+            <img
+              alt="Low Yong Cheng"
+              className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+              src="/img/yong-cheng-metasprint.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 css-fgchuq-MuiGrid-root"
+        >
+          <div
+            className="MuiBox-root css-12oai97"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
+            >
+              Hello! Thank you for visiting my website.
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
+            >
+              Once again, I am Yong Cheng or YC, I grew up studying in various international schools in particular
+               
+              <a
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+                href="https://www.scis-china.org"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                target="_blank"
+              >
+                Shanghai Community International School
+              </a>
+              ,
+               
+              <a
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+                href="https://shanghai-pudong.dulwich.org"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                target="_blank"
+              >
+                Dulwich College Shanghai
+              </a>
+               
+              and
+               
+              <a
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1oaaite-MuiTypography-root-MuiLink-root"
+                href="https://shatincollege.edu.hk"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                target="_blank"
+              >
+                Sha Tin College Hong Kong
+              </a>
+              .
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
+            >
+              During my free time, I will write Tech Articles to share my experience as a web software engineer. I hope that these articles will help students transition into the Software Engineering careers. The particular targeted audiences are for fresh graduates or students who just completed a coding bootcamp and want to transition into a full-time software engineering role.
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
+            >
+              You can find out more about me in the
+               
+              <a
+                href="/about"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                style={
+                  Object {
+                    "textDecoration": "none",
+                  }
+                }
+              >
+                about
+              </a>
+               
+              section.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
