@@ -1,6 +1,7 @@
 import { Box, Container } from '@mui/material';
 import ResponsiveAppBar from '@/src/components/organisms/appbar';
 import Footer from '@/src/components/organisms/footer';
+import React from 'react';
 
 interface Props {
   children?: React.ReactNode;
