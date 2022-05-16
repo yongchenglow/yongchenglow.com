@@ -17,7 +17,7 @@ Visit [https://www.yongchenglow.com](https://www.yongchenglow.com)
 yarn dev
 yarn build
 yarn start
-yarn betterer
+yarn lint
 yarn prettier:fix
 yarn prettier:check
 ```

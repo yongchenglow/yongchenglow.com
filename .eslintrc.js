@@ -1,9 +1,14 @@
 module.exports = {
   env: {
     browser: true,
+    node: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@next/next/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -17,5 +22,6 @@ module.exports = {
     semi: 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@next/next/no-img-element': 'off',
   },
 };
