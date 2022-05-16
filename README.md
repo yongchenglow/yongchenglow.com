@@ -8,8 +8,9 @@ Visit [https://www.yongchenglow.com](https://www.yongchenglow.com)
 2. [Git Conventions](#git-conventions)
    1. [Branching](#branching)
    2. [Commits](#commits)
-3. [Acknowledgements](#acknowledgements)
-4. [License](#license)
+3. [Desgin](#design)
+4. [Acknowledgements](#acknowledgements)
+5. [License](#license)
 
 ## Application Commands
 
@@ -37,6 +38,10 @@ Refer to [commitlint.config.js](./commitlint.config.js) for keyword
 ```
 <Keyword>: description
 ```
+
+## Design
+
+Refer to the [figma design file](https://www.figma.com/file/yLriMCTQ5aOtuSM1zusiVV/Personal-Website?node-id=0%3A1)
 
 ## Acknowledgements
 
