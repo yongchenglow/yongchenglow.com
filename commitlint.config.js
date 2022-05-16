@@ -24,6 +24,7 @@ module.exports = {
         'Test',
         'Readme',
         'General',
+        'Docker',
       ],
     ],
   },
