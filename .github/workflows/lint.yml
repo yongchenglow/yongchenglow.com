@@ -16,8 +16,9 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: yarn lint & tsc
+      - name: yarn lint
         run: |
           yarn install --frozen-lockfile
           yarn lint
           yarn tsc
+          yarn prettier:check
