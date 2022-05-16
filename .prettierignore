@@ -55,3 +55,7 @@ yarn.lock
 
 # node version
 .nvmrc
+
+# docker
+.dockerignore
+Dockerfile
