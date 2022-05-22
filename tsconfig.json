@@ -22,5 +22,5 @@
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["next-env.d.ts", "graphql.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".cache"]
+  "exclude": ["node_modules", "src/stories", ".cache"]
 }
