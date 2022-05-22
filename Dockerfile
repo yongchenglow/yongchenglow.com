@@ -6,7 +6,7 @@ WORKDIR /usr/app
 
 COPY ./ ./
 
-RUN yarn
+RUN yarn install --production --network-timeout 1000000
 RUN yarn build
 
 EXPOSE 3000
