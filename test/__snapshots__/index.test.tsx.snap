@@ -11,7 +11,7 @@ exports[`Index renders the html we want 1`] = `
       className="MuiContainer-root MuiContainer-maxWidthXl css-19r6kue-MuiContainer-root"
     >
       <div
-        className="MuiToolbar-root MuiToolbar-regular css-1cndkqf-MuiToolbar-root"
+        className="MuiToolbar-root MuiToolbar-regular css-r6ewbb-MuiToolbar-root"
       >
         <div
           className="MuiBox-root css-178gejk"
