@@ -1,15 +1,55 @@
 # Yong Cheng Low's Website
 
-Visit [https://www.yongchenglow.com](https://www.yongchenglow.com)
+Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
 
 ## Table of Contents
 
-1. [Application Commands](#application-commands)
-2. [Git Conventions](#git-conventions)
+1. [Running the application](#running-the-application)
+2. [Application Commands](#application-commands)
+3. [Git Conventions](#git-conventions)
    1. [Branching](#branching)
    2. [Commits](#commits)
-3. [Acknowledgements](#acknowledgements)
-4. [License](#license)
+   3. [Staging](#staging)
+4. [VSCode Setup](#vscode-setup)
+5. [Acknowledgements](#acknowledgements)
+6. [License](#license)
+
+## Running the application
+
+In order to run the application please clone or download the repository
+
+### For Development
+
+1. yarn
+2. yarn prepare (Only for development setup)
+3. yarn dev
+
+### For Production
+
+1. yarn
+2. yarn build
+3. yarn start
+
+### Using Docker
+
+```
+# Build and tag the image in the current directory
+# docker build -t [tag_name] [path]
+docker build -t example .
+
+# Run the Docker image
+# docker run -d -p [exposed_port]:[container_port] [tag_name]
+docker run -d -p 3000:3000 example
+
+# Used only if you want to save the image to a file
+# docker save [tag_name] [file_name].tar
+docker save example file.tar
+
+# Used only if you want to load the image into docker
+# docker load < [file_name].tar
+docker load < file.tar
+
+```
 
 ## Application Commands
 
@@ -20,6 +60,9 @@ yarn start
 yarn lint
 yarn prettier:fix
 yarn prettier:check
+yarn storybook
+yarn build:storybook
+yarn prepare
 ```
 
 ## Git Conventions
@@ -32,11 +75,31 @@ hotfix/<branch_name>
 
 ### Commits
 
-Refer to [commitlint.config.js](./commitlint.config.js) for keyword
+Refer to [commitlint.config.js](./commitlint.config.js) for prefixes to add for commits
 
 ```
 <Keyword>: description
 ```
+
+### Staging
+
+Files that are staged will automatically go through elslint and prettier fix. Theses type of files are defined in lint-staged.config.js
+
+## VSCode Setup
+
+Install the recommended extensions inside the .vscode folder.
+Adjust your VS Code settings `code > preferences > settings`, add a `,` at the end of the file and paste the following code
+
+```
+"editor.bracketPairColorization.enabled": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+"editor.codeActionsOnSave": {
+  "source.fixAll": true
+},
+```
+
+If there is a yellow squigily line in your settings.json, most likely the code is repeated. Try to combine them.
 
 ## Acknowledgements
 
