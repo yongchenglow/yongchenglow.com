@@ -10,7 +10,7 @@
     "prettier:fix": "yarn prettier --write '*'",
     "prettier:check": "yarn prettier --check '*'",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build:storybook": "build-storybook",
     "prepare": "husky install"
   },
   "dependencies": {

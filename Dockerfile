@@ -34,16 +34,3 @@ USER nextjs
 
 EXPOSE 3000
 CMD ["node_modules/.bin/next","start"]
-
-# docker build -t <tag_name> <path>
-# docker build -t example ./
-
-# docker save <tag_name> > <tag_name>.tar
-# docker save example example.tar
-
-# docker load < example.tar
-
-# docker images
-
-# docker run -d -p <exposed_port>:<container_port> <image_name>
-# docker run -d -p 3000:3000 example
