@@ -41,7 +41,7 @@ const Footer = () => {
               </MuiLink>
             </Grid>
             <Grid item xs={12} sm={4}>
-              © 2022 Copyright Yong Cheng Low
+              © 2022 Yong Cheng Low
             </Grid>
             <Grid item xs={12} sm={4}>
               <MuiLink
