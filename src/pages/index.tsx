@@ -88,98 +88,98 @@ const Index = () => {
         <Box mb={2}>
           <Typography variant="h4">Project highlights</Typography>
         </Box>
-        <Box display="flex" justifyContent="center">
-          <Card sx={{ maxWidth: 350, marginX: 1 }}>
-            <CardContent>
-              <Typography variant="h6" mb={1}>
-                NUS Students&apos; Sports Club
-              </Typography>
-              <Typography variant="body1">
-                I coded a website for them display the information about the
-                club. This includes Member Clubs, Sports Club Projects and the
-                Management Committee. Pardon me if the code is very low quality
-                as this was my first big project using React.
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-              <MuiLink
-                href="https://www.nussportsclub.org"
-                target="_blank"
-                underline="none"
-              >
-                <Button size="small" variant="outlined">
-                  Website
-                </Button>
-              </MuiLink>
-              <MuiLink
-                href="https://github.com/yongchenglow/nus-students-sports-club"
-                target="_blank"
-                underline="none"
-              >
-                <Button size="small" variant="outlined">
-                  Code
-                </Button>
-              </MuiLink>
-            </CardActions>
-          </Card>
-          <Card sx={{ maxWidth: 350, marginX: 1 }}>
-            <CardContent>
-              <Typography variant="h6" mb={1}>
-                My Personal Website
-              </Typography>
-              <Typography variant="body1">
-                Checkout the code to this website. It is done using NextJS as
-                expect it to change a lot over time. It is still very primitive
-                as most of the items are hard coded. It is deployed through my
-                own personal webserver on a RaspberryPi3.
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-              <MuiLink
-                href="https://github.com/yongchenglow/yongchenglow.com"
-                target="_blank"
-                underline="none"
-              >
-                <Button size="small" variant="outlined">
-                  Code
-                </Button>
-              </MuiLink>
-            </CardActions>
-          </Card>
-          <Card sx={{ maxWidth: 350, marginX: 1 }}>
-            <CardContent>
-              <Typography variant="h6" mb={1}>
-                AirBnB Clone
-              </Typography>
-              <Typography variant="body1">
-                This is a project done using Ruby on Rails, mainly for students
-                in Le Wagon students to see my twist on it. The code is still a
-                work in progress. However, do take note of the different
-                features that it include e.g. CI/CD, Commit Linting etc.
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-              <MuiLink
-                href="https://airbnb-yongchenglow.herokuapp.com/"
-                target="_blank"
-                underline="none"
-              >
-                <Button size="small" variant="outlined">
-                  Website
-                </Button>
-              </MuiLink>
-              <MuiLink
-                href="https://github.com/yongchenglow/airbnb-clone"
-                target="_blank"
-                underline="none"
-              >
-                <Button size="small" variant="outlined">
-                  Code
-                </Button>
-              </MuiLink>
-            </CardActions>
-          </Card>
-        </Box>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item sm={12} md={4} lg={3}>
+            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  NUS Students&apos; Sports Club
+                </Typography>
+                <Typography variant="body1">
+                  I developed a website to display thebasic information about
+                  the club. This was my first project using react.
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <MuiLink
+                  href="https://www.nussportsclub.org"
+                  target="_blank"
+                  underline="none"
+                >
+                  <Button size="small" variant="outlined">
+                    Website
+                  </Button>
+                </MuiLink>
+                <MuiLink
+                  href="https://github.com/yongchenglow/nus-students-sports-club"
+                  target="_blank"
+                  underline="none"
+                >
+                  <Button size="small" variant="outlined">
+                    Code
+                  </Button>
+                </MuiLink>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item sm={12} md={4} lg={3}>
+            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  My Personal Website
+                </Typography>
+                <Typography variant="body1">
+                  Coded using NextJS and deployed through my own personal
+                  webserver on a RaspberryPi3.
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <MuiLink
+                  href="https://github.com/yongchenglow/yongchenglow.com"
+                  target="_blank"
+                  underline="none"
+                >
+                  <Button size="small" variant="outlined">
+                    Code
+                  </Button>
+                </MuiLink>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item sm={12} md={4} lg={3}>
+            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
+              <CardContent>
+                <Typography variant="h6" mb={1}>
+                  AirBnB Clone
+                </Typography>
+                <Typography variant="body1">
+                  This is a project done using Ruby on Rails, mainly for
+                  students in Le Wagon students to see my twist on it.
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <MuiLink
+                  href="https://airbnb-yc.herokuapp.com"
+                  target="_blank"
+                  underline="none"
+                >
+                  <Button size="small" variant="outlined">
+                    Website
+                  </Button>
+                </MuiLink>
+                <MuiLink
+                  href="https://github.com/yongchenglow/airbnb-clone"
+                  target="_blank"
+                  underline="none"
+                >
+                  <Button size="small" variant="outlined">
+                    Code
+                  </Button>
+                </MuiLink>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
       </Box>
 
       <Box py={3} textAlign="center">
@@ -202,10 +202,7 @@ const Index = () => {
           <Grid item xs={7} display="flex" alignItems="center">
             <Box ml={5} textAlign="left">
               <Typography marginBottom={2} variant="body1">
-                Hello! Thank you for visiting my website.
-              </Typography>
-              <Typography marginBottom={2} variant="body1">
-                Once again, I am Yong Cheng or YC, I grew up studying in various
+                I am Yong Cheng or YC, I grew up studying in various
                 international schools in particular{' '}
                 <MuiLink
                   href="https://www.scis-china.org"
@@ -234,12 +231,11 @@ const Index = () => {
               </Typography>
               <Typography marginBottom={2} variant="body1">
                 During my free time, I will write Tech Articles to share my
-                experience as a web software engineer. I hope that these
-                articles will help students transition into the Software
-                Engineering careers. The particular targeted audiences are for
-                fresh graduates or students who just completed a coding bootcamp
-                and want to transition into a full-time software engineering
-                role.
+                learning experience as a web software engineer. I hope that
+                these articles will help my students and others transition into
+                the Software Engineering careers. These articles are mainly
+                targeted at junior web software engineers. If you are a mid or
+                senior level, feel free to take a peek at them if you are free.
               </Typography>
               <Typography marginBottom={2} variant="body1">
                 You can find out more about me in the{' '}
