@@ -381,7 +381,7 @@ touch extensions.json
             marginTop={3}
             marginBottom={7}
           >
-            If there is a yellow squigily line in your settings.json, most
+            If there is a yellow squiggly line in your settings.json, most
             likely the code is repeated. Try to combine them or remove the
             duplicates.
           </Typography>
