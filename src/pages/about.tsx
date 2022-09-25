@@ -1,67 +1,69 @@
-import { Box, Typography, Avatar, Link as MuiLink, Grid } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Avatar,
+  Link as MuiLink,
+  useTheme,
+} from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
 
 const About = () => {
+  const theme = useTheme();
   return (
     <StandardLayout>
       <Box py={3} textAlign="center">
         <Box mb={3}>
           <Typography variant="h4">About Me</Typography>
         </Box>
-        <Grid container spacing={2} maxWidth="md" marginX="auto">
-          <Grid item xs={5} sx={{ paddingLeft: '0 !important' }}>
-            <Avatar
-              alt="Low Yong Cheng"
-              src="/img/yong-cheng-metasprint.jpeg"
-              variant="rounded"
-              sx={{
-                width: '100%',
-                height: 'auto',
-                marginX: 'auto',
-              }}
-            />
-          </Grid>
-          <Grid item xs={7} display="flex" alignItems="center">
-            <Box ml={3} textAlign="left">
-              <Typography marginBottom={3}>
-                Hi! My name is Yong Cheng, you can call me Yong, Low, YC as well
-                if that is easier for you. If you want to find out more about my
-                professional career such as my education or job experiences,
-                please visit my{' '}
-                <MuiLink
-                  href="https://www.linkedin.com/in/yong-cheng-low/"
-                  target="_blank"
-                  underline="none"
-                >
-                  LinkedIn
-                </MuiLink>{' '}
-                page. However, if you are here to find out more about me, you
-                have come to the right place.
-              </Typography>
-              <Typography marginBottom={3}>
-                I grew up with a very unique childhood as I studied in differnt
-                international schools in Suzhou, Shanghai and Hong Kong. This
-                gave me the opportunity to interact with different students and
-                teachers from all around the world.
-              </Typography>
-              <Typography marginBottom={3}>
-                My earliest influence of education is in Singapore,{' '}
-                <MuiLink
-                  href="https://mayflowerpri.moe.edu.sg"
-                  target="_blank"
-                  underline="none"
-                >
-                  Mayflower Primary School
-                </MuiLink>
-                . Every student who have studied in the school was drilled with
-                the motto, &ldquo;Service before Self&rdquo;. This lead me to
-                believe that the priority of others should always be placed
-                above yourself.
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
         <Box maxWidth="md" mx="auto" mb={2} textAlign="left">
+          <Avatar
+            alt="Low Yong Cheng"
+            src="/img/yong-cheng-metasprint.jpeg"
+            variant="rounded"
+            sx={{
+              width: '300px',
+              height: 'auto',
+              margin: {
+                xs: theme.spacing(0, 'auto', 2, 'auto'),
+                sm: theme.spacing(0, 2, 0, 0),
+              },
+              float: { xs: 'none', sm: 'left' },
+            }}
+          />
+          <Typography paragraph marginBottom={3}>
+            Hi! My name is Yong Cheng, you can call me Yong, Low, YC as well if
+            that is easier for you. If you want to find out more about my
+            professional career such as my education or job experiences, please
+            visit my{' '}
+            <MuiLink
+              href="https://www.linkedin.com/in/yong-cheng-low/"
+              target="_blank"
+              underline="none"
+            >
+              LinkedIn
+            </MuiLink>{' '}
+            page. However, if you are here to find out more about me, you have
+            come to the right place.
+          </Typography>
+          <Typography paragraph marginBottom={3}>
+            I grew up with a very unique childhood as I studied in differnt
+            international schools in Suzhou, Shanghai and Hong Kong. This gave
+            me the opportunity to interact with different students and teachers
+            from all around the world.
+          </Typography>
+          <Typography paragraph marginBottom={3}>
+            My earliest influence of education is in Singapore,{' '}
+            <MuiLink
+              href="https://mayflowerpri.moe.edu.sg"
+              target="_blank"
+              underline="none"
+            >
+              Mayflower Primary School
+            </MuiLink>
+            . Every student who have studied in the school was drilled with the
+            motto, &ldquo;Service before Self&rdquo;. This lead me to believe
+            that the priority of others should always be placed above yourself.
+          </Typography>
           <Typography marginBottom={3}>
             Halfway through Primary 3, my family moved to Shanghai and I studied
             at{' '}
