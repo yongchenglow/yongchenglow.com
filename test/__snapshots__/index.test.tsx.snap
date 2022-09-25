@@ -120,60 +120,69 @@ exports[`Index renders the html we want 1`] = `
     className="MuiContainer-root MuiContainer-maxWidthXl css-19r6kue-MuiContainer-root"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-17nb0l2-MuiGrid-root"
+      className="MuiBox-root css-1l4w6pd"
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 css-k3f0g4-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container css-1fza4y0-MuiGrid-root"
       >
         <div
-          className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-5 css-14l6oun-MuiGrid-root"
         >
-          <img
-            alt="Low Yong Cheng"
-            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
-            src="/img/yong-cheng-badminton.jpg"
-          />
+          <div
+            className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+          >
+            <img
+              alt="Low Yong Cheng"
+              className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+              src="/img/yong-cheng-badminton.jpg"
+            />
+          </div>
         </div>
-      </div>
-      <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 css-fgchuq-MuiGrid-root"
-      >
         <div
-          className="MuiBox-root css-19t1w01"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-7 css-1r81zzb-MuiGrid-root"
         >
-          <h4
-            className="MuiTypography-root MuiTypography-h4 css-escpob-MuiTypography-root"
+          <div
+            className="MuiBox-root css-t8pqzd"
           >
-            Hello everyone!
-          </h4>
-          <h5
-            className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
-          >
-            I am Yong Cheng or YC for short. I am a Web Software Engineer at
-             
-            <a
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
-              href="https://glints.com"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              target="_blank"
+            <h4
+              className="MuiTypography-root MuiTypography-h4 css-escpob-MuiTypography-root"
             >
-              Glints
-            </a>
-            , part-time teacher at
-             
-            <a
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
-              href="https://www.lewagon.com/singapore"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              target="_blank"
+              Hello everyone!
+            </h4>
+            <h5
+              className="MuiTypography-root MuiTypography-h5 css-1jcm1rz-MuiTypography-root"
             >
-              Le Wagon
-            </a>
-             
-            and a Sports Enthusiast.
-          </h5>
+              I am Yong Cheng or YC for short.
+            </h5>
+            <h5
+              className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+            >
+              I am a Web Software Engineer at
+               
+              <a
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                href="https://glints.com"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                target="_blank"
+              >
+                Glints
+              </a>
+              , part-time teacher at
+               
+              <a
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                href="https://www.lewagon.com/singapore"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                target="_blank"
+              >
+                Le Wagon
+              </a>
+               
+              and a Sports Enthusiast.
+            </h5>
+          </div>
         </div>
       </div>
     </div>
@@ -186,7 +195,7 @@ exports[`Index renders the html we want 1`] = `
         <h4
           className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
         >
-          Lastest Tech Article
+          Lastest Tech Articles
         </h4>
       </div>
       <div
@@ -496,92 +505,96 @@ exports[`Index renders the html we want 1`] = `
         </h4>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-17nb0l2-MuiGrid-root"
+        className="MuiBox-root css-1l4w6pd"
       >
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 css-k3f0g4-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-container css-1fza4y0-MuiGrid-root"
         >
           <div
-            className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-5 css-cocmoz-MuiGrid-root"
           >
-            <img
-              alt="Low Yong Cheng"
-              className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
-              src="/img/yong-cheng-metasprint.jpeg"
-            />
+            <div
+              className="MuiAvatar-root MuiAvatar-rounded css-1g737oi-MuiAvatar-root"
+            >
+              <img
+                alt="Low Yong Cheng"
+                className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+                src="/img/yong-cheng-metasprint.jpeg"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 css-fgchuq-MuiGrid-root"
-        >
           <div
-            className="MuiBox-root css-12oai97"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-7 css-vgarem-MuiGrid-root"
           >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
+            <div
+              className="MuiBox-root css-ffhi0o"
             >
-              I am Yong Cheng or YC, I grew up studying in various international schools in particular
-               
-              <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
-                href="https://www.scis-china.org"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                target="_blank"
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
               >
-                Shanghai Community International School
-              </a>
-              ,
-               
-              <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
-                href="https://shanghai-pudong.dulwich.org"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                target="_blank"
+                I am Yong Cheng or YC, I grew up studying in various international schools in particular
+                 
+                <a
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  href="https://www.scis-china.org"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  target="_blank"
+                >
+                  Shanghai Community International School
+                </a>
+                ,
+                 
+                <a
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  href="https://shanghai-pudong.dulwich.org"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  target="_blank"
+                >
+                  Dulwich College Shanghai
+                </a>
+                 
+                and
+                 
+                <a
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  href="https://shatincollege.edu.hk"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  target="_blank"
+                >
+                  Sha Tin College Hong Kong
+                </a>
+                .
+              </p>
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
               >
-                Dulwich College Shanghai
-              </a>
-               
-              and
-               
-              <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
-                href="https://shatincollege.edu.hk"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                target="_blank"
+                During my free time, I will write Tech Articles to share my learning experience as a web software engineer. I hope that these articles will help my students and others transition into the Software Engineering careers. These articles are mainly targeted at junior web software engineers. If you are a mid or senior level, feel free to take a peek at them if you are free.
+              </p>
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
               >
-                Sha Tin College Hong Kong
-              </a>
-              .
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
-            >
-              During my free time, I will write Tech Articles to share my learning experience as a web software engineer. I hope that these articles will help my students and others transition into the Software Engineering careers. These articles are mainly targeted at junior web software engineers. If you are a mid or senior level, feel free to take a peek at them if you are free.
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-z2eky3-MuiTypography-root"
-            >
-              You can find out more about me in the
-               
-              <a
-                href="/about"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-                style={
-                  {
-                    "textDecoration": "none",
+                You can find out more about me in the
+                 
+                <a
+                  href="/about"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    {
+                      "textDecoration": "none",
+                    }
                   }
-                }
-              >
-                about
-              </a>
-               
-              section.
-            </p>
+                >
+                  about
+                </a>
+                 
+                section.
+              </p>
+            </div>
           </div>
         </div>
       </div>
