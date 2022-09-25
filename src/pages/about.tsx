@@ -46,7 +46,7 @@ const About = () => {
             come to the right place.
           </Typography>
           <Typography paragraph marginBottom={3}>
-            I grew up with a very unique childhood as I studied in differnt
+            I grew up with a very unique childhood as I studied in different
             international schools in Suzhou, Shanghai and Hong Kong. This gave
             me the opportunity to interact with different students and teachers
             from all around the world.
@@ -83,7 +83,7 @@ const About = () => {
               Dulwich College Shanghai
             </MuiLink>
             . I really enjoyed my time there playing Badminton and Basketball. I
-            espeically the cross border tournaments such as{' '}
+            especially the cross border tournaments such as{' '}
             <MuiLink
               href="https://www.acamis.org"
               target="_blank"
@@ -96,8 +96,8 @@ const About = () => {
             Mundo&rdquo; which meant &ldquo;building bridges to the
             world&rdquo;. It taught me how vast the world is, and the importance
             of understanding, learning and making friends with the International
-            Comunity. Studying in a multi-cultural school really taught me about
-            embracing and accepting other people&apos;s cultures.
+            Community. Studying in a multi-cultural school really taught me
+            about embracing and accepting other people&apos;s cultures.
           </Typography>
           <Typography marginBottom={3}>
             2010 was one of the highest and lowest point in my life. Although I
@@ -112,7 +112,7 @@ const About = () => {
             , I had to change schools due to my parent&apos;s job. I applied to
             various high schools and set for their entrance exam in Shanghai. To
             my surprise, I failed all of them, some even told me that from their
-            assesment, I won&apos;t be able to go to University. I was lucky
+            assessment, I won&apos;t be able to go to University. I was lucky
             enough that my parent&apos;s decide to change companies and relocate
             to Hong Kong. There, I was accepted into{' '}
             <MuiLink
@@ -137,9 +137,9 @@ const About = () => {
             is to return back to Singapore and serve my country. Because my
             family was still overseas, I had to return to Singapore alone and
             that was the start of my Independence. I really thank those who
-            helped me surive my pre-university journey, and the SAF for allowing
-            me to stay in Pulau Tekong for my entire BMT. I was one of the
-            &ldquo;lucky&rdquo; ones to be post to{' '}
+            helped me survive my pre-university journey, and the SAF for
+            allowing me to stay in Pulau Tekong for my entire BMT. I was one of
+            the &ldquo;lucky&rdquo; ones to be post to{' '}
             <MuiLink
               href="https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards"
               target="_blank"
@@ -162,7 +162,7 @@ const About = () => {
             >
               NUS to major in Computer Engineering
             </MuiLink>{' '}
-            . I chose to study it because of my pre-SAF intership at{' '}
+            . I chose to study it because of my pre-SAF internship at{' '}
             <MuiLink
               href="https://www.cmrfe.com"
               target="_blank"
@@ -205,7 +205,7 @@ const About = () => {
               NCS
             </MuiLink>{' '}
             which built my foundation in web development. However, after 1.5
-            years, I decided that the coporate life isn&apos;t really for me. I
+            years, I decided that the corporate life isn&apos;t really for me. I
             decided to make a switch to join{' '}
             <MuiLink
               href="https://glints.com/sg"
