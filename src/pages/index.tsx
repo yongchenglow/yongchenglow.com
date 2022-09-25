@@ -69,7 +69,7 @@ const Index = () => {
 
       <Box py={3} textAlign="center">
         <Box mb={2}>
-          <Typography variant="h4">Lastest Tech Articles</Typography>
+          <Typography variant="h4">Latest Tech Articles</Typography>
         </Box>
         <Box display="flex" justifyContent="center">
           <Card sx={{ maxWidth: 350, marginX: 1 }}>
@@ -106,8 +106,8 @@ const Index = () => {
                   NUS Students&apos; Sports Club
                 </Typography>
                 <Typography variant="body1">
-                  I developed a website to display thebasic information about
-                  the club. This was my first project using react.
+                  I developed a company website for the club. This was my first
+                  project using react.
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
