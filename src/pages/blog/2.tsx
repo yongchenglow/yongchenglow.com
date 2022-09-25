@@ -388,7 +388,7 @@ const Blog2 = () => {
             <b>Tech Spike</b> may be done before the tech bounce to ensure the
             design of the tech for the current or next sprint is efficient and
             scalable. Some examples include database designs, optimizations to
-            the web application, vulnerbility research etc.
+            the web application, vulnerability research etc.
           </Typography>
           <Typography
             variant="h4"
