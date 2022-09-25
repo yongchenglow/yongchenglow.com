@@ -17,7 +17,7 @@ const Blog6 = () => {
           textAlign="center"
           marginBottom={4}
         >
-          (The Corret Way)
+          (The Correct Way)
         </Typography>
         <Box maxWidth="sm" mx="auto" mb={4}>
           <img
@@ -225,7 +225,7 @@ git push origin main
             that or coding style remains consistent throughout the project. For
             example, how we indent the code? Where should the brackets be?
             Should we end the line with trailing commas? Through the code
-            formatter standardisation, this makes the project look as if it was
+            formatter standardization, this makes the project look as if it was
             written by one person, which makes things easier to read, learn and
             write. It is also important that we turn on the format on save
             feature on, this ensures we don&apos;t have to waste time adjusting
@@ -234,10 +234,10 @@ git push origin main
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             A <b>language beautifier</b> allows the IDE to colorize the code
             correctly. Keywords such as const or let should be in a different
-            colour when you type them in a js file. Reserved words should also
-            be in a different colour to prevent weird variable naming errors.
-            This ensure that the code is easy to read and reduce the chance of
-            dirty code.
+            color when you type them in a js file. Reserved words should also be
+            in a different color to prevent weird variable naming errors. This
+            ensure that the code is easy to read and reduce the chance of dirty
+            code.
           </Typography>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             A <b>language specific</b> suggester allows the IDE to give

@@ -227,7 +227,7 @@ CREATE TABLE products (
             </Typography>
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-            For Foreign keys, there are additional behavours that you can set
+            For Foreign keys, there are additional behaviors that you can set
             when the primary key is deleted.
           </Typography>
           <Typography
@@ -340,7 +340,7 @@ CREATE TABLE user (
               marginBottom={2}
               sx={{ fontStyle: 'italic' }}
             >
-              <b>Unique</b> contraint means that every value in the column must
+              <b>Unique</b> constraint means that every value in the column must
               be unique
             </Typography>
           </Box>
@@ -348,7 +348,7 @@ CREATE TABLE user (
             It is important to note that a unique contain can also be placed on
             multiple columns at the same time. For example, if we want to go
             back to our trustworthy AirBnB application, lets say we want to
-            create a favourites table to store flats that the user saved. In
+            create a favorites table to store flats that the user saved. In
             order to prevent double insertions (saving to favorites twice), we
             add a unique constraint on user_id and flat_id
           </Typography>
@@ -367,14 +367,14 @@ CREATE TABLE user (
               }}
             >
               {`
-class CreateFavourites < ActiveRecord::Migration[6.1]
+class CreateFavorites < ActiveRecord::Migration[6.1]
   def change
-    create_table :favourites do |t|
+    create_table :favorites do |t|
       t.references :user, null: false, foreign_key: true, index: true
       t.references :flat, null: false, foreign_key: true, index: true
       t.timestamps
     end
-    add_index :favourites, [:user_id, :flat_id], unique: true
+    add_index :favorites, [:user_id, :flat_id], unique: true
   end
 end
                 `}
@@ -761,7 +761,7 @@ StudentMajor (StudentId, Advisor, Major)
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             If we take a look at our previous table design above we can see that
             we are not able to establish these business rules. From the table
-            above we have no idea if Advisor can advise serveral Majors, or if a
+            above we have no idea if Advisor can advise several Majors, or if a
             Major can have several Advisors. The only way we are able to
             establish these business rules is to split the tables into the
             following.

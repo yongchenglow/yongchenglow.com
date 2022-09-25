@@ -195,7 +195,7 @@ exports[`Index renders the html we want 1`] = `
         <h4
           className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
         >
-          Lastest Tech Articles
+          Latest Tech Articles
         </h4>
       </div>
       <div
@@ -289,7 +289,7 @@ exports[`Index renders the html we want 1`] = `
               <p
                 className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
               >
-                I developed a website to display thebasic information about the club. This was my first project using react.
+                I developed a company website for the club. This was my first project using react.
               </p>
             </div>
             <div
