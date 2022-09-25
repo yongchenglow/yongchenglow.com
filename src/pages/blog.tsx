@@ -101,7 +101,7 @@ const About = () => {
                 </Typography>
                 <Typography variant="body1">
                   Now that we have learned about Scrum, what actually goes on
-                  during the Sprint Planning session? How do we organise our
+                  during the Sprint Planning session? How do we organize our
                   tasks? How do we allocate them?
                 </Typography>
               </CardContent>
