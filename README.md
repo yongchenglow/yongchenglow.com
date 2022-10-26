@@ -43,11 +43,11 @@ docker run -d -p 3000:3000 example
 
 # Used only if you want to save the image to a file
 # docker save [tag_name] [file_name].tar
-docker save example file.tar
+docker save example -o file.tar
 
 # Used only if you want to load the image into docker
-# docker load < [file_name].tar
-docker load < file.tar
+# docker load -i [file_name].tar
+docker load -i file.tar
 
 ```
 
