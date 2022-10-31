@@ -14,6 +14,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 type OnDelete = {
   action: string;
@@ -380,6 +381,7 @@ end
                 `}
             </SyntaxHighlighter>
           </Typography>
+          <GoogleAds slotId="5768607169" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -820,8 +822,8 @@ Major (MajorId, Major)
             covering more of the frontend portion of the sprint planning in the
             following week.
           </Typography>
+          <GoogleAds slotId="5394074780" />
           <Box textAlign="center" my={5}>
-            {' '}
             <Typography
               color="textSecondary"
               textAlign="center"

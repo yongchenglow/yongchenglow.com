@@ -6,6 +6,7 @@ import {
   useTheme,
 } from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const About = () => {
   const theme = useTheme();
@@ -132,6 +133,9 @@ const About = () => {
             </MuiLink>{' '}
             .
           </Typography>
+
+          <GoogleAds slotId="9784761849" />
+
           <Typography marginBottom={3}>
             After taking IB, I had to do what every Singaporean son does which
             is to return back to Singapore and serve my country. Because my
@@ -242,6 +246,7 @@ const About = () => {
           </Typography>
         </Box>
       </Box>
+      <GoogleAds slotId="7158598508" />
     </StandardLayout>
   );
 };

@@ -2,6 +2,7 @@ import { Box, useTheme, Typography, Link as MuiLink } from '@mui/material';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const Blog6 = () => {
   const theme = useTheme();
@@ -138,6 +139,7 @@ git push origin main
                 `}
             </SyntaxHighlighter>
           </Typography>
+          <GoogleAds slotId="4080993110" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -402,6 +404,7 @@ touch extensions.json
             grows, new plugins are introduced or removed to increase the code
             quality or increase productivity.
           </Typography>
+          <GoogleAds slotId="8011627129" />
           <Box textAlign="center" my={5}>
             <Typography
               color="textSecondary"

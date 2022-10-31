@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 type FacetsOfWebDesign = {
   word: string;
@@ -235,6 +236,7 @@ const Blog5 = () => {
             resolve the problem, don&apos;t waste the engineering effort to
             build the product, it would be a waste of time, resources and money.
           </Typography>
+          <GoogleAds slotId="6890117148" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -406,6 +408,7 @@ const Blog5 = () => {
             a basic repository setup process on GitHub that will impress your
             technical accessors.
           </Typography>
+          <GoogleAds slotId="7964413716" />
           <Box textAlign="center" my={5}>
             {' '}
             <Typography

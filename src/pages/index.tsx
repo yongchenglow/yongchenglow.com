@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const Index = () => {
   return (
@@ -192,6 +193,8 @@ const Index = () => {
         </Grid>
       </Box>
 
+      <GoogleAds slotId="5500217699" />
+
       <Box py={3} textAlign="center">
         <Box mb={1}>
           <Typography variant="h4">Who am I?</Typography>
@@ -267,6 +270,8 @@ const Index = () => {
           </Grid>
         </Box>
       </Box>
+
+      <GoogleAds slotId="8155985403" />
     </StandardLayout>
   );
 };

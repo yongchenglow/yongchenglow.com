@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 type Scrum = {
   name: string;
@@ -201,6 +202,7 @@ const Blog2 = () => {
             . Take note that the site is still under development by the open
             source community but definitely a great site to explore.
           </Typography>
+          <GoogleAds slotId="9628849176" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -346,6 +348,7 @@ const Blog2 = () => {
               </li>
             </ol>
           </Typography>
+          <GoogleAds slotId="5500217699" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -448,6 +451,7 @@ const Blog2 = () => {
             </strong>
             ? That is something you have to stay around to find out.
           </Typography>
+          <GoogleAds slotId="4376522496" />
           <Box textAlign="center" my={5}>
             {' '}
             <Typography
