@@ -25,6 +25,7 @@ module.exports = {
         'Readme',
         'General',
         'Docker',
+        'Adsense',
       ],
     ],
   },
