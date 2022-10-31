@@ -1,7 +1,6 @@
 import Script from 'next/script';
 
 const AppScript = () => {
-  console.log(process.env.TEST);
   return (
     <>
       <Script

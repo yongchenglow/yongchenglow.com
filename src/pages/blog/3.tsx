@@ -1,5 +1,6 @@
 import { Box, useTheme, Typography, Link as MuiLink } from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const Blog3 = () => {
   const theme = useTheme();
@@ -124,6 +125,7 @@ const Blog3 = () => {
             after understanding our users, we can then start to plan out our
             initiatives.
           </Typography>
+          <GoogleAds slotId="9333319799" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -379,6 +381,7 @@ const Blog3 = () => {
             Planning, and why a simple task may seem more complex than it is, in
             particular, it is all because of the database.
           </Typography>
+          <GoogleAds slotId="5443505231" />
           <Box textAlign="center" my={5}>
             {' '}
             <Typography

@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const About = () => {
   const theme = useTheme();
@@ -157,6 +158,7 @@ const About = () => {
             </Card>
           </Grid>
         </Grid>
+        <GoogleAds slotId="9667543473" />
       </Box>
     </StandardLayout>
   );

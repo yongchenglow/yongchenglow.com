@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
+import GoogleAds from '@/src/components/atoms/googleAds';
 
 const Blog1 = () => {
   const theme = useTheme();
@@ -83,6 +84,7 @@ const Blog1 = () => {
             experience with those who are starting their software engineering
             careers.
           </Typography>
+          <GoogleAds slotId="5881175853" />
           <Typography
             variant="h4"
             fontWeight={500}
@@ -193,6 +195,7 @@ const Blog1 = () => {
             Pardon me as I have a full time job and a part time teaching job.
             Unfortunately, this is it for now. Hope to see you join the Scrum!
           </Typography>
+          <GoogleAds slotId="8262074410" />
           <Box textAlign="center" my={5}>
             <Link href="/blog/2">
               <a style={{ textDecoration: 'none' }}>
