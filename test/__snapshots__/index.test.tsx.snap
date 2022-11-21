@@ -492,6 +492,20 @@ exports[`Index renders the html we want 1`] = `
         </div>
       </div>
     </div>
+    <div>
+      <ins
+        className="adsbygoogle"
+        data-ad-format="fluid"
+        data-ad-layout="in-article"
+        data-ad-slot="5500217699"
+        style={
+          {
+            "display": "block",
+            "textAlign": "center",
+          }
+        }
+      />
+    </div>
     <div
       className="MuiBox-root css-14fwub4"
     >
@@ -598,6 +612,20 @@ exports[`Index renders the html we want 1`] = `
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <ins
+        className="adsbygoogle"
+        data-ad-format="fluid"
+        data-ad-layout="in-article"
+        data-ad-slot="8155985403"
+        style={
+          {
+            "display": "block",
+            "textAlign": "center",
+          }
+        }
+      />
     </div>
   </div>
   <footer
