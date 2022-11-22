@@ -1,15 +1,13 @@
-import {
-  Box,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Link as MuiLink,
-  TableContainer,
-  Paper,
-  useTheme,
-} from '@mui/material';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import MuiLink from '@mui/material/Link';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';

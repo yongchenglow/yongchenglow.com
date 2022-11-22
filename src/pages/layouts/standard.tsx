@@ -1,4 +1,5 @@
-import { Box, Container } from '@mui/material';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import ResponsiveAppBar from '@/src/components/organisms/appbar';
 import Footer from '@/src/components/organisms/footer';
 import React from 'react';

@@ -1,4 +1,8 @@
-import { Box, Container, Grid, Link as MuiLink, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import MuiLink from '@mui/material/Link';
+import Container from '@mui/material/Container';
 import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
