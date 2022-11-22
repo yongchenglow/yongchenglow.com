@@ -1,4 +1,7 @@
-import { Box, useTheme, Typography, Link as MuiLink } from '@mui/material';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import MuiLink from '@mui/material/Link';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';
 
