@@ -24,9 +24,7 @@ RUN adduser --system --uid 1001 nextjs
 # Only copy files required to run the app
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
@@ -34,4 +32,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 
 EXPOSE 3000
-CMD ["node_modules/.bin/next","start"]
+CMD ["node", "server.js"]
