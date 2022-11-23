@@ -195,16 +195,14 @@ const Blog1 = () => {
           </Typography>
           <GoogleAds slotId="8262074410" />
           <Box textAlign="center" my={5}>
-            <Link href="/blog/2">
-              <a style={{ textDecoration: 'none' }}>
-                <Button
-                  size="small"
-                  variant="contained"
-                  sx={{ textTransform: 'none' }}
-                >
-                  Next Article: Join the Scrum
-                </Button>
-              </a>
+            <Link href="/blog/2" style={{ textDecoration: 'none' }}>
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ textTransform: 'none' }}
+              >
+                Next Article: Join the Scrum
+              </Button>
             </Link>
           </Box>
           <Typography variant="caption">

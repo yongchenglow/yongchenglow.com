@@ -38,10 +38,8 @@ const About = () => {
               </Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-              <Link href="/blog/6">
-                <a style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </a>
+              <Link href="/blog/6" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
               </Link>
             </CardActions>
           </Card>
@@ -63,10 +61,8 @@ const About = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/1">
-                  <a style={{ textDecoration: 'none' }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
+                <Link href="/blog/1" style={{ textDecoration: 'none' }}>
+                  <Button size="small">Read Now</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -84,10 +80,8 @@ const About = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/2">
-                  <a style={{ textDecoration: 'none' }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
+                <Link href="/blog/2" style={{ textDecoration: 'none' }}>
+                  <Button size="small">Read Now</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -105,10 +99,8 @@ const About = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/3">
-                  <a style={{ textDecoration: 'none' }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
+                <Link href="/blog/3" style={{ textDecoration: 'none' }}>
+                  <Button size="small">Read Now</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -126,10 +118,8 @@ const About = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/4">
-                  <a style={{ textDecoration: 'none' }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
+                <Link href="/blog/4" style={{ textDecoration: 'none' }}>
+                  <Button size="small">Read Now</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -147,10 +137,8 @@ const About = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/5">
-                  <a style={{ textDecoration: 'none' }}>
-                    <Button size="small">Read Now</Button>
-                  </a>
+                <Link href="/blog/5" style={{ textDecoration: 'none' }}>
+                  <Button size="small">Read Now</Button>
                 </Link>
               </CardActions>
             </Card>

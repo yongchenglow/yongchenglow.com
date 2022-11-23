@@ -16,102 +16,72 @@ exports[`Index renders the html we want 1`] = `
         <div
           className="MuiBox-root css-178gejk"
         >
-          <a
-            href="/"
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
             onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            style={
-              {
-                "textDecoration": "none",
-              }
-            }
+            tabIndex={0}
+            type="button"
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-              disabled={false}
-              onBlur={[Function]}
-              onContextMenu={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              Home
-            </button>
-          </a>
-          <a
-            href="/about"
+            Home
+          </button>
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
             onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            style={
-              {
-                "textDecoration": "none",
-              }
-            }
+            tabIndex={0}
+            type="button"
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-              disabled={false}
-              onBlur={[Function]}
-              onContextMenu={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              About
-            </button>
-          </a>
-          <a
-            href="/blog"
+            About
+          </button>
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
             onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            style={
-              {
-                "textDecoration": "none",
-              }
-            }
+            tabIndex={0}
+            type="button"
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-              disabled={false}
-              onBlur={[Function]}
-              onContextMenu={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              Blog
-            </button>
-          </a>
+            Blog
+          </button>
         </div>
       </div>
     </div>
@@ -221,38 +191,28 @@ exports[`Index renders the html we want 1`] = `
           <div
             className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
           >
-            <a
-              href="/blog/6"
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1knaqv7-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
               onClick={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
               onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={
-                {
-                  "textDecoration": "none",
-                }
-              }
+              tabIndex={0}
+              type="button"
             >
-              <button
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1knaqv7-MuiButtonBase-root-MuiButton-root"
-                disabled={false}
-                onBlur={[Function]}
-                onContextMenu={[Function]}
-                onDragLeave={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                onMouseDown={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                tabIndex={0}
-                type="button"
-              >
-                Read Now
-              </button>
-            </a>
+              Read Now
+            </button>
           </div>
         </div>
       </div>
@@ -597,11 +557,6 @@ exports[`Index renders the html we want 1`] = `
                   onClick={[Function]}
                   onMouseEnter={[Function]}
                   onTouchStart={[Function]}
-                  style={
-                    {
-                      "textDecoration": "none",
-                    }
-                  }
                 >
                   about
                 </a>

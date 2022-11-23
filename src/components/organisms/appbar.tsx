@@ -23,18 +23,17 @@ const ResponsiveAppBar = () => {
               <Link
                 key={page}
                 href={page === 'Home' ? '/' : '/' + page.toLowerCase()}
+                style={{ textDecoration: 'none' }}
               >
-                <a style={{ textDecoration: 'none' }}>
-                  <Button
-                    sx={{
-                      color: 'white',
-                      display: 'block',
-                      textTransform: 'unset',
-                    }}
-                  >
-                    {page}
-                  </Button>
-                </a>
+                <Button
+                  sx={{
+                    color: 'white',
+                    display: 'block',
+                    textTransform: 'unset',
+                  }}
+                >
+                  {page}
+                </Button>
               </Link>
             ))}
           </Box>
