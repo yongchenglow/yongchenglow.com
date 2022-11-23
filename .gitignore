@@ -38,3 +38,6 @@ yarn-error.log*
 .cache
 *.graphql.d.ts
 *.graphqls.d.ts
+
+#storybook
+/storybook-static

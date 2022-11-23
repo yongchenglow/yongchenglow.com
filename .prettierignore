@@ -60,3 +60,6 @@ yarn.lock
 # docker
 .dockerignore
 Dockerfile
+
+#storybook
+/storybook-static
