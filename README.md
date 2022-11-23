@@ -11,8 +11,7 @@ Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com
    2. [Commits](#commits)
    3. [Staging](#staging)
 4. [VSCode Setup](#vscode-setup)
-5. [Acknowledgements](#acknowledgements)
-6. [License](#license)
+5. [License](#license)
 
 ## Running the application
 
@@ -54,15 +53,16 @@ docker load -i file.tar
 ## Application Commands
 
 ```
-yarn dev
-yarn build
-yarn start
-yarn lint
-yarn prettier:fix
-yarn prettier:check
-yarn storybook
-yarn build:storybook
-yarn prepare
+yarn dev              # For development
+yarn build            # To build the application
+yarn start            # To run the built application
+yarn lint             # To check eslint
+yarn analyze          # To analyze the packages
+yarn prettier:fix     # To automatically fix prettier issues
+yarn prettier:check   # To check for prettier issues
+yarn storybook        # To run the storybook environment
+yarn build:storybook  # To build the storybook
+yarn prepare          # To prepare the application
 ```
 
 ## Git Conventions
@@ -83,7 +83,7 @@ Refer to [commitlint.config.js](./commitlint.config.js) for prefixes to add for 
 
 ### Staging
 
-Files that are staged will automatically go through elslint and prettier fix. Theses type of files are defined in lint-staged.config.js
+Files that are staged will automatically go through eslint and prettier fix. Theses type of files are defined in lint-staged.config.js
 
 ## VSCode Setup
 
@@ -100,10 +100,6 @@ Adjust your VS Code settings `code > preferences > settings`, add a `,` at the e
 ```
 
 If there is a yellow squigily line in your settings.json, most likely the code is repeated. Try to combine them.
-
-## Acknowledgements
-
-1. Adapted from nextjs [with-typescript-graphql](https://github.com/vercel/next.js/tree/canary/examples/with-typescript-graphql)
 
 ## License
 
