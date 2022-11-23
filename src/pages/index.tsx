@@ -83,10 +83,8 @@ const Index = () => {
               </Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-              <Link href="/blog/6">
-                <a style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </a>
+              <Link href="/blog/6" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
               </Link>
             </CardActions>
           </Card>
@@ -258,8 +256,8 @@ const Index = () => {
                 </Typography>
                 <Typography marginBottom={2} variant="body1">
                   You can find out more about me in the{' '}
-                  <Link href="/about">
-                    <a style={{ textDecoration: 'none' }}>about</a>
+                  <Link href="/about" style={{ textDecoration: 'none' }}>
+                    about
                   </Link>{' '}
                   section.
                 </Typography>
