@@ -28,6 +28,7 @@ const Blog1 = () => {
             style={{ width: '100%' }}
             src="/img/children-gb3ec399d2_1280.jpg"
             alt="children coding"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">

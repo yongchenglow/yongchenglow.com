@@ -66,6 +66,7 @@ const Blog5 = () => {
             style={{ width: '100%' }}
             src="/img/MaxPixel.net-Internet-The-Web-Website-Design-Web-Design-4875183.jpg"
             alt="database"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">
@@ -118,6 +119,7 @@ const Blog5 = () => {
               style={{ width: '100%' }}
               src="/img/computer-g39398e915_1280.jpg"
               alt="constraints"
+              loading="lazy"
             />
           </Box>
           <Box my={3} maxWidth="sm" mx="auto">
@@ -170,6 +172,7 @@ const Blog5 = () => {
                 style={{ width: '100%' }}
                 src="/img/design_thinking.png"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -263,6 +266,7 @@ const Blog5 = () => {
                 style={{ width: '100%' }}
                 src="/img/2_4_lo-fi_prototype.jpg"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -283,6 +287,7 @@ const Blog5 = () => {
                 style={{ width: '100%' }}
                 src="/img/low-fidelity-prototype-example-portfolio-app.png.webp"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -304,6 +309,7 @@ const Blog5 = () => {
                 style={{ width: '100%' }}
                 src="/img/high-fidelity-prototype-example-ecommerce-app-tablet-justinmind.png.webp"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -338,6 +344,7 @@ const Blog5 = () => {
                 style={{ width: '100%' }}
                 src="/img/figure2.png"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>

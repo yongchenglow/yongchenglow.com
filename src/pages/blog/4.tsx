@@ -55,6 +55,7 @@ const Blog4 = () => {
             style={{ width: '100%' }}
             src="/img/database-schema-gf6a494e82_1280.png"
             alt="database"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">
@@ -87,6 +88,7 @@ const Blog4 = () => {
               style={{ width: '100%' }}
               src="/img/server-gebd52a943_1280.jpg"
               alt="constraints"
+              loading="lazy"
             />
           </Box>
           <Box my={3} maxWidth="sm" mx="auto">
@@ -394,6 +396,7 @@ end
               style={{ width: '100%' }}
               src="/img/database-g2fad27680_1280.jpg"
               alt="database normalization"
+              loading="lazy"
             />
           </Box>
           <Typography

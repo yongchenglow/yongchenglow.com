@@ -66,6 +66,7 @@ const Blog2 = () => {
             style={{ width: '100%' }}
             src="/img/team-ga2cffa5b1_1920.jpg"
             alt="children coding"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">
@@ -139,6 +140,7 @@ const Blog2 = () => {
               style={{ width: '100%' }}
               src="/img/what-is-scrum-team.png"
               alt="scrum team"
+              loading="lazy"
             />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
@@ -215,6 +217,7 @@ const Blog2 = () => {
               style={{ width: '100%' }}
               src="/img/scrum-of-scrums-01.png.webp"
               alt="scrum of scrums"
+              loading="lazy"
             />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
@@ -360,6 +363,7 @@ const Blog2 = () => {
               style={{ width: '100%' }}
               src="/img/bonus-gf0956773a_1280.png"
               alt="scrum of scrums"
+              loading="lazy"
             />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
