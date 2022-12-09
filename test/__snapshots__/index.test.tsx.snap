@@ -603,6 +603,7 @@ exports[`Index renders the html we want 1`] = `
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 css-wg4xta-MuiGrid-root"
           >
             <a
+              aria-label="Linkedin"
               className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
               href="https://www.linkedin.com/in/yong-cheng-low/"
               onBlur={[Function]}
@@ -622,6 +623,7 @@ exports[`Index renders the html we want 1`] = `
               </svg>
             </a>
             <a
+              aria-label="Github"
               className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
               href="https://github.com/yongchenglow"
               onBlur={[Function]}
@@ -641,6 +643,7 @@ exports[`Index renders the html we want 1`] = `
               </svg>
             </a>
             <a
+              aria-label="Instagram"
               className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
               href="https://www.instagram.com/yclow88/"
               onBlur={[Function]}

@@ -21,6 +21,7 @@ const Footer = () => {
                 target="_blank"
                 underline="none"
                 color="white"
+                aria-label="Linkedin"
                 mx={1}
               >
                 <LinkedInIcon />
@@ -30,6 +31,7 @@ const Footer = () => {
                 target="_blank"
                 underline="none"
                 color="white"
+                aria-label="Github"
                 mx={1}
               >
                 <GitHubIcon />
@@ -39,6 +41,7 @@ const Footer = () => {
                 target="_blank"
                 underline="none"
                 color="white"
+                aria-label="Instagram"
                 mx={1}
               >
                 <InstagramIcon />

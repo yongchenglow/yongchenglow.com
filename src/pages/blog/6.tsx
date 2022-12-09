@@ -28,6 +28,7 @@ const Blog6 = () => {
             style={{ width: '100%' }}
             src="/img/gaming-computer-gbe40f244a_1280.jpg"
             alt="database"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">
@@ -100,6 +101,7 @@ const Blog6 = () => {
               style={{ width: '100%' }}
               src="/img/studying-g69d74ed4b_1280.jpg"
               alt="constraints"
+              loading="lazy"
             />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
@@ -160,6 +162,7 @@ git push origin main
                 style={{ width: '100%' }}
                 src="/img/laptop-gf9883978d_1280.jpg"
                 alt="constraints"
+                loading="lazy"
               />
             </MuiLink>
           </Box>

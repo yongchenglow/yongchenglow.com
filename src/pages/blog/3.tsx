@@ -26,6 +26,7 @@ const Blog3 = () => {
             style={{ width: '100%' }}
             src="/img/meeting-gf7ea04404_1280.jpg"
             alt="children coding"
+            loading="lazy"
           />
         </Box>
         <Box maxWidth="md" mx="auto">
@@ -65,6 +66,7 @@ const Blog3 = () => {
                 style={{ width: '100%' }}
                 src="/img/4317364.jpg"
                 alt="Infographic vector created by freepik - www.freepik.com"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -146,6 +148,7 @@ const Blog3 = () => {
                 style={{ width: '100%' }}
                 src="/img/epics-vs-stories-agile-development.png"
                 alt="epics-vs-stories-agile-development"
+                loading="lazy"
               />
             </MuiLink>
           </Box>
@@ -229,6 +232,7 @@ const Blog3 = () => {
               style={{ width: '100%' }}
               src="/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg"
               alt="scrum team"
+              loading="lazy"
             />
           </Box>
           <Box my={3}>
@@ -321,6 +325,7 @@ const Blog3 = () => {
               style={{ width: '100%' }}
               src="/img/meeting-g10f292b56_1280.png"
               alt="sprint planning"
+              loading="lazy"
             />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
