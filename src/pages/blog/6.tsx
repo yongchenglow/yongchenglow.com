@@ -151,17 +151,12 @@ git push origin main
             Setting up VS Code
           </Typography>
           <Box maxWidth="sm" mx="auto" mb={4}>
-            <MuiLink
-              href="https://developerexperience.io/practices/design-thinking"
-              target="_blank"
-            >
-              <img
-                style={{ width: '100%' }}
-                src="/img/laptop-gf9883978d_1280.jpg"
-                alt="constraints"
-                loading="lazy"
-              />
-            </MuiLink>
+            <img
+              style={{ width: '100%' }}
+              src="/img/laptop-gf9883978d_1280.jpg"
+              alt="constraints"
+              loading="lazy"
+            />
           </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             Visual Studio Code is a widely used IDE for any language. Other IDE

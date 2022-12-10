@@ -169,6 +169,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://developerexperience.io/practices/design-thinking"
               target="_blank"
+              aria-label="Design Thinking"
             >
               <img
                 style={{ width: '100%' }}
@@ -263,6 +264,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"
               target="_blank"
+              aria-label="Quick and Dirty Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -284,6 +286,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
               target="_blank"
+              aria-label="Low Fidelity Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -306,6 +309,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
               target="_blank"
+              aria-label="High Fidelity Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -341,6 +345,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://eu.landisgyr.com/better-tech/usability-is-a-key-element-of-user-experience"
               target="_blank"
+              aria-label="Facets of Web Design"
             >
               <img
                 style={{ width: '100%' }}

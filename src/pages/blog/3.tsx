@@ -58,6 +58,7 @@ const Blog3 = () => {
             <MuiLink
               href="https://www.freepik.com/vectors/infographic"
               target="_blank"
+              aria-label="Persona"
             >
               <img
                 style={{ width: '100%' }}
@@ -140,6 +141,7 @@ const Blog3 = () => {
             <MuiLink
               href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
               target="_blank"
+              aria-label="Agile Development Breakdown"
             >
               <img
                 style={{ width: '100%' }}
