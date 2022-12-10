@@ -1,11 +1,13 @@
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';

@@ -1,15 +1,17 @@
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import MuiLink from '@mui/material/Link';
 import Link from 'next/link';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';
+import {
+  Avatar,
+  Box,
+  Grid,
+  Typography,
+  Link as MuiLink,
+  CardContent,
+  Card,
+  CardActions,
+  Button,
+} from '@mui/material';
 
 const Index = () => {
   return (

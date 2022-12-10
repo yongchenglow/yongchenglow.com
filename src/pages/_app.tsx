@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import theme from '@/src/theme';
 import AppScript from './_scripts';
 import AppHead from './_head';
