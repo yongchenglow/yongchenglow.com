@@ -1,7 +1,4 @@
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import MuiLink from '@mui/material/Link';
+import { Box, Typography, useTheme, Link as MuiLink } from '@mui/material';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';
 
@@ -61,6 +58,7 @@ const Blog3 = () => {
             <MuiLink
               href="https://www.freepik.com/vectors/infographic"
               target="_blank"
+              aria-label="Persona"
             >
               <img
                 style={{ width: '100%' }}
@@ -143,6 +141,7 @@ const Blog3 = () => {
             <MuiLink
               href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
               target="_blank"
+              aria-label="Agile Development Breakdown"
             >
               <img
                 style={{ width: '100%' }}

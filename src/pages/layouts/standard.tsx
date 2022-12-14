@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import ResponsiveAppBar from '@/src/components/organisms/appbar';
 import Footer from '@/src/components/organisms/footer';
+import { Box, Container } from '@mui/material';
 import React from 'react';
 
 interface Props {

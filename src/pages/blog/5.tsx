@@ -1,13 +1,15 @@
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
-import MuiLink from '@mui/material/Link';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme,
+  Link as MuiLink,
+} from '@mui/material';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';
@@ -167,6 +169,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://developerexperience.io/practices/design-thinking"
               target="_blank"
+              aria-label="Design Thinking"
             >
               <img
                 style={{ width: '100%' }}
@@ -261,6 +264,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"
               target="_blank"
+              aria-label="Quick and Dirty Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -282,6 +286,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
               target="_blank"
+              aria-label="Low Fidelity Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -304,6 +309,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
               target="_blank"
+              aria-label="High Fidelity Prototype"
             >
               <img
                 style={{ width: '100%' }}
@@ -339,6 +345,7 @@ const Blog5 = () => {
             <MuiLink
               href="https://eu.landisgyr.com/better-tech/usability-is-a-key-element-of-user-experience"
               target="_blank"
+              aria-label="Facets of Web Design"
             >
               <img
                 style={{ width: '100%' }}

@@ -9,7 +9,8 @@
     "mikestead.dotenv",
     "usernamehw.errorl",
     "mhutchie.git-graph",
-    "pkief.material-icon-theme"
+    "pkief.material-icon-theme",
+    "wix.vscode-import-cost"
   ],
   "unwantedRecommendations": []
 }

@@ -1,15 +1,17 @@
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
-import MuiLink from '@mui/material/Link';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme,
+  Link as MuiLink,
+} from '@mui/material';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import docco from 'react-syntax-highlighter/dist/cjs/styles/hljs/docco';
 import { StyledTableCell, StyledTableRow } from '@/src/components/atoms/table';
 import StandardLayout from '@/src/pages/layouts/standard';
 import GoogleAds from '@/src/components/atoms/googleAds';
@@ -544,7 +546,7 @@ StudentCourse (StudentId, Course, Grade)
             marginBottom={3}
           >
             <SyntaxHighlighter
-              language=""
+              language="bash"
               style={docco}
               customStyle={{
                 textAlign: 'left',

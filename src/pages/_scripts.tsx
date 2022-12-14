@@ -12,7 +12,7 @@ const AppScript = () => {
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script async id="google-analytics" strategy="afterInteractive">
         {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){window.dataLayer.push(arguments);}
