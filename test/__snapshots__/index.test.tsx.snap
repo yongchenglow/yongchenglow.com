@@ -16,72 +16,102 @@ exports[`Index renders the html we want 1`] = `
         <div
           className="MuiBox-root css-178gejk"
         >
-          <button
-            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
+          <a
+            href="/"
             onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
             onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
+            style={
+              {
+                "textDecoration": "none",
+              }
+            }
           >
-            Home
-          </button>
-          <button
-            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              Home
+            </button>
+          </a>
+          <a
+            href="/about"
             onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
             onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
+            style={
+              {
+                "textDecoration": "none",
+              }
+            }
           >
-            About
-          </button>
-          <button
-            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              About
+            </button>
+          </a>
+          <a
+            href="/blog"
             onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
             onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
+            style={
+              {
+                "textDecoration": "none",
+              }
+            }
           >
-            Blog
-          </button>
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-4iq57c-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              Blog
+            </button>
+          </a>
         </div>
       </div>
     </div>
@@ -191,28 +221,38 @@ exports[`Index renders the html we want 1`] = `
           <div
             className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1knaqv7-MuiButtonBase-root-MuiButton-root"
-              disabled={false}
-              onBlur={[Function]}
+            <a
+              href="/blog/6"
               onClick={[Function]}
-              onContextMenu={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
               onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
               onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
+              style={
+                {
+                  "textDecoration": "none",
+                }
+              }
             >
-              Read Now
-            </button>
+              <button
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1knaqv7-MuiButtonBase-root-MuiButton-root"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                Read Now
+              </button>
+            </a>
           </div>
         </div>
       </div>
@@ -452,16 +492,18 @@ exports[`Index renders the html we want 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="MuiBox-root css-1n2mv2k"
-    >
-      <ins
-        className="adsbygoogle"
-        data-ad-format="fluid"
-        data-ad-layout="in-article"
-        data-ad-slot="5500217699"
-      />
-    </div>
+    <ins
+      className="adsbygoogle"
+      data-ad-format="fluid"
+      data-ad-layout="in-article"
+      data-ad-slot="5500217699"
+      style={
+        {
+          "display": "block",
+          "textAlign": "center",
+        }
+      }
+    />
     <div
       className="MuiBox-root css-14fwub4"
     >
@@ -553,6 +595,11 @@ exports[`Index renders the html we want 1`] = `
                   onClick={[Function]}
                   onMouseEnter={[Function]}
                   onTouchStart={[Function]}
+                  style={
+                    {
+                      "textDecoration": "none",
+                    }
+                  }
                 >
                   about
                 </a>
@@ -564,16 +611,18 @@ exports[`Index renders the html we want 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="MuiBox-root css-1n2mv2k"
-    >
-      <ins
-        className="adsbygoogle"
-        data-ad-format="fluid"
-        data-ad-layout="in-article"
-        data-ad-slot="8155985403"
-      />
-    </div>
+    <ins
+      className="adsbygoogle"
+      data-ad-format="fluid"
+      data-ad-layout="in-article"
+      data-ad-slot="8155985403"
+      style={
+        {
+          "display": "block",
+          "textAlign": "center",
+        }
+      }
+    />
   </div>
   <footer
     style={
