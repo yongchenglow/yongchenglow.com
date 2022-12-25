@@ -1,5 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
-import React, { Suspense, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 declare global {
   // eslint-disable-next-line no-unused-vars
@@ -18,17 +17,14 @@ const GoogleAds: React.FunctionComponent<Props> = ({ slotId }) => {
   }, []);
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <Suspense fallback={<CircularProgress />}>
-        <ins
-          className="adsbygoogle"
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}
-          data-ad-slot={slotId}
-        ></ins>
-      </Suspense>
-    </Box>
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block', textAlign: 'center' }}
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}
+      data-ad-slot={slotId}
+    ></ins>
   );
 };
 
