@@ -4,12 +4,7 @@ import theme from '@/src/theme';
 import AppScript from './_scripts';
 import AppHead from './_head';
 import { NextPage } from 'next';
-import { Roboto } from '@next/font/google';
-
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  style: ['normal', 'italic'],
-});
+import { primaryFont } from '../font';
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -19,7 +14,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <AppScript />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <main className={roboto.className}>
+        <main className={primaryFont.className}>
           <Component {...pageProps} />
         </main>
       </ThemeProvider>

@@ -38,7 +38,7 @@ docker build -t example .
 
 # Run the Docker image
 # docker run -d -p [exposed_port]:[container_port] [tag_name]
-docker run -d -p 3000:3000 example
+sudo docker run -d -p 3000:3000 --restart unless-stopped yongchenglow
 
 # Used only if you want to save the image to a file
 # docker save [tag_name] [file_name].tar
