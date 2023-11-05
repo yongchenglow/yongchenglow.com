@@ -25,10 +25,17 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     '@next/next/no-img-element': 'off',
+    'react/no-unescaped-entities': 'off',
     'no-restricted-imports': [
       'error',
       {
         patterns: ['@mui/*/*/*', '!@mui/material/test-utils/*'],
+      },
+    ],
+    'react/no-unknown-property': [
+      2,
+      {
+        ignore: ['jsx'],
       },
     ],
   },

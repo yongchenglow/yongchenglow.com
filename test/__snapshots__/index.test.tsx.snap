@@ -160,7 +160,7 @@ exports[`Index renders the html we want 1`] = `
               I am a Web Software Engineer at
                
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://glints.com"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -171,7 +171,7 @@ exports[`Index renders the html we want 1`] = `
               , part-time teacher at
                
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://www.lewagon.com/singapore"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -296,7 +296,7 @@ exports[`Index renders the html we want 1`] = `
               className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
             >
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://www.nussportsclub.org"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -324,7 +324,7 @@ exports[`Index renders the html we want 1`] = `
                 </button>
               </a>
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://github.com/yongchenglow/nus-students-sports-club"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -378,7 +378,7 @@ exports[`Index renders the html we want 1`] = `
               className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
             >
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://github.com/yongchenglow/yongchenglow.com"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -432,7 +432,7 @@ exports[`Index renders the html we want 1`] = `
               className="MuiCardActions-root MuiCardActions-spacing css-u6qva2-MuiCardActions-root"
             >
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://airbnb-yc.herokuapp.com"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -460,7 +460,7 @@ exports[`Index renders the html we want 1`] = `
                 </button>
               </a>
               <a
-                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                 href="https://github.com/yongchenglow/airbnb-clone"
                 onBlur={[Function]}
                 onFocus={[Function]}
@@ -547,7 +547,7 @@ exports[`Index renders the html we want 1`] = `
                 I am Yong Cheng or YC, I grew up studying in various international schools in particular
                  
                 <a
-                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                   href="https://www.scis-china.org"
                   onBlur={[Function]}
                   onFocus={[Function]}
@@ -558,7 +558,7 @@ exports[`Index renders the html we want 1`] = `
                 ,
                  
                 <a
-                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                   href="https://shanghai-pudong.dulwich.org"
                   onBlur={[Function]}
                   onFocus={[Function]}
@@ -570,7 +570,7 @@ exports[`Index renders the html we want 1`] = `
                 and
                  
                 <a
-                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1cmksfb-MuiTypography-root-MuiLink-root"
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-r74m4g-MuiTypography-root-MuiLink-root"
                   href="https://shatincollege.edu.hk"
                   onBlur={[Function]}
                   onFocus={[Function]}
@@ -645,7 +645,7 @@ exports[`Index renders the html we want 1`] = `
           >
             <a
               aria-label="Linkedin"
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1219dcw-MuiTypography-root-MuiLink-root"
               href="https://www.linkedin.com/in/yong-cheng-low/"
               onBlur={[Function]}
               onFocus={[Function]}
@@ -665,7 +665,7 @@ exports[`Index renders the html we want 1`] = `
             </a>
             <a
               aria-label="Github"
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1219dcw-MuiTypography-root-MuiLink-root"
               href="https://github.com/yongchenglow"
               onBlur={[Function]}
               onFocus={[Function]}
@@ -685,7 +685,7 @@ exports[`Index renders the html we want 1`] = `
             </a>
             <a
               aria-label="Instagram"
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-p9jp39-MuiTypography-root-MuiLink-root"
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1219dcw-MuiTypography-root-MuiLink-root"
               href="https://www.instagram.com/yclow88/"
               onBlur={[Function]}
               onFocus={[Function]}
@@ -713,7 +713,7 @@ exports[`Index renders the html we want 1`] = `
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 css-wg4xta-MuiGrid-root"
           >
             <a
-              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-rmjmia-MuiTypography-root-MuiLink-root"
+              className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-53lvtq-MuiTypography-root-MuiLink-root"
               href="mailto:lowyongcheng@hotmail.com"
               onBlur={[Function]}
               onFocus={[Function]}
