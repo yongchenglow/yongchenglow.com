@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:16-alpine AS deps
+FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
@@ -7,7 +7,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile --network-timeout 1000000
 
 # Build the app
-FROM node:16-alpine AS builder
+FROM node:20-alpine AS builder
 
 ENV NODE_ENV=production
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
 
 # Run app
-FROM node:16-alpine AS runner
+FROM node:20-alpine AS runner
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
