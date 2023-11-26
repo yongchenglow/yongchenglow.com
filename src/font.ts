@@ -1,4 +1,4 @@
-import { Roboto } from '@next/font/google';
+import { Roboto } from 'next/font/google';
 
 const primaryFont = Roboto({
   weight: ['300', '400', '500', '700'],
