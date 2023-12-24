@@ -1,0 +1,58 @@
+default:
+  image: node:20
+  cache: &global_cache
+    key:
+      files:
+        - package.json
+        - yarn.lock
+    paths:
+      - node_modules/
+    policy: pull
+
+stages:
+  - cache_dependencies
+  - analyze
+  - build
+
+install:
+  stage: cache_dependencies
+  script:
+    - yarn install --frozen-lockfile
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  needs: []
+
+lint:
+  stage: analyze
+  script:
+    - yarn install --frozen-lockfile
+    - yarn lint
+  needs:
+    - install
+
+test:
+  stage: analyze
+  script:
+    - yarn install --frozen-lockfile
+    - yarn test
+  needs:
+    - install
+
+build:
+  stage: build
+  script:
+    - yarn install --frozen-lockfile
+    - yarn build
+  needs:
+    - lint
+    - test
+
+storybook:
+  stage: build
+  script:
+    - yarn install --frozen-lockfile
+    - yarn build:storybook
+  needs:
+    - lint
+    - test
