@@ -1,0 +1,26 @@
+default:
+  image: node:20
+
+stages:
+  - lint
+  - test
+  - build
+
+before_script:
+  - yarn
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+build:
+  stage: build
+  script:
+    - yarn build
+    - yarn build:storybook
