@@ -50,100 +50,110 @@ const About = () => {
           Previous Articles
         </Typography>
         <Grid container spacing={2} justifyContent="center">
-          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  Journey to the Web
-                </Typography>
-                <Typography variant="body1">
-                  I have just finished my coding bootcamp, got my computer
-                  science degree or build my first full stack web application,
-                  what&apos;s next for me and where do I go from here?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/1" style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </Link>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                Journey to the Web
+              </Typography>
+              <Typography variant="body1">
+                I have just finished my coding bootcamp, got my computer science
+                degree or build my first full stack web application, what&apos;s
+                next for me and where do I go from here?
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <Link href="/blog/1" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
+              </Link>
+            </CardActions>
           </Grid>
-          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  Join the Scrum!
-                </Typography>
-                <Typography variant="body1">
-                  How does a software engineering team typically operate and
-                  what are the different rituals that they do in a typical
-                  sprint? Who should a team consist of?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/2" style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </Link>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                Join the Scrum!
+              </Typography>
+              <Typography variant="body1">
+                How does a software engineering team typically operate and what
+                are the different rituals that they do in a typical sprint? Who
+                should a team consist of?
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <Link href="/blog/2" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
+              </Link>
+            </CardActions>
           </Grid>
-          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  It&apos;s Story Time
-                </Typography>
-                <Typography variant="body1">
-                  Now that we have learned about Scrum, what actually goes on
-                  during the Sprint Planning session? How do we organize our
-                  tasks? How do we allocate them?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/3" style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </Link>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                It&apos;s Story Time
+              </Typography>
+              <Typography variant="body1">
+                Now that we have learned about Scrum, what actually goes on
+                during the Sprint Planning session? How do we organize our
+                tasks? How do we allocate them?
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <Link href="/blog/3" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
+              </Link>
+            </CardActions>
           </Grid>
-          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  Single Source of Truth
-                </Typography>
-                <Typography variant="body1">
-                  The database is every web application&apos;s single source of
-                  truth. So how to we design a database that is reliable and
-                  error free?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/4" style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </Link>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                Single Source of Truth
+              </Typography>
+              <Typography variant="body1">
+                The database is every web application&apos;s single source of
+                truth. So how to we design a database that is reliable and error
+                free?
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <Link href="/blog/4" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
+              </Link>
+            </CardActions>
           </Grid>
-          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  Designing the Interface
-                </Typography>
-                <Typography variant="body1">
-                  The User Interface of every web application is what causes the
-                  customer to stay and use the site. How do designers come up
-                  with the design? What is a good design?
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <Link href="/blog/5" style={{ textDecoration: 'none' }}>
-                  <Button size="small">Read Now</Button>
-                </Link>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                Designing the Interface
+              </Typography>
+              <Typography variant="body1">
+                The User Interface of every web application is what causes the
+                customer to stay and use the site. How do designers come up with
+                the design? What is a good design?
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <Link href="/blog/5" style={{ textDecoration: 'none' }}>
+                <Button size="small">Read Now</Button>
+              </Link>
+            </CardActions>
           </Grid>
         </Grid>
         <GoogleAds slotId="9667543473" />
