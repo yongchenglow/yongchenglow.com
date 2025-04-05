@@ -11,7 +11,7 @@
     "prettier:check": "yarn prettier --check '*'",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "yarn build-storybook",
-    "prepare": "husky init",
+    "prepare": "husky",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@mui/icons-material": "^7.0.1",
     "@mui/material": "^7.0.1",
     "@next/bundle-analyzer": "^15.2.4",
+    "globals": "^16.0.0",
     "jest-environment-jsdom": "^29.7.0",
     "next": "^15.2.4",
     "react": "^19.1.0",
