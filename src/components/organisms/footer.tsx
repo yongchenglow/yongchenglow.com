@@ -11,7 +11,7 @@ const Footer = () => {
       <Box bgcolor="text.secondary" color="white" p={1} pt={1.5}>
         <Container maxWidth="xl">
           <Grid container textAlign="center">
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <MuiLink
                 href="https://www.linkedin.com/in/yong-cheng-low/"
                 target="_blank"
@@ -43,10 +43,8 @@ const Footer = () => {
                 <InstagramIcon />
               </MuiLink>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              © 2022 Yong Cheng Low
-            </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>© 2022 Yong Cheng Low</Grid>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <MuiLink
                 href="mailto:lowyongcheng@hotmail.com"
                 underline="none"

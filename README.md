@@ -31,7 +31,7 @@ In order to run the application please clone or download the repository
 
 ### Using Docker
 
-```
+```bash
 # Build and tag the image in the current directory
 # docker build -t [tag_name] [path]
 docker build -t example .
@@ -52,7 +52,7 @@ docker load -i file.tar
 
 ## Application Commands
 
-```
+```bash
 yarn dev              # For development
 yarn build            # To build the application
 yarn start            # To run the built application
@@ -75,11 +75,7 @@ hotfix/<branch_name>
 
 ### Commits
 
-Refer to [commitlint.config.js](./commitlint.config.js) for prefixes to add for commits
-
-```
-<Keyword>: description
-```
+Refer to [commitlint.config.js](./commitlint.config.js) for prefixes. We will be using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ### Staging
 
@@ -90,7 +86,7 @@ Files that are staged will automatically go through eslint and prettier fix. The
 Install the recommended extensions inside the .vscode folder.
 Adjust your VS Code settings `code > preferences > settings`, add a `,` at the end of the file and paste the following code
 
-```
+```json
 "editor.bracketPairColorization.enabled": true,
 "editor.defaultFormatter": "esbenp.prettier-vscode",
 "editor.formatOnSave": true,
@@ -99,7 +95,7 @@ Adjust your VS Code settings `code > preferences > settings`, add a `,` at the e
 },
 ```
 
-If there is a yellow squigily line in your settings.json, most likely the code is repeated. Try to combine them.
+If there is a yellow squiggly line in your settings.json, most likely the code is repeated. Try to combine them.
 
 ## License
 

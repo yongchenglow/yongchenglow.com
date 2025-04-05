@@ -24,7 +24,7 @@ const Index = () => {
           marginY={3}
           justifyContent="center"
         >
-          <Grid item xs={8} sm={5}>
+          <Grid size={{ xs: 8, sm: 5 }}>
             <Avatar
               alt="Low Yong Cheng"
               src="/img/yong-cheng-badminton.jpg"
@@ -36,7 +36,12 @@ const Index = () => {
               }}
             />
           </Grid>
-          <Grid item xs={12} sm={7} mt={2} display="flex" alignItems="center">
+          <Grid
+            size={{ xs: 12, sm: 7 }}
+            mt={2}
+            display="flex"
+            alignItems="center"
+          >
             <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }} mx={2}>
               <Typography variant="h4" mb={1}>
                 Hello everyone!
@@ -98,95 +103,101 @@ const Index = () => {
           <Typography variant="h4">Project highlights</Typography>
         </Box>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item sm={12} md={4} lg={3}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  NUS Students&apos; Sports Club
-                </Typography>
-                <Typography variant="body1">
-                  I developed a company website for the club. This was my first
-                  project using react.
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <MuiLink
-                  href="https://www.nussportsclub.org"
-                  target="_blank"
-                  underline="none"
-                >
-                  <Button size="small" variant="outlined">
-                    Website
-                  </Button>
-                </MuiLink>
-                <MuiLink
-                  href="https://github.com/yongchenglow/nus-students-sports-club"
-                  target="_blank"
-                  underline="none"
-                >
-                  <Button size="small" variant="outlined">
-                    Code
-                  </Button>
-                </MuiLink>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                NUS Students&apos; Sports Club
+              </Typography>
+              <Typography variant="body1">
+                I developed a company website for the club. This was my first
+                project using react.
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', marginTop: 0 }}>
+              <MuiLink
+                href="https://www.nussportsclub.org"
+                target="_blank"
+                underline="none"
+              >
+                <Button size="small" variant="outlined">
+                  Website
+                </Button>
+              </MuiLink>
+              <MuiLink
+                href="https://github.com/yongchenglow/nus-students-sports-club"
+                target="_blank"
+                underline="none"
+              >
+                <Button size="small" variant="outlined">
+                  Code
+                </Button>
+              </MuiLink>
+            </CardActions>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  My Personal Website
-                </Typography>
-                <Typography variant="body1">
-                  Coded using NextJS and deployed through my own personal
-                  webserver on a RaspberryPi3.
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <MuiLink
-                  href="https://github.com/yongchenglow/yongchenglow.com"
-                  target="_blank"
-                  underline="none"
-                >
-                  <Button size="small" variant="outlined">
-                    Code
-                  </Button>
-                </MuiLink>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                My Personal Website
+              </Typography>
+              <Typography variant="body1">
+                Coded using NextJS and deployed through my own personal
+                webserver on a RaspberryPi3.
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <MuiLink
+                href="https://github.com/yongchenglow/yongchenglow.com"
+                target="_blank"
+                underline="none"
+              >
+                <Button size="small" variant="outlined">
+                  Code
+                </Button>
+              </MuiLink>
+            </CardActions>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
-            <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
-              <CardContent>
-                <Typography variant="h6" mb={1}>
-                  AirBnB Clone
-                </Typography>
-                <Typography variant="body1">
-                  This is a project done using Ruby on Rails, mainly for
-                  students in Le Wagon students to see my twist on it.
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
-                <MuiLink
-                  href="https://airbnb-yc.herokuapp.com"
-                  target="_blank"
-                  underline="none"
-                >
-                  <Button size="small" variant="outlined">
-                    Website
-                  </Button>
-                </MuiLink>
-                <MuiLink
-                  href="https://github.com/yongchenglow/airbnb-clone"
-                  target="_blank"
-                  underline="none"
-                >
-                  <Button size="small" variant="outlined">
-                    Code
-                  </Button>
-                </MuiLink>
-              </CardActions>
-            </Card>
+          <Grid
+            component={Card}
+            size={{ sm: 12, md: 4, lg: 3 }}
+            sx={{ maxWidth: 350 }}
+          >
+            <CardContent>
+              <Typography variant="h6" mb={1}>
+                AirBnB Clone
+              </Typography>
+              <Typography variant="body1">
+                This is a project done using Ruby on Rails, mainly for students
+                in Le Wagon students to see my twist on it.
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+              <MuiLink
+                href="https://airbnb-yc.herokuapp.com"
+                target="_blank"
+                underline="none"
+              >
+                <Button size="small" variant="outlined">
+                  Website
+                </Button>
+              </MuiLink>
+              <MuiLink
+                href="https://github.com/yongchenglow/airbnb-clone"
+                target="_blank"
+                underline="none"
+              >
+                <Button size="small" variant="outlined">
+                  Code
+                </Button>
+              </MuiLink>
+            </CardActions>
           </Grid>
         </Grid>
       </Box>
@@ -205,7 +216,7 @@ const Index = () => {
             marginY={3}
             justifyContent="center"
           >
-            <Grid item xs={8} sm={5} mb={3}>
+            <Grid size={{ xs: 8, sm: 5 }} mb={3}>
               <Avatar
                 alt="Low Yong Cheng"
                 src="/img/yong-cheng-metasprint.jpeg"
@@ -217,7 +228,7 @@ const Index = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={7} display="flex" alignItems="center">
+            <Grid size={{ xs: 12, sm: 7 }} display="flex" alignItems="center">
               <Box textAlign="left" mx={2}>
                 <Typography marginBottom={2} variant="body1">
                   I am Yong Cheng or YC, I grew up studying in various
