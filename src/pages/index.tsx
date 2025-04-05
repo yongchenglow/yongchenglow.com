@@ -24,7 +24,7 @@ const Index = () => {
           marginY={3}
           justifyContent="center"
         >
-          <Grid item xs={8} sm={5}>
+          <Grid size={{ xs: 8, sm: 5 }}>
             <Avatar
               alt="Low Yong Cheng"
               src="/img/yong-cheng-badminton.jpg"
@@ -36,7 +36,12 @@ const Index = () => {
               }}
             />
           </Grid>
-          <Grid item xs={12} sm={7} mt={2} display="flex" alignItems="center">
+          <Grid
+            size={{ xs: 12, sm: 7 }}
+            mt={2}
+            display="flex"
+            alignItems="center"
+          >
             <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }} mx={2}>
               <Typography variant="h4" mb={1}>
                 Hello everyone!
@@ -98,7 +103,7 @@ const Index = () => {
           <Typography variant="h4">Project highlights</Typography>
         </Box>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -131,7 +136,7 @@ const Index = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -155,7 +160,7 @@ const Index = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -205,7 +210,7 @@ const Index = () => {
             marginY={3}
             justifyContent="center"
           >
-            <Grid item xs={8} sm={5} mb={3}>
+            <Grid size={{ xs: 8, sm: 5 }} mb={3}>
               <Avatar
                 alt="Low Yong Cheng"
                 src="/img/yong-cheng-metasprint.jpeg"
@@ -217,7 +222,7 @@ const Index = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={7} display="flex" alignItems="center">
+            <Grid size={{ xs: 12, sm: 7 }} display="flex" alignItems="center">
               <Box textAlign="left" mx={2}>
                 <Typography marginBottom={2} variant="body1">
                   I am Yong Cheng or YC, I grew up studying in various

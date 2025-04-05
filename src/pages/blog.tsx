@@ -50,7 +50,7 @@ const About = () => {
           Previous Articles
         </Typography>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -69,7 +69,7 @@ const About = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -88,7 +88,7 @@ const About = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -107,7 +107,7 @@ const About = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
@@ -126,7 +126,7 @@ const About = () => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={12} md={4} lg={3}>
+          <Grid size={{ sm: 12, md: 4, lg: 3 }}>
             <Card sx={{ maxWidth: 350, marginY: 3, marginX: 'auto' }}>
               <CardContent>
                 <Typography variant="h6" mb={1}>
