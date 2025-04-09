@@ -5,6 +5,7 @@ import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 import next from '@next/eslint-plugin-next';
 import storybook from 'eslint-plugin-storybook';
+import compat from 'eslint-plugin-compat';
 
 export default [
   {
@@ -28,9 +29,11 @@ export default [
       prettier,
       '@next/next': next,
       storybook,
+      compat,
     },
     rules: {
       semi: 'error',
+      'compat/compat': 'error',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       '@next/next/no-img-element': 'off',
