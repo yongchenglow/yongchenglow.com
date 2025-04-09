@@ -1,5 +1,5 @@
 default:
-  image: node:20
+  image: node:22
   cache: &global_cache
     key:
       files:
@@ -13,6 +13,7 @@ stages:
   - cache_dependencies
   - analyze
   - build
+  - release
 
 install:
   stage: cache_dependencies
@@ -26,7 +27,6 @@ install:
 lint:
   stage: analyze
   script:
-    - yarn install --frozen-lockfile
     - yarn lint
   needs:
     - install
@@ -34,7 +34,6 @@ lint:
 test:
   stage: analyze
   script:
-    - yarn install --frozen-lockfile
     - yarn test
   needs:
     - install
@@ -42,17 +41,31 @@ test:
 build:
   stage: build
   script:
-    - yarn install --frozen-lockfile
     - yarn build
   needs:
+    - install
     - lint
     - test
 
 storybook:
   stage: build
   script:
-    - yarn install --frozen-lockfile
     - yarn build:storybook
   needs:
+    - install
     - lint
     - test
+
+release:
+  stage: release
+  script:
+    - yarn release
+  variables:
+    GITLAB_TOKEN: $CI_JOB_TOKEN
+  only:
+    - main
+  needs:
+    - install
+    - lint
+    - test
+    - build
