@@ -61,7 +61,7 @@ release:
   script:
     - yarn release
   variables:
-    GITHUB_TOKEN: $GL_CI_TOKEN
+    GITLAB_TOKEN: $GL_CI_TOKEN
   only:
     - main
   needs:
