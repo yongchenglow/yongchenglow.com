@@ -1,3 +1,10 @@
+## [1.2.1](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.0...v1.2.1) (2025-04-12)
+
+
+### Bug Fixes
+
+* hydration issues ([bdacc96](https://gitlab.com/yongchenglow/yongchenglow-com/commit/bdacc9642d4375a0de9d5a64a38b7ddb27f10331))
+
 # [1.2.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.1.0...v1.2.0) (2025-04-12)
 
 
