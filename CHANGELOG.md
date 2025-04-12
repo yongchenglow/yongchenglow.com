@@ -1,3 +1,10 @@
+# [1.1.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.0.0...v1.1.0) (2025-04-12)
+
+
+### Features
+
+* adjust ci to use docker build ([fa08e09](https://gitlab.com/yongchenglow/yongchenglow-com/commit/fa08e09db9200cfaf70f9039b9da81e6e0b2f70a))
+
 # 1.0.0 (2025-04-10)
 
 
