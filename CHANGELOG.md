@@ -1,3 +1,18 @@
+# [1.2.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.1.0...v1.2.0) (2025-04-12)
+
+
+### Bug Fixes
+
+* adsense ([46d2315](https://gitlab.com/yongchenglow/yongchenglow-com/commit/46d2315567ce7c04bc87eade0c2212c51631692f))
+* gitlab ci ([6a34f84](https://gitlab.com/yongchenglow/yongchenglow-com/commit/6a34f84a4dbb5b3d0cb65e73989401b8730416af))
+
+
+### Features
+
+* adjust gitlab ci to allow for arm architectures ([ac9be26](https://gitlab.com/yongchenglow/yongchenglow-com/commit/ac9be267c090d679bfb248c1b0c166dd3354f36f))
+* adjust to use pnpm ([92f1bad](https://gitlab.com/yongchenglow/yongchenglow-com/commit/92f1bad1d23f94ece0ea21db45dbb172d4f90ae2))
+* update dockerfile ([a1bd74b](https://gitlab.com/yongchenglow/yongchenglow-com/commit/a1bd74b15db740cc1a036ee9b2baa3cbc76f6888))
+
 # [1.1.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.0.0...v1.1.0) (2025-04-12)
 
 
