@@ -9,7 +9,6 @@ Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com
 3. [Git Conventions](#git-conventions)
    1. [Branching](#branching)
    2. [Commits](#commits)
-   3. [Staging](#staging)
 4. [VSCode Setup](#vscode-setup)
 5. [License](#license)
 
@@ -19,15 +18,15 @@ In order to run the application please clone or download the repository
 
 ### For Development
 
-1. yarn
-2. yarn prepare (Only for development setup)
-3. yarn dev
+1. pnpm
+2. pnpm prepare (Only for development setup)
+3. pnpm dev
 
 ### For Production
 
-1. yarn
-2. yarn build
-3. yarn start
+1. pnpm
+2. pnpm build
+3. pnpm start
 
 ### Using Docker
 
@@ -53,16 +52,16 @@ docker load -i file.tar
 ## Application Commands
 
 ```bash
-yarn dev              # For development
-yarn build            # To build the application
-yarn start            # To run the built application
-yarn lint             # To check eslint
-yarn analyze          # To analyze the packages
-yarn prettier:fix     # To automatically fix prettier issues
-yarn prettier:check   # To check for prettier issues
-yarn storybook        # To run the storybook environment
-yarn build:storybook  # To build the storybook
-yarn prepare          # To prepare the application
+pnpm dev              # For development
+pnpm build            # To build the application
+pnpm start            # To run the built application
+pnpm lint             # To check eslint
+pnpm analyze          # To analyze the packages
+pnpm prettier:fix     # To automatically fix prettier issues
+pnpm prettier:check   # To check for prettier issues
+pnpm storybook        # To run the storybook environment
+pnpm build:storybook  # To build the storybook
+pnpm prepare          # To prepare the application
 ```
 
 ## Git Conventions
@@ -76,10 +75,6 @@ hotfix/<branch_name>
 ### Commits
 
 Refer to [commitlint.config.js](./commitlint.config.js) for prefixes. We will be using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
-
-### Staging
-
-Files that are staged will automatically go through eslint and prettier fix. Theses type of files are defined in lint-staged.config.js
 
 ## VSCode Setup
 

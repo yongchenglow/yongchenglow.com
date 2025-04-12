@@ -4,7 +4,7 @@ default:
     key:
       files:
         - package.json
-        - yarn.lock
+        - pnpm-lock.yaml
     paths:
       - node_modules/
     policy: pull
@@ -19,7 +19,8 @@ stages:
 install:
   stage: cache_dependencies
   script:
-    - yarn install --frozen-lockfile
+    - npm install -g pnpm
+    - pnpm install --frozen-lockfile
   cache:
     <<: *global_cache
     policy: pull-push
@@ -28,14 +29,16 @@ install:
 lint:
   stage: analyze
   script:
-    - yarn lint
+    - npm install -g pnpm
+    - pnpm lint
   needs:
     - install
 
 test:
   stage: analyze
   script:
-    - yarn test
+    - npm install -g pnpm
+    - pnpm test
   needs:
     - install
 
@@ -45,16 +48,14 @@ build:
     - docker:dind
   stage: build
   variables:
-    DOCKER_TLS_CERTDIR: '' # Important!
-    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: '/certs'
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
     - export SANITIZED_REF_NAME="${CI_COMMIT_REF_NAME//\//-}"
     - export IMAGE_TAG="$CI_REGISTRY_IMAGE:$SANITIZED_REF_NAME"
-    - docker buildx create --use
-    - docker buildx inspect --bootstrap
-    - docker buildx build --platform linux/arm64 -t $IMAGE_TAG --push .
+    - docker build --platform linux/arm64 -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   needs:
     - install
     - lint
@@ -63,7 +64,7 @@ build:
 release:
   stage: release
   script:
-    - yarn release
+    - pnpm release
   variables:
     GITLAB_TOKEN: $GITLAB_TOKEN
   only:

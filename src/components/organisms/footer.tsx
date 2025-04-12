@@ -43,7 +43,9 @@ const Footer = () => {
                 <InstagramIcon />
               </MuiLink>
             </Grid>
-            <Grid size={{ xs: 12, sm: 4 }}>© 2022 Yong Cheng Low</Grid>
+            <Grid size={{ xs: 12, sm: 4 }}>
+              © {new Date().getFullYear()} Yong Cheng Low
+            </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>
               <MuiLink
                 href="mailto:lowyongcheng@hotmail.com"
