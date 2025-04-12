@@ -169,13 +169,13 @@ const Blog1 = () => {
             the upcoming articles that I will be releasing in the following
             weeks:
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize}>
+          <Box fontSize={theme.typography.h6.fontSize}>
             <ol>
               <li>Join the Scrum</li>
               <li>It&apos;s Story Time</li>
               <li>Single source of truth</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
             If you are my hard core fan, you can check out the following{' '}
             <MuiLink

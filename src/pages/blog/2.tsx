@@ -222,7 +222,7 @@ const Blog2 = () => {
               loading="lazy"
             />
           </Box>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={5}>
             Now you may be wondering, wait a minute if a scrum team can have
             only 10 people, how come tech companies are so big? The answer is{' '}
             <b>Scaled up Scrum</b>. A Product Owner and a Scrum Master can be
@@ -242,8 +242,8 @@ const Blog2 = () => {
               <li>Online experience host</li>
               <li>Online experience livestream service</li>
             </ol>
-          </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+          </Box>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={7}>
             As Airbnb grow even further, they may split the teams mentioned
             above into smaller teams and have a product owner to manage each
             service. The following is an example of the services that the
@@ -255,7 +255,7 @@ const Blog2 = () => {
               <li>Automations e.g. reminders and emails</li>
               <li>Authentication</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography
             variant="h4"
             fontWeight={500}
@@ -323,7 +323,7 @@ const Blog2 = () => {
             development team draw out a detailed plan on how to achieve the
             sprint goal.
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             The <b>Daily Scrum</b> is a meeting to monitor the progress of work
             and identify any blockers. Each person has to answer 3 questions
             during the meeting:
@@ -332,13 +332,13 @@ const Blog2 = () => {
               <li>What will you be doing today?</li>
               <li>Are there any impediments in the way?</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             <b>Sprint Review</b> is the where the increment created from the
             sprint is showcased to the stakeholders. Stakeholders can inspect
             the work and raise questions or concerns or raise adjustments.
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={6}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={6}>
             <b>Sprint Retrospective</b> is a meeting that allows the team to
             reflect on how they work over the past sprint. The 3 questions that
             the team have to answer are:
@@ -350,7 +350,7 @@ const Blog2 = () => {
                 the next sprint?
               </li>
             </ol>
-          </Typography>
+          </Box>
           <GoogleAds slotId="5500217699" />
           <Typography
             variant="h4"

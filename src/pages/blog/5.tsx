@@ -249,7 +249,7 @@ const Blog5 = () => {
           >
             Prototyping
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             Prototyping is one of the most important phase of design thinking.
             After passing the user test, a prototype might need some touch ups
             before passing it onto the engineering team. In general there are 3
@@ -259,7 +259,7 @@ const Blog5 = () => {
               <li>Low Fidelity</li>
               <li>High Fidelity</li>
             </ol>
-          </Typography>
+          </Box>
           <Box maxWidth="sm" mx="auto" mb={4}>
             <MuiLink
               href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"

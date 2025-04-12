@@ -727,7 +727,7 @@ Course (CourseId, Course)
               candidate key.
             </Typography>
           </Box>
-          <Typography
+          <Box
             fontSize={theme.typography.h6.fontSize}
             marginTop={5}
             marginBottom={3}
@@ -743,7 +743,7 @@ Course (CourseId, Course)
               <li>An Advisor can only advise one Major</li>
               <li>An Advisor can advise many Students</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography
             fontSize={theme.typography.h6.fontSize}
             textAlign="center"
