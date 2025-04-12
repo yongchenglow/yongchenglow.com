@@ -4,13 +4,14 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile --network-timeout 1000000
+ENV NODE_ENV=production
+RUN yarn install --frozen-lockfile --network-timeout 1000000
 
 # Build the app
 FROM node:22-alpine AS builder
-
-ENV NODE_ENV=production
 WORKDIR /app
+ENV NODE_ENV=production
+
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
