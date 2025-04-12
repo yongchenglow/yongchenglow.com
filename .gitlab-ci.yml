@@ -14,6 +14,7 @@ stages:
   - analyze
   - build
   - release
+  - deploy
 
 install:
   stage: cache_dependencies
@@ -39,18 +40,19 @@ test:
     - install
 
 build:
+  image: docker:latest
+  services:
+    - docker:dind
   stage: build
+  variables:
+    DOCKER_TLS_CERTDIR: '/certs'
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
-    - yarn build
-  needs:
-    - install
-    - lint
-    - test
-
-storybook:
-  stage: build
-  script:
-    - yarn build:storybook
+    - export SANITIZED_REF_NAME="${CI_COMMIT_REF_NAME//\//-}"
+    - export IMAGE_TAG="$CI_REGISTRY_IMAGE:$SANITIZED_REF_NAME"
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   needs:
     - install
     - lint
@@ -64,8 +66,24 @@ release:
     GITLAB_TOKEN: $GITLAB_TOKEN
   only:
     - main
+  except:
+    - tags
   needs:
     - install
     - lint
     - test
     - build
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the application..."
+  only:
+    - tags
+    - main
+  needs:
+    - install
+    - lint
+    - test
+    - build
+    - release
