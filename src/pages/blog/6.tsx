@@ -51,7 +51,7 @@ const Blog6 = () => {
             Integrated Development Environment (IDE) with suggestions will be
             really helpful to them.
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={7}>
             In this Article, I will take you through a very basic project setup
             using,{' '}
             <MuiLink href="https://github.com" target="_blank">
@@ -77,7 +77,7 @@ const Blog6 = () => {
               <li>A Code Skeleton in any language</li>
               <li>A version control system</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             In order to ensure that we keep things focused, the next few
             articles will only contain a single concept. This will make things
@@ -208,7 +208,7 @@ git push origin main
             etc. a simple google search will allow you to find the recommended
             extension.
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             For Ruby on Rails, there are many extensions that you project could
             include, however, for simplicity&apos;s sake I will introduce to you
             5 types which most project will need:
@@ -219,7 +219,7 @@ git push origin main
               <li>Collaboration Tools (ms-vsliveshare.vsliveshare)</li>
               <li>Version Control Tools (eamodio.gitlens)</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             A <b>code formatter</b> is used to format our code. This ensures
             that or coding style remains consistent throughout the project. For

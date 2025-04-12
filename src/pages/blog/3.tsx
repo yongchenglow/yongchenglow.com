@@ -255,7 +255,7 @@ const Blog3 = () => {
             so that when a task is marked as Done, the team all have a common
             understand what each task has gone through.
           </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={5}>
             An example of a Design Task may be to conduct AB testing on 2
             different designs. The definition of done of a design task may
             include:
@@ -270,8 +270,8 @@ const Blog3 = () => {
                 supported evidence
               </li>
             </ol>
-          </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
+          </Box>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={5}>
             An example of a QA Task may be to investigate a particular bug
             report filed by one of our users. The definition of done of a QA
             task may include:
@@ -285,8 +285,8 @@ const Blog3 = () => {
               <li>Release the bug fix to production</li>
               <li>Inform the users that the bug has been fixed</li>
             </ol>
-          </Typography>
-          <Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+          </Box>
+          <Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
             An example of a Developer task may be to create a login page. The
             definition of done of a developer task may include.
             <ol>
@@ -309,7 +309,7 @@ const Blog3 = () => {
               <li>Pass QA Staging</li>
               <li>Release to Production</li>
             </ol>
-          </Typography>
+          </Box>
           <Typography
             variant="h4"
             fontWeight={500}
