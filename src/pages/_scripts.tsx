@@ -18,7 +18,7 @@ const AppScript = () => {
               function gtag(){window.dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'G-0YZD5J7B2T');
+              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}');
             `}
       </Script>
     </>
