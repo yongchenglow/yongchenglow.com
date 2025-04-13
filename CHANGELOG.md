@@ -1,3 +1,11 @@
+## [1.2.2](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.1...v1.2.2) (2025-04-13)
+
+
+### Bug Fixes
+
+* add env file for prod ([86dd7f7](https://gitlab.com/yongchenglow/yongchenglow-com/commit/86dd7f73567f03c5c725f17e5e7ba5e909ee983f))
+* allow for custom runner ([1c0836b](https://gitlab.com/yongchenglow/yongchenglow-com/commit/1c0836b780e3d770c2f1c07e08d01c386dd6e89d))
+
 ## [1.2.1](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.0...v1.2.1) (2025-04-12)
 
 
