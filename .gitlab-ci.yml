@@ -3,52 +3,47 @@ default:
   cache: &global_cache
     key:
       files:
-        - package.json
         - pnpm-lock.yaml
     paths:
-      - node_modules/
+      - .pnpm-store
     policy: pull
+
+.pnpm_before_script: &pnpm_before_script
+  - npm i -g pnpm
+  - pnpm config set store-dir .pnpm-store
 
 stages:
   - cache_dependencies
-  - analyze
+  - audit
   - build
   - release
   - deploy
 
 install:
   stage: cache_dependencies
+  interruptible: true
+  before_script: *pnpm_before_script
   script:
-    - npm install -g pnpm
     - pnpm install --frozen-lockfile
   cache:
     <<: *global_cache
     policy: pull-push
   needs: []
 
-lint:
-  stage: analyze
+audit:
+  stage: audit
+  interruptible: true
+  before_script: *pnpm_before_script
   script:
-    - npm install -g pnpm
     - pnpm lint
-  needs:
-    - install
-
-test:
-  stage: analyze
-  script:
-    - npm install -g pnpm
     - pnpm test
   needs:
     - install
 
 build:
   image: docker:latest
-  services:
-    - docker:dind
   stage: build
-  variables:
-    DOCKER_TLS_CERTDIR: '/certs'
+  interruptible: true
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
@@ -58,13 +53,12 @@ build:
     - docker push $IMAGE_TAG
   needs:
     - install
-    - lint
-    - test
+    - audit
 
 release:
   stage: release
+  before_script: *pnpm_before_script
   script:
-    - npm install -g pnpm
     - pnpm release
   variables:
     GITLAB_TOKEN: $GITLAB_TOKEN
@@ -74,20 +68,23 @@ release:
     - tags
   needs:
     - install
-    - lint
-    - test
+    - audit
     - build
 
 deploy:
   stage: deploy
+  image: bitnami/kubectl-helm:latest
   script:
-    - echo "Deploying the application..."
+    - echo "$KUBECONFIG_B64" | base64 -d > kubeconfig.yaml
+    - export KUBECONFIG=$PWD/kubeconfig.yaml
+    - helm upgrade --install "$RELEASE_NAME" ./chart \
+        --namespace "$KUBE_NAMESPACE" \
+        --create-namespace
   only:
     - tags
     - main
   needs:
     - install
-    - lint
-    - test
+    - audit
     - build
     - release

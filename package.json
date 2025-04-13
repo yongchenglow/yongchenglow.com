@@ -1,5 +1,6 @@
 {
   "private": true,
+  "packageManager": "pnpm@10.8.0",
   "scripts": {
     "dev": "pnpm next dev",
     "build": "pnpm next build",
