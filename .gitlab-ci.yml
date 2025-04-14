@@ -6,6 +6,7 @@ default:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
+      - node_modules
     policy: pull
 
 .pnpm_before_script: &pnpm_before_script
@@ -28,6 +29,10 @@ install:
   cache:
     <<: *global_cache
     policy: pull-push
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: never
+    - when: always
   needs: []
 
 audit:
@@ -37,20 +42,24 @@ audit:
   script:
     - pnpm lint
     - pnpm test
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: never
+    - when: always
   needs:
     - install
 
 build:
-  image: docker:latest
+  image: node:22
   stage: build
   interruptible: true
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  before_script: *pnpm_before_script
   script:
-    - export SANITIZED_REF_NAME="${CI_COMMIT_REF_NAME//\//-}"
-    - export IMAGE_TAG="$CI_REGISTRY_IMAGE:$SANITIZED_REF_NAME"
-    - docker build --platform linux/arm64 -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
+    - pnpm build
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: never
+    - when: always
   needs:
     - install
     - audit
@@ -62,14 +71,30 @@ release:
     - pnpm release
   variables:
     GITLAB_TOKEN: $GITLAB_TOKEN
-  only:
-    - main
-  except:
-    - tags
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+    - if: '$CI_COMMIT_TAG'
+      when: never
   needs:
     - install
     - audit
     - build
+
+build_image:
+  image: docker:latest
+  stage: build
+  interruptible: true
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - export IMAGE_TAG="yongchenglow-$CI_COMMIT_TAG"
+    - docker build --platform linux/arm64 -t "$CI_REGISTRY_IMAGE:$IMAGE_TAG" .
+    - docker push "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
+  rules:
+    - if: '$CI_COMMIT_TAG' # only build for tags
+      when: always
+    - when: never
 
 deploy:
   stage: deploy
@@ -77,14 +102,14 @@ deploy:
   script:
     - echo "$KUBECONFIG_B64" | base64 -d > kubeconfig.yaml
     - export KUBECONFIG=$PWD/kubeconfig.yaml
+    - export IMAGE_TAG="yongchenglow-$CI_COMMIT_TAG"
     - helm upgrade --install "$RELEASE_NAME" ./chart \
-        --namespace "$KUBE_NAMESPACE" \
-        --create-namespace
-  only:
-    - tags
-    - main
+      --namespace "$KUBE_NAMESPACE" \
+      --create-namespace \
+      --set image.tag="$IMAGE_TAG"
+  rules:
+    - if: '$CI_COMMIT_TAG' # only build for tags
+      when: always
+    - when: never
   needs:
-    - install
-    - audit
-    - build
-    - release
+    - build_image
