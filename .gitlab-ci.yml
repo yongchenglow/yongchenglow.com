@@ -92,9 +92,10 @@ build_image:
     - docker build --platform linux/arm64 -t "$CI_REGISTRY_IMAGE:$IMAGE_TAG" .
     - docker push "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
   rules:
-    - if: '$CI_COMMIT_TAG' # only build for tags
+    - if: '$CI_COMMIT_BRANCH == "main"'
       when: always
-    - when: never
+    - if: '$CI_COMMIT_TAG'
+      when: never
 
 deploy:
   stage: deploy
@@ -108,8 +109,9 @@ deploy:
       --create-namespace \
       --set image.tag="$IMAGE_TAG"
   rules:
-    - if: '$CI_COMMIT_TAG' # only build for tags
+    - if: '$CI_COMMIT_BRANCH == "main"'
       when: always
-    - when: never
+    - if: '$CI_COMMIT_TAG'
+      when: never
   needs:
     - build_image
