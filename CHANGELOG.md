@@ -1,3 +1,10 @@
+## [1.3.2](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.3.1...v1.3.2) (2025-04-15)
+
+
+### Bug Fixes
+
+* adjust release and gitlab ci ([ecd5f04](https://gitlab.com/yongchenglow/yongchenglow-com/commit/ecd5f049640ce230a1e18ff6026352446c921049))
+
 ## [1.3.1](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.3.0...v1.3.1) (2025-04-15)
 
 
