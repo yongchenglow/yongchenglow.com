@@ -1,3 +1,16 @@
+# [1.3.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.1...v1.3.0) (2025-04-15)
+
+
+### Bug Fixes
+
+* add env file for prod ([86dd7f7](https://gitlab.com/yongchenglow/yongchenglow-com/commit/86dd7f73567f03c5c725f17e5e7ba5e909ee983f))
+* allow for custom runner ([1c0836b](https://gitlab.com/yongchenglow/yongchenglow-com/commit/1c0836b780e3d770c2f1c07e08d01c386dd6e89d))
+
+
+### Features
+
+* add helm charts ([759c41c](https://gitlab.com/yongchenglow/yongchenglow-com/commit/759c41c31a220b2e878460d5d570c550578b2eb1))
+
 ## [1.2.2](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.1...v1.2.2) (2025-04-13)
 
 
