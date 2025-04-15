@@ -61,5 +61,8 @@ yarn.lock
 .dockerignore
 Dockerfile
 
-#storybook
+# storybook
 /storybook-static
+
+# helm
+/helm-nextjs
