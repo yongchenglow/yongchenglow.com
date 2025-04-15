@@ -1,3 +1,10 @@
+## [1.3.1](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.3.0...v1.3.1) (2025-04-15)
+
+
+### Bug Fixes
+
+* release message to include skip ci ([a9e513e](https://gitlab.com/yongchenglow/yongchenglow-com/commit/a9e513e2563da9b87d9a1ce918681a18b9c4630c))
+
 # [1.3.0](https://gitlab.com/yongchenglow/yongchenglow-com/compare/v1.2.1...v1.3.0) (2025-04-15)
 
 
