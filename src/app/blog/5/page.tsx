@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
@@ -14,7 +16,7 @@ import {
 } from "@/src/components/atoms/table";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
 type FacetsOfWebDesign = {
 	word: string;
@@ -49,7 +51,7 @@ const facetsOfWebDesign: FacetsOfWebDesign[] = [
 	},
 ];
 
-const Blog5 = () => {
+export default function BlogPost5Page() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -456,6 +458,4 @@ const Blog5 = () => {
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default Blog5;
+}

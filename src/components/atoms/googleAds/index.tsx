@@ -1,5 +1,7 @@
+"use client";
+
 import type React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 declare global {
 	// eslint-disable-next-line no-unused-vars
@@ -13,9 +15,14 @@ interface Props {
 }
 
 const GoogleAds: React.FunctionComponent<Props> = ({ slotId }) => {
+	const adLoaded = useRef(false);
+
 	useEffect(() => {
-		window.adsbygoogle = window.adsbygoogle || [];
-		window.adsbygoogle.push({});
+		if (!adLoaded.current) {
+			window.adsbygoogle = window.adsbygoogle || [];
+			window.adsbygoogle.push({});
+			adLoaded.current = true;
+		}
 	}, []);
 
 	return (

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Box from "@/src/components/atoms/box";
 import Button from "@/src/components/atoms/button";
@@ -6,9 +8,9 @@ import GoogleAds from "@/src/components/atoms/googleAds";
 import Grid from "@/src/components/atoms/grid";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
-const About = () => {
+export default function BlogPage() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -136,6 +138,4 @@ const About = () => {
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default About;
+}

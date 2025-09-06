@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
@@ -6,9 +8,9 @@ import GoogleAds from "@/src/components/atoms/googleAds";
 import Link from "@/src/components/atoms/link";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
-const Blog6 = () => {
+export default function BlogPost6Page() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -434,6 +436,4 @@ touch extensions.json
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default Blog6;
+}

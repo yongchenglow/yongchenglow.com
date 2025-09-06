@@ -1,9 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
-const Index = () => {
+export default function HomePage() {
 	return (
 		<StandardLayout>
 			<div className="flex justify-center">
@@ -259,6 +261,4 @@ const Index = () => {
 			<GoogleAds slotId="8155985403" />
 		</StandardLayout>
 	);
-};
-
-export default Index;
+}

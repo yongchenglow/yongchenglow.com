@@ -1,11 +1,13 @@
+"use client";
+
 import Avatar from "@/src/components/atoms/avatar";
 import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
 import Link from "@/src/components/atoms/link";
 import Typography from "@/src/components/atoms/typography";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
-const About = () => {
+export default function AboutPage() {
 	return (
 		<StandardLayout>
 			<Box py={3} textAlign="center">
@@ -236,6 +238,4 @@ const About = () => {
 			<GoogleAds slotId="7158598508" />
 		</StandardLayout>
 	);
-};
-
-export default About;
+}

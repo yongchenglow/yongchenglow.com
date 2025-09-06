@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
@@ -16,7 +18,7 @@ import {
 } from "@/src/components/atoms/table";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
 type OnDelete = {
 	action: string;
@@ -38,7 +40,7 @@ const deleteActions: OnDelete[] = [
 	},
 ];
 
-const Blog4 = () => {
+export default function BlogPost4Page() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -852,6 +854,4 @@ Major (MajorId, Major)
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default Blog4;
+}

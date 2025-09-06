@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Box from "@/src/components/atoms/box";
 import Button from "@/src/components/atoms/button";
@@ -5,9 +7,9 @@ import GoogleAds from "@/src/components/atoms/googleAds";
 import Link from "@/src/components/atoms/link";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
-const Blog1 = () => {
+export default function BlogPost1Page() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -36,7 +38,7 @@ const Blog1 = () => {
 				<Box maxWidth="md" mx="auto">
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
 						So, you have just finished your coding bootcamp, got your degree or
-						built your very own web application and you think you’re ready to
+						built your very own web application and you think you're ready to
 						conquer the software engineering world. You go over to{" "}
 						<Link href="https://glints.com" target="_blank">
 							Glints
@@ -75,7 +77,7 @@ const Blog1 = () => {
 						your skills. If you have the mindset that you should not create
 						things for free, or if you think the company is going to use what
 						you write, then software engineering is not for you. If the company
-						ends up using what you write, you shouldn’t join that company.
+						ends up using what you write, you shouldn't join that company.
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
 						It is important to understand that after building your first web
@@ -208,26 +210,8 @@ const Blog1 = () => {
 							</Button>
 						</Link>
 					</Box>
-					<Typography variant="body2" fontSize="0.75rem">
-						If you are wondering why I am not posting these articles on Medium,
-						it is because these content are very general and specific for a
-						certain audience. Also to cut a bit of slack for myself as I am not
-						writing this to get paid but to share my own knowledge. Thank you
-						for your understanding.
-					</Typography>
-					<Typography
-						fontSize={theme.typography.caption.fontSize}
-						color="textSecondary"
-						textAlign="right"
-						marginTop={5}
-						marginBottom={3}
-					>
-						Last Updated: 14/02/2022
-					</Typography>
 				</Box>
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default Blog1;
+}

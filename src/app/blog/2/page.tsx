@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
@@ -14,7 +16,7 @@ import {
 } from "@/src/components/atoms/table";
 import Typography from "@/src/components/atoms/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/pages/layouts/standard";
+import StandardLayout from "@/src/layouts/StandardLayout";
 
 type Scrum = {
 	name: string;
@@ -49,7 +51,7 @@ const scrumEvents: Scrum[] = [
 	},
 ];
 
-const Blog2 = () => {
+export default function BlogPost2Page() {
 	const theme = useTheme();
 	return (
 		<StandardLayout>
@@ -485,6 +487,4 @@ const Blog2 = () => {
 			</Box>
 		</StandardLayout>
 	);
-};
-
-export default Blog2;
+}
