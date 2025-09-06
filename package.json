@@ -9,6 +9,7 @@
 		"analyze": "ANALYZE=true next build",
 		"format": "pnpm exec biome format --write",
 		"check": "pnpm exec biome check --write",
+    "check:ci": "pnpm exec biome check --write",
 		"prepare": "husky",
 		"release": "semantic-release"
 	},
