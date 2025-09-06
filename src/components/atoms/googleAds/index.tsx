@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react';
+import type React from "react";
+import { useEffect } from "react";
 
 declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
-    adsbygoogle: { [key: string]: unknown }[];
-  }
+	// eslint-disable-next-line no-unused-vars
+	interface Window {
+		adsbygoogle: { [key: string]: unknown }[];
+	}
 }
 
 interface Props {
-  slotId: string;
+	slotId: string;
 }
 
 const GoogleAds: React.FunctionComponent<Props> = ({ slotId }) => {
-  useEffect(() => {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }, []);
+	useEffect(() => {
+		window.adsbygoogle = window.adsbygoogle || [];
+		window.adsbygoogle.push({});
+	}, []);
 
-  return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: 'block', textAlign: 'center' }}
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}
-      data-ad-slot={slotId}
-    ></ins>
-  );
+	return (
+		<ins
+			className="adsbygoogle"
+			style={{ display: "block", textAlign: "center" }}
+			data-ad-layout="in-article"
+			data-ad-format="fluid"
+			data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}
+			data-ad-slot={slotId}
+		></ins>
+	);
 };
 
 export default GoogleAds;
