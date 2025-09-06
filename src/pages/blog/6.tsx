@@ -1,8 +1,11 @@
-import { Box, Link as MuiLink, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
+import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
+import Link from "@/src/components/atoms/link";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 const Blog6 = () => {
@@ -37,12 +40,12 @@ const Blog6 = () => {
 						it is important that we get this step right. By doing so, it will
 						not only impress your technical assessors for your job application,
 						but it will also ensure that your project will remain{" "}
-						<MuiLink
+						<Link
 							href="https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29"
 							target="_blank"
 						>
 							clean
-						</MuiLink>{" "}
+						</Link>{" "}
 						in the long run.
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
@@ -57,21 +60,21 @@ const Blog6 = () => {
 					<Box fontSize={theme.typography.h6.fontSize} marginBottom={7}>
 						In this Article, I will take you through a very basic project setup
 						using,{" "}
-						<MuiLink href="https://github.com" target="_blank">
+						<Link href="https://github.com" target="_blank">
 							GitHub
-						</MuiLink>
+						</Link>
 						,{" "}
-						<MuiLink href="https://code.visualstudio.com" target="_blank">
+						<Link href="https://code.visualstudio.com" target="_blank">
 							VS Code
-						</MuiLink>
+						</Link>
 						,{" "}
-						<MuiLink href="https://rubyonrails.org" target="_blank">
+						<Link href="https://rubyonrails.org" target="_blank">
 							Ruby on Rails
-						</MuiLink>{" "}
+						</Link>{" "}
 						and{" "}
-						<MuiLink href="https://git-scm.com/downloads" target="_blank">
+						<Link href="https://git-scm.com/downloads" target="_blank">
 							Git
-						</MuiLink>
+						</Link>
 						. You may be using a different stack but similar principles will
 						apply. All you will need is
 						<ol>
@@ -110,9 +113,9 @@ const Blog6 = () => {
 						If you want to follow along this project setup series, please setup
 						your computer according to the following website. The setup
 						instructions are courtesy of{" "}
-						<MuiLink href="https://www.lewagon.com" target="_blank">
+						<Link href="https://www.lewagon.com" target="_blank">
 							Le Wagon
-						</MuiLink>
+						</Link>
 						, I do teach there part time. If you are interested in their courses
 						feel free to sign up. They have offices everywhere world wide.
 					</Typography>
@@ -132,7 +135,7 @@ const Blog6 = () => {
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -168,26 +171,26 @@ git push origin main
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						Visual Studio Code is a widely used IDE for any language. Other IDE
 						out there that companies commonly used include{" "}
-						<MuiLink href="https://www.jetbrains.com/idea/" target="_blank">
+						<Link href="https://www.jetbrains.com/idea/" target="_blank">
 							Intellij
-						</MuiLink>{" "}
+						</Link>{" "}
 						and{" "}
-						<MuiLink
+						<Link
 							href="https://www.eclipse.org/downloads/packages/release/neon/2/eclipse-ide-java-developers"
 							target="_blank"
 						>
 							Eclipse
-						</MuiLink>{" "}
+						</Link>{" "}
 						. You can use any IDE you want or prefer, but the concepts remain
 						the same. The first step is to ensure that your IDE is set up for
 						the language that you are going to code. We want to ensure that the
 						setup process is the same for every team member so that when we{" "}
-						<MuiLink
+						<Link
 							href="https://martinfowler.com/articles/on-pair-programming.html"
 							target="_blank"
 						>
 							pair program
-						</MuiLink>
+						</Link>
 						, things become a lot easier.
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
@@ -201,17 +204,17 @@ git push origin main
 						Because we will be using Ruby on Rails, the extensions that I will
 						introduce will be specific to the project. However, if you are using
 						something such as{" "}
-						<MuiLink href="https://nextjs.org" target="_blank">
+						<Link href="https://nextjs.org" target="_blank">
 							NextJS
-						</MuiLink>
+						</Link>
 						,{" "}
-						<MuiLink href="https://nodejs.org/en/" target="_blank">
+						<Link href="https://nodejs.org/en/" target="_blank">
 							NodeJS
-						</MuiLink>
+						</Link>
 						,{" "}
-						<MuiLink href="https://go.dev" target="_blank">
+						<Link href="https://go.dev" target="_blank">
 							GoLang
-						</MuiLink>{" "}
+						</Link>{" "}
 						etc. a simple google search will allow you to find the recommended
 						extension.
 					</Typography>
@@ -288,7 +291,7 @@ git push origin main
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -314,7 +317,7 @@ touch extensions.json
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -367,7 +370,7 @@ touch extensions.json
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`

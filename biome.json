@@ -20,7 +20,8 @@
 			"!coverage",
 			"!storybook-static",
 			"!**/*.snap",
-			"!**/__snapshots__"
+			"!**/__snapshots__",
+			"!**/*.css"
 		]
 	},
 	"formatter": {
@@ -31,6 +32,11 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true
+		}
+	},
+	"css": {
+		"linter": {
+			"enabled": false
 		}
 	},
 	"javascript": {

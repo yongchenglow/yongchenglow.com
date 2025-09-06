@@ -1,41 +1,26 @@
-import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
 import Link from "next/link";
 
 const pages = ["Home", "About", "Blog"];
 
 const ResponsiveAppBar = () => {
 	return (
-		<AppBar>
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
-					<Box
-						justifyContent="center"
-						sx={{
-							flexGrow: 1,
-							display: "flex",
-						}}
-					>
+		<header className="bg-primary-500 shadow-sm">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="flex items-center justify-center py-4">
+					<div className="flex flex-grow justify-center">
 						{pages.map((page) => (
 							<Link
 								key={page}
 								href={page === "Home" ? "/" : `/${page.toLowerCase()}`}
-								style={{ textDecoration: "none" }}
+								className="text-white hover:text-gray-200 px-4 py-2 text-base font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer rounded-md hover:bg-white/10"
 							>
-								<Button
-									sx={{
-										color: "white",
-										display: "block",
-										textTransform: "unset",
-									}}
-								>
-									{page}
-								</Button>
+								{page}
 							</Link>
 						))}
-					</Box>
-				</Toolbar>
-			</Container>
-		</AppBar>
+					</div>
+				</div>
+			</div>
+		</header>
 	);
 };
 export default ResponsiveAppBar;

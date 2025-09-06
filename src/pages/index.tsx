@@ -1,14 +1,4 @@
-import {
-	Avatar,
-	Box,
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	Grid,
-	Link as MuiLink,
-	Typography,
-} from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import GoogleAds from "@/src/components/atoms/googleAds";
 import StandardLayout from "@/src/pages/layouts/standard";
@@ -16,249 +6,232 @@ import StandardLayout from "@/src/pages/layouts/standard";
 const Index = () => {
 	return (
 		<StandardLayout>
-			<Box display="flex" justifyContent="center">
-				<Grid
-					container
-					columnSpacing={{ xs: 0, sm: 2 }}
-					maxWidth="md"
-					marginY={3}
-					justifyContent="center"
-				>
-					<Grid size={{ xs: 8, sm: 5 }}>
-						<Avatar
+			<div className="flex justify-center">
+				<div className="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-12 items-center">
+					<div className="sm:col-span-5 col-span-1 flex justify-center">
+						<Image
 							alt="Low Yong Cheng"
 							src="/img/yong-cheng-badminton.jpg"
-							variant="rounded"
-							sx={{
-								width: "100%",
-								height: "auto",
-								marginX: "auto",
-							}}
+							width={400}
+							height={400}
+							className="w-full h-auto rounded-lg shadow-md max-w-sm"
+							priority
 						/>
-					</Grid>
-					<Grid
-						size={{ xs: 12, sm: 7 }}
-						mt={2}
-						display="flex"
-						alignItems="center"
-					>
-						<Box sx={{ textAlign: { xs: "center", sm: "left" } }} mx={2}>
-							<Typography variant="h4" mb={1}>
+					</div>
+					<div className="sm:col-span-7 col-span-1 mt-8 sm:mt-0 flex items-center">
+						<div className="text-center sm:text-left mx-8">
+							<h1 className="text-4xl font-bold mb-4 text-gray-900">
 								Hello everyone!
-							</Typography>
-							<Typography variant="h5" mb={1}>
+							</h1>
+							<h2 className="text-2xl font-medium mb-4 text-gray-800">
 								I am Yong Cheng or YC for short.
-							</Typography>
-							<Typography variant="h5">
+							</h2>
+							<h2 className="text-2xl font-medium text-gray-800">
 								I am a Web Software Engineer at{" "}
-								<MuiLink
+								<a
 									href="https://glints.com"
 									target="_blank"
-									underline="none"
+									rel="noopener noreferrer"
+									className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
 								>
 									Glints
-								</MuiLink>
+								</a>
 								, part-time teacher at{" "}
-								<MuiLink
+								<a
 									href="https://www.lewagon.com/singapore"
 									target="_blank"
-									underline="none"
+									rel="noopener noreferrer"
+									className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
 								>
 									Le Wagon
-								</MuiLink>{" "}
+								</a>{" "}
 								and a Sports Enthusiast.
-							</Typography>
-						</Box>
-					</Grid>
-				</Grid>
-			</Box>
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<Box py={3} textAlign="center">
-				<Box mb={2}>
-					<Typography variant="h4">Latest Tech Articles</Typography>
-				</Box>
-				<Box display="flex" justifyContent="center">
-					<Card sx={{ maxWidth: 350, marginX: 1 }}>
-						<CardContent>
-							<Typography variant="h6" mb={1}>
+			<div className="py-12 text-center">
+				<div className="mb-8">
+					<h2 className="text-4xl font-bold text-gray-900">
+						Latest Tech Articles
+					</h2>
+				</div>
+				<div className="flex justify-center">
+					<div className="bg-white rounded-lg shadow-lg max-w-sm mx-4 overflow-hidden border border-gray-200">
+						<div className="p-6">
+							<h3 className="text-xl font-semibold mb-4 text-gray-900">
 								Setting up your Project
-							</Typography>
-							<Typography variant="body1">
+							</h3>
+							<p className="text-gray-600 leading-relaxed">
 								What is the proper way to setup a group project? How do we make
 								the best our of our IDE to increase code quality and
 								productivity?
-							</Typography>
-						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-							<Link href="/blog/6" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+							</p>
+						</div>
+						<div className="px-6 pb-6 flex justify-center">
+							<Link
+								href="/blog/6"
+								className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 border-none cursor-pointer inline-block text-center"
+							>
+								Read Now
 							</Link>
-						</CardActions>
-					</Card>
-				</Box>
-			</Box>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<Box py={3} textAlign="center">
-				<Box mb={2}>
-					<Typography variant="h4">Project highlights</Typography>
-				</Box>
-				<Grid container spacing={2} justifyContent="center">
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
-						<CardContent>
-							<Typography variant="h6" mb={1}>
+			<div className="py-12 text-center">
+				<div className="mb-8">
+					<h2 className="text-4xl font-bold text-gray-900">
+						Project highlights
+					</h2>
+				</div>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center max-w-6xl mx-auto">
+					<div className="bg-white rounded-lg shadow-lg max-w-sm overflow-hidden border border-gray-200">
+						<div className="p-6">
+							<h3 className="text-xl font-semibold mb-4 text-gray-900">
 								NUS Students&apos; Sports Club
-							</Typography>
-							<Typography variant="body1">
+							</h3>
+							<p className="text-gray-600 leading-relaxed">
 								I developed a company website for the club. This was my first
 								project using react.
-							</Typography>
-						</CardContent>
-						<CardActions sx={{ justifyContent: "center", marginTop: 0 }}>
-							<MuiLink
+							</p>
+						</div>
+						<div className="px-6 pb-6 flex justify-center space-x-3">
+							<a
 								href="https://www.nussportsclub.org"
 								target="_blank"
-								underline="none"
+								rel="noopener noreferrer"
+								className="no-underline"
 							>
-								<Button size="small" variant="outlined">
+								<span className="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block">
 									Website
-								</Button>
-							</MuiLink>
-							<MuiLink
+								</span>
+							</a>
+							<a
 								href="https://github.com/yongchenglow/nus-students-sports-club"
 								target="_blank"
-								underline="none"
+								rel="noopener noreferrer"
+								className="no-underline"
 							>
-								<Button size="small" variant="outlined">
+								<span className="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block">
 									Code
-								</Button>
-							</MuiLink>
-						</CardActions>
-					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
-						<CardContent>
-							<Typography variant="h6" mb={1}>
+								</span>
+							</a>
+						</div>
+					</div>
+					<div className="bg-white rounded-lg shadow-lg max-w-sm overflow-hidden border border-gray-200">
+						<div className="p-6">
+							<h3 className="text-xl font-semibold mb-4 text-gray-900">
 								My Personal Website
-							</Typography>
-							<Typography variant="body1">
+							</h3>
+							<p className="text-gray-600 leading-relaxed">
 								Coded using NextJS and deployed through my own personal
 								webserver on a RaspberryPi3.
-							</Typography>
-						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-							<MuiLink
+							</p>
+						</div>
+						<div className="px-6 pb-6 flex justify-center">
+							<a
 								href="https://github.com/yongchenglow/yongchenglow.com"
 								target="_blank"
-								underline="none"
+								rel="noopener noreferrer"
+								className="no-underline"
 							>
-								<Button size="small" variant="outlined">
+								<span className="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block">
 									Code
-								</Button>
-							</MuiLink>
-						</CardActions>
-					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
-						<CardContent>
-							<Typography variant="h6" mb={1}>
+								</span>
+							</a>
+						</div>
+					</div>
+					<div className="bg-white rounded-lg shadow-lg max-w-sm overflow-hidden border border-gray-200">
+						<div className="p-6">
+							<h3 className="text-xl font-semibold mb-4 text-gray-900">
 								AirBnB Clone
-							</Typography>
-							<Typography variant="body1">
+							</h3>
+							<p className="text-gray-600 leading-relaxed">
 								This is a project done using Ruby on Rails, mainly for students
 								in Le Wagon students to see my twist on it.
-							</Typography>
-						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
-							<MuiLink
+							</p>
+						</div>
+						<div className="px-6 pb-6 flex justify-center space-x-3">
+							<a
 								href="https://airbnb-yc.herokuapp.com"
 								target="_blank"
-								underline="none"
+								rel="noopener noreferrer"
+								className="no-underline"
 							>
-								<Button size="small" variant="outlined">
+								<span className="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block">
 									Website
-								</Button>
-							</MuiLink>
-							<MuiLink
+								</span>
+							</a>
+							<a
 								href="https://github.com/yongchenglow/airbnb-clone"
 								target="_blank"
-								underline="none"
+								rel="noopener noreferrer"
+								className="no-underline"
 							>
-								<Button size="small" variant="outlined">
+								<span className="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block">
 									Code
-								</Button>
-							</MuiLink>
-						</CardActions>
-					</Grid>
-				</Grid>
-			</Box>
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<GoogleAds slotId="5500217699" />
 
-			<Box py={3} textAlign="center">
-				<Box mb={1}>
-					<Typography variant="h4">Who am I?</Typography>
-				</Box>
-				<Box display="flex" justifyContent="center">
-					<Grid
-						container
-						columnSpacing={{ xs: 0, sm: 2 }}
-						maxWidth="md"
-						marginY={3}
-						justifyContent="center"
-					>
-						<Grid size={{ xs: 8, sm: 5 }} mb={3}>
-							<Avatar
+			<div className="py-12 text-center">
+				<div className="mb-4">
+					<h2 className="text-4xl font-bold text-gray-900">Who am I?</h2>
+				</div>
+				<div className="flex justify-center">
+					<div className="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-12 items-center">
+						<div className="sm:col-span-5 col-span-1 flex justify-center mb-12 sm:mb-0">
+							<Image
 								alt="Low Yong Cheng"
 								src="/img/yong-cheng-metasprint.jpeg"
-								variant="rounded"
-								sx={{
-									width: "100%",
-									height: "auto",
-									marginX: "auto",
-								}}
+								width={400}
+								height={400}
+								className="w-full h-auto rounded-lg shadow-md max-w-sm"
 							/>
-						</Grid>
-						<Grid size={{ xs: 12, sm: 7 }} display="flex" alignItems="center">
-							<Box textAlign="left" mx={2}>
-								<Typography marginBottom={2} variant="body1">
+						</div>
+						<div className="sm:col-span-7 col-span-1 flex items-center">
+							<div className="text-left mx-8">
+								<p className="mb-8 text-gray-700 leading-relaxed text-lg">
 									I am Yong Cheng or YC, I grew up studying in various
 									international schools in particular{" "}
-									<MuiLink
+									<a
 										href="https://www.scis-china.org"
 										target="_blank"
-										underline="none"
+										rel="noopener noreferrer"
+										className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
 									>
 										Shanghai Community International School
-									</MuiLink>
+									</a>
 									,{" "}
-									<MuiLink
+									<a
 										href="https://shanghai-pudong.dulwich.org"
 										target="_blank"
-										underline="none"
+										rel="noopener noreferrer"
+										className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
 									>
 										Dulwich College Shanghai
-									</MuiLink>{" "}
+									</a>{" "}
 									and{" "}
-									<MuiLink
+									<a
 										href="https://shatincollege.edu.hk"
 										target="_blank"
-										underline="none"
+										rel="noopener noreferrer"
+										className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
 									>
 										Sha Tin College Hong Kong
-									</MuiLink>
+									</a>
 									.
-								</Typography>
-								<Typography marginBottom={2} variant="body1">
+								</p>
+								<p className="mb-8 text-gray-700 leading-relaxed text-lg">
 									During my free time, I will write Tech Articles to share my
 									learning experience as a web software engineer. I hope that
 									these articles will help my students and others transition
@@ -266,19 +239,22 @@ const Index = () => {
 									mainly targeted at junior web software engineers. If you are a
 									mid or senior level, feel free to take a peek at them if you
 									are free.
-								</Typography>
-								<Typography marginBottom={2} variant="body1">
+								</p>
+								<p className="mb-8 text-gray-700 leading-relaxed text-lg">
 									You can find out more about me in the{" "}
-									<Link href="/about" style={{ textDecoration: "none" }}>
+									<Link
+										href="/about"
+										className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+									>
 										about
 									</Link>{" "}
 									section.
-								</Typography>
-							</Box>
-						</Grid>
-					</Grid>
-				</Box>
-			</Box>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<GoogleAds slotId="8155985403" />
 		</StandardLayout>

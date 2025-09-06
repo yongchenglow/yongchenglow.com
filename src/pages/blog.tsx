@@ -1,15 +1,11 @@
-import {
-	Box,
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	Grid,
-	Typography,
-	useTheme,
-} from "@mui/material";
 import Link from "next/link";
+import Box from "@/src/components/atoms/box";
+import Button from "@/src/components/atoms/button";
+import Card, { CardActions, CardContent } from "@/src/components/atoms/card";
 import GoogleAds from "@/src/components/atoms/googleAds";
+import Grid from "@/src/components/atoms/grid";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 const About = () => {
@@ -50,11 +46,7 @@ const About = () => {
 					Previous Articles
 				</Typography>
 				<Grid container spacing={2} justifyContent="center">
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
+					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								Journey to the Web
@@ -71,11 +63,7 @@ const About = () => {
 							</Link>
 						</CardActions>
 					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
+					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								Join the Scrum!
@@ -92,11 +80,7 @@ const About = () => {
 							</Link>
 						</CardActions>
 					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
+					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								It&apos;s Story Time
@@ -113,11 +97,7 @@ const About = () => {
 							</Link>
 						</CardActions>
 					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
+					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								Single Source of Truth
@@ -134,11 +114,7 @@ const About = () => {
 							</Link>
 						</CardActions>
 					</Grid>
-					<Grid
-						component={Card}
-						size={{ sm: 12, md: 4, lg: 3 }}
-						sx={{ maxWidth: 350 }}
-					>
+					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								Designing the Interface

@@ -1,13 +1,10 @@
-import {
-	Box,
-	Button,
-	Link as MuiLink,
-	Typography,
-	useTheme,
-} from "@mui/material";
 import Image from "next/image";
-import Link from "next/link";
+import Box from "@/src/components/atoms/box";
+import Button from "@/src/components/atoms/button";
 import GoogleAds from "@/src/components/atoms/googleAds";
+import Link from "@/src/components/atoms/link";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 const Blog1 = () => {
@@ -41,9 +38,9 @@ const Blog1 = () => {
 						So, you have just finished your coding bootcamp, got your degree or
 						built your very own web application and you think you’re ready to
 						conquer the software engineering world. You go over to{" "}
-						<MuiLink href="https://glints.com" target="_blank">
+						<Link href="https://glints.com" target="_blank">
 							Glints
-						</MuiLink>
+						</Link>
 						, apply for a software engineering job and demand a 5k starting
 						salary.
 					</Typography>
@@ -57,9 +54,9 @@ const Blog1 = () => {
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						If you pass the initial Resume screening, you may be sent a 1-hour{" "}
-						<MuiLink href="https://www.hackerrank.com" target="_blank">
+						<Link href="https://www.hackerrank.com" target="_blank">
 							HackerRank
-						</MuiLink>{" "}
+						</Link>{" "}
 						test, but as soon as you open it, the only thing that comes out of
 						your mouth is WTF. Pursuing a career in software engineering is
 						never easy, although you can create a website, interviews tend to
@@ -68,12 +65,12 @@ const Blog1 = () => {
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						Another scenario you might end up in, is that the employer gives you
 						a{" "}
-						<MuiLink
+						<Link
 							href="https://github.com/topics/take-home-test"
 							target="_blank"
 						>
 							take home assignment
-						</MuiLink>
+						</Link>
 						, where you have to create a mini web application to demonstrate
 						your skills. If you have the mindset that you should not create
 						things for free, or if you think the company is going to use what
@@ -107,20 +104,20 @@ const Blog1 = () => {
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
 						The intended audience for these articles are{" "}
-						<MuiLink
+						<Link
 							href="https://medium.com/@anomikos/hack-the-ladder-scope-skills-responsibilities-for-modern-software-engineering-edc9a8163c4d"
 							target="_blank"
 						>
 							junior to mid-level software engineers
-						</MuiLink>
+						</Link>
 						, so don&apos;t expect examples to be super complex as the focus
 						will mainly be on{" "}
-						<MuiLink
+						<Link
 							href="https://en.wikipedia.org/wiki/Monolithic_application"
 							target="_blank"
 						>
 							monoliths
-						</MuiLink>
+						</Link>
 						. In theory, you should be trying to master these concepts as junior
 						developer before you can be classified as a mid-level developer.
 						However, being an interviewer myself, I find that even some
@@ -144,18 +141,18 @@ const Blog1 = () => {
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						The articles that I will be writing will not be focused on how to
 						pass{" "}
-						<MuiLink href="https://www.hackerrank.com" target="_blank">
+						<Link href="https://www.hackerrank.com" target="_blank">
 							HackerRank
-						</MuiLink>
+						</Link>
 						. The only way to dominate these HackerRank test is to practice. Go
 						to the website and try solving the different problems. In general,
 						my advice to you is that in order to meet the{" "}
-						<MuiLink
+						<Link
 							href="https://medium.com/@StueyGK/algorithm-time-complexity-and-big-o-notation-51502e612b4d"
 							target="_blank"
 						>
 							time complexity
-						</MuiLink>{" "}
+						</Link>{" "}
 						requirements, your solutions must be O(n log n) and below. Anything
 						that is above O(n<sup>2</sup>), you will not be obtaining full
 						marks.
@@ -181,19 +178,19 @@ const Blog1 = () => {
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={5}>
 						If you are my hard core fan, you can check out the following{" "}
-						<MuiLink
+						<Link
 							href="https://github.com/yongchenglow/airbnb-clone"
 							target="_blank"
 						>
 							AirBnB repository
-						</MuiLink>{" "}
+						</Link>{" "}
 						and{" "}
-						<MuiLink
+						<Link
 							href="https://github.com/yongchenglow/goal-setting-app"
 							target="_blank"
 						>
 							Goal Setting repository
-						</MuiLink>{" "}
+						</Link>{" "}
 						that I will be using as examples. These are by far a finished
 						products. I will enhance it as and when the content asks for it.
 						Pardon me as I have a full time job and a part time teaching job.
@@ -205,13 +202,13 @@ const Blog1 = () => {
 							<Button
 								size="small"
 								variant="contained"
-								sx={{ textTransform: "none" }}
+								style={{ textTransform: "none" }}
 							>
 								Next Article: Join the Scrum
 							</Button>
 						</Link>
 					</Box>
-					<Typography variant="caption">
+					<Typography variant="body2" fontSize="0.75rem">
 						If you are wondering why I am not posting these articles on Medium,
 						it is because these content are very general and specific for a
 						certain audience. Also to cut a bit of slack for myself as I am not

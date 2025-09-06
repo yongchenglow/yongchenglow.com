@@ -1,6 +1,9 @@
-import { Box, Link as MuiLink, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
+import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
+import Link from "@/src/components/atoms/link";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 const Blog3 = () => {
@@ -58,7 +61,7 @@ const Blog3 = () => {
 						What are Personas?
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://www.freepik.com/vectors/infographic"
 							target="_blank"
 							aria-label="Persona"
@@ -71,21 +74,21 @@ const Blog3 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Box my={3} maxWidth="sm" mx="auto">
 						<Typography
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
-							<MuiLink
+							<Link
 								href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
 								target="_blank"
 							>
 								<b>Personas</b>
-							</MuiLink>{" "}
+							</Link>{" "}
 							are fictional characters that are created to represent the
 							different user groups of your product.
 						</Typography>
@@ -143,7 +146,7 @@ const Blog3 = () => {
 						Breaking down the Initiative
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
 							target="_blank"
 							aria-label="Agile Development Breakdown"
@@ -156,7 +159,7 @@ const Blog3 = () => {
 								height={500}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						Whenever the team wants to build something special, you will need to
@@ -170,7 +173,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							An <b>Initiative</b> is a product goal. It can be further broken
 							down into multiple epics to be worked on
@@ -179,7 +182,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							An <b>Epic</b> breaks the Initiative down into smaller parts. It
 							contains a collection of user stories or things that the user can
@@ -189,7 +192,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							<b>Stories or User stories</b> are requirements from the
 							perspective of the end users
@@ -198,7 +201,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							A <b>Task</b> is a breakdown of a story into smaller tasks.
 						</Typography>
@@ -206,7 +209,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							A <b>Sub-task</b> is a breakdown of a task
 						</Typography>
@@ -248,7 +251,7 @@ const Blog3 = () => {
 							fontSize={theme.typography.h6.fontSize}
 							textAlign="center"
 							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
+							style={{ fontStyle: "italic" }}
 						>
 							<b>Definition of Done</b> is the acceptance criteria to a
 							particular type of user story
@@ -411,7 +414,7 @@ const Blog3 = () => {
 						</Typography>
 					</Box>
 					<Typography
-						fontSize={theme.typography.caption.fontSize}
+						fontSize="0.75rem"
 						color="textSecondary"
 						textAlign="right"
 						marginBottom={3}

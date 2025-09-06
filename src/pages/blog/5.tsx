@@ -1,18 +1,19 @@
+import Image from "next/image";
+import Box from "@/src/components/atoms/box";
+import GoogleAds from "@/src/components/atoms/googleAds";
+import Link from "@/src/components/atoms/link";
 import {
-	Box,
-	Link as MuiLink,
 	Paper,
+	StyledTableCell,
+	StyledTableRow,
 	Table,
 	TableBody,
 	TableContainer,
 	TableHead,
 	TableRow,
-	Typography,
-	useTheme,
-} from "@mui/material";
-import Image from "next/image";
-import GoogleAds from "@/src/components/atoms/googleAds";
-import { StyledTableCell, StyledTableRow } from "@/src/components/atoms/table";
+} from "@/src/components/atoms/table";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 type FacetsOfWebDesign = {
@@ -86,18 +87,18 @@ const Blog5 = () => {
 						interface is left to the product designers. If a company has
 						multiple products, they will usually have a core design team that
 						will create something called a{" "}
-						<MuiLink
+						<Link
 							href="https://www.nngroup.com/articles/design-systems-101/"
 							target="_blank"
 						>
 							design system
-						</MuiLink>{" "}
+						</Link>{" "}
 						to be used throughout the entire company. This ensures that the user
 						experience remain similar across all the company&apos;s products. An
 						example of this is{" "}
-						<MuiLink href="https://developer.apple.com/design/" target="_blank">
+						<Link href="https://developer.apple.com/design/" target="_blank">
 							Apple
-						</MuiLink>
+						</Link>
 						, the design system between the Mac, iPad, and iPhone share the same
 						design language making their users feel comfortable as they switch
 						between these products.
@@ -144,9 +145,9 @@ const Blog5 = () => {
 						will explain things a bit differently. However, in order for us to
 						speak the same language, for this article, this is the definition
 						which we will used that I learned from my time at{" "}
-						<MuiLink href="https://www.nus.edu.sg" target="_blank">
+						<Link href="https://www.nus.edu.sg" target="_blank">
 							NUS
-						</MuiLink>
+						</Link>
 						.
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
@@ -171,7 +172,7 @@ const Blog5 = () => {
 						Design thinking
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://developerexperience.io/practices/design-thinking"
 							target="_blank"
 							aria-label="Design Thinking"
@@ -184,7 +185,7 @@ const Blog5 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Box my={3} maxWidth="sm" mx="auto">
 						<Typography
@@ -193,20 +194,20 @@ const Blog5 = () => {
 							marginBottom={2}
 							sx={{ fontStyle: "italic" }}
 						>
-							<MuiLink
+							<Link
 								href="https://www.postgresql.org/docs/current/datatype.html"
 								target="_blank"
 							>
 								<b>Design thinking </b>
-							</MuiLink>{" "}
+							</Link>{" "}
 							is a human-centred, collaborative problem-solving approach that is
 							creative, iterative and practical.
 						</Typography>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<MuiLink href="https://www.ideou.com" target="_blank">
+						<Link href="https://www.ideou.com" target="_blank">
 							Ideo
-						</MuiLink>{" "}
+						</Link>{" "}
 						is a design consulting firm famous for using this approach to help
 						companies create wonderful products. Design thinking is a 5 step
 						process as shown in the picture above.
@@ -268,7 +269,7 @@ const Blog5 = () => {
 						</ol>
 					</Box>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"
 							target="_blank"
 							aria-label="Quick and Dirty Prototype"
@@ -281,7 +282,7 @@ const Blog5 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						A Quick & Dirty prototype is something that can be done really
@@ -292,7 +293,7 @@ const Blog5 = () => {
 						understanding of what a product will look like.
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
 							target="_blank"
 							aria-label="Low Fidelity Prototype"
@@ -305,7 +306,7 @@ const Blog5 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						A low fidelity prototype focuses on the layout and concepts. These
@@ -317,7 +318,7 @@ const Blog5 = () => {
 						client&apos;s review.
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
 							target="_blank"
 							aria-label="High Fidelity Prototype"
@@ -330,7 +331,7 @@ const Blog5 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						A high fidelity prototype is almost like the final product, however
@@ -355,7 +356,7 @@ const Blog5 = () => {
 						Facets of Web Design
 					</Typography>
 					<Box maxWidth="sm" mx="auto" mb={4}>
-						<MuiLink
+						<Link
 							href="https://eu.landisgyr.com/better-tech/usability-is-a-key-element-of-user-experience"
 							target="_blank"
 							aria-label="Facets of Web Design"
@@ -368,7 +369,7 @@ const Blog5 = () => {
 								height={600}
 								priority={false}
 							/>
-						</MuiLink>
+						</Link>
 					</Box>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
 						While prototyping is important, what do designers take into
@@ -387,10 +388,7 @@ const Blog5 = () => {
 							</TableHead>
 							<TableBody>
 								{facetsOfWebDesign.map((facet) => (
-									<StyledTableRow
-										key={facet.word}
-										sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-									>
+									<StyledTableRow key={facet.word}>
 										<StyledTableCell component="th" scope="row" align="center">
 											{facet.word}
 										</StyledTableCell>

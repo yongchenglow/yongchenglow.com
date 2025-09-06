@@ -1,20 +1,21 @@
+import Image from "next/image";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
+import Box from "@/src/components/atoms/box";
+import GoogleAds from "@/src/components/atoms/googleAds";
+import Link from "@/src/components/atoms/link";
 import {
-	Box,
-	Link as MuiLink,
 	Paper,
+	StyledTableCell,
+	StyledTableRow,
 	Table,
 	TableBody,
 	TableContainer,
 	TableHead,
 	TableRow,
-	Typography,
-	useTheme,
-} from "@mui/material";
-import Image from "next/image";
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
-import GoogleAds from "@/src/components/atoms/googleAds";
-import { StyledTableCell, StyledTableRow } from "@/src/components/atoms/table";
+} from "@/src/components/atoms/table";
+import Typography from "@/src/components/atoms/typography";
+import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/pages/layouts/standard";
 
 type OnDelete = {
@@ -105,12 +106,12 @@ const Blog4 = () => {
 							marginBottom={2}
 							sx={{ fontStyle: "italic" }}
 						>
-							<MuiLink
+							<Link
 								href="https://www.postgresql.org/docs/current/datatype.html"
 								target="_blank"
 							>
 								<b>Database constraints </b>
-							</MuiLink>{" "}
+							</Link>{" "}
 							give you control over the data stored inside the tables
 						</Typography>
 					</Box>
@@ -161,7 +162,7 @@ const Blog4 = () => {
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -249,7 +250,7 @@ CREATE TABLE products (
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -272,10 +273,7 @@ CREATE TABLE order_items (
 							</TableHead>
 							<TableBody>
 								{deleteActions.map((deleteEvent) => (
-									<StyledTableRow
-										key={deleteEvent.action}
-										sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-									>
+									<StyledTableRow key={deleteEvent.action}>
 										<StyledTableCell component="th" scope="row" align="center">
 											{deleteEvent.action}
 										</StyledTableCell>
@@ -322,7 +320,7 @@ CREATE TABLE order_items (
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -371,7 +369,7 @@ CREATE TABLE user (
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -414,12 +412,12 @@ end
 						marginBottom={3}
 						sx={{ fontStyle: "italic" }}
 					>
-						<MuiLink
+						<Link
 							href="https://opentextbc.ca/dbdesign01/chapter/chapter-12-normalization/"
 							target="_blank"
 						>
 							<b>Normalization</b>
-						</MuiLink>{" "}
+						</Link>{" "}
 						is a database design technique that reduces data redundancy, and
 						anomalies.
 					</Typography>
@@ -430,12 +428,12 @@ end
 						Form to 3.5 Normal Form, otherwise known as Boyce-Codd normal
 						form(BCNF) which is usually the requirements needed to pass most
 						technical assessments. There are greater levels of{" "}
-						<MuiLink
+						<Link
 							href="https://www.guru99.com/database-normalization.html"
 							target="_blank"
 						>
 							normalization
-						</MuiLink>{" "}
+						</Link>{" "}
 						but we won&apos;t be covering them here.
 					</Typography>
 					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
@@ -505,7 +503,7 @@ end
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -531,7 +529,7 @@ Student_Grade_Report (StudentId, Student, Major, Advisor, [Course, Grade])
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -558,7 +556,7 @@ StudentCourse (StudentId, Course, Grade)
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -620,7 +618,7 @@ Result: Row1 = student, [course1]
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -696,7 +694,7 @@ Course (CourseId, Course)
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -762,7 +760,7 @@ Course (CourseId, Course)
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`
@@ -789,7 +787,7 @@ StudentMajor (StudentId, Advisor, Major)
 							customStyle={{
 								textAlign: "left",
 								display: "inline-block",
-								padding: theme.spacing(0, 5),
+								padding: `0 ${theme.spacing(5)}`,
 							}}
 						>
 							{`

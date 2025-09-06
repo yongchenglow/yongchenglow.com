@@ -1,15 +1,16 @@
-import { Box, Container } from "@mui/material";
 import type React from "react";
 import ResponsiveAppBar from "@/src/components/organisms/appbar";
 import Footer from "@/src/components/organisms/footer";
 
 const StandardLayout = ({ children }): React.ReactElement => {
 	return (
-		<Box height="100vh" paddingTop={8} display="flex" flexDirection="column">
+		<div className="min-h-screen pt-16 flex flex-col">
 			<ResponsiveAppBar />
-			<Container maxWidth="xl">{children}</Container>
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+				{children}
+			</div>
 			<Footer />
-		</Box>
+		</div>
 	);
 };
 

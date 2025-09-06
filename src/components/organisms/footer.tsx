@@ -1,64 +1,55 @@
-import EmailIcon from "@mui/icons-material/Email";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { Box, Container, Grid, Link as MuiLink, useTheme } from "@mui/material";
+import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
-	const theme = useTheme();
 	return (
-		<footer style={{ marginTop: "auto" }}>
-			<Box bgcolor="text.secondary" color="white" p={1} pt={1.5}>
-				<Container maxWidth="xl">
-					<Grid container textAlign="center">
-						<Grid size={{ xs: 12, sm: 4 }}>
-							<MuiLink
+		<footer className="mt-auto">
+			<div className="bg-gray-600 text-white p-4 pt-6">
+				<div className="max-w-7xl mx-auto">
+					<div className="grid grid-cols-1 sm:grid-cols-3 text-center gap-4">
+						<div className="flex justify-center space-x-4">
+							<a
 								href="https://www.linkedin.com/in/yong-cheng-low/"
 								target="_blank"
-								underline="none"
-								color="white"
-								aria-label="Linkedin"
-								mx={1}
+								rel="noopener noreferrer"
+								className="text-white hover:text-gray-300 transition-colors duration-200"
+								aria-label="LinkedIn"
 							>
-								<LinkedInIcon />
-							</MuiLink>
-							<MuiLink
+								<Linkedin size={24} />
+							</a>
+							<a
 								href="https://github.com/yongchenglow"
 								target="_blank"
-								underline="none"
-								color="white"
-								aria-label="Github"
-								mx={1}
+								rel="noopener noreferrer"
+								className="text-white hover:text-gray-300 transition-colors duration-200"
+								aria-label="GitHub"
 							>
-								<GitHubIcon />
-							</MuiLink>
-							<MuiLink
+								<Github size={24} />
+							</a>
+							<a
 								href="https://www.instagram.com/yclow88/"
 								target="_blank"
-								underline="none"
-								color="white"
+								rel="noopener noreferrer"
+								className="text-white hover:text-gray-300 transition-colors duration-200"
 								aria-label="Instagram"
-								mx={1}
 							>
-								<InstagramIcon />
-							</MuiLink>
-						</Grid>
-						<Grid size={{ xs: 12, sm: 4 }}>
+								<Instagram size={24} />
+							</a>
+						</div>
+						<div className="flex items-center justify-center">
 							© {new Date().getFullYear()} Yong Cheng Low
-						</Grid>
-						<Grid size={{ xs: 12, sm: 4 }}>
-							<MuiLink
+						</div>
+						<div className="flex items-center justify-center">
+							<a
 								href="mailto:lowyongcheng@hotmail.com"
-								underline="none"
-								color="white"
+								className="text-white hover:text-gray-300 transition-colors duration-200 flex items-center gap-2"
 							>
-								<EmailIcon sx={{ marginBottom: theme.spacing(-0.75) }} />{" "}
+								<Mail size={20} />
 								lowyongcheng@hotmail.com
-							</MuiLink>
-						</Grid>
-					</Grid>
-				</Container>
-			</Box>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</footer>
 	);
 };
