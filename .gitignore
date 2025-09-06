@@ -39,5 +39,6 @@ yarn-error.log*
 *.graphql.d.ts
 *.graphqls.d.ts
 
-#storybook
-/storybook-static
+
+# Serena
+.serena/

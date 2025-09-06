@@ -1,29 +1,29 @@
 const ERROR = 2;
 
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
-  rules: {
-    'subject-empty': [ERROR, 'never'],
-    'type-empty': [ERROR, 'never'],
-    'type-case': [ERROR, 'never'],
-    'subject-case': [ERROR, 'never'],
-    'header-max-length': [2, 'always', 72],
-    'type-enum': [
-      2,
-      'always',
-      [
-        'docs',
-        'build',
-        'ci',
-        'style',
-        'refactor',
-        'revert',
-        'feat',
-        'fix',
-        'perf',
-        'test',
-        'chore',
-      ],
-    ],
-  },
+	extends: ["@commitlint/config-conventional"],
+	rules: {
+		"subject-empty": [ERROR, "never"],
+		"type-empty": [ERROR, "never"],
+		"type-case": [ERROR, "never"],
+		"subject-case": [ERROR, "never"],
+		"header-max-length": [2, "always", 72],
+		"type-enum": [
+			2,
+			"always",
+			[
+				"docs",
+				"build",
+				"ci",
+				"style",
+				"refactor",
+				"revert",
+				"feat",
+				"fix",
+				"perf",
+				"test",
+				"chore",
+			],
+		],
+	},
 };
