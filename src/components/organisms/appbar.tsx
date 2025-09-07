@@ -1,12 +1,13 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/src/components/theme-toggle";
 
 const pages = ["Home", "About", "Blog"];
 
 const ResponsiveAppBar = () => {
 	return (
-		<header className="bg-primary-500 shadow-sm">
+		<header className="bg-primary-500 dark:bg-primary-700 shadow-sm">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex items-center justify-center py-4">
+				<div className="flex items-center justify-between py-4">
 					<div className="flex flex-grow justify-center">
 						{pages.map((page) => (
 							<Link
@@ -17,6 +18,9 @@ const ResponsiveAppBar = () => {
 								{page}
 							</Link>
 						))}
+					</div>
+					<div className="ml-4">
+						<ThemeToggle />
 					</div>
 				</div>
 			</div>

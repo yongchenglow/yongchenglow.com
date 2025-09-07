@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { primaryFont } from "../font";
 import "./globals.css";
+import { ThemeProvider } from "@/src/components/theme-provider";
 
 export const metadata: Metadata = {
 	title: "Yong Cheng Low",
@@ -41,29 +42,36 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html prefix="og: http://ogp.me/ns#" lang="en">
+		<html prefix="og: http://ogp.me/ns#" lang="en" suppressHydrationWarning>
 			<body className={primaryFont.className}>
-				<div className="root">
-					<main>{children}</main>
-					<Script
-						async
-						src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
-						crossOrigin="anonymous"
-					/>
-					<Script
-						async
-						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}
-					/>
-					{/* biome-ignore lint/correctness/useUniqueElementIds: Google Analytics requires a specific ID */}
-					<Script id="google-analytics" strategy="afterInteractive">
-						{`
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<div className="root">
+						<main>{children}</main>
+						<Script
+							async
+							src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
+							crossOrigin="anonymous"
+						/>
+						<Script
+							async
+							src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}
+						/>
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Google Analytics requires a specific ID */}
+						<Script id="google-analytics" strategy="afterInteractive">
+							{`
 						window.dataLayer = window.dataLayer || [];
 						function gtag(){window.dataLayer.push(arguments);}
 						gtag('js', new Date());
 						gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}');
 					`}
-					</Script>
-				</div>
+						</Script>
+					</div>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

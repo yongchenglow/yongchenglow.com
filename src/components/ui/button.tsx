@@ -10,26 +10,19 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default: "bg-primary text-primary-foreground hover:bg-primary/90",
-				contained: "bg-primary text-primary-foreground hover:bg-primary/90", // MUI compatibility
 				destructive:
 					"bg-destructive text-destructive-foreground hover:bg-destructive/90",
 				outline:
 					"border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-				outlined:
-					"border border-input bg-background hover:bg-accent hover:text-accent-foreground", // MUI compatibility
 				secondary:
 					"bg-secondary text-secondary-foreground hover:bg-secondary/80",
 				ghost: "hover:bg-accent hover:text-accent-foreground",
 				link: "text-primary underline-offset-4 hover:underline",
-				text: "text-primary hover:bg-accent hover:text-accent-foreground", // MUI compatibility
 			},
 			size: {
 				default: "h-10 px-4 py-2",
-				medium: "h-10 px-4 py-2", // MUI compatibility
 				sm: "h-9 rounded-md px-3",
-				small: "h-9 rounded-md px-3", // MUI compatibility
 				lg: "h-11 rounded-md px-8",
-				large: "h-11 rounded-md px-8", // MUI compatibility
 				icon: "h-10 w-10",
 			},
 		},
