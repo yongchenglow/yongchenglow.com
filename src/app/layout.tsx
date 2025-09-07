@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { ThemeProvider } from "@/src/components/theme-provider";
 import { primaryFont } from "../font";
 import "./globals.css";
-import { ThemeProvider } from "@/src/components/theme-provider";
 
 export const metadata: Metadata = {
 	title: "Yong Cheng Low",
