@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Box from "@/src/components/atoms/box";
-import Button from "@/src/components/atoms/button";
-import Card, { CardActions, CardContent } from "@/src/components/atoms/card";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import Grid from "@/src/components/atoms/grid";
-import Typography from "@/src/components/atoms/typography";
+import { Box } from "@/src/components/ui/box";
+import { Button } from "@/src/components/ui/button";
+import { Card, CardActions, CardContent } from "@/src/components/ui/card";
+import { Grid } from "@/src/components/ui/grid";
+import { Typography } from "@/src/components/ui/typography";
 import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/layouts/StandardLayout";
 

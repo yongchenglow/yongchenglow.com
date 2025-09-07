@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Box from "@/src/components/atoms/box";
-import Button from "@/src/components/atoms/button";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import Link from "@/src/components/atoms/link";
-import Typography from "@/src/components/atoms/typography";
+import { Box } from "@/src/components/ui/box";
+import { Button } from "@/src/components/ui/button";
+import { Link } from "@/src/components/ui/link";
+import { Typography } from "@/src/components/ui/typography";
 import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/layouts/StandardLayout";
 

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import Link from "@/src/components/atoms/link";
+import { Box } from "@/src/components/ui/box";
+import { Link } from "@/src/components/ui/link";
 import {
 	Paper,
 	StyledTableCell,
@@ -13,8 +13,8 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-} from "@/src/components/atoms/table";
-import Typography from "@/src/components/atoms/typography";
+} from "@/src/components/ui/table";
+import { Typography } from "@/src/components/ui/typography";
 import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/layouts/StandardLayout";
 

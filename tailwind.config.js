@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+	darkMode: ["class"],
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,7 +9,14 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
+				border: "hsl(var(--border))",
+				input: "hsl(var(--input))",
+				ring: "hsl(var(--ring))",
+				background: "hsl(var(--background))",
+				foreground: "hsl(var(--foreground))",
 				primary: {
+					DEFAULT: "hsl(var(--primary))",
+					foreground: "hsl(var(--primary-foreground))",
 					50: "#f3f4fb",
 					100: "#e6e9f7",
 					200: "#d1d7f0",
@@ -22,6 +30,8 @@ module.exports = {
 					950: "#1e2749",
 				},
 				secondary: {
+					DEFAULT: "hsl(var(--secondary))",
+					foreground: "hsl(var(--secondary-foreground))",
 					50: "#f0fdfa",
 					100: "#ccfbf1",
 					200: "#99f6e4",
@@ -33,6 +43,10 @@ module.exports = {
 					800: "#115e59",
 					900: "#134e4a",
 					950: "#042f2e",
+				},
+				destructive: {
+					DEFAULT: "hsl(var(--destructive))",
+					foreground: "hsl(var(--destructive-foreground))",
 				},
 				error: {
 					50: "#fef2f2",
@@ -47,6 +61,27 @@ module.exports = {
 					900: "#7f1d1d",
 					950: "#450a0a",
 				},
+				muted: {
+					DEFAULT: "hsl(var(--muted))",
+					foreground: "hsl(var(--muted-foreground))",
+				},
+				accent: {
+					DEFAULT: "hsl(var(--accent))",
+					foreground: "hsl(var(--accent-foreground))",
+				},
+				popover: {
+					DEFAULT: "hsl(var(--popover))",
+					foreground: "hsl(var(--popover-foreground))",
+				},
+				card: {
+					DEFAULT: "hsl(var(--card))",
+					foreground: "hsl(var(--card-foreground))",
+				},
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
 				sans: ["Roboto", "Helvetica", "Arial", "sans-serif"], // Matching MUI font

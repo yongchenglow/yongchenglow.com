@@ -1,10 +1,10 @@
 "use client";
 
-import Avatar from "@/src/components/atoms/avatar";
-import Box from "@/src/components/atoms/box";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import Link from "@/src/components/atoms/link";
-import Typography from "@/src/components/atoms/typography";
+import { Avatar } from "@/src/components/ui/avatar";
+import { Box } from "@/src/components/ui/box";
+import { Link } from "@/src/components/ui/link";
+import { Typography } from "@/src/components/ui/typography";
 import StandardLayout from "@/src/layouts/StandardLayout";
 
 export default function AboutPage() {
