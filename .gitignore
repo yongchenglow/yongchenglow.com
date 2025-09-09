@@ -43,4 +43,3 @@ yarn-error.log*
 # Serena
 .serena/
 .playwright-mcp/
-.claude/

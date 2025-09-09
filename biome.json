@@ -8,11 +8,16 @@
 	"files": {
 		"ignoreUnknown": false,
 		"includes": [
+			".claude/**/*",
+			".husky/**/*",
+			"chart/**/*",
+			"test/**/*",
 			"src/**/*",
 			"*.ts",
 			"*.js",
 			"*.tsx",
 			"*.jsx",
+			"*.json",
 			"!node_modules",
 			"!.next",
 			"!dist",
