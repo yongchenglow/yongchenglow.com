@@ -1,8 +1,13 @@
 import { Slot } from "@radix-ui/react-slot";
-import * as React from "react";
+import {
+	type CSSProperties,
+	type ElementType,
+	forwardRef,
+	type HTMLAttributes,
+} from "react";
 import { cn } from "@/src/lib/utils";
 
-export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GridProps extends HTMLAttributes<HTMLDivElement> {
 	asChild?: boolean;
 	container?: boolean;
 	item?: boolean;
@@ -12,14 +17,14 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
 	md?: number | boolean;
 	lg?: number | boolean;
 	xl?: number | boolean;
-	component?: React.ElementType;
+	component?: ElementType;
 	sx?: {
 		maxWidth?: number;
 	};
 	justifyContent?: string;
 }
 
-const Grid = React.forwardRef<HTMLDivElement, GridProps>(
+const Grid = forwardRef<HTMLDivElement, GridProps>(
 	(
 		{
 			className,
@@ -99,7 +104,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 			return classes.join(" ");
 		};
 
-		const computedStyle: React.CSSProperties = {
+		const computedStyle: CSSProperties = {
 			...style,
 			...(sx?.maxWidth && { maxWidth: `${sx.maxWidth}px` }),
 		};

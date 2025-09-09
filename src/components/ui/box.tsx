@@ -1,8 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
-import * as React from "react";
+import { type CSSProperties, forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/src/lib/utils";
 
-export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
 	asChild?: boolean;
 	sx?: {
 		maxWidth?: number;
@@ -24,14 +24,14 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
 	justifyContent?: string;
 	alignItems?: string;
 	textAlign?: string;
-	component?: keyof React.JSX.IntrinsicElements;
+	component?: keyof JSX.IntrinsicElements;
 	fontSize?: string;
 	color?: string;
 	marginBottom?: number;
 	marginTop?: number;
 }
 
-const Box = React.forwardRef<HTMLElement, BoxProps>(
+const Box = forwardRef<HTMLElement, BoxProps>(
 	(
 		{
 			className,
@@ -64,7 +64,7 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
 	) => {
 		const Comp = asChild ? Slot : component || "div";
 
-		const computedStyle: React.CSSProperties = {
+		const computedStyle: CSSProperties = {
 			...style,
 			...(sx?.maxWidth && { maxWidth: `${sx.maxWidth}px` }),
 			...(sx?.marginX && {
@@ -96,7 +96,7 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
 			...(justifyContent && { justifyContent }),
 			...(alignItems && { alignItems }),
 			...(textAlign && {
-				textAlign: textAlign as React.CSSProperties["textAlign"],
+				textAlign: textAlign as CSSProperties["textAlign"],
 			}),
 			...(fontSize && { fontSize }),
 			...(color && { color }),

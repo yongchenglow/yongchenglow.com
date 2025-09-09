@@ -1,10 +1,16 @@
-import * as React from "react";
+import {
+	type ElementType,
+	forwardRef,
+	type HTMLAttributes,
+	type TdHTMLAttributes,
+	type ThHTMLAttributes,
+} from "react";
 
 import { cn } from "@/src/lib/utils";
 
-const Table = React.forwardRef<
+const Table = forwardRef<
 	HTMLTableElement,
-	React.HTMLAttributes<HTMLTableElement> & { sx?: { minWidth?: number } }
+	HTMLAttributes<HTMLTableElement> & { sx?: { minWidth?: number } }
 >(({ className, sx, ...props }, ref) => (
 	<div className="relative w-full overflow-auto">
 		<table
@@ -19,17 +25,17 @@ const Table = React.forwardRef<
 ));
 Table.displayName = "Table";
 
-const TableHeader = React.forwardRef<
+const TableHeader = forwardRef<
 	HTMLTableSectionElement,
-	React.HTMLAttributes<HTMLTableSectionElement>
+	HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
 	<thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
-const TableBody = React.forwardRef<
+const TableBody = forwardRef<
 	HTMLTableSectionElement,
-	React.HTMLAttributes<HTMLTableSectionElement>
+	HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
 	<tbody
 		ref={ref}
@@ -39,9 +45,9 @@ const TableBody = React.forwardRef<
 ));
 TableBody.displayName = "TableBody";
 
-const TableFooter = React.forwardRef<
+const TableFooter = forwardRef<
 	HTMLTableSectionElement,
-	React.HTMLAttributes<HTMLTableSectionElement>
+	HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
 	<tfoot
 		ref={ref}
@@ -54,9 +60,9 @@ const TableFooter = React.forwardRef<
 ));
 TableFooter.displayName = "TableFooter";
 
-const TableRow = React.forwardRef<
+const TableRow = forwardRef<
 	HTMLTableRowElement,
-	React.HTMLAttributes<HTMLTableRowElement>
+	HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
 	<tr
 		ref={ref}
@@ -69,9 +75,9 @@ const TableRow = React.forwardRef<
 ));
 TableRow.displayName = "TableRow";
 
-const TableHead = React.forwardRef<
+const TableHead = forwardRef<
 	HTMLTableCellElement,
-	React.ThHTMLAttributes<HTMLTableCellElement>
+	ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
 	<th
 		ref={ref}
@@ -84,9 +90,9 @@ const TableHead = React.forwardRef<
 ));
 TableHead.displayName = "TableHead";
 
-const TableCell = React.forwardRef<
+const TableCell = forwardRef<
 	HTMLTableCellElement,
-	React.TdHTMLAttributes<HTMLTableCellElement>
+	TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
 	<td
 		ref={ref}
@@ -96,9 +102,9 @@ const TableCell = React.forwardRef<
 ));
 TableCell.displayName = "TableCell";
 
-const TableCaption = React.forwardRef<
+const TableCaption = forwardRef<
 	HTMLTableCaptionElement,
-	React.HTMLAttributes<HTMLTableCaptionElement>
+	HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
 	<caption
 		ref={ref}
@@ -109,9 +115,9 @@ const TableCaption = React.forwardRef<
 TableCaption.displayName = "TableCaption";
 
 // MUI-compatible components
-const TableContainer = React.forwardRef<
+const TableContainer = forwardRef<
 	HTMLDivElement,
-	React.HTMLAttributes<HTMLDivElement> & { component?: React.ElementType }
+	HTMLAttributes<HTMLDivElement> & { component?: ElementType }
 >(({ className, component, children, ...props }, ref) => {
 	const Comp = component || "div";
 	return (
@@ -126,29 +132,28 @@ const TableContainer = React.forwardRef<
 });
 TableContainer.displayName = "TableContainer";
 
-const Paper = React.forwardRef<
-	HTMLDivElement,
-	React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-	<div
-		ref={ref}
-		className={cn(
-			"rounded-lg border bg-card text-card-foreground shadow-sm",
-			className,
-		)}
-		{...props}
-	/>
-));
+const Paper = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+	({ className, ...props }, ref) => (
+		<div
+			ref={ref}
+			className={cn(
+				"rounded-lg border bg-card text-card-foreground shadow-sm",
+				className,
+			)}
+			{...props}
+		/>
+	),
+);
 Paper.displayName = "Paper";
 
-const StyledTableCell = React.forwardRef<
+const StyledTableCell = forwardRef<
 	HTMLTableCellElement,
-	React.TdHTMLAttributes<HTMLTableCellElement> & {
+	TdHTMLAttributes<HTMLTableCellElement> & {
 		component?: "th" | "td";
 		align?: "left" | "center" | "right";
 	}
 >(({ className, component = "td", align = "left", ...props }, ref) => {
-	const Comp = component as keyof React.JSX.IntrinsicElements;
+	const Comp = component as keyof JSX.IntrinsicElements;
 	return (
 		<Comp
 			ref={ref}
@@ -164,9 +169,9 @@ const StyledTableCell = React.forwardRef<
 });
 StyledTableCell.displayName = "StyledTableCell";
 
-const StyledTableRow = React.forwardRef<
+const StyledTableRow = forwardRef<
 	HTMLTableRowElement,
-	React.HTMLAttributes<HTMLTableRowElement>
+	HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
 	<tr
 		ref={ref}

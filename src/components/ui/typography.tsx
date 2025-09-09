@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import * as React from "react";
+import { type CSSProperties, forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/src/lib/utils";
 
 const typographyVariants = cva("", {
@@ -74,10 +74,10 @@ const variantElementMap = {
 } as const;
 
 export interface TypographyProps
-	extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
+	extends Omit<HTMLAttributes<HTMLElement>, "color">,
 		VariantProps<typeof typographyVariants> {
 	asChild?: boolean;
-	component?: keyof React.JSX.IntrinsicElements;
+	component?: keyof JSX.IntrinsicElements;
 	// MUI-style props
 	mb?: number;
 	mt?: number;
@@ -92,7 +92,7 @@ export interface TypographyProps
 	sx?: { fontStyle?: string };
 }
 
-const Typography = React.forwardRef<HTMLElement, TypographyProps>(
+const Typography = forwardRef<HTMLElement, TypographyProps>(
 	(
 		{
 			className,
@@ -124,7 +124,7 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
 				(actualVariant && variantElementMap[actualVariant]) ||
 				"div";
 
-		const computedStyle: React.CSSProperties = {
+		const computedStyle: CSSProperties = {
 			...style,
 			...(mb && { marginBottom: `${mb * 8}px` }),
 			...(mt && { marginTop: `${mt * 8}px` }),
@@ -141,7 +141,7 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
 			...(marginBottom && { marginBottom: `${marginBottom * 8}px` }),
 			...(marginTop && { marginTop: `${marginTop * 8}px` }),
 			...(textAlign && {
-				textAlign: textAlign as React.CSSProperties["textAlign"],
+				textAlign: textAlign as CSSProperties["textAlign"],
 			}),
 			...(fontSize && { fontSize }),
 			...(fontWeight && { fontWeight }),

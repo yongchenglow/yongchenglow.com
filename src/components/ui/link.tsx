@@ -1,6 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import NextLink from "next/link";
-import * as React from "react";
+import {
+	type ComponentPropsWithoutRef,
+	type ComponentRef,
+	forwardRef,
+	type ReactNode,
+} from "react";
 import { cn } from "@/src/lib/utils";
 
 const linkVariants = cva(
@@ -28,13 +33,13 @@ const linkVariants = cva(
 );
 
 export interface LinkProps
-	extends React.ComponentPropsWithoutRef<typeof NextLink>,
+	extends ComponentPropsWithoutRef<typeof NextLink>,
 		VariantProps<typeof linkVariants> {
-	children: React.ReactNode;
+	children: ReactNode;
 	underline?: "none" | "hover" | "always";
 }
 
-const Link = React.forwardRef<React.ElementRef<typeof NextLink>, LinkProps>(
+const Link = forwardRef<ComponentRef<typeof NextLink>, LinkProps>(
 	({ className, variant, size, underline, ...props }, ref) => {
 		const underlineClass =
 			underline === "none"
