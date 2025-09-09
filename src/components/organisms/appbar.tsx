@@ -1,30 +1,43 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/src/components/theme-toggle";
+import {
+	NavigationMenu,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	navigationMenuTriggerStyle,
+} from "@/src/components/ui/navigation-menu";
 
-const pages = ["Home", "About", "Blog"];
+const pages = [
+	{ name: "Home", href: "/" },
+	{ name: "About", href: "/about" },
+	{ name: "Blog", href: "/blog" },
+];
 
 const ResponsiveAppBar = () => {
 	return (
-		<header className="bg-primary-500 dark:bg-primary-700 shadow-sm">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex items-center justify-between py-4">
-					<div className="flex flex-grow justify-center">
-						{pages.map((page) => (
+		<NavigationMenu>
+			<NavigationMenuList>
+				{pages.map((page) => (
+					<NavigationMenuItem key={page.name}>
+						<NavigationMenuLink
+							asChild
+							className={navigationMenuTriggerStyle()}
+						>
 							<Link
-								key={page}
-								href={page === "Home" ? "/" : `/${page.toLowerCase()}`}
-								className="text-white hover:text-gray-200 px-4 py-2 text-base font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer rounded-md hover:bg-white/10"
+								href={page.href}
+								className="text-white hover:text-gray-200 transition-colors duration-200"
 							>
-								{page}
+								{page.name}
 							</Link>
-						))}
-					</div>
-					<div className="ml-4">
-						<ThemeToggle />
-					</div>
+						</NavigationMenuLink>
+					</NavigationMenuItem>
+				))}
+				<div className="ml-4">
+					<ThemeToggle />
 				</div>
-			</div>
-		</header>
+			</NavigationMenuList>
+		</NavigationMenu>
 	);
 };
 export default ResponsiveAppBar;
