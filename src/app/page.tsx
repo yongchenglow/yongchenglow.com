@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import GoogleAds from "@/src/components/atoms/googleAds";
-import { Button } from "@/src/components/ui/button";
 import StandardLayout from "@/src/layouts/StandardLayout";
 
 export default function HomePage() {
