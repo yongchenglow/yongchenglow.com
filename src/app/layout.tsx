@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { ThemeProvider } from "@/src/components/theme-provider";
+import { ThemeProvider } from "@/src/components/ThemeProvider";
 import { primaryFont } from "../font";
 import "./globals.css";
 

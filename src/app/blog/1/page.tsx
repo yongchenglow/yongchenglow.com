@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import GoogleAds from "@/src/components/atoms/googleAds";
+import GoogleAds from "@/src/components/atoms/GoogleAds";
 import { Box } from "@/src/components/ui/box";
 import { Button } from "@/src/components/ui/button";
 import { Link } from "@/src/components/ui/link";

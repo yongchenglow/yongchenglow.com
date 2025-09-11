@@ -1,6 +1,6 @@
 "use client";
 
-import GoogleAds from "@/src/components/atoms/googleAds";
+import GoogleAds from "@/src/components/atoms/GoogleAds";
 import { Avatar } from "@/src/components/ui/avatar";
 import { Box } from "@/src/components/ui/box";
 import { Link } from "@/src/components/ui/link";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/src/components/theme-toggle";
+import { ThemeToggle } from "@/src/components/ThemeToggle";
 import {
 	NavigationMenu,
 	NavigationMenuItem,

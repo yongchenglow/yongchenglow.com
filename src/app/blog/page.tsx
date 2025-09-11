@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import GoogleAds from "@/src/components/atoms/googleAds";
+import GoogleAds from "@/src/components/atoms/GoogleAds";
 import { Box } from "@/src/components/ui/box";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardActions, CardContent } from "@/src/components/ui/card";

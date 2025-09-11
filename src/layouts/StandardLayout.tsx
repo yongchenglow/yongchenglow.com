@@ -1,6 +1,6 @@
 import type React from "react";
-import Footer from "@/src/components/organisms/footer";
-import NavigationBar from "@/src/components/organisms/navigation-bar";
+import Footer from "@/src/components/organisms/Footer";
+import NavigationBar from "@/src/components/organisms/Navigationbar";
 
 const StandardLayout = ({ children }): React.ReactElement => {
 	return (
