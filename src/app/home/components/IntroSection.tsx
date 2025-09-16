@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ExternalLink from "@/src/components/atoms/ExternalLink";
 
 export default function IntroSection() {
 	return (
@@ -16,33 +17,19 @@ export default function IntroSection() {
 				</div>
 				<div className="sm:col-span-7 col-span-1 mt-8 sm:mt-0 flex items-center">
 					<div className="text-center sm:text-left mx-8">
-						<h1 className="text-4xl font-bold mb-4 text-foreground">
-							Hello everyone!
-						</h1>
-						<h2 className="text-2xl font-medium mb-4 text-foreground">
+						<p className="text-4xl font-bold mb-6">Hello everyone!</p>
+						<h1 className="text-2xl font-medium mb-6">
 							I am Yong Cheng or YC for short.
-						</h2>
-						<h2 className="text-2xl font-medium text-foreground">
-							I am a Web Software Engineer at{" "}
-							<a
-								href="https://glints.com"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
-							>
-								Glints
-							</a>
-							, part-time teacher at{" "}
-							<a
-								href="https://www.lewagon.com/singapore"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
-							>
+						</h1>
+						<p className="text-2xl font-medium">
+							I am a Senior Software Engineer at{" "}
+							<ExternalLink href="https://glints.com">Glints</ExternalLink>,
+							part-time teacher at{" "}
+							<ExternalLink href="https://www.lewagon.com/singapore">
 								Le Wagon
-							</a>{" "}
+							</ExternalLink>{" "}
 							and a Sports Enthusiast.
-						</h2>
+						</p>
 					</div>
 				</div>
 			</div>
