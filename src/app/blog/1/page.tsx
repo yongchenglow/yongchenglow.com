@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import GoogleAds from "@/src/components/atoms/GoogleAds";
+import Link from "@/src/components/atoms/Link";
 import { Box } from "@/src/components/ui/box";
 import { Button } from "@/src/components/ui/button";
-import { Link } from "@/src/components/ui/link";
 import { Typography } from "@/src/components/ui/typography";
 import { useTheme } from "@/src/hooks/useTheme";
 import StandardLayout from "@/src/layouts/StandardLayout";

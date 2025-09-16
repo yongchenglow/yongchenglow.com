@@ -4,8 +4,8 @@ import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
 import GoogleAds from "@/src/components/atoms/GoogleAds";
+import Link from "@/src/components/atoms/Link";
 import { Box } from "@/src/components/ui/box";
-import { Link } from "@/src/components/ui/link";
 import {
 	Paper,
 	StyledTableCell,

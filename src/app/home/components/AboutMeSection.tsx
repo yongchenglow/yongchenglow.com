@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ExternalLink from "@/src/components/atoms/ExternalLink";
+import ExternalLink from "@/src/components/atoms/Link";
 
 export default function AboutMeSection() {
 	return (

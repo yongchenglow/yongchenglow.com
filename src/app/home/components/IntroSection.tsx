@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ExternalLink from "@/src/components/atoms/ExternalLink";
+import Link from "@/src/components/atoms/Link";
 
 export default function IntroSection() {
 	return (
@@ -23,11 +23,8 @@ export default function IntroSection() {
 						</h1>
 						<p className="text-2xl font-medium">
 							I am a Senior Software Engineer at{" "}
-							<ExternalLink href="https://glints.com">Glints</ExternalLink>,
-							part-time teacher at{" "}
-							<ExternalLink href="https://www.lewagon.com/singapore">
-								Le Wagon
-							</ExternalLink>{" "}
+							<Link href="https://glints.com">Glints</Link>, part-time teacher
+							at <Link href="https://www.lewagon.com/singapore">Le Wagon</Link>{" "}
 							and a Sports Enthusiast.
 						</p>
 					</div>
