@@ -18,9 +18,7 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
 	lg?: number | boolean;
 	xl?: number | boolean;
 	component?: ElementType;
-	sx?: {
-		maxWidth?: number;
-	};
+	maxWidth?: number;
 	justifyContent?: string;
 }
 
@@ -38,7 +36,7 @@ const Grid = forwardRef<HTMLDivElement, GridProps>(
 			lg,
 			xl,
 			component,
-			sx,
+			maxWidth,
 			justifyContent,
 			style,
 			...props
@@ -106,7 +104,7 @@ const Grid = forwardRef<HTMLDivElement, GridProps>(
 
 		const computedStyle: CSSProperties = {
 			...style,
-			...(sx?.maxWidth && { maxWidth: `${sx.maxWidth}px` }),
+			...(maxWidth && { maxWidth: `${maxWidth}px` }),
 		};
 
 		return (

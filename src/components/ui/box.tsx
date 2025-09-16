@@ -4,10 +4,6 @@ import { cn } from "@/src/lib/utils";
 
 export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
 	asChild?: boolean;
-	sx?: {
-		maxWidth?: number;
-		marginX?: number;
-	};
 	// MUI-style props
 	py?: number;
 	px?: number;
@@ -36,7 +32,6 @@ const Box = forwardRef<HTMLElement, BoxProps>(
 		{
 			className,
 			asChild = false,
-			sx,
 			style,
 			py,
 			px,
@@ -66,11 +61,6 @@ const Box = forwardRef<HTMLElement, BoxProps>(
 
 		const computedStyle: CSSProperties = {
 			...style,
-			...(sx?.maxWidth && { maxWidth: `${sx.maxWidth}px` }),
-			...(sx?.marginX && {
-				marginLeft: `${sx.marginX * 8}px`,
-				marginRight: `${sx.marginX * 8}px`,
-			}),
 			...(py && { paddingTop: `${py * 8}px`, paddingBottom: `${py * 8}px` }),
 			...(px && { paddingLeft: `${px * 8}px`, paddingRight: `${px * 8}px` }),
 			...(p && { padding: `${p * 8}px` }),

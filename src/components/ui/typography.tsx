@@ -89,7 +89,7 @@ export interface TypographyProps
 	textAlign?: string;
 	fontSize?: string;
 	fontWeight?: number | string;
-	sx?: { fontStyle?: string };
+	fontStyle?: string;
 }
 
 const Typography = forwardRef<HTMLElement, TypographyProps>(
@@ -111,7 +111,7 @@ const Typography = forwardRef<HTMLElement, TypographyProps>(
 			textAlign,
 			fontSize,
 			fontWeight,
-			sx,
+			fontStyle,
 			style,
 			...props
 		},
@@ -145,7 +145,7 @@ const Typography = forwardRef<HTMLElement, TypographyProps>(
 			}),
 			...(fontSize && { fontSize }),
 			...(fontWeight && { fontWeight }),
-			...(sx?.fontStyle && { fontStyle: sx.fontStyle }),
+			...(fontStyle && { fontStyle }),
 		};
 
 		return (

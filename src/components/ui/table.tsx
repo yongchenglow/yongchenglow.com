@@ -10,14 +10,15 @@ import { cn } from "@/src/lib/utils";
 
 const Table = forwardRef<
 	HTMLTableElement,
-	HTMLAttributes<HTMLTableElement> & { sx?: { minWidth?: number } }
->(({ className, sx, ...props }, ref) => (
+	HTMLAttributes<HTMLTableElement> & { minWidth?: number }
+>(({ className, minWidth, style, ...props }, ref) => (
 	<div className="relative w-full overflow-auto">
 		<table
 			ref={ref}
 			className={cn("w-full caption-bottom text-sm", className)}
 			style={{
-				...(sx?.minWidth && { minWidth: `${sx.minWidth}px` }),
+				...style,
+				...(minWidth && { minWidth: `${minWidth}px` }),
 			}}
 			{...props}
 		/>

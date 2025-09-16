@@ -57,22 +57,20 @@ interface MUIAvatarProps
 	extends ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
 	alt?: string;
 	src?: string;
-	sx?: {
-		width?: number;
-		height?: number;
-		margin?: string;
-	};
+	width?: number;
+	height?: number;
+	margin?: string;
 }
 
 const Avatar = forwardRef<
 	ComponentRef<typeof AvatarPrimitive.Root>,
 	MUIAvatarProps
->(({ className, alt, src, sx, style, ...props }, ref) => {
+>(({ className, alt, src, width, height, margin, style, ...props }, ref) => {
 	const computedStyle: CSSProperties = {
 		...style,
-		...(sx?.width && { width: `${sx.width}px` }),
-		...(sx?.height && { height: `${sx.height}px` }),
-		...(sx?.margin && { margin: sx.margin }),
+		...(width && { width: `${width}px` }),
+		...(height && { height: `${height}px` }),
+		...(margin && { margin: margin }),
 	};
 
 	return (

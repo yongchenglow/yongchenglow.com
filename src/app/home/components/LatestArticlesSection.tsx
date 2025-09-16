@@ -4,9 +4,7 @@ export default function LatestArticlesSection() {
 	return (
 		<div className="py-12 text-center">
 			<div className="mb-8">
-				<h2 className="text-4xl font-bold text-foreground">
-					Latest Tech Articles
-				</h2>
+				<h2 className="text-3xl font-semibold">Latest Tech Articles</h2>
 			</div>
 			<div className="flex justify-center">
 				<ArticleCard

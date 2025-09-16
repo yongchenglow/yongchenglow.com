@@ -1,34 +1,20 @@
-import { type CSSProperties, forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 
 import { cn } from "@/src/lib/utils";
 
-const Card = forwardRef<
-	HTMLDivElement,
-	HTMLAttributes<HTMLDivElement> & {
-		sx?: { maxWidth?: number; marginX?: number };
-	}
->(({ className, sx, style, ...props }, ref) => {
-	const computedStyle: CSSProperties = {
-		...style,
-		...(sx?.maxWidth && { maxWidth: `${sx.maxWidth}px` }),
-		...(sx?.marginX && {
-			marginLeft: `${sx.marginX * 8}px`,
-			marginRight: `${sx.marginX * 8}px`,
-		}),
-	};
-
-	return (
+const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+	({ className, style, ...props }, ref) => (
 		<div
 			ref={ref}
 			className={cn(
 				"rounded-lg border bg-card text-card-foreground shadow-sm",
 				className,
 			)}
-			style={computedStyle}
+			style={style}
 			{...props}
 		/>
-	);
-});
+	),
+);
 Card.displayName = "Card";
 
 const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
@@ -89,15 +75,17 @@ CardFooter.displayName = "CardFooter";
 const CardActions = forwardRef<
 	HTMLDivElement,
 	HTMLAttributes<HTMLDivElement> & {
-		sx?: { justifyContent?: string; paddingTop?: number };
+		justifyContent?: string;
+		paddingTop?: number;
 	}
->(({ className, sx, ...props }, ref) => (
+>(({ className, justifyContent, paddingTop, style, ...props }, ref) => (
 	<div
 		ref={ref}
 		className={cn("flex items-center p-6 pt-0", className)}
 		style={{
-			...(sx?.justifyContent && { justifyContent: sx.justifyContent }),
-			...(sx?.paddingTop !== undefined && { paddingTop: sx.paddingTop }),
+			...style,
+			...(justifyContent && { justifyContent }),
+			...(paddingTop !== undefined && { paddingTop }),
 		}}
 		{...props}
 	/>
