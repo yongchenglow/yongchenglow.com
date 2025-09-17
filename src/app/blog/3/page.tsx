@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import StandardLayout from "@/src/components/layouts/StandardLayout";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
+import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import { useTheme } from "@/src/components/theme/useTheme";
 import { Box } from "@/src/components/ui/box";
 import { Typography } from "@/src/components/ui/typography";
-import { useTheme } from "@/src/hooks/useTheme";
 
 export default function BlogPost3Page() {
 	const theme = useTheme();

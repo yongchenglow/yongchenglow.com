@@ -5,9 +5,9 @@ import ArticleContainer from "@/src/components/articles/ArticleContainer";
 import ArticleContent from "@/src/components/articles/ArticleContent";
 import ArticleParagraph from "@/src/components/articles/ArticleParagraph";
 import ArticleTitle from "@/src/components/articles/ArticleTitle";
-import StandardLayout from "@/src/components/layouts/StandardLayout";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
+import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 
 export default function AboutPage() {
 	return (

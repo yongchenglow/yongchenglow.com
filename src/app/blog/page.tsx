@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import StandardLayout from "@/src/components/layouts/StandardLayout";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
+import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 import { Card, CardContent } from "@/src/components/shared/ui/card";
 import { Typography } from "@/src/components/ui/typography";

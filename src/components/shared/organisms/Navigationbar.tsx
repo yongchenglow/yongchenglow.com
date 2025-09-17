@@ -7,7 +7,7 @@ import {
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
 } from "@/src/components/shared/ui/navigation-menu";
-import { ThemeToggle } from "@/src/components/ThemeToggle";
+import { ThemeToggle } from "@/src/components/theme/ThemeToggle";
 import { cn } from "@/src/lib/utils";
 
 const pages = [

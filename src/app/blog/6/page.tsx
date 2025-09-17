@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
-import StandardLayout from "@/src/components/layouts/StandardLayout";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
+import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import { useTheme } from "@/src/components/theme/useTheme";
 import { Box } from "@/src/components/ui/box";
 import { Typography } from "@/src/components/ui/typography";
-import { useTheme } from "@/src/hooks/useTheme";
 
 export default function BlogPost6Page() {
 	const theme = useTheme();

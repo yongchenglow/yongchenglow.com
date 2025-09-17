@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import StandardLayout from "@/src/components/layouts/StandardLayout";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
+import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 
 export default function BlogPost1Page() {
