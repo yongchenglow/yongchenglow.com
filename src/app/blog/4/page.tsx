@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
-import GoogleAds from "@/src/components/atoms/GoogleAds";
-import Link from "@/src/components/atoms/Link";
-import { Box } from "@/src/components/ui/box";
+import StandardLayout from "@/src/components/layouts/StandardLayout";
+import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
+import Link from "@/src/components/shared/atoms/Link";
 import {
 	Paper,
 	StyledTableCell,
@@ -15,10 +15,10 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-} from "@/src/components/ui/table";
+} from "@/src/components/shared/ui/table";
+import { Box } from "@/src/components/ui/box";
 import { Typography } from "@/src/components/ui/typography";
 import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/layouts/StandardLayout";
 
 type OnDelete = {
 	action: string;

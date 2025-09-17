@@ -1,32 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import GoogleAds from "@/src/components/atoms/GoogleAds";
-import { Box } from "@/src/components/ui/box";
-import { Button } from "@/src/components/ui/button";
-import { Card, CardActions, CardContent } from "@/src/components/ui/card";
-import { Grid } from "@/src/components/ui/grid";
+import StandardLayout from "@/src/components/layouts/StandardLayout";
+import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
+import { Button } from "@/src/components/shared/ui/button";
+import { Card, CardContent } from "@/src/components/shared/ui/card";
 import { Typography } from "@/src/components/ui/typography";
-import { useTheme } from "@/src/hooks/useTheme";
-import StandardLayout from "@/src/layouts/StandardLayout";
 
 export default function BlogPage() {
-	const theme = useTheme();
 	return (
 		<StandardLayout>
-			<Box py={3} textAlign="center">
-				<Box mb={1}>
+			<div className="py-3 text-center">
+				<div className="mb-1">
 					<Typography variant="h4">Blog</Typography>
-				</Box>
-				<Box maxWidth={theme.spacing(80)} mx="auto" mb={7}>
+				</div>
+				<div className="max-w-[640px] mx-auto mb-7">
 					Welcome to my blog! Hope you will enjoy my tech articles and learn
 					something!
-				</Box>
+				</div>
 				<Typography variant="h5" style={{ fontWeight: 450 }}>
 					New Articles
 				</Typography>
-				<Box display="flex" justifyContent="center" mt={3} mb={7}>
-					<Card sx={{ maxWidth: 350, marginX: 1 }}>
+				<div className="flex justify-center mt-3 mb-7">
+					<Card className="max-w-[350px] mx-1">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
 								Setting up your Project
@@ -37,105 +33,100 @@ export default function BlogPage() {
 								productivity?
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/6" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
+						</div>
 					</Card>
-				</Box>
+				</div>
 				<Typography variant="h5" style={{ fontWeight: 450 }}>
 					Previous Articles
 				</Typography>
-				<Grid container spacing={2} justifyContent="center">
-					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-center">
+					<Card className="max-w-[350px]">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
-								Journey to the Web
+								Understanding React Hooks
 							</Typography>
 							<Typography variant="body1">
-								I have just finished my coding bootcamp, got my computer science
-								degree or build my first full stack web application, what&apos;s
-								next for me and where do I go from here?
+								A comprehensive guide to understanding and implementing React
+								Hooks in your applications effectively.
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/1" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
-					</Grid>
-					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
+						</div>
+					</Card>
+					<Card className="max-w-[350px]">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
-								Join the Scrum!
+								Building with TypeScript
 							</Typography>
 							<Typography variant="body1">
-								How does a software engineering team typically operate and what
-								are the different rituals that they do in a typical sprint? Who
-								should a team consist of?
+								Learn how to leverage TypeScript for better code quality and
+								developer experience in your projects.
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/2" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
-					</Grid>
-					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
+						</div>
+					</Card>
+					<Card className="max-w-[350px]">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
-								It&apos;s Story Time
+								Modern CSS Techniques
 							</Typography>
 							<Typography variant="body1">
-								Now that we have learned about Scrum, what actually goes on
-								during the Sprint Planning session? How do we organize our
-								tasks? How do we allocate them?
+								Explore modern CSS features and techniques to create beautiful
+								and responsive web interfaces.
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/3" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
-					</Grid>
-					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
+						</div>
+					</Card>
+					<Card className="max-w-[350px]">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
-								Single Source of Truth
+								Performance Optimization
 							</Typography>
 							<Typography variant="body1">
-								The database is every web application&apos;s single source of
-								truth. So how to we design a database that is reliable and error
-								free?
+								Tips and techniques for optimizing your web applications for
+								better performance and user experience.
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/4" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
-					</Grid>
-					<Grid component={Card} sm={12} md={4} lg={3} sx={{ maxWidth: 350 }}>
+						</div>
+					</Card>
+					<Card className="max-w-[350px]">
 						<CardContent>
 							<Typography variant="h6" mb={1}>
-								Designing the Interface
+								API Design Best Practices
 							</Typography>
 							<Typography variant="body1">
-								The User Interface of every web application is what causes the
-								customer to stay and use the site. How do designers come up with
-								the design? What is a good design?
+								Learn the fundamentals of designing robust and scalable APIs
+								that developers love to use.
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "center", paddingTop: 0 }}>
+						<div className="flex justify-center pb-4">
 							<Link href="/blog/5" style={{ textDecoration: "none" }}>
-								<Button size="small">Read Now</Button>
+								<Button size="sm">Read Now</Button>
 							</Link>
-						</CardActions>
-					</Grid>
-				</Grid>
+						</div>
+					</Card>
+				</div>
 				<GoogleAds slotId="9667543473" />
-			</Box>
+			</div>
 		</StandardLayout>
 	);
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, CardContent, CardFooter } from "@/src/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/src/components/shared/ui/card";
 
 interface ArticleCardProps {
 	title: string;

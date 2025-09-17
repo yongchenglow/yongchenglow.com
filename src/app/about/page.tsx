@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import ArticleContainer from "@/src/components/atoms/ArticleContainer";
-import ArticleContent from "@/src/components/atoms/ArticleContent";
-import ArticleParagraph from "@/src/components/atoms/ArticleParagraph";
-import ArticleTitle from "@/src/components/atoms/ArticleTitle";
-import GoogleAds from "@/src/components/atoms/GoogleAds";
-import Link from "@/src/components/atoms/Link";
-import StandardLayout from "@/src/layouts/StandardLayout";
+import ArticleContainer from "@/src/components/articles/ArticleContainer";
+import ArticleContent from "@/src/components/articles/ArticleContent";
+import ArticleParagraph from "@/src/components/articles/ArticleParagraph";
+import ArticleTitle from "@/src/components/articles/ArticleTitle";
+import StandardLayout from "@/src/components/layouts/StandardLayout";
+import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
+import Link from "@/src/components/shared/atoms/Link";
 
 export default function AboutPage() {
 	return (

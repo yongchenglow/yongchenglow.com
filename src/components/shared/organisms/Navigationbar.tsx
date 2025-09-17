@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/src/components/ThemeToggle";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
-} from "@/src/components/ui/navigation-menu";
+} from "@/src/components/shared/ui/navigation-menu";
+import { ThemeToggle } from "@/src/components/ThemeToggle";
 import { cn } from "@/src/lib/utils";
 
 const pages = [

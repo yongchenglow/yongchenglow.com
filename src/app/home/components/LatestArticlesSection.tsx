@@ -1,4 +1,4 @@
-import ArticleCard from "@/src/features/articles/ArticleCard";
+import ArticleCard from "@/src/components/articles/ArticleCard";
 
 export default function LatestArticlesSection() {
 	return (

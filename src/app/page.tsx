@@ -3,9 +3,9 @@
 import AboutMeSection from "@/src/app/home/components/AboutMeSection";
 import IntroSection from "@/src/app/home/components/IntroSection";
 import LatestArticlesSection from "@/src/app/home/components/LatestArticlesSection";
-import GoogleAds from "@/src/components/atoms/GoogleAds";
-import ProjectHighlights from "@/src/features/projects/ProjectHighlights";
-import StandardLayout from "@/src/layouts/StandardLayout";
+import StandardLayout from "@/src/components/layouts/StandardLayout";
+import ProjectHighlights from "@/src/components/projects/ProjectHighlightCard";
+import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 
 const projects = [
 	{

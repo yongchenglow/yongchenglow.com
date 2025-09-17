@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "@/src/components/atoms/Link";
+import Link from "@/src/components/shared/atoms/Link";
 
 export default function IntroSection() {
 	return (
