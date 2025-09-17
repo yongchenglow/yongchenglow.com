@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import ArticleContainer from "@/src/components/articles/ArticleContainer";
-import ArticleContent from "@/src/components/articles/ArticleContent";
-import ArticleParagraph from "@/src/components/articles/ArticleParagraph";
-import ArticleTitle from "@/src/components/articles/ArticleTitle";
+import ArticleContainer from "@/src/components/article/ArticleContainer";
+import ArticleContent from "@/src/components/article/ArticleContent";
+import ArticleParagraph from "@/src/components/article/ArticleParagraph";
+import ArticleTitle from "@/src/components/article/ArticleTitle";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
