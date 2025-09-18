@@ -5,6 +5,7 @@ import { primaryFont } from "../components/theme/font";
 import "./globals.css";
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://www.yongchenglow.com"),
 	title: "Yong Cheng Low",
 	description:
 		"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
 		images: [
 			{
-				url: "img/yong-cheng-metasprint.jpeg",
+				url: "/img/yong-cheng-metasprint.jpeg",
 			},
 		],
 	},
@@ -29,10 +30,10 @@ export const metadata: Metadata = {
 		title: "Yong Cheng Low",
 		description:
 			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
-		images: ["img/yong-cheng-metasprint.jpeg"],
+		images: ["/img/yong-cheng-metasprint.jpeg"],
 	},
 	icons: {
-		icon: "img/YongCheng.jpg",
+		icon: "/img/YongCheng.jpg",
 	},
 };
 
