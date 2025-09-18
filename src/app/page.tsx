@@ -3,7 +3,7 @@
 import AboutMeSection from "@/src/components/home/AboutMeSection";
 import IntroSection from "@/src/components/home/IntroSection";
 import LatestArticlesSection from "@/src/components/home/LatestArticlesSection";
-import ProjectHighlights from "@/src/components/projects/ProjectHighlights";
+import ProjectHighlights from "@/src/components/project/ProjectHighlights";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 

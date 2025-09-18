@@ -1,30 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import ArticleAnnouncement from "@/src/components/article/ArticleAnnouncement";
+import ArticleContainer from "@/src/components/article/ArticleContainer";
+import ArticleContent from "@/src/components/article/ArticleContent";
+import ArticleDefinition from "@/src/components/article/ArticleDefinition";
+import BlogHeader from "@/src/components/article/ArticleHeader";
+import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleList from "@/src/components/article/ArticleList";
+import ArticleMetadata from "@/src/components/article/ArticleMetadata";
+import ArticleParagraph from "@/src/components/article/ArticleParagraph";
+import ArticleText from "@/src/components/article/ArticleText";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
-import { useTheme } from "@/src/components/theme/useTheme";
-import { Box } from "@/src/components/ui/box";
-import { Typography } from "@/src/components/ui/typography";
 
 export default function BlogPost3Page() {
-	const theme = useTheme();
 	return (
 		<StandardLayout>
-			<Box py={3}>
-				<Typography variant="h3" textAlign="center" marginBottom={1}>
-					It&apos;s Story Time
-				</Typography>
-				<Typography
-					variant="h6"
-					color="textSecondary"
-					textAlign="center"
-					marginBottom={4}
-				>
-					Creating a Product Plan for success
-				</Typography>
-				<Box maxWidth="sm" mx="auto" mb={4}>
+			<ArticleContainer>
+				<BlogHeader
+					title="It's Story Time"
+					subtitle="Creating a Product Plan for success"
+				/>
+				<ArticleImageContainer>
 					<Image
 						style={{ width: "100%", height: "auto" }}
 						src="/img/meeting-gf7ea04404_1280.jpg"
@@ -33,36 +32,31 @@ export default function BlogPost3Page() {
 						height={853}
 						priority={false}
 					/>
-				</Box>
-				<Box maxWidth="md" mx="auto">
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+				</ArticleImageContainer>
+				<ArticleContent>
+					<ArticleParagraph className="mb-3">
 						You just learned about scrum and feel confident to start your Sprint
 						Planning session. However, what exactly does Sprint Planning consist
 						of? How do we decide what features are going to be built in the
 						current sprint? What are the outcomes of a Sprint Planning session?
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-3">
 						Before I start talking about the Sprint Planning process, I would
 						like us to take a step back and look at the big picture. Instead of
 						focusing on one sprint, lets focus on the product that we are
 						building first. This is so that we know what we are working towards
 						after the completion of multiple sprints.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-7">
 						Every product that a company build is paid for by a particular user.
 						Therefore, before doing any planning, we first need to revisit who
 						our users are. This is because if we start deviating from their
 						needs and wants, they will eventually look for a close substitute.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-2">
 						What are Personas?
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
+					</ArticleParagraph>
+					<ArticleImageContainer size="small">
 						<Link
 							href="https://www.freepik.com/vectors/infographic"
 							target="_blank"
@@ -77,25 +71,18 @@ export default function BlogPost3Page() {
 								priority={false}
 							/>
 						</Link>
-					</Box>
-					<Box my={3} maxWidth="sm" mx="auto">
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
+					</ArticleImageContainer>
+					<ArticleDefinition>
+						<Link
+							href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
+							target="_blank"
 						>
-							<Link
-								href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
-								target="_blank"
-							>
-								<b>Personas</b>
-							</Link>{" "}
-							are fictional characters that are created to represent the
-							different user groups of your product.
-						</Typography>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+							<b>Personas</b>
+						</Link>{" "}
+						are fictional characters that are created to represent the different
+						user groups of your product.
+					</ArticleDefinition>
+					<ArticleParagraph className="mb-3">
 						Personas help us understand the user&apos;s needs, wants and goals.
 						By creating the persona, we understand who we are building the
 						product for. Using a very basic Airbnb as an example, we can start
@@ -104,8 +91,8 @@ export default function BlogPost3Page() {
 						at the start, but as they flourish, the characteristics of the
 						personas becomes broader and cover a wider audience. Some companies
 						grow so big that they do not see the need for Personas.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-3">
 						However, my personal opinion is, it is always important to revisit
 						the persona to understand your core audience. This is because if you
 						have been playing the game of business long enough, a close
@@ -114,8 +101,8 @@ export default function BlogPost3Page() {
 						competitor&apos;s product. On the other hand, if you do things right
 						and meet the needs and wants of your core user group, they will
 						stay.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-3">
 						An example of this will be Instagram. Instagram targets people
 						generally below the age of 35 who want to share great photos or
 						story moments with a certain network. When TikTok emerged, those who
@@ -125,8 +112,8 @@ export default function BlogPost3Page() {
 						target a different set of audience. However, because TikTok did not
 						exist before 2016, these creators did not have a choice but to use
 						Instagram.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+					</ArticleParagraph>
+					<ArticleParagraph className="mb-7">
 						Yes, yes you may say Instagram should have identified these
 						persona&apos;s earlier and perhaps adjust their product to cater for
 						these users. However, we won&apos;t be debating about this, but this
@@ -137,17 +124,12 @@ export default function BlogPost3Page() {
 						they accurately represent the current users of your product. Only
 						after understanding our users, we can then start to plan out our
 						initiatives.
-					</Typography>
+					</ArticleParagraph>
 					<GoogleAds slotId="9333319799" />
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
+					<ArticleParagraph className="mb-2">
 						Breaking down the Initiative
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
+					</ArticleParagraph>
+					<ArticleImageContainer size="small">
 						<Link
 							href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
 							target="_blank"
@@ -162,61 +144,34 @@ export default function BlogPost3Page() {
 								priority={false}
 							/>
 						</Link>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleImageContainer>
+					<ArticleParagraph className="mb-3">
 						Whenever the team wants to build something special, you will need to
 						draw out some kind of game plan. One of the most popular ways to
 						organize your work is through initiatives, epics, stories, task,
 						sub-task. This is a very user centric approach as each task
 						completed will satisfy some of the user needs and wants.
-					</Typography>
-					<Box my={3} maxWidth="sm" mx="auto">
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							An <b>Initiative</b> is a product goal. It can be further broken
-							down into multiple epics to be worked on
-						</Typography>
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							An <b>Epic</b> breaks the Initiative down into smaller parts. It
-							contains a collection of user stories or things that the user can
-							do with your product after it is completed
-						</Typography>
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							<b>Stories or User stories</b> are requirements from the
-							perspective of the end users
-						</Typography>
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							A <b>Task</b> is a breakdown of a story into smaller tasks.
-						</Typography>
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							A <b>Sub-task</b> is a breakdown of a task
-						</Typography>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleParagraph>
+					<ArticleDefinition>
+						An <b>Initiative</b> is a product goal. It can be further broken
+						down into multiple epics to be worked on
+					</ArticleDefinition>
+					<ArticleDefinition>
+						An <b>Epic</b> breaks the Initiative down into smaller parts. It
+						contains a collection of user stories or things that the user can do
+						with your product after it is completed
+					</ArticleDefinition>
+					<ArticleDefinition>
+						<b>Stories or User stories</b> are requirements from the perspective
+						of the end users
+					</ArticleDefinition>
+					<ArticleDefinition>
+						A <b>Task</b> is a breakdown of a story into smaller tasks.
+					</ArticleDefinition>
+					<ArticleDefinition>
+						A <b>Sub-task</b> is a breakdown of a task
+					</ArticleDefinition>
+					<ArticleText>
 						Some of the popular project management tools includes Jira, Click
 						up, Notion, Asana and Monday. All the different products have their
 						own advantages and limitations which we will not discuss. However,
@@ -225,20 +180,15 @@ export default function BlogPost3Page() {
 						rest should use it too. Or else managing scaled up scrum where one
 						team is using notion and another is using Jira will turn into a
 						nightmare.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+					</ArticleText>
+					<ArticleText className="mb-7">
 						Lastly, before we start any sprint planning, the team needs to
 						decide and have a common understanding of the Definition of Done.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
+					</ArticleText>
+					<ArticleParagraph className="mb-2">
 						Definition of Done
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
+					</ArticleParagraph>
+					<ArticleImageContainer size="small">
 						<Image
 							style={{ width: "100%", height: "auto" }}
 							src="/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg"
@@ -247,19 +197,12 @@ export default function BlogPost3Page() {
 							height={800}
 							priority={false}
 						/>
-					</Box>
-					<Box my={3}>
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							style={{ fontStyle: "italic" }}
-						>
-							<b>Definition of Done</b> is the acceptance criteria to a
-							particular type of user story
-						</Typography>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleImageContainer>
+					<ArticleDefinition>
+						<b>Definition of Done</b> is the acceptance criteria to a particular
+						type of user story
+					</ArticleDefinition>
+					<ArticleText className="mb-3">
 						A huge caveat before we proceed is that according to the scrum
 						guide, the definition of done should apply for every user story.
 						However, from experience a Design Task has a very different
@@ -268,8 +211,8 @@ export default function BlogPost3Page() {
 						on the definition of done for the different kinds of task. This is
 						so that when a task is marked as Done, the team all have a common
 						understand what each task has gone through.
-					</Typography>
-					<Box fontSize={theme.typography.h6.fontSize} marginBottom={5}>
+					</ArticleText>
+					<ArticleList>
 						An example of a Design Task may be to conduct AB testing on 2
 						different designs. The definition of done of a design task may
 						include:
@@ -284,8 +227,8 @@ export default function BlogPost3Page() {
 								supported evidence
 							</li>
 						</ol>
-					</Box>
-					<Box fontSize={theme.typography.h6.fontSize} marginBottom={5}>
+					</ArticleList>
+					<ArticleList>
 						An example of a QA Task may be to investigate a particular bug
 						report filed by one of our users. The definition of done of a QA
 						task may include:
@@ -299,8 +242,8 @@ export default function BlogPost3Page() {
 							<li>Release the bug fix to production</li>
 							<li>Inform the users that the bug has been fixed</li>
 						</ol>
-					</Box>
-					<Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleList>
+					<ArticleList className="mb-3">
 						An example of a Developer task may be to create a login page. The
 						definition of done of a developer task may include.
 						<ol>
@@ -323,17 +266,11 @@ export default function BlogPost3Page() {
 							<li>Pass QA Staging</li>
 							<li>Release to Production</li>
 						</ol>
-					</Box>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginTop={7}
-						marginBottom={2}
-					>
+					</ArticleList>
+					<ArticleParagraph className="mt-7 mb-2">
 						Sprint Planning
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
+					</ArticleParagraph>
+					<ArticleImageContainer size="small">
 						<Image
 							style={{ width: "100%", height: "auto" }}
 							src="/img/meeting-g10f292b56_1280.png"
@@ -342,41 +279,41 @@ export default function BlogPost3Page() {
 							height={853}
 							priority={false}
 						/>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleImageContainer>
+					<ArticleText className="mb-3">
 						Now that we have talked about the different terminologies, it&apos;s
 						time talk about the Sprint Planning session itself.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						At the start of the Sprint Planning meeting, the team needs to
 						decide on <b>the what</b>. The product owner pick items from the
 						backlog that the team will be working on and sets the initial sprint
 						goal. These items are usually picked because they are related to the
 						initiative and epics of the previous sprint or because are starting
 						a new one.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						The development team will then plan out <b>the how</b>, or the
 						scoping and specifications needed to deliver the sprint goal. It is
 						important that this process is a negotiation, if the work is too
 						much, we need to adjust the what. But at the end of the day, the
 						scope of work must be manageable and the team must agree that the
 						items pick can meet the definition of done by the end of the sprint.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						Once the sprint goal is finalized and the scope of work is final,
 						the team then decides <b>the who</b>, in other words who takes which
 						task. This process is done purely by the development team.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						In most companies, the how portion is where most controversies
 						arise. Don&apos;t worry if it turns into a negotiation and tensions
 						may arise. Good teams will know how to use this tension to make the
 						product better. This is because everybody is thinking for the
 						product itself, and a simple task may become very complicated if
 						done correctly to make it future proof.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						There are also companies that run the top-down approach where bosses
 						just say, I don&apos;t care how, just complete this set of work
 						within a given time. This is where you start to build products in
@@ -385,8 +322,8 @@ export default function BlogPost3Page() {
 						max that are only used by 100 to 1000 users you will be quite safe.
 						However, for project maintenance and adjustments, it is likely that
 						just by reading the code, you will want to jump off a building.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						In my opinion, the top-down approach is what is causing the great
 						resignation. Because maintenance is going to be super difficult,
 						during the maintenance stage, the original developers usually leave
@@ -395,36 +332,22 @@ export default function BlogPost3Page() {
 						laugh at first, but those are actually true stories no matter how
 						fake they seem. Once the people are tired of pulling their hair out
 						to solve problems they leave and the process starts all over again.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText className="mb-3">
 						In conclusion, we have learned a lot today about project planning.
 						It might have been an information overload so you may need to read
 						the article a couple of times to understand. In the next article, we
 						will be focusing on &quot;the how&quot; portion of the Spring
 						Planning, and why a simple task may seem more complex than it is, in
 						particular, it is all because of the database.
-					</Typography>
+					</ArticleText>
 					<GoogleAds slotId="5443505231" />
-					<Box textAlign="center" my={5}>
-						{" "}
-						<Typography
-							color="textSecondary"
-							textAlign="center"
-							marginBottom={3}
-						>
-							Next Article: Single Source of Truth coming on 28/02/2022
-						</Typography>
-					</Box>
-					<Typography
-						fontSize="0.75rem"
-						color="textSecondary"
-						textAlign="right"
-						marginBottom={3}
-					>
-						Last Updated: 02/03/2022
-					</Typography>
-				</Box>
-			</Box>
+					<ArticleAnnouncement>
+						Next Article: Single Source of Truth coming on 28/02/2022
+					</ArticleAnnouncement>
+					<ArticleMetadata>Last Updated: 02/03/2022</ArticleMetadata>
+				</ArticleContent>
+			</ArticleContainer>
 		</StandardLayout>
 	);
 }

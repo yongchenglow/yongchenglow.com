@@ -1,6 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import ArticleAnnouncement from "@/src/components/article/ArticleAnnouncement";
+import ArticleDefinition from "@/src/components/article/ArticleDefinition";
+import ArticleHeading from "@/src/components/article/ArticleHeading";
+import ArticleSection from "@/src/components/article/ArticleSection";
+import ArticleSubtitle from "@/src/components/article/ArticleSubtitle";
+import ArticleText from "@/src/components/article/ArticleText";
+import ContentContainer from "@/src/components/article/ContentContainer";
+import ImageContainer from "@/src/components/article/ImageContainer";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -14,9 +22,6 @@ import {
 	TableHead,
 	TableRow,
 } from "@/src/components/shared/ui/table";
-import { useTheme } from "@/src/components/theme/useTheme";
-import { Box } from "@/src/components/ui/box";
-import { Typography } from "@/src/components/ui/typography";
 
 type FacetsOfWebDesign = {
 	word: string;
@@ -52,22 +57,12 @@ const facetsOfWebDesign: FacetsOfWebDesign[] = [
 ];
 
 export default function BlogPost5Page() {
-	const theme = useTheme();
 	return (
 		<StandardLayout>
-			<Box py={3}>
-				<Typography variant="h3" textAlign="center" marginBottom={1}>
-					Designing the Interface
-				</Typography>
-				<Typography
-					variant="h6"
-					color="textSecondary"
-					textAlign="center"
-					marginBottom={4}
-				>
-					What is Design?
-				</Typography>
-				<Box maxWidth="sm" mx="auto" mb={4}>
+			<div className="py-3">
+				<ArticleHeading level={1}>Designing the Interface</ArticleHeading>
+				<ArticleSubtitle>What is Design?</ArticleSubtitle>
+				<ImageContainer>
 					<Image
 						style={{ width: "100%", height: "auto" }}
 						src="/img/MaxPixel.net-Internet-The-Web-Website-Design-Web-Design-4875183.jpg"
@@ -76,15 +71,15 @@ export default function BlogPost5Page() {
 						height={853}
 						priority={false}
 					/>
-				</Box>
-				<Box maxWidth="md" mx="auto">
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+				</ImageContainer>
+				<ContentContainer>
+					<ArticleText>
 						The user interface is one of the most important feature of any
 						website. This is because it directly affects how our users use the
 						application. How our website looks, feel and functions also plays a
 						major factor in user retention.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
+					</ArticleText>
+					<ArticleText>
 						If you work at a big company, the role of designing the user
 						interface is left to the product designers. If a company has
 						multiple products, they will usually have a core design team that
@@ -104,8 +99,8 @@ export default function BlogPost5Page() {
 						, the design system between the Mac, iPad, and iPhone share the same
 						design language making their users feel comfortable as they switch
 						between these products.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
+					</ArticleText>
+					<ArticleText marginBottom={7}>
 						In this article, we will cover more about how the web interface is
 						designed and a basic matrix on how we can evaluate a user interface.
 						This will help you understand the different terminologies, the
@@ -113,89 +108,63 @@ export default function BlogPost5Page() {
 						will allow engineers and designers to work together to create a
 						better product. We will leave the creation of design system and
 						other higher level items for another day.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
-						What is Design?
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/computer-g39398e915_1280.jpg"
-							alt="constraints"
-							width={1280}
-							height={853}
-							priority={false}
-						/>
-					</Box>
-					<Box my={3} maxWidth="sm" mx="auto">
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
-						>
-							<b>Design</b> is solving problems given a set of constrains
-						</Typography>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						The definition of design is very controversial as different sources
-						will explain things a bit differently. However, in order for us to
-						speak the same language, for this article, this is the definition
-						which we will used that I learned from my time at{" "}
-						<Link href="https://www.nus.edu.sg" target="_blank">
-							NUS
-						</Link>
-						.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
-						What this definition of design means is that a good design will take
-						into considerations of not only the users, the but resources we
-						have. This includes, time, cost, and technology etc. A designer that
-						comes up with a super elegant and fancy user interface in 10 days
-						and in return takes 5 senior engineers 3 months to create. However,
-						according to our definition, this can be a bad design because a
-						company might not have the resources to afford the designers 10 days
-						to create it and pay 3 senior engineers for 3 months to create on
-						feature. A good designer will take into considerations of the
-						different constrains such as time, cost, manpower before creating
-						the final design.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
-						Design thinking
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Link
-							href="https://developerexperience.io/practices/design-thinking"
-							target="_blank"
-							aria-label="Design Thinking"
-						>
+					</ArticleText>
+					<ArticleSection title="What is Design?">
+						<ImageContainer>
 							<Image
 								style={{ width: "100%", height: "auto" }}
-								src="/img/design_thinking.png"
+								src="/img/computer-g39398e915_1280.jpg"
 								alt="constraints"
-								width={800}
-								height={600}
+								width={1280}
+								height={853}
 								priority={false}
 							/>
-						</Link>
-					</Box>
-					<Box my={3} maxWidth="sm" mx="auto">
-						<Typography
-							fontSize={theme.typography.h6.fontSize}
-							textAlign="center"
-							marginBottom={2}
-							sx={{ fontStyle: "italic" }}
-						>
+						</ImageContainer>
+						<ArticleDefinition>
+							<b>Design</b> is solving problems given a set of constrains
+						</ArticleDefinition>
+						<ArticleText>
+							The definition of design is very controversial as different
+							sources will explain things a bit differently. However, in order
+							for us to speak the same language, for this article, this is the
+							definition which we will used that I learned from my time at{" "}
+							<Link href="https://www.nus.edu.sg" target="_blank">
+								NUS
+							</Link>
+							.
+						</ArticleText>
+						<ArticleText marginBottom={7}>
+							What this definition of design means is that a good design will
+							take into considerations of not only the users, the but resources
+							we have. This includes, time, cost, and technology etc. A designer
+							that comes up with a super elegant and fancy user interface in 10
+							days and in return takes 5 senior engineers 3 months to create.
+							However, according to our definition, this can be a bad design
+							because a company might not have the resources to afford the
+							designers 10 days to create it and pay 3 senior engineers for 3
+							months to create on feature. A good designer will take into
+							considerations of the different constrains such as time, cost,
+							manpower before creating the final design.
+						</ArticleText>
+					</ArticleSection>
+					<ArticleSection title="Design thinking">
+						<ImageContainer>
+							<Link
+								href="https://developerexperience.io/practices/design-thinking"
+								target="_blank"
+								aria-label="Design Thinking"
+							>
+								<Image
+									style={{ width: "100%", height: "auto" }}
+									src="/img/design_thinking.png"
+									alt="constraints"
+									width={800}
+									height={600}
+									priority={false}
+								/>
+							</Link>
+						</ImageContainer>
+						<ArticleDefinition>
 							<Link
 								href="https://www.postgresql.org/docs/current/datatype.html"
 								target="_blank"
@@ -204,258 +173,234 @@ export default function BlogPost5Page() {
 							</Link>{" "}
 							is a human-centred, collaborative problem-solving approach that is
 							creative, iterative and practical.
-						</Typography>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<Link href="https://www.ideou.com" target="_blank">
-							Ideo
-						</Link>{" "}
-						is a design consulting firm famous for using this approach to help
-						companies create wonderful products. Design thinking is a 5 step
-						process as shown in the picture above.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<b>Empathize</b> is about understand the user&apos;s needs and
-						goals. This is the stage where the designer conducts user interviews
-						to find out more about how the users feel and what are their
-						frustrations or pain points.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<b>Define</b> is identifying the problem base on the users&apos;
-						needs and goals. Using the information gathered from the empathy
-						phase, the designers then defines a problem statement. The designers
-						can create something called a user journey map to help visualize the
-						problem. Personas can also be created to understand the different
-						user groups, interests and goals. If there are a lot of problems
-						identified from the user interviews, the problems are ranked in
-						terms of severity and the Product Owner would then choose one of the
-						most severe one to work on.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<b>Ideate</b> is to coming up with ideas to solve the problem.
-						During this phase, it is important to note that there are no
-						ridiculous or stupid ideas. Everything goes onto the brainstorming
-						board. It is helpful during this phase to have the user journey map
-						and the personas visible so that we stay focused on the problem.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						<b>Prototyping</b> is creating a mock-up of the product that can be
-						tested by the users. We will talk more about the different kind of
-						prototypes in the next section.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
-						<b>Test</b> the product with relevant users and gather feedback.
-						Repeat this process if necessary. If the users don&apos;t like the
-						prototype, or don&apos;t think that the proposed product will
-						resolve the problem, don&apos;t waste the engineering effort to
-						build the product, it would be a waste of time, resources and money.
-					</Typography>
+						</ArticleDefinition>
+						<ArticleText>
+							<Link href="https://www.ideou.com" target="_blank">
+								Ideo
+							</Link>{" "}
+							is a design consulting firm famous for using this approach to help
+							companies create wonderful products. Design thinking is a 5 step
+							process as shown in the picture above.
+						</ArticleText>
+						<ArticleText>
+							<b>Empathize</b> is about understand the user&apos;s needs and
+							goals. This is the stage where the designer conducts user
+							interviews to find out more about how the users feel and what are
+							their frustrations or pain points.
+						</ArticleText>
+						<ArticleText>
+							<b>Define</b> is identifying the problem base on the users&apos;
+							needs and goals. Using the information gathered from the empathy
+							phase, the designers then defines a problem statement. The
+							designers can create something called a user journey map to help
+							visualize the problem. Personas can also be created to understand
+							the different user groups, interests and goals. If there are a lot
+							of problems identified from the user interviews, the problems are
+							ranked in terms of severity and the Product Owner would then
+							choose one of the most severe one to work on.
+						</ArticleText>
+						<ArticleText>
+							<b>Ideate</b> is to coming up with ideas to solve the problem.
+							During this phase, it is important to note that there are no
+							ridiculous or stupid ideas. Everything goes onto the brainstorming
+							board. It is helpful during this phase to have the user journey
+							map and the personas visible so that we stay focused on the
+							problem.
+						</ArticleText>
+						<ArticleText>
+							<b>Prototyping</b> is creating a mock-up of the product that can
+							be tested by the users. We will talk more about the different kind
+							of prototypes in the next section.
+						</ArticleText>
+						<ArticleText marginBottom={7}>
+							<b>Test</b> the product with relevant users and gather feedback.
+							Repeat this process if necessary. If the users don&apos;t like the
+							prototype, or don&apos;t think that the proposed product will
+							resolve the problem, don&apos;t waste the engineering effort to
+							build the product, it would be a waste of time, resources and
+							money.
+						</ArticleText>
+					</ArticleSection>
 					<GoogleAds slotId="6890117148" />
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
-						Prototyping
-					</Typography>
-					<Box fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						Prototyping is one of the most important phase of design thinking.
-						After passing the user test, a prototype might need some touch ups
-						before passing it onto the engineering team. In general there are 3
-						kinds of prototypes:
-						<ol>
-							<li>Quick & Dirty</li>
-							<li>Low Fidelity</li>
-							<li>High Fidelity</li>
-						</ol>
-					</Box>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Link
-							href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"
-							target="_blank"
-							aria-label="Quick and Dirty Prototype"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/2_4_lo-fi_prototype.jpg"
-								alt="constraints"
-								width={800}
-								height={600}
-								priority={false}
-							/>
-						</Link>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						A Quick & Dirty prototype is something that can be done really
-						quickly, even by using a pen and paper. It gives you a basic
-						visualization of what the user or client wants. It should include
-						basic information, some of the page flow and different sections of
-						the pages. This is usually done up quickly to have a visual
-						understanding of what a product will look like.
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Link
-							href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
-							target="_blank"
-							aria-label="Low Fidelity Prototype"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/low-fidelity-prototype-example-portfolio-app.png.webp"
-								alt="constraints"
-								width={800}
-								height={600}
-								priority={false}
-							/>
-						</Link>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						A low fidelity prototype focuses on the layout and concepts. These
-						are the big items or in web design, the different portions of the
-						webpage. It is usually done using some kind of prototyping tool such
-						as Figma, Invision or AdobeXD. The low fidelity prototype is usually
-						sent to the client or users for review. For smaller features, a high
-						fidelity prototype may be created without the user&apos;s or
-						client&apos;s review.
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Link
-							href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
-							target="_blank"
-							aria-label="High Fidelity Prototype"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/high-fidelity-prototype-example-ecommerce-app-tablet-justinmind.png.webp"
-								alt="constraints"
-								width={800}
-								height={600}
-								priority={false}
-							/>
-						</Link>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						A high fidelity prototype is almost like the final product, however
-						it lacks backend functionality and full user interactions. This is
-						what the frontend engineers usually reference when they try to
-						create the website in code. It is almost like the final product
-						except it done in a prototyping software&apos;s mentioned above.
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={7}>
-						From a web development perspective, a high fidelity prototype should
-						be confirmed during sprint planning phase. This will allow the
-						developmental work to be completed smoothly. The more changes there
-						is to the High Fidelity prototype during the sprint, the greater the
-						risk of the team not being able to achieve the sprint goal.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
-						Facets of Web Design
-					</Typography>
-					<Box maxWidth="sm" mx="auto" mb={4}>
-						<Link
-							href="https://eu.landisgyr.com/better-tech/usability-is-a-key-element-of-user-experience"
-							target="_blank"
-							aria-label="Facets of Web Design"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/figure2.png"
-								alt="constraints"
-								width={800}
-								height={600}
-								priority={false}
-							/>
-						</Link>
-					</Box>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						While prototyping is important, what do designers take into
-						considerations when creating a prototype for a feature? How do we
-						judge if a product is good or user friendly? While there are more
-						advance metrics such as nelson&apos;s heuristics, we will stick to
-						these 6 principles to keep things simple.
-					</Typography>
-					<TableContainer component={Paper}>
-						<Table sx={{ minWidth: 650 }}>
-							<TableHead>
-								<TableRow>
-									<StyledTableCell align="center">Facets</StyledTableCell>
-									<StyledTableCell align="center">Description</StyledTableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{facetsOfWebDesign.map((facet) => (
-									<StyledTableRow key={facet.word}>
-										<StyledTableCell component="th" scope="row" align="center">
-											{facet.word}
-										</StyledTableCell>
+					<ArticleSection title="Prototyping">
+						<ArticleText>
+							Prototyping is one of the most important phase of design thinking.
+							After passing the user test, a prototype might need some touch ups
+							before passing it onto the engineering team. In general there are
+							3 kinds of prototypes:
+							<ol>
+								<li>Quick & Dirty</li>
+								<li>Low Fidelity</li>
+								<li>High Fidelity</li>
+							</ol>
+						</ArticleText>
+						<ImageContainer>
+							<Link
+								href="https://www.informit.com/articles/article.aspx?p=1929849&seqNum=5"
+								target="_blank"
+								aria-label="Quick and Dirty Prototype"
+							>
+								<Image
+									style={{ width: "100%", height: "auto" }}
+									src="/img/2_4_lo-fi_prototype.jpg"
+									alt="constraints"
+									width={800}
+									height={600}
+									priority={false}
+								/>
+							</Link>
+						</ImageContainer>
+						<ArticleText>
+							A Quick & Dirty prototype is something that can be done really
+							quickly, even by using a pen and paper. It gives you a basic
+							visualization of what the user or client wants. It should include
+							basic information, some of the page flow and different sections of
+							the pages. This is usually done up quickly to have a visual
+							understanding of what a product will look like.
+						</ArticleText>
+						<ImageContainer>
+							<Link
+								href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
+								target="_blank"
+								aria-label="Low Fidelity Prototype"
+							>
+								<Image
+									style={{ width: "100%", height: "auto" }}
+									src="/img/low-fidelity-prototype-example-portfolio-app.png.webp"
+									alt="constraints"
+									width={800}
+									height={600}
+									priority={false}
+								/>
+							</Link>
+						</ImageContainer>
+						<ArticleText>
+							A low fidelity prototype focuses on the layout and concepts. These
+							are the big items or in web design, the different portions of the
+							webpage. It is usually done using some kind of prototyping tool
+							such as Figma, Invision or AdobeXD. The low fidelity prototype is
+							usually sent to the client or users for review. For smaller
+							features, a high fidelity prototype may be created without the
+							user&apos;s or client&apos;s review.
+						</ArticleText>
+						<ImageContainer>
+							<Link
+								href="https://www.justinmind.com/blog/low-fidelity-vs-high-fidelity-prototypes/"
+								target="_blank"
+								aria-label="High Fidelity Prototype"
+							>
+								<Image
+									style={{ width: "100%", height: "auto" }}
+									src="/img/high-fidelity-prototype-example-ecommerce-app-tablet-justinmind.png.webp"
+									alt="constraints"
+									width={800}
+									height={600}
+									priority={false}
+								/>
+							</Link>
+						</ImageContainer>
+						<ArticleText>
+							A high fidelity prototype is almost like the final product,
+							however it lacks backend functionality and full user interactions.
+							This is what the frontend engineers usually reference when they
+							try to create the website in code. It is almost like the final
+							product except it done in a prototyping software&apos;s mentioned
+							above.
+						</ArticleText>
+						<ArticleText marginBottom={7}>
+							From a web development perspective, a high fidelity prototype
+							should be confirmed during sprint planning phase. This will allow
+							the developmental work to be completed smoothly. The more changes
+							there is to the High Fidelity prototype during the sprint, the
+							greater the risk of the team not being able to achieve the sprint
+							goal.
+						</ArticleText>
+					</ArticleSection>
+					<ArticleSection title="Facets of Web Design">
+						<ImageContainer>
+							<Link
+								href="https://eu.landisgyr.com/better-tech/usability-is-a-key-element-of-user-experience"
+								target="_blank"
+								aria-label="Facets of Web Design"
+							>
+								<Image
+									style={{ width: "100%", height: "auto" }}
+									src="/img/figure2.png"
+									alt="constraints"
+									width={800}
+									height={600}
+									priority={false}
+								/>
+							</Link>
+						</ImageContainer>
+						<ArticleText>
+							While prototyping is important, what do designers take into
+							considerations when creating a prototype for a feature? How do we
+							judge if a product is good or user friendly? While there are more
+							advance metrics such as nelson&apos;s heuristics, we will stick to
+							these 6 principles to keep things simple.
+						</ArticleText>
+						<TableContainer component={Paper}>
+							<Table sx={{ minWidth: 650 }}>
+								<TableHead>
+									<TableRow>
+										<StyledTableCell align="center">Facets</StyledTableCell>
 										<StyledTableCell align="center">
-											{facet.description}
+											Description
 										</StyledTableCell>
-									</StyledTableRow>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
-					<Typography
-						fontSize={theme.typography.h6.fontSize}
-						marginTop={3}
-						marginBottom={7}
-					>
-						These are the things that we can look out for when we conduct our
-						user interviews. The unit of measurement is highly depended on the
-						task. For example effectiveness can be either yes or no, or if it is
-						broken down into smaller sub task then the scoring metrics will be a
-						bit different. It is important to note that once a unit of
-						measurement is chosen, it shall remain constant so that in the next
-						iteration we can compare the results to see if the design had made
-						any improvements. For example for efficiency, we can compare 2
-						prototypes as see if there is a reduced number of clicks or a
-						reduction in time for the user to complete a particular task.
-					</Typography>
-					<Typography
-						variant="h4"
-						fontWeight={500}
-						textAlign="center"
-						marginBottom={2}
-					>
-						Conclusion
-					</Typography>
-					<Typography fontSize={theme.typography.h6.fontSize} marginBottom={3}>
-						Overall, I have scraped the surface of designing a user interface,
-						and for beginning who what just stepped into the web development
-						this should be sufficient. This comes to the end of our content on
-						the Sprint Planning session. In the next few articles it will be
-						more code heavy and less content heavy. Together we will go through
-						a basic repository setup process on GitHub that will impress your
-						technical accessors.
-					</Typography>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{facetsOfWebDesign.map((facet) => (
+										<StyledTableRow key={facet.word}>
+											<StyledTableCell
+												component="th"
+												scope="row"
+												align="center"
+											>
+												{facet.word}
+											</StyledTableCell>
+											<StyledTableCell align="center">
+												{facet.description}
+											</StyledTableCell>
+										</StyledTableRow>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+						<ArticleText className="mt-3" marginBottom={7}>
+							These are the things that we can look out for when we conduct our
+							user interviews. The unit of measurement is highly depended on the
+							task. For example effectiveness can be either yes or no, or if it
+							is broken down into smaller sub task then the scoring metrics will
+							be a bit different. It is important to note that once a unit of
+							measurement is chosen, it shall remain constant so that in the
+							next iteration we can compare the results to see if the design had
+							made any improvements. For example for efficiency, we can compare
+							2 prototypes as see if there is a reduced number of clicks or a
+							reduction in time for the user to complete a particular task.
+						</ArticleText>
+					</ArticleSection>
+					<ArticleSection title="Conclusion">
+						<ArticleText>
+							Overall, I have scraped the surface of designing a user interface,
+							and for beginning who what just stepped into the web development
+							this should be sufficient. This comes to the end of our content on
+							the Sprint Planning session. In the next few articles it will be
+							more code heavy and less content heavy. Together we will go
+							through a basic repository setup process on GitHub that will
+							impress your technical accessors.
+						</ArticleText>
+					</ArticleSection>
 					<GoogleAds slotId="7964413716" />
-					<Box textAlign="center" my={5}>
-						{" "}
-						<Typography
-							color="textSecondary"
-							textAlign="center"
-							marginBottom={3}
-						>
-							Next Article: Setting up a Project coming on 14/03/2022
-						</Typography>
-					</Box>
-					<Typography
-						fontSize={theme.typography.caption.fontSize}
-						color="textSecondary"
-						textAlign="right"
-						marginBottom={3}
-					>
+					<ArticleAnnouncement>
+						Next Article: Setting up a Project coming on 14/03/2022
+					</ArticleAnnouncement>
+					<div className="text-xs text-gray-600 text-right mb-3">
 						Last Updated: 09/03/2022
-					</Typography>
-				</Box>
-			</Box>
+					</div>
+				</ContentContainer>
+			</div>
 		</StandardLayout>
 	);
 }
