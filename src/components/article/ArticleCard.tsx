@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { Card, CardContent, CardFooter } from "@/src/components/shared/ui/card";
+import ArticleButton from "@/src/components/article/ArticleButton";
+import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import ContentCard from "@/src/components/shared/organisms/ContentCard";
 
 interface ArticleCardProps {
 	title: string;
@@ -15,18 +16,13 @@ export default function ArticleCard({
 	buttonText = "Read Now",
 }: ArticleCardProps) {
 	return (
-		<Link href={href}>
-			<Card className="block hover:shadow-xl transition-shadow duration-200">
-				<CardContent>
-					<h3 className="text-xl font-semibold mb-4">{title}</h3>
-					<p className="text-muted-foreground leading-relaxed">{description}</p>
-				</CardContent>
-				<CardFooter>
-					<span className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 border-none cursor-pointer inline-block text-center">
-						{buttonText}
-					</span>
-				</CardFooter>
-			</Card>
-		</Link>
+		<InternalLink href={href}>
+			<ContentCard
+				title={title}
+				description={description}
+				className="block hover:shadow-lg transition-shadow duration-200 max-w-md"
+				footer={<ArticleButton>{buttonText}</ArticleButton>}
+			/>
+		</InternalLink>
 	);
 }

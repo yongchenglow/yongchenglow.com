@@ -1,14 +1,13 @@
 import type React from "react";
+import Container from "@/src/components/shared/atoms/Container";
 import Footer from "@/src/components/shared/organisms/Footer";
-import NavigationBar from "@/src/components/shared/organisms/Navigationbar";
+import NavigationBar from "@/src/components/shared/organisms/NavigationBar";
 
 const StandardLayout = ({ children }): React.ReactElement => {
 	return (
 		<div className="min-h-screen pt-16 flex flex-col">
 			<NavigationBar />
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
-				{children}
-			</div>
+			<Container>{children}</Container>
 			<Footer />
 		</div>
 	);

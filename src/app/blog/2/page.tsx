@@ -5,8 +5,8 @@ import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleHeader from "@/src/components/article/ArticleHeader";
 import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import {
 	Table,
@@ -78,20 +78,20 @@ export default function BlogPost2Page() {
 					</ArticleParagraph>
 					<ArticleParagraph className="mb-3">
 						Most development teams work using some kind of{" "}
-						<Link
+						<ExternalLink
 							href="https://www.wrike.com/project-management-guide/faq/what-is-agile-methodology-in-project-management/"
 							target="_blank"
 						>
 							Agile methodology
-						</Link>{" "}
+						</ExternalLink>{" "}
 						. One of the most common framework in the industry that adopts this
 						is{" "}
-						<Link
+						<ExternalLink
 							href="https://www.scrum.org/resources/what-is-scrum"
 							target="_blank"
 						>
 							Scrum
-						</Link>{" "}
+						</ExternalLink>{" "}
 						. By adhering to the Scrum framework, the team delivers software in
 						an incremental manner. This gives stakeholders the flexibility to
 						review the increment periodically and make adjustments if necessary.
@@ -115,9 +115,9 @@ export default function BlogPost2Page() {
 					</ArticleParagraph>
 					<ArticleParagraph className="mb-7">
 						To find out exactly how Scrum works, you can read the{" "}
-						<Link href="https://scrumguides.org" target="_blank">
+						<ExternalLink href="https://scrumguides.org" target="_blank">
 							scrum guide
-						</Link>{" "}
+						</ExternalLink>{" "}
 						for detailed information. But let me give you a brief overview, in
 						my own definition, for a basic understanding.
 					</ArticleParagraph>
@@ -185,9 +185,9 @@ export default function BlogPost2Page() {
 						important to understand that a team does not need to consist of all
 						the roles mentioned above. If you want to find out more about some
 						of the roles above and the skills needed, I recommend you visit{" "}
-						<Link href="https://roadmap.sh/" target="_blank">
+						<ExternalLink href="https://roadmap.sh/" target="_blank">
 							roadmap
-						</Link>
+						</ExternalLink>
 						. Take note that the site is still under development by the open
 						source community but definitely a great site to explore.
 					</ArticleParagraph>
@@ -208,9 +208,9 @@ export default function BlogPost2Page() {
 						only 10 people, how come tech companies are so big? The answer is{" "}
 						<b>Scaled up Scrum</b>. A Product Owner and a Scrum Master can be
 						running one or multiple Scrum teams. Using the{" "}
-						<Link href="https://www.airbnb.com.sg" target="_blank">
+						<ExternalLink href="https://www.airbnb.com.sg" target="_blank">
 							Airbnb
-						</Link>{" "}
+						</ExternalLink>{" "}
 						products of hosting, experience and online experience as an example,
 						it is possible that they are running scaled up Scrum with each scrum
 						team working on a certain product:
@@ -377,12 +377,12 @@ export default function BlogPost2Page() {
 						popular ways of delivering a piece of software, there are other
 						agile frameworks that a company may use. Some companies also
 						don&apos;t adopt the agile workflow and prefer to work more towards{" "}
-						<Link
+						<ExternalLink
 							href="https://www.workfront.com/project-management/methodologies/waterfall"
 							target="_blank"
 						>
 							the waterfall method
-						</Link>
+						</ExternalLink>
 						.
 					</ArticleParagraph>
 					<ArticleParagraph className="mb-3">

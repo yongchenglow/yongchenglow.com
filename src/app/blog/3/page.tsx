@@ -11,8 +11,8 @@ import ArticleList from "@/src/components/article/ArticleList";
 import ArticleMetadata from "@/src/components/article/ArticleMetadata";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
 import ArticleText from "@/src/components/article/ArticleText";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 
 export default function BlogPost3Page() {
@@ -57,7 +57,7 @@ export default function BlogPost3Page() {
 						What are Personas?
 					</ArticleParagraph>
 					<ArticleImageContainer size="small">
-						<Link
+						<ExternalLink
 							href="https://www.freepik.com/vectors/infographic"
 							target="_blank"
 							aria-label="Persona"
@@ -70,15 +70,15 @@ export default function BlogPost3Page() {
 								height={600}
 								priority={false}
 							/>
-						</Link>
+						</ExternalLink>
 					</ArticleImageContainer>
 					<ArticleDefinition>
-						<Link
+						<ExternalLink
 							href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
 							target="_blank"
 						>
 							<b>Personas</b>
-						</Link>{" "}
+						</ExternalLink>{" "}
 						are fictional characters that are created to represent the different
 						user groups of your product.
 					</ArticleDefinition>
@@ -130,7 +130,7 @@ export default function BlogPost3Page() {
 						Breaking down the Initiative
 					</ArticleParagraph>
 					<ArticleImageContainer size="small">
-						<Link
+						<ExternalLink
 							href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
 							target="_blank"
 							aria-label="Agile Development Breakdown"
@@ -143,7 +143,7 @@ export default function BlogPost3Page() {
 								height={500}
 								priority={false}
 							/>
-						</Link>
+						</ExternalLink>
 					</ArticleImageContainer>
 					<ArticleParagraph className="mb-3">
 						Whenever the team wants to build something special, you will need to

@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Container from "@/src/components/shared/atoms/Container";
+import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -27,10 +28,10 @@ const NavigationBar = () => {
 	};
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
-			<div className="container mx-auto px-4 py-3 flex items-center justify-between">
+		<header className="fixed top-0 left-0 right-0 z-50 bg-navbar border-b">
+			<Container className="py-3 flex items-center justify-between">
 				<NavigationMenu>
-					<NavigationMenuList>
+					<NavigationMenuList className="gap-3">
 						{pages.map((page) => (
 							<NavigationMenuItem key={page.name}>
 								<NavigationMenuLink
@@ -40,14 +41,14 @@ const NavigationBar = () => {
 										isActive(page.href) && "bg-accent text-accent-foreground",
 									)}
 								>
-									<Link href={page.href}>{page.name}</Link>
+									<InternalLink href={page.href}>{page.name}</InternalLink>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
 						))}
 					</NavigationMenuList>
 				</NavigationMenu>
 				<ThemeToggle />
-			</div>
+			</Container>
 		</header>
 	);
 };

@@ -1,15 +1,17 @@
 import Image from "next/image";
-import Link from "next/link";
-import ExternalLink from "@/src/components/shared/atoms/Link";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
+import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import Section from "@/src/components/shared/molecules/Section";
 
 export default function AboutMeSection() {
 	return (
-		<div className="py-12 text-center">
-			<div className="mb-4">
-				<h2 className="text-4xl font-bold text-foreground">Who am I?</h2>
-			</div>
+		<Section
+			title="Who am I?"
+			className="mt-12"
+			titleClassName="text-4xl font-bold text-foreground"
+		>
 			<div className="flex justify-center">
-				<div className="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-12 items-center">
+				<div className="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-3 items-center">
 					<div className="sm:col-span-5 col-span-1 flex justify-center mb-12 sm:mb-0">
 						<Image
 							alt="Low Yong Cheng"
@@ -47,18 +49,12 @@ export default function AboutMeSection() {
 							</p>
 							<p className="mb-8 text-muted-foreground leading-relaxed text-lg">
 								You can find out more about me in the{" "}
-								<Link
-									href="/about"
-									className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
-								>
-									about
-								</Link>{" "}
-								section.
+								<InternalLink href="/about">about</InternalLink> section.
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</Section>
 	);
 }

@@ -26,14 +26,19 @@ const GoogleAds: React.FunctionComponent<Props> = ({ slotId }) => {
 	}, []);
 
 	return (
-		<ins
-			className="adsbygoogle"
-			style={{ display: "block", textAlign: "center" }}
-			data-ad-layout="in-article"
-			data-ad-format="fluid"
-			data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}
-			data-ad-slot={slotId}
-		></ins>
+		<div className="mb-3">
+			<ins
+				className="adsbygoogle"
+				style={{
+					display: "block",
+					textAlign: "center",
+				}}
+				data-ad-layout="in-article"
+				data-ad-format="fluid"
+				data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}
+				data-ad-slot={slotId}
+			/>
+		</div>
 	);
 };
 

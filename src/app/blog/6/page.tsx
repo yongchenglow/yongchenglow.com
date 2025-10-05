@@ -3,25 +3,24 @@
 import Image from "next/image";
 import ArticleCodeBlock from "@/src/components/article/ArticleCodeBlock";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
-import ArticleHeading from "@/src/components/article/ArticleHeading";
+import ArticleContent from "@/src/components/article/ArticleContent";
+import ArticleHeader from "@/src/components/article/ArticleHeader";
+import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
 import ArticleSection from "@/src/components/article/ArticleSection";
-import ArticleTitle from "@/src/components/article/ArticleTitle";
-import ContentContainer from "@/src/components/article/ContentContainer";
-import ImageContainer from "@/src/components/article/ImageContainer";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 
 export default function BlogPost6Page() {
 	return (
 		<StandardLayout>
 			<ArticleContainer>
-				<ArticleTitle>Setting up your Project</ArticleTitle>
-				<p className="text-base text-gray-600 text-center mb-6">
-					(The Correct Way)
-				</p>
-				<ImageContainer>
+				<ArticleHeader
+					title="Setting up your Project"
+					subtitle="(The Correct Way)"
+				/>
+				<ArticleImageContainer>
 					<Image
 						style={{ width: "100%", height: "auto" }}
 						src="/img/gaming-computer-gbe40f244a_1280.jpg"
@@ -30,19 +29,19 @@ export default function BlogPost6Page() {
 						height={853}
 						priority={false}
 					/>
-				</ImageContainer>
-				<ContentContainer>
+				</ArticleImageContainer>
+				<ArticleContent>
 					<ArticleParagraph>
 						Setting up a project may sound like a simple task to you. However,
 						it is important that we get this step right. By doing so, it will
 						not only impress your technical assessors for your job application,
 						but it will also ensure that your project will remain{" "}
-						<Link
+						<ExternalLink
 							href="https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29"
 							target="_blank"
 						>
 							clean
-						</Link>{" "}
+						</ExternalLink>{" "}
 						in the long run.
 					</ArticleParagraph>
 					<ArticleParagraph>
@@ -58,21 +57,27 @@ export default function BlogPost6Page() {
 						<p className="mb-3">
 							In this Article, I will take you through a very basic project
 							setup using,{" "}
-							<Link href="https://github.com" target="_blank">
+							<ExternalLink href="https://github.com" target="_blank">
 								GitHub
-							</Link>
+							</ExternalLink>
 							,{" "}
-							<Link href="https://code.visualstudio.com" target="_blank">
+							<ExternalLink
+								href="https://code.visualstudio.com"
+								target="_blank"
+							>
 								VS Code
-							</Link>
+							</ExternalLink>
 							,{" "}
-							<Link href="https://rubyonrails.org" target="_blank">
+							<ExternalLink href="https://rubyonrails.org" target="_blank">
 								Ruby on Rails
-							</Link>{" "}
+							</ExternalLink>{" "}
 							and{" "}
-							<Link href="https://git-scm.com/downloads" target="_blank">
+							<ExternalLink
+								href="https://git-scm.com/downloads"
+								target="_blank"
+							>
 								Git
-							</Link>
+							</ExternalLink>
 							. You may be using a different stack but similar principles will
 							apply. All you will need is
 						</p>
@@ -91,7 +96,7 @@ export default function BlogPost6Page() {
 						phase.
 					</ArticleParagraph>
 					<ArticleSection title="Preparation">
-						<ImageContainer>
+						<ArticleImageContainer>
 							<Image
 								style={{ width: "100%", height: "auto" }}
 								src="/img/studying-g69d74ed4b_1280.jpg"
@@ -100,14 +105,14 @@ export default function BlogPost6Page() {
 								height={853}
 								priority={false}
 							/>
-						</ImageContainer>
+						</ArticleImageContainer>
 						<ArticleParagraph>
 							If you want to follow along this project setup series, please
 							setup your computer according to the following website. The setup
 							instructions are courtesy of{" "}
-							<Link href="https://www.lewagon.com" target="_blank">
+							<ExternalLink href="https://www.lewagon.com" target="_blank">
 								Le Wagon
-							</Link>
+							</ExternalLink>
 							, I do teach there part time. If you are interested in their
 							courses feel free to sign up. They have offices everywhere world
 							wide.
@@ -129,7 +134,7 @@ git push origin main`}
 						<GoogleAds slotId="4080993110" />
 					</ArticleSection>
 					<ArticleSection title="Setting up VS Code">
-						<ImageContainer>
+						<ArticleImageContainer>
 							<Image
 								style={{ width: "100%", height: "auto" }}
 								src="/img/laptop-gf9883978d_1280.jpg"
@@ -138,31 +143,34 @@ git push origin main`}
 								height={853}
 								priority={false}
 							/>
-						</ImageContainer>
+						</ArticleImageContainer>
 						<ArticleParagraph>
 							Visual Studio Code is a widely used IDE for any language. Other
 							IDE out there that companies commonly used include{" "}
-							<Link href="https://www.jetbrains.com/idea/" target="_blank">
+							<ExternalLink
+								href="https://www.jetbrains.com/idea/"
+								target="_blank"
+							>
 								Intellij
-							</Link>{" "}
+							</ExternalLink>{" "}
 							and{" "}
-							<Link
+							<ExternalLink
 								href="https://www.eclipse.org/downloads/packages/release/neon/2/eclipse-ide-java-developers"
 								target="_blank"
 							>
 								Eclipse
-							</Link>{" "}
+							</ExternalLink>{" "}
 							. You can use any IDE you want or prefer, but the concepts remain
 							the same. The first step is to ensure that your IDE is set up for
 							the language that you are going to code. We want to ensure that
 							the setup process is the same for every team member so that when
 							we{" "}
-							<Link
+							<ExternalLink
 								href="https://martinfowler.com/articles/on-pair-programming.html"
 								target="_blank"
 							>
 								pair program
-							</Link>
+							</ExternalLink>
 							, things become a lot easier.
 						</ArticleParagraph>
 						<ArticleParagraph>
@@ -176,17 +184,17 @@ git push origin main`}
 							Because we will be using Ruby on Rails, the extensions that I will
 							introduce will be specific to the project. However, if you are
 							using something such as{" "}
-							<Link href="https://nextjs.org" target="_blank">
+							<ExternalLink href="https://nextjs.org" target="_blank">
 								NextJS
-							</Link>
+							</ExternalLink>
 							,{" "}
-							<Link href="https://nodejs.org/en/" target="_blank">
+							<ExternalLink href="https://nodejs.org/en/" target="_blank">
 								NodeJS
-							</Link>
+							</ExternalLink>
 							,{" "}
-							<Link href="https://go.dev" target="_blank">
+							<ExternalLink href="https://go.dev" target="_blank">
 								GoLang
-							</Link>{" "}
+							</ExternalLink>{" "}
 							etc. a simple google search will allow you to find the recommended
 							extension.
 						</ArticleParagraph>
@@ -245,27 +253,25 @@ git push origin main`}
 							</p>
 						</div>
 					</ArticleSection>
-					<ArticleHeading level={4}>
-						How to add VS Code Extensions
-					</ArticleHeading>
-					<ArticleParagraph>
-						In the root of your project, you can run the following code to
-						create a VS Code extensions file.
-					</ArticleParagraph>
-					<ArticleCodeBlock language="bash">
-						{`mkdir .vscode
+					<ArticleSection title="How to add VS Code Extensions" level={4}>
+						<ArticleParagraph>
+							In the root of your project, you can run the following code to
+							create a VS Code extensions file.
+						</ArticleParagraph>
+						<ArticleCodeBlock language="bash">
+							{`mkdir .vscode
 cd .vscode
 touch extensions.json`}
-					</ArticleCodeBlock>
-					<div className="mb-7">
-						<p className="mb-3">
-							In the extensions.json file, you should add the extensions for
-							your project. For those who are following along, you can copy the
-							file information below
-						</p>
-					</div>
-					<ArticleCodeBlock language="json" className="mb-3">
-						{`{
+						</ArticleCodeBlock>
+						<div className="mb-7">
+							<p className="mb-3">
+								In the extensions.json file, you should add the extensions for
+								your project. For those who are following along, you can copy
+								the file information below
+							</p>
+						</div>
+						<ArticleCodeBlock language="json" className="mb-3">
+							{`{
   "recommendations": [
     "rebornix.ruby",
     "kaiwood.endwise",
@@ -281,24 +287,23 @@ touch extensions.json`}
   ],
   "unwantedRecommendations": []
 }`}
-					</ArticleCodeBlock>
-					<div className="mb-7">
-						<p className="mb-3">
-							After creating this file and adding the extensions, you may see VS
-							Code prompting you to download and install some extensions if you
-							haven&apos;t got it install. This means that the recommended
-							extensions.json is working.
-						</p>
-					</div>
-					<ArticleHeading level={4} className="mt-7">
-						Format on save
-					</ArticleHeading>
-					<ArticleParagraph>
-						Adjust your VS Code settings code &gt; preferences &gt; settings,
-						add a , at the end of the file and paste the following code
-					</ArticleParagraph>
-					<ArticleCodeBlock language="json" className="mb-3">
-						{`{
+						</ArticleCodeBlock>
+						<div className="mb-7">
+							<p className="mb-3">
+								After creating this file and adding the extensions, you may see
+								VS Code prompting you to download and install some extensions if
+								you haven&apos;t got it install. This means that the recommended
+								extensions.json is working.
+							</p>
+						</div>
+					</ArticleSection>
+					<ArticleSection title="Format on save" level={4} className="mt-7">
+						<ArticleParagraph>
+							Adjust your VS Code settings code &gt; preferences &gt; settings,
+							add a , at the end of the file and paste the following code
+						</ArticleParagraph>
+						<ArticleCodeBlock language="json" className="mb-3">
+							{`{
   ...
   "editor.bracketPairColorization.enabled": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -307,27 +312,27 @@ touch extensions.json`}
     "source.fixAll": true
   },
 }`}
-					</ArticleCodeBlock>
-					<div className="mt-3 mb-7">
-						<p className="mb-3">
-							If there is a yellow squiggly line in your settings.json, most
-							likely the code is repeated. Try to combine them or remove the
-							duplicates.
-						</p>
-					</div>
-					<ArticleHeading level={4} className="mt-7">
-						Conclusion
-					</ArticleHeading>
-					<div className="mb-7">
-						<p className="mb-3">
-							To conclude, setting up a project is easy, doing it correctly it
-							is hard. It is also important that we maintain a document on how
-							we should setup a project and its configurations to make the
-							onboarding process easier. This document will change overtime as a
-							project grows, new plugins are introduced or removed to increase
-							the code quality or increase productivity.
-						</p>
-					</div>
+						</ArticleCodeBlock>
+						<div className="mt-3 mb-7">
+							<p className="mb-3">
+								If there is a yellow squiggly line in your settings.json, most
+								likely the code is repeated. Try to combine them or remove the
+								duplicates.
+							</p>
+						</div>
+					</ArticleSection>
+					<ArticleSection title="Conclusion" level={4} className="mt-7">
+						<div className="mb-7">
+							<p className="mb-3">
+								To conclude, setting up a project is easy, doing it correctly it
+								is hard. It is also important that we maintain a document on how
+								we should setup a project and its configurations to make the
+								onboarding process easier. This document will change overtime as
+								a project grows, new plugins are introduced or removed to
+								increase the code quality or increase productivity.
+							</p>
+						</div>
+					</ArticleSection>
 					<GoogleAds slotId="8011627129" />
 					<div className="text-center my-5">
 						<p className="text-gray-600 text-center mb-3">
@@ -337,7 +342,7 @@ touch extensions.json`}
 					<p className="text-sm text-gray-600 text-right mb-3">
 						Last Updated: 16/03/2022
 					</p>
-				</ContentContainer>
+				</ArticleContent>
 			</ArticleContainer>
 		</StandardLayout>
 	);

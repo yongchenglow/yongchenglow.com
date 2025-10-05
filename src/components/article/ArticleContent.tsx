@@ -10,7 +10,7 @@ export default function ArticleContent({
 	className = "",
 }: ArticleContentProps) {
 	return (
-		<div className={`max-w-md mx-auto mb-2 text-left ${className}`.trim()}>
+		<div className={`max-w-7xl mx-auto mb-2 text-left ${className}`}>
 			{children}
 		</div>
 	);

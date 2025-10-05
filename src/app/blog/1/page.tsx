@@ -5,8 +5,9 @@ import ArticleContainer from "@/src/components/article/ArticleContainer";
 import BlogHeader from "@/src/components/article/ArticleHeader";
 import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import Link from "@/src/components/shared/atoms/Link";
+import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 
@@ -33,9 +34,9 @@ export default function BlogPost1Page() {
 						So, you have just finished your coding bootcamp, got your degree or
 						built your very own web application and you think you're ready to
 						conquer the software engineering world. You go over to{" "}
-						<Link href="https://glints.com" target="_blank">
+						<ExternalLink href="https://glints.com" target="_blank">
 							Glints
-						</Link>
+						</ExternalLink>
 						, apply for a software engineering job and demand a 5k starting
 						salary.
 					</ArticleParagraph>
@@ -74,14 +75,17 @@ export default function BlogPost1Page() {
 						easier to pronounce. I have been writing code for about 5 years and
 						working as a software engineer for 3 years. I am currently a
 						Software Engineer at{" "}
-						<Link href="https://glints.com/sg" target="_blank">
+						<ExternalLink href="https://glints.com/sg" target="_blank">
 							Glints
-						</Link>
+						</ExternalLink>
 						. The reason why I started writing code is because of the amazing
 						lecturers from{" "}
-						<Link href="https://www.lewagon.com/singapore" target="_blank">
+						<ExternalLink
+							href="https://www.lewagon.com/singapore"
+							target="_blank"
+						>
 							Le Wagon Singapore
-						</Link>
+						</ExternalLink>
 						. Their courses and knowledge shared during my Part Time Web
 						Development Course really inspired me to make a career change from
 						Hardware to Software!
@@ -99,19 +103,19 @@ export default function BlogPost1Page() {
 					</div>
 					<ArticleParagraph className="mb-5">
 						If you are my hard core fan, you can check out the following{" "}
-						<Link
+						<ExternalLink
 							href="https://github.com/yongchenglow/airbnb-clone"
 							target="_blank"
 						>
 							AirBnB repository
-						</Link>{" "}
+						</ExternalLink>{" "}
 						and{" "}
-						<Link
+						<ExternalLink
 							href="https://github.com/yongchenglow/goal-setting-app"
 							target="_blank"
 						>
 							Goal Setting repository
-						</Link>{" "}
+						</ExternalLink>{" "}
 						that I will be using as examples. These are by far a finished
 						products. I will enhance it as and when the content asks for it.
 						Pardon me as I have a full time job and a part time teaching job.
@@ -119,7 +123,7 @@ export default function BlogPost1Page() {
 					</ArticleParagraph>
 					<GoogleAds slotId="8262074410" />
 					<div className="text-center my-5">
-						<Link href="/blog/2" style={{ textDecoration: "none" }}>
+						<InternalLink href="/blog/2" style={{ textDecoration: "none" }}>
 							<Button
 								size="sm"
 								variant="default"
@@ -127,7 +131,7 @@ export default function BlogPost1Page() {
 							>
 								Next Article: Join the Scrum
 							</Button>
-						</Link>
+						</InternalLink>
 					</div>
 				</ArticleContainer>
 			</ArticleContainer>

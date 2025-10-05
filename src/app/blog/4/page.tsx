@@ -4,13 +4,13 @@ import Image from "next/image";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import docco from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
-import BlogHeader from "@/src/components/article/ArticleHeader";
-import ArticleHeading from "@/src/components/article/ArticleHeading";
+import ArticleContent from "@/src/components/article/ArticleContent";
+import ArticleHeader from "@/src/components/article/ArticleHeader";
+import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleSection from "@/src/components/article/ArticleSection";
 import ArticleText from "@/src/components/article/ArticleText";
-import ContentContainer from "@/src/components/article/ContentContainer";
-import ImageContainer from "@/src/components/article/ImageContainer";
+import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import Link from "@/src/components/shared/atoms/Link";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import {
 	Table,
@@ -45,11 +45,11 @@ export default function BlogPost4Page() {
 	return (
 		<StandardLayout>
 			<ArticleContainer>
-				<BlogHeader
+				<ArticleHeader
 					title="Single Source of Truth"
 					subtitle="Creating a reliable Database"
 				/>
-				<ImageContainer>
+				<ArticleImageContainer>
 					<Image
 						style={{ width: "100%", height: "auto" }}
 						src="/img/database-schema-gf6a494e82_1280.png"
@@ -58,8 +58,8 @@ export default function BlogPost4Page() {
 						height={853}
 						priority={false}
 					/>
-				</ImageContainer>
-				<ContentContainer>
+				</ArticleImageContainer>
+				<ArticleContent>
 					<ArticleText className="mb-3">
 						One of the most important software engineering principles is to
 						ensure that we have a single source of truth. For the context of
@@ -76,10 +76,10 @@ export default function BlogPost4Page() {
 						database constraints and normalization. Other topics such as
 						security and performance will be left for another day.
 					</ArticleText>
-					<ArticleHeading level={2} className="mb-2">
+					<ArticleSection level={2} className="mb-2">
 						Database Constraints
-					</ArticleHeading>
-					<ImageContainer>
+					</ArticleSection>
+					<ArticleImageContainer>
 						<Image
 							style={{ width: "100%", height: "auto" }}
 							src="/img/server-gebd52a943_1280.jpg"
@@ -88,15 +88,15 @@ export default function BlogPost4Page() {
 							height={853}
 							priority={false}
 						/>
-					</ImageContainer>
+					</ArticleImageContainer>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
-							<Link
+							<ExternalLink
 								href="https://www.postgresql.org/docs/current/datatype.html"
 								target="_blank"
 							>
 								<b>Database constraints </b>
-							</Link>{" "}
+							</ExternalLink>{" "}
 							give you control over the data stored inside the tables
 						</div>
 					</div>
@@ -117,9 +117,9 @@ export default function BlogPost4Page() {
 							CREATE TABLE user(id serial primary key, username varchar(50));
 						</SyntaxHighlighter>
 					</div>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						Checks
-					</ArticleHeading>
+					</ArticleSection>
 					<ArticleText className="mb-3">
 						In addition to using the different data types that Postgres
 						provides, we can also add additional constraints. Let&apos;s say we
@@ -164,9 +164,9 @@ CREATE TABLE products (
 						allows us to have a maximum and minimum of 5 digits of which 2 are
 						decimal points(-999.99 to 999.99)
 					</ArticleText>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						Primary Keys
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Primary Keys</b> are a unique identifier for a row of data
@@ -178,9 +178,9 @@ CREATE TABLE products (
 						documentation a B-Tree index is automatically created for primary
 						keys.
 					</ArticleText>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						Foreign keys
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Foreign keys</b> are references to a row with a primary key in
@@ -231,9 +231,9 @@ CREATE TABLE order_items (
 							))}
 						</TableBody>
 					</Table>
-					<ArticleHeading level={3} className="mt-10 mb-2">
+					<ArticleSection level={3} className="mt-10 mb-2">
 						Not Null
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Not Null</b> constraint does not allow null values
@@ -262,9 +262,9 @@ CREATE TABLE user (
                 `}
 						</SyntaxHighlighter>
 					</div>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						Unique
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Unique</b> constraint means that every value in the column must
@@ -304,10 +304,10 @@ end
 						</SyntaxHighlighter>
 					</div>
 					<GoogleAds slotId="5768607169" />
-					<ArticleHeading level={2} className="mt-7 mb-2">
+					<ArticleSection level={2} className="mt-7 mb-2">
 						Database Normalization
-					</ArticleHeading>
-					<ImageContainer>
+					</ArticleSection>
+					<ArticleImageContainer>
 						<Image
 							style={{ width: "100%", height: "auto" }}
 							src="/img/database-g2fad27680_1280.jpg"
@@ -316,14 +316,14 @@ end
 							height={853}
 							priority={false}
 						/>
-					</ImageContainer>
+					</ArticleImageContainer>
 					<div className="text-base text-center mb-3 italic">
-						<Link
+						<ExternalLink
 							href="https://opentextbc.ca/dbdesign01/chapter/chapter-12-normalization/"
 							target="_blank"
 						>
 							<b>Normalization</b>
-						</Link>{" "}
+						</ExternalLink>{" "}
 						is a database design technique that reduces data redundancy, and
 						anomalies.
 					</div>
@@ -334,12 +334,12 @@ end
 						Form to 3.5 Normal Form, otherwise known as Boyce-Codd normal
 						form(BCNF) which is usually the requirements needed to pass most
 						technical assessments. There are greater levels of{" "}
-						<Link
+						<ExternalLink
 							href="https://www.guru99.com/database-normalization.html"
 							target="_blank"
 						>
 							normalization
-						</Link>{" "}
+						</ExternalLink>{" "}
 						but we won&apos;t be covering them here.
 					</ArticleText>
 					<ArticleText className="mb-7">
@@ -348,9 +348,9 @@ end
 						domain. E.g. Student will be used to represent StudentName,
 						StudentAge etc.
 					</ArticleText>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						1<sup>st</sup> Normal Form
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Each Table Cell should contain a single value
@@ -433,9 +433,9 @@ Result: Row1 = student, [course1]
                 `}
 						</SyntaxHighlighter>
 					</div>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						2<sup>nd</sup> Normal Form
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 1<sup>st</sup> Normal Form
@@ -484,9 +484,9 @@ Course (CourseId, Course)
 						grades for the student. Both transactions can occur without
 						interfering with each other.
 					</ArticleText>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						3<sup>rd</sup> Normal Form
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 2<sup>nd</sup> Normal Form
@@ -524,9 +524,9 @@ Course (CourseId, Course)
                 `}
 						</SyntaxHighlighter>
 					</div>
-					<ArticleHeading level={3} className="mb-2">
+					<ArticleSection level={3} className="mb-2">
 						Boyce-Codd Normal Form(BCNF)
-					</ArticleHeading>
+					</ArticleSection>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 3<sup>rd</sup> Normal Form
@@ -594,9 +594,9 @@ Major (MajorId, Major)
 						Advisor. An Advisor advises one major and a Major can have several
 						advisors.
 					</ArticleText>
-					<ArticleHeading level={2} className="mb-2">
+					<ArticleSection level={2} className="mb-2">
 						Conclusion
-					</ArticleHeading>
+					</ArticleSection>
 					<ArticleText className="mb-3">
 						The database of our web application is our user&apos;s single source
 						of truth. Therefore, we need to design it using the normalization
@@ -626,7 +626,7 @@ Major (MajorId, Major)
 					<div className="text-xs text-gray-600 text-right mb-3">
 						Last Updated: 28/02/2022
 					</div>
-				</ContentContainer>
+				</ArticleContent>
 			</ArticleContainer>
 		</StandardLayout>
 	);
