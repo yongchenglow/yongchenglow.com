@@ -1,16 +1,13 @@
 "use client";
 
-import Image from "next/image";
-import ArticleAnnouncement from "@/src/components/article/ArticleAnnouncement";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleContent from "@/src/components/article/ArticleContent";
 import ArticleDefinition from "@/src/components/article/ArticleDefinition";
 import BlogHeader from "@/src/components/article/ArticleHeader";
-import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleImage from "@/src/components/article/ArticleImage";
 import ArticleList from "@/src/components/article/ArticleList";
 import ArticleMetadata from "@/src/components/article/ArticleMetadata";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
-import ArticleText from "@/src/components/article/ArticleText";
 import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -23,55 +20,43 @@ export default function BlogPost3Page() {
 					title="It's Story Time"
 					subtitle="Creating a Product Plan for success"
 				/>
-				<ArticleImageContainer>
-					<Image
-						style={{ width: "100%", height: "auto" }}
-						src="/img/meeting-gf7ea04404_1280.jpg"
-						alt="children coding"
-						width={1280}
-						height={853}
-						priority={false}
-					/>
-				</ArticleImageContainer>
+				<ArticleImage
+					src="/img/meeting-gf7ea04404_1280.jpg"
+					alt="children coding"
+				/>
 				<ArticleContent>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>
 						You just learned about scrum and feel confident to start your Sprint
 						Planning session. However, what exactly does Sprint Planning consist
 						of? How do we decide what features are going to be built in the
 						current sprint? What are the outcomes of a Sprint Planning session?
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>
 						Before I start talking about the Sprint Planning process, I would
 						like us to take a step back and look at the big picture. Instead of
 						focusing on one sprint, lets focus on the product that we are
 						building first. This is so that we know what we are working towards
 						after the completion of multiple sprints.
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-7">
+					<ArticleParagraph>
 						Every product that a company build is paid for by a particular user.
 						Therefore, before doing any planning, we first need to revisit who
 						our users are. This is because if we start deviating from their
 						needs and wants, they will eventually look for a close substitute.
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-2">
-						What are Personas?
-					</ArticleParagraph>
-					<ArticleImageContainer size="small">
-						<ExternalLink
-							href="https://www.freepik.com/vectors/infographic"
-							target="_blank"
-							aria-label="Persona"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/4317364.jpg"
-								alt="Infographic vector created by freepik - www.freepik.com"
-								width={800}
-								height={600}
-								priority={false}
-							/>
-						</ExternalLink>
-					</ArticleImageContainer>
+					<ArticleParagraph>What are Personas?</ArticleParagraph>
+					<ExternalLink
+						href="https://www.freepik.com/vectors/infographic"
+						target="_blank"
+						aria-label="Persona"
+					>
+						<ArticleImage
+							src="/img/4317364.jpg"
+							alt="Infographic vector created by freepik - www.freepik.com"
+							width={800}
+							height={600}
+						/>
+					</ExternalLink>
 					<ArticleDefinition>
 						<ExternalLink
 							href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
@@ -82,7 +67,7 @@ export default function BlogPost3Page() {
 						are fictional characters that are created to represent the different
 						user groups of your product.
 					</ArticleDefinition>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>
 						Personas help us understand the user&apos;s needs, wants and goals.
 						By creating the persona, we understand who we are building the
 						product for. Using a very basic Airbnb as an example, we can start
@@ -92,7 +77,7 @@ export default function BlogPost3Page() {
 						personas becomes broader and cover a wider audience. Some companies
 						grow so big that they do not see the need for Personas.
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>
 						However, my personal opinion is, it is always important to revisit
 						the persona to understand your core audience. This is because if you
 						have been playing the game of business long enough, a close
@@ -102,7 +87,7 @@ export default function BlogPost3Page() {
 						and meet the needs and wants of your core user group, they will
 						stay.
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>
 						An example of this will be Instagram. Instagram targets people
 						generally below the age of 35 who want to share great photos or
 						story moments with a certain network. When TikTok emerged, those who
@@ -113,7 +98,7 @@ export default function BlogPost3Page() {
 						exist before 2016, these creators did not have a choice but to use
 						Instagram.
 					</ArticleParagraph>
-					<ArticleParagraph className="mb-7">
+					<ArticleParagraph>
 						Yes, yes you may say Instagram should have identified these
 						persona&apos;s earlier and perhaps adjust their product to cater for
 						these users. However, we won&apos;t be debating about this, but this
@@ -126,26 +111,20 @@ export default function BlogPost3Page() {
 						initiatives.
 					</ArticleParagraph>
 					<GoogleAds slotId="9333319799" />
-					<ArticleParagraph className="mb-2">
-						Breaking down the Initiative
-					</ArticleParagraph>
-					<ArticleImageContainer size="small">
-						<ExternalLink
-							href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
-							target="_blank"
-							aria-label="Agile Development Breakdown"
-						>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/epics-vs-stories-agile-development.png"
-								alt="epics-vs-stories-agile-development"
-								width={800}
-								height={500}
-								priority={false}
-							/>
-						</ExternalLink>
-					</ArticleImageContainer>
-					<ArticleParagraph className="mb-3">
+					<ArticleParagraph>Breaking down the Initiative</ArticleParagraph>
+					<ExternalLink
+						href="https://www.atlassian.com/agile/project-management/epics-stories-themes"
+						target="_blank"
+						aria-label="Agile Development Breakdown"
+					>
+						<ArticleImage
+							src="/img/epics-vs-stories-agile-development.png"
+							alt="epics-vs-stories-agile-development"
+							width={800}
+							height={500}
+						/>
+					</ExternalLink>
+					<ArticleParagraph>
 						Whenever the team wants to build something special, you will need to
 						draw out some kind of game plan. One of the most popular ways to
 						organize your work is through initiatives, epics, stories, task,
@@ -171,7 +150,7 @@ export default function BlogPost3Page() {
 					<ArticleDefinition>
 						A <b>Sub-task</b> is a breakdown of a task
 					</ArticleDefinition>
-					<ArticleText>
+					<ArticleParagraph>
 						Some of the popular project management tools includes Jira, Click
 						up, Notion, Asana and Monday. All the different products have their
 						own advantages and limitations which we will not discuss. However,
@@ -180,29 +159,23 @@ export default function BlogPost3Page() {
 						rest should use it too. Or else managing scaled up scrum where one
 						team is using notion and another is using Jira will turn into a
 						nightmare.
-					</ArticleText>
-					<ArticleText className="mb-7">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						Lastly, before we start any sprint planning, the team needs to
 						decide and have a common understanding of the Definition of Done.
-					</ArticleText>
-					<ArticleParagraph className="mb-2">
-						Definition of Done
 					</ArticleParagraph>
-					<ArticleImageContainer size="small">
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg"
-							alt="scrum team"
-							width={1200}
-							height={800}
-							priority={false}
-						/>
-					</ArticleImageContainer>
+					<ArticleParagraph>Definition of Done</ArticleParagraph>
+					<ArticleImage
+						src="/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg"
+						alt="scrum team"
+						width={1200}
+						height={800}
+					/>
 					<ArticleDefinition>
 						<b>Definition of Done</b> is the acceptance criteria to a particular
 						type of user story
 					</ArticleDefinition>
-					<ArticleText className="mb-3">
+					<ArticleParagraph>
 						A huge caveat before we proceed is that according to the scrum
 						guide, the definition of done should apply for every user story.
 						However, from experience a Design Task has a very different
@@ -211,7 +184,7 @@ export default function BlogPost3Page() {
 						on the definition of done for the different kinds of task. This is
 						so that when a task is marked as Done, the team all have a common
 						understand what each task has gone through.
-					</ArticleText>
+					</ArticleParagraph>
 					<ArticleList>
 						An example of a Design Task may be to conduct AB testing on 2
 						different designs. The definition of done of a design task may
@@ -267,53 +240,45 @@ export default function BlogPost3Page() {
 							<li>Release to Production</li>
 						</ol>
 					</ArticleList>
-					<ArticleParagraph className="mt-7 mb-2">
-						Sprint Planning
-					</ArticleParagraph>
-					<ArticleImageContainer size="small">
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/meeting-g10f292b56_1280.png"
-							alt="sprint planning"
-							width={1280}
-							height={853}
-							priority={false}
-						/>
-					</ArticleImageContainer>
-					<ArticleText className="mb-3">
+					<ArticleParagraph>Sprint Planning</ArticleParagraph>
+					<ArticleImage
+						src="/img/meeting-g10f292b56_1280.png"
+						alt="sprint planning"
+					/>
+					<ArticleParagraph>
 						Now that we have talked about the different terminologies, it&apos;s
 						time talk about the Sprint Planning session itself.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						At the start of the Sprint Planning meeting, the team needs to
 						decide on <b>the what</b>. The product owner pick items from the
 						backlog that the team will be working on and sets the initial sprint
 						goal. These items are usually picked because they are related to the
 						initiative and epics of the previous sprint or because are starting
 						a new one.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						The development team will then plan out <b>the how</b>, or the
 						scoping and specifications needed to deliver the sprint goal. It is
 						important that this process is a negotiation, if the work is too
 						much, we need to adjust the what. But at the end of the day, the
 						scope of work must be manageable and the team must agree that the
 						items pick can meet the definition of done by the end of the sprint.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						Once the sprint goal is finalized and the scope of work is final,
 						the team then decides <b>the who</b>, in other words who takes which
 						task. This process is done purely by the development team.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						In most companies, the how portion is where most controversies
 						arise. Don&apos;t worry if it turns into a negotiation and tensions
 						may arise. Good teams will know how to use this tension to make the
 						product better. This is because everybody is thinking for the
 						product itself, and a simple task may become very complicated if
 						done correctly to make it future proof.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						There are also companies that run the top-down approach where bosses
 						just say, I don&apos;t care how, just complete this set of work
 						within a given time. This is where you start to build products in
@@ -322,8 +287,8 @@ export default function BlogPost3Page() {
 						max that are only used by 100 to 1000 users you will be quite safe.
 						However, for project maintenance and adjustments, it is likely that
 						just by reading the code, you will want to jump off a building.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						In my opinion, the top-down approach is what is causing the great
 						resignation. Because maintenance is going to be super difficult,
 						during the maintenance stage, the original developers usually leave
@@ -332,20 +297,17 @@ export default function BlogPost3Page() {
 						laugh at first, but those are actually true stories no matter how
 						fake they seem. Once the people are tired of pulling their hair out
 						to solve problems they leave and the process starts all over again.
-					</ArticleText>
-					<ArticleText className="mb-3">
+					</ArticleParagraph>
+					<ArticleParagraph>
 						In conclusion, we have learned a lot today about project planning.
 						It might have been an information overload so you may need to read
 						the article a couple of times to understand. In the next article, we
 						will be focusing on &quot;the how&quot; portion of the Spring
 						Planning, and why a simple task may seem more complex than it is, in
 						particular, it is all because of the database.
-					</ArticleText>
-					<GoogleAds slotId="5443505231" />
-					<ArticleAnnouncement>
-						Next Article: Single Source of Truth coming on 28/02/2022
-					</ArticleAnnouncement>
+					</ArticleParagraph>
 					<ArticleMetadata>Last Updated: 02/03/2022</ArticleMetadata>
+					<GoogleAds slotId="5443505231" />
 				</ArticleContent>
 			</ArticleContainer>
 		</StandardLayout>

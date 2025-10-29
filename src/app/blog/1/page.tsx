@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import BlogHeader from "@/src/components/article/ArticleHeader";
-import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleImage from "@/src/components/article/ArticleImage";
+import ArticleList from "@/src/components/article/ArticleList";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
 import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
@@ -19,16 +19,10 @@ export default function BlogPost1Page() {
 					title="Journey to the Web"
 					subtitle="The beginnings of a Software Engineer"
 				/>
-				<ArticleImageContainer>
-					<Image
-						style={{ width: "100%", height: "auto" }}
-						src="/img/children-gb3ec399d2_1280.jpg"
-						alt="children coding"
-						width={1280}
-						height={853}
-						priority={false}
-					/>
-				</ArticleImageContainer>
+				<ArticleImage
+					src="/img/children-gb3ec399d2_1280.jpg"
+					alt="children coding"
+				/>
 				<ArticleContainer>
 					<ArticleParagraph className="mb-7">
 						So, you have just finished your coding bootcamp, got your degree or
@@ -94,13 +88,11 @@ export default function BlogPost1Page() {
 						Over the next few days, I will be sharing web development articles
 						on the following topics over the next few weeks:
 					</ArticleParagraph>
-					<div className="text-lg">
-						<ol>
-							<li>Join the Scrum</li>
-							<li>It&apos;s Story Time</li>
-							<li>Single source of truth</li>
-						</ol>
-					</div>
+					<ArticleList type="ordered">
+						<li>Join the Scrum</li>
+						<li>It&apos;s Story Time</li>
+						<li>Single source of truth</li>
+					</ArticleList>
 					<ArticleParagraph className="mb-5">
 						If you are my hard core fan, you can check out the following{" "}
 						<ExternalLink

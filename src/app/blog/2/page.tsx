@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleHeader from "@/src/components/article/ArticleHeader";
-import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleImage from "@/src/components/article/ArticleImage";
+import ArticleList from "@/src/components/article/ArticleList";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
 import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
@@ -58,16 +58,12 @@ export default function BlogPost2Page() {
 					title="Join the Scrum"
 					subtitle="How do development teams work?"
 				/>
-				<ArticleImageContainer>
-					<Image
-						style={{ width: "100%", height: "auto" }}
-						src="/img/team-ga2cffa5b1_1920.jpg"
-						alt="children coding"
-						width={1920}
-						height={1280}
-						priority={false}
-					/>
-				</ArticleImageContainer>
+				<ArticleImage
+					src="/img/team-ga2cffa5b1_1920.jpg"
+					alt="children coding"
+					width={1920}
+					height={1280}
+				/>
 				<ArticleContainer>
 					<ArticleParagraph className="mb-3">
 						When a development team starts to build a web application, what do
@@ -122,24 +118,21 @@ export default function BlogPost2Page() {
 						my own definition, for a basic understanding.
 					</ArticleParagraph>
 					<ArticleParagraph className="mb-2">What is Scrum?</ArticleParagraph>
-					<div className="max-w-sm mx-auto mb-4">
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/what-is-scrum-team.png"
-							alt="scrum team"
-							width={800}
-							height={450}
-							priority={false}
-						/>
-					</div>
+					<ArticleImage
+						src="/img/what-is-scrum-team.png"
+						alt="scrum team"
+						width={800}
+						height={450}
+						className="max-w-sm"
+					/>
 					<ArticleParagraph className="mb-3">
 						A scrum team consist of a maximum of 10 people containing:
-						<ul>
-							<li>1 Product Owner</li>
-							<li>1 Scrum Master</li>
-							<li>The Development Team</li>
-						</ul>
 					</ArticleParagraph>
+					<ArticleList type="unordered">
+						<li>1 Product Owner</li>
+						<li>1 Scrum Master</li>
+						<li>The Development Team</li>
+					</ArticleList>
 					<ArticleParagraph className="mb-3">
 						The <b>Product Owner</b> owns the product backlog or a to do list
 						and makes executive product decisions based on the client and the
@@ -163,23 +156,25 @@ export default function BlogPost2Page() {
 					<ArticleParagraph className="mb-3">
 						Some of the more common roles that you may see in a Development Team
 						includes:
-						<ul>
-							<li>Project Manager</li>
-							<li>Designers</li>
-							<li>UI/UX Researcher</li>
-							<li>Backend Engineer</li>
-							<li>Frontend Engineer</li>
-							<li>Security Engineer</li>
-							<li>Devops Engineer</li>
-							<li>Quality Assurance Engineer</li>
-							<li>Hardware Engineer</li>
-							<li>Data Scientist</li>
-							<li>Business Analyst</li>
-							<li>Database Admin</li>
-							<li>Tech Lead</li>
-							<li>Tech Anchor</li>
-							<li>Architect</li>
-						</ul>
+					</ArticleParagraph>
+					<ArticleList type="unordered">
+						<li>Project Manager</li>
+						<li>Designers</li>
+						<li>UI/UX Researcher</li>
+						<li>Backend Engineer</li>
+						<li>Frontend Engineer</li>
+						<li>Security Engineer</li>
+						<li>Devops Engineer</li>
+						<li>Quality Assurance Engineer</li>
+						<li>Hardware Engineer</li>
+						<li>Data Scientist</li>
+						<li>Business Analyst</li>
+						<li>Database Admin</li>
+						<li>Tech Lead</li>
+						<li>Tech Anchor</li>
+						<li>Architect</li>
+					</ArticleList>
+					<ArticleParagraph className="mb-3">
 						Each team member has a slightly different role and don&apos;t be
 						surprised if a person has to take up multiple roles. It is also
 						important to understand that a team does not need to consist of all
@@ -193,16 +188,13 @@ export default function BlogPost2Page() {
 					</ArticleParagraph>
 					<GoogleAds slotId="9628849176" />
 					<ArticleParagraph className="mt-7 mb-2">Scaling Up</ArticleParagraph>
-					<div className="max-w-sm mx-auto mb-4">
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/scrum-of-scrums-01.png.webp"
-							alt="scrum of scrums"
-							width={800}
-							height={600}
-							priority={false}
-						/>
-					</div>
+					<ArticleImage
+						src="/img/scrum-of-scrums-01.png.webp"
+						alt="scrum of scrums"
+						width={800}
+						height={600}
+						className="max-w-sm"
+					/>
 					<ArticleParagraph className="mb-5">
 						Now you may be wondering, wait a minute if a scrum team can have
 						only 10 people, how come tech companies are so big? The answer is{" "}
@@ -214,29 +206,29 @@ export default function BlogPost2Page() {
 						products of hosting, experience and online experience as an example,
 						it is possible that they are running scaled up Scrum with each scrum
 						team working on a certain product:
-						<ol>
-							<li>Traveler</li>
-							<li>Host</li>
-							<li>Experience customers</li>
-							<li>Experience teachers</li>
-							<li>Online experience customer</li>
-							<li>Online experience host</li>
-							<li>Online experience livestream service</li>
-						</ol>
 					</ArticleParagraph>
+					<ArticleList type="ordered">
+						<li>Traveler</li>
+						<li>Host</li>
+						<li>Experience customers</li>
+						<li>Experience teachers</li>
+						<li>Online experience customer</li>
+						<li>Online experience host</li>
+						<li>Online experience livestream service</li>
+					</ArticleList>
 					<ArticleParagraph className="mb-7">
 						As Airbnb grow even further, they may split the teams mentioned
 						above into smaller teams and have a product owner to manage each
 						service. The following is an example of the services that the
 						Traveler Product may offer that each Scrum team may work on:
-						<ol>
-							<li>Payment Gateway</li>
-							<li>Booking</li>
-							<li>Search</li>
-							<li>Automations e.g. reminders and emails</li>
-							<li>Authentication</li>
-						</ol>
 					</ArticleParagraph>
+					<ArticleList type="ordered">
+						<li>Payment Gateway</li>
+						<li>Booking</li>
+						<li>Search</li>
+						<li>Automations e.g. reminders and emails</li>
+						<li>Authentication</li>
+					</ArticleList>
 					<ArticleParagraph className="mt-5 mb-2">
 						Scrum Rituals
 					</ArticleParagraph>
@@ -295,12 +287,12 @@ export default function BlogPost2Page() {
 						The <b>Daily Scrum</b> is a meeting to monitor the progress of work
 						and identify any blockers. Each person has to answer 3 questions
 						during the meeting:
-						<ol>
-							<li>What did you do yesterday?</li>
-							<li>What will you be doing today?</li>
-							<li>Are there any impediments in the way?</li>
-						</ol>
 					</ArticleParagraph>
+					<ArticleList type="ordered">
+						<li>What did you do yesterday?</li>
+						<li>What will you be doing today?</li>
+						<li>Are there any impediments in the way?</li>
+					</ArticleList>
 					<ArticleParagraph className="mb-3">
 						<b>Sprint Review</b> is the where the increment created from the
 						sprint is showcased to the stakeholders. Stakeholders can inspect
@@ -310,29 +302,26 @@ export default function BlogPost2Page() {
 						<b>Sprint Retrospective</b> is a meeting that allows the team to
 						reflect on how they work over the past sprint. The 3 questions that
 						the team have to answer are:
-						<ol>
-							<li>What went well?</li>
-							<li>What didn't go so well?</li>
-							<li>
-								What can we do differently to improve our working velocity in
-								the next sprint?
-							</li>
-						</ol>
 					</ArticleParagraph>
+					<ArticleList type="ordered">
+						<li>What went well?</li>
+						<li>What didn't go so well?</li>
+						<li>
+							What can we do differently to improve our working velocity in the
+							next sprint?
+						</li>
+					</ArticleList>
 					<GoogleAds slotId="5500217699" />
 					<ArticleParagraph className="mb-2">
 						Additional Rituals
 					</ArticleParagraph>
-					<div className="max-w-sm mx-auto mb-4">
-						<Image
-							style={{ width: "100%", height: "auto" }}
-							src="/img/bonus-gf0956773a_1280.png"
-							alt="scrum of scrums"
-							width={1280}
-							height={850}
-							priority={false}
-						/>
-					</div>
+					<ArticleImage
+						src="/img/bonus-gf0956773a_1280.png"
+						alt="scrum of scrums"
+						width={1280}
+						height={850}
+						className="max-w-sm"
+					/>
 					<ArticleParagraph className="mb-3">
 						There are some companies that add additional rituals to ensure that
 						the team can work at a stable velocity. These include:

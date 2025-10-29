@@ -1,16 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import ArticleCodeBlock from "@/src/components/article/ArticleCodeBlock";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleContent from "@/src/components/article/ArticleContent";
 import ArticleHeader from "@/src/components/article/ArticleHeader";
-import ArticleImageContainer from "@/src/components/article/ArticleImageContainer";
+import ArticleImage from "@/src/components/article/ArticleImage";
+import ArticleList from "@/src/components/article/ArticleList";
+import ArticleMetadata from "@/src/components/article/ArticleMetadata";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
-import ArticleSection from "@/src/components/article/ArticleSection";
 import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import Section from "@/src/components/shared/molecules/Section";
 
 export default function BlogPost6Page() {
 	return (
@@ -20,16 +21,10 @@ export default function BlogPost6Page() {
 					title="Setting up your Project"
 					subtitle="(The Correct Way)"
 				/>
-				<ArticleImageContainer>
-					<Image
-						style={{ width: "100%", height: "auto" }}
-						src="/img/gaming-computer-gbe40f244a_1280.jpg"
-						alt="database"
-						width={1280}
-						height={853}
-						priority={false}
-					/>
-				</ArticleImageContainer>
+				<ArticleImage
+					src="/img/gaming-computer-gbe40f244a_1280.jpg"
+					alt="computer"
+				/>
 				<ArticleContent>
 					<ArticleParagraph>
 						Setting up a project may sound like a simple task to you. However,
@@ -54,7 +49,7 @@ export default function BlogPost6Page() {
 						really helpful to them.
 					</ArticleParagraph>
 					<div className="mb-7">
-						<p className="mb-3">
+						<ArticleParagraph>
 							In this Article, I will take you through a very basic project
 							setup using,{" "}
 							<ExternalLink href="https://github.com" target="_blank">
@@ -80,13 +75,13 @@ export default function BlogPost6Page() {
 							</ExternalLink>
 							. You may be using a different stack but similar principles will
 							apply. All you will need is
-						</p>
-						<ol className="list-decimal list-inside mb-3">
+						</ArticleParagraph>
+						<ArticleList type="ordered">
 							<li>A remote origin</li>
 							<li>An IDE</li>
 							<li>A Code Skeleton in any language</li>
 							<li>A version control system</li>
-						</ol>
+						</ArticleList>
 					</div>
 					<ArticleParagraph>
 						In order to ensure that we keep things focused, the next few
@@ -95,17 +90,11 @@ export default function BlogPost6Page() {
 						Planning Series where one article has many ideas for a particular
 						phase.
 					</ArticleParagraph>
-					<ArticleSection title="Preparation">
-						<ArticleImageContainer>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/studying-g69d74ed4b_1280.jpg"
-								alt="constraints"
-								width={1280}
-								height={853}
-								priority={false}
-							/>
-						</ArticleImageContainer>
+					<Section title="Preparation">
+						<ArticleImage
+							src="/img/studying-g69d74ed4b_1280.jpg"
+							alt="constraints"
+						/>
 						<ArticleParagraph>
 							If you want to follow along this project setup series, please
 							setup your computer according to the following website. The setup
@@ -132,18 +121,12 @@ gh repo create
 git push origin main`}
 						</ArticleCodeBlock>
 						<GoogleAds slotId="4080993110" />
-					</ArticleSection>
-					<ArticleSection title="Setting up VS Code">
-						<ArticleImageContainer>
-							<Image
-								style={{ width: "100%", height: "auto" }}
-								src="/img/laptop-gf9883978d_1280.jpg"
-								alt="constraints"
-								width={1280}
-								height={853}
-								priority={false}
-							/>
-						</ArticleImageContainer>
+					</Section>
+					<Section title="Setting up VS Code">
+						<ArticleImage
+							src="/img/laptop-gf9883978d_1280.jpg"
+							alt="constraints"
+						/>
 						<ArticleParagraph>
 							Visual Studio Code is a widely used IDE for any language. Other
 							IDE out there that companies commonly used include{" "}
@@ -199,18 +182,18 @@ git push origin main`}
 							extension.
 						</ArticleParagraph>
 						<div className="mb-3">
-							<p className="mb-3">
+							<ArticleParagraph>
 								For Ruby on Rails, there are many extensions that you project
 								could include, however, for simplicity&apos;s sake I will
 								introduce to you 5 types which most project will need:
-							</p>
-							<ol className="list-decimal list-inside mb-3">
+							</ArticleParagraph>
+							<ArticleList type="ordered">
 								<li>Code Formatter (esbenp.prettier-vscode)</li>
 								<li>Language Beautifier (aliariff.vscode-erb-beautify)</li>
 								<li>Language Specific Suggestions (rayhanw.erb-helpers)</li>
 								<li>Collaboration Tools (ms-vsliveshare.vsliveshare)</li>
 								<li>Version Control Tools (eamodio.gitlens)</li>
-							</ol>
+							</ArticleList>
 						</div>
 						<ArticleParagraph>
 							A <b>code formatter</b> is used to format our code. This ensures
@@ -244,16 +227,14 @@ git push origin main`}
 							another user. This makes pair programming and debugging a lot
 							easier.
 						</ArticleParagraph>
-						<div className="mb-7">
-							<p className="mb-3">
-								A <b>version control tool</b> such as gitlens will allow you to
-								easily see who is the author of a particular line of code and
-								when was it changed. This allow you to easily contact the person
-								if there is a need for clarification or explanation.
-							</p>
-						</div>
-					</ArticleSection>
-					<ArticleSection title="How to add VS Code Extensions" level={4}>
+						<ArticleParagraph>
+							A <b>version control tool</b> such as gitlens will allow you to
+							easily see who is the author of a particular line of code and when
+							was it changed. This allow you to easily contact the person if
+							there is a need for clarification or explanation.
+						</ArticleParagraph>
+					</Section>
+					<Section title="How to add VS Code Extensions">
 						<ArticleParagraph>
 							In the root of your project, you can run the following code to
 							create a VS Code extensions file.
@@ -263,13 +244,11 @@ git push origin main`}
 cd .vscode
 touch extensions.json`}
 						</ArticleCodeBlock>
-						<div className="mb-7">
-							<p className="mb-3">
-								In the extensions.json file, you should add the extensions for
-								your project. For those who are following along, you can copy
-								the file information below
-							</p>
-						</div>
+						<ArticleParagraph>
+							In the extensions.json file, you should add the extensions for
+							your project. For those who are following along, you can copy the
+							file information below
+						</ArticleParagraph>
 						<ArticleCodeBlock language="json" className="mb-3">
 							{`{
   "recommendations": [
@@ -288,16 +267,14 @@ touch extensions.json`}
   "unwantedRecommendations": []
 }`}
 						</ArticleCodeBlock>
-						<div className="mb-7">
-							<p className="mb-3">
-								After creating this file and adding the extensions, you may see
-								VS Code prompting you to download and install some extensions if
-								you haven&apos;t got it install. This means that the recommended
-								extensions.json is working.
-							</p>
-						</div>
-					</ArticleSection>
-					<ArticleSection title="Format on save" level={4} className="mt-7">
+						<ArticleParagraph>
+							After creating this file and adding the extensions, you may see VS
+							Code prompting you to download and install some extensions if you
+							haven&apos;t got it install. This means that the recommended
+							extensions.json is working.
+						</ArticleParagraph>
+					</Section>
+					<Section title="Format on save" className="mt-7">
 						<ArticleParagraph>
 							Adjust your VS Code settings code &gt; preferences &gt; settings,
 							add a , at the end of the file and paste the following code
@@ -320,28 +297,19 @@ touch extensions.json`}
 								duplicates.
 							</p>
 						</div>
-					</ArticleSection>
-					<ArticleSection title="Conclusion" level={4} className="mt-7">
-						<div className="mb-7">
-							<p className="mb-3">
-								To conclude, setting up a project is easy, doing it correctly it
-								is hard. It is also important that we maintain a document on how
-								we should setup a project and its configurations to make the
-								onboarding process easier. This document will change overtime as
-								a project grows, new plugins are introduced or removed to
-								increase the code quality or increase productivity.
-							</p>
-						</div>
-					</ArticleSection>
+					</Section>
+					<Section title="Conclusion" className="mt-7">
+						<ArticleParagraph>
+							To conclude, setting up a project is easy, doing it correctly it
+							is hard. It is also important that we maintain a document on how
+							we should setup a project and its configurations to make the
+							onboarding process easier. This document will change overtime as a
+							project grows, new plugins are introduced or removed to increase
+							the code quality or increase productivity.
+						</ArticleParagraph>
+					</Section>
+					<ArticleMetadata>Last Updated: 16/03/2022</ArticleMetadata>
 					<GoogleAds slotId="8011627129" />
-					<div className="text-center my-5">
-						<p className="text-gray-600 text-center mb-3">
-							Next Article: The Git Workflow coming on 21/03/2022
-						</p>
-					</div>
-					<p className="text-sm text-gray-600 text-right mb-3">
-						Last Updated: 16/03/2022
-					</p>
 				</ArticleContent>
 			</ArticleContainer>
 		</StandardLayout>
