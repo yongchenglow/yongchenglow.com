@@ -1,6 +1,13 @@
+const createMDX = require("@next/mdx");
+
+const withMDX = createMDX({
+	extension: /\.mdx?$/,
+});
+
 /** @type {import('next').NextConfig} */
 const baseConfig = {
 	output: "standalone",
+	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 };
 
 const withBundleAnalyzer = (() => {
@@ -17,4 +24,4 @@ const withBundleAnalyzer = (() => {
 	return (config) => config;
 })();
 
-module.exports = withBundleAnalyzer(baseConfig);
+module.exports = withBundleAnalyzer(withMDX(baseConfig));
