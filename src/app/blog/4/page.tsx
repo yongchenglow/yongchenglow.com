@@ -68,9 +68,6 @@ export default function BlogPost4Page() {
 						database constraints and normalization. Other topics such as
 						security and performance will be left for another day.
 					</ArticleParagraph>
-					<Section title="Database Constraints" className="mb-2">
-						<></>
-					</Section>
 					<ArticleImage
 						src="/img/server-gebd52a943_1280.jpg"
 						alt="constraints"
@@ -101,9 +98,7 @@ export default function BlogPost4Page() {
 					<ArticleCodeBlock language="sql" className="mb-7">
 						CREATE TABLE user(id serial primary key, username varchar(50));
 					</ArticleCodeBlock>
-					<Section title="Checks" className="mb-2">
-						<></>
-					</Section>
+					<Section title="Checks" className="mb-2"></Section>
 					<ArticleParagraph>
 						In addition to using the different data types that Postgres
 						provides, we can also add additional constraints. Let&apos;s say we
@@ -126,9 +121,7 @@ export default function BlogPost4Page() {
 						allows us to have a maximum and minimum of 5 digits of which 2 are
 						decimal points(-999.99 to 999.99)
 					</ArticleParagraph>
-					<Section title="Primary Keys" className="mb-2">
-						<></>
-					</Section>
+					<Section title="Primary Keys" className="mb-2"></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Primary Keys</b> are a unique identifier for a row of data
@@ -140,9 +133,7 @@ export default function BlogPost4Page() {
 						documentation a B-Tree index is automatically created for primary
 						keys.
 					</ArticleParagraph>
-					<Section title="Foreign keys" className="mb-2">
-						<></>
-					</Section>
+					<Section title="Foreign keys" className="mb-2"></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Foreign keys</b> are references to a row with a primary key in
@@ -181,9 +172,7 @@ export default function BlogPost4Page() {
 							))}
 						</TableBody>
 					</Table>
-					<Section title="Not Null" className="mt-10 mb-2">
-						<></>
-					</Section>
+					<Section title="Not Null" className="mt-10 mb-2"></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Not Null</b> constraint does not allow null values
@@ -200,9 +189,7 @@ export default function BlogPost4Page() {
   username VARCHAR NOT NULL CONSTRAINT non_empty CHECK(length(username) > 0)
 )`}
 					</ArticleCodeBlock>
-					<Section title="Unique" className="mb-2">
-						<></>
-					</Section>
+					<Section title="Unique" className="mb-2"></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							<b>Unique</b> constraint means that every value in the column must
@@ -230,9 +217,10 @@ export default function BlogPost4Page() {
 end`}
 					</ArticleCodeBlock>
 					<GoogleAds slotId="5768607169" />
-					<Section title="Database Normalization" className="mt-7 mb-2">
-						<></>
-					</Section>
+					<Section
+						title="Database Normalization"
+						className="mt-7 mb-2"
+					></Section>
 					<ArticleImage
 						src="/img/database-g2fad27680_1280.jpg"
 						alt="database normalization"
@@ -275,9 +263,7 @@ end`}
 							</>
 						}
 						className="mb-2"
-					>
-						<></>
-					</Section>
+					></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Each Table Cell should contain a single value
@@ -332,9 +318,7 @@ Result: Row1 = student, [course1]`}
 							</>
 						}
 						className="mb-2"
-					>
-						<></>
-					</Section>
+					></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 1<sup>st</sup> Normal Form
@@ -378,9 +362,7 @@ Course (CourseId, Course)`}
 							</>
 						}
 						className="mb-2"
-					>
-						<></>
-					</Section>
+					></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 2<sup>nd</sup> Normal Form
@@ -406,9 +388,10 @@ StudentMajor (StudentId, Major, Advisor)
 StudentCourse (StudentId, CourseId, Grade)
 Course (CourseId, Course)`}
 					</ArticleCodeBlock>
-					<Section title="Boyce-Codd Normal Form(BCNF)" className="mb-2">
-						<></>
-					</Section>
+					<Section
+						title="Boyce-Codd Normal Form(BCNF)"
+						className="mb-2"
+					></Section>
 					<div className="my-3 max-w-sm mx-auto">
 						<div className="text-base text-center mb-2 italic">
 							Be in 3<sup>rd</sup> Normal Form
@@ -452,9 +435,7 @@ Major (MajorId, Major)`}
 						Advisor. An Advisor advises one major and a Major can have several
 						advisors.
 					</ArticleParagraph>
-					<Section title="Conclusion" className="mb-2">
-						<></>
-					</Section>
+					<Section title="Conclusion" className="mb-2"></Section>
 					<ArticleParagraph>
 						The database of our web application is our user&apos;s single source
 						of truth. Therefore, we need to design it using the normalization

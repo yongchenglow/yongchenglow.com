@@ -64,7 +64,7 @@ export const designTokens = {
 };
 
 // Legacy exports for backward compatibility during migration
-export const theme = {
+const theme = {
 	palette: {
 		primary: {
 			main: designTokens.colors.primary[500],

@@ -5,114 +5,131 @@ exports[`Index > renders correctly 1`] = `
   class="min-h-screen pt-16 flex flex-col"
 >
   <header
-    class="bg-primary-500 dark:bg-primary-700 shadow-sm"
+    class="fixed top-0 left-0 right-0 z-50 bg-navbar border-b"
   >
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      class="container mx-auto px-4 py-3 flex items-center justify-between"
     >
-      <div
-        class="flex items-center justify-between py-4"
+      <nav
+        aria-label="Main"
+        class="relative z-10 flex max-w-max flex-1 items-center justify-center"
+        data-orientation="horizontal"
+        dir="ltr"
       >
         <div
-          class="flex flex-grow justify-center"
+          style="position: relative;"
         >
-          <a
-            class="text-white hover:text-gray-200 px-4 py-2 text-base font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer rounded-md hover:bg-white/10"
-            href="/"
+          <ul
+            class="group flex flex-1 list-none items-center justify-center space-x-1 gap-3"
+            data-orientation="horizontal"
+            dir="ltr"
           >
-            Home
-          </a>
-          <a
-            class="text-white hover:text-gray-200 px-4 py-2 text-base font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer rounded-md hover:bg-white/10"
-            href="/about"
-          >
-            About
-          </a>
-          <a
-            class="text-white hover:text-gray-200 px-4 py-2 text-base font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer rounded-md hover:bg-white/10"
-            href="/blog"
-          >
-            Blog
-          </a>
+            <li>
+              <a
+                class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
+                data-radix-collection-item=""
+                href="/"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
+                data-radix-collection-item=""
+                href="/about"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
+                data-radix-collection-item=""
+                href="/blog"
+              >
+                Blog
+              </a>
+            </li>
+          </ul>
         </div>
         <div
-          class="ml-4"
+          class="absolute left-0 top-full flex justify-center"
+        />
+      </nav>
+      <button
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9"
+      >
+        <svg
+          aria-hidden="true"
+          class="lucide lucide-sun h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <button
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
-          >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-sun h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="4"
-              />
-              <path
-                d="M12 2v2"
-              />
-              <path
-                d="M12 20v2"
-              />
-              <path
-                d="m4.93 4.93 1.41 1.41"
-              />
-              <path
-                d="m17.66 17.66 1.41 1.41"
-              />
-              <path
-                d="M2 12h2"
-              />
-              <path
-                d="M20 12h2"
-              />
-              <path
-                d="m6.34 17.66-1.41 1.41"
-              />
-              <path
-                d="m19.07 4.93-1.41 1.41"
-              />
-            </svg>
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-moon absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
-              />
-            </svg>
-            <span
-              class="sr-only"
-            >
-              Toggle theme
-            </span>
-          </button>
-        </div>
-      </div>
+          <circle
+            cx="12"
+            cy="12"
+            r="4"
+          />
+          <path
+            d="M12 2v2"
+          />
+          <path
+            d="M12 20v2"
+          />
+          <path
+            d="m4.93 4.93 1.41 1.41"
+          />
+          <path
+            d="m17.66 17.66 1.41 1.41"
+          />
+          <path
+            d="M2 12h2"
+          />
+          <path
+            d="M20 12h2"
+          />
+          <path
+            d="m6.34 17.66-1.41 1.41"
+          />
+          <path
+            d="m19.07 4.93-1.41 1.41"
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          class="lucide lucide-moon absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+          />
+        </svg>
+        <span
+          class="sr-only"
+        >
+          Toggle theme
+        </span>
+      </button>
     </div>
   </header>
   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow"
+    class="container mx-auto px-4"
   >
     <div
       class="flex justify-center"
@@ -141,23 +158,23 @@ exports[`Index > renders correctly 1`] = `
           <div
             class="text-center sm:text-left mx-8"
           >
-            <h1
-              class="text-4xl font-bold mb-4 text-foreground"
+            <p
+              class="text-4xl font-bold mb-6"
             >
               Hello everyone!
-            </h1>
-            <h2
-              class="text-2xl font-medium mb-4 text-foreground"
+            </p>
+            <h1
+              class="text-2xl font-medium mb-6"
             >
               I am Yong Cheng or YC for short.
-            </h2>
-            <h2
-              class="text-2xl font-medium text-foreground"
+            </h1>
+            <p
+              class="text-2xl font-medium"
             >
-              I am a Web Software Engineer at
+              I am a Senior Software Engineer at
                
               <a
-                class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+                class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                 href="https://glints.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -167,7 +184,7 @@ exports[`Index > renders correctly 1`] = `
               , part-time teacher at
                
               <a
-                class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+                class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                 href="https://www.lewagon.com/singapore"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -176,7 +193,7 @@ exports[`Index > renders correctly 1`] = `
               </a>
                
               and a Sports Enthusiast.
-            </h2>
+            </p>
           </div>
         </div>
       </div>
@@ -185,214 +202,199 @@ exports[`Index > renders correctly 1`] = `
       class="py-12 text-center"
     >
       <div
-        class="mb-8"
+        class="my-6"
       >
-        <h2
-          class="text-4xl font-bold text-foreground"
+        <h3
+          class="text-3xl font-medium mb-3 font-medium text-center"
         >
           Latest Tech Articles
-        </h2>
-      </div>
-      <div
-        class="flex justify-center"
-      >
+        </h3>
         <div
-          class="bg-card rounded-lg shadow-lg max-w-sm mx-4 overflow-hidden border border-border"
+          class="flex justify-center"
         >
-          <div
-            class="p-6"
+          <a
+            href="/blog/6"
           >
-            <h3
-              class="text-xl font-semibold mb-4 text-card-foreground"
+            <div
+              class="rounded-xl border bg-card text-card-foreground shadow overflow-hidden pt-6 block hover:shadow-lg transition-shadow duration-200 max-w-md"
             >
-              Setting up your Project
-            </h3>
-            <p
-              class="text-muted-foreground leading-relaxed"
+              <div
+                class="p-6 pt-0"
+              >
+                <h3
+                  class="text-xl font-semibold mb-4 text-center"
+                >
+                  Setting up your Project
+                </h3>
+                <p
+                  class="text-muted-foreground text-center"
+                >
+                  What is the proper way to setup a group project? How do we make the best our of our IDE to increase code quality and productivity?
+                </p>
+              </div>
+              <div
+                class="items-center p-6 pt-0 flex justify-center gap-3"
+              >
+                <button
+                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 cursor-pointer"
+                >
+                  Read Now
+                </button>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="my-6"
+    >
+      <h3
+        class="text-3xl font-medium mb-3 font-medium text-center"
+      >
+        Project Highlights
+      </h3>
+      <div
+        class="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto px-4"
+      >
+        <div>
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow overflow-hidden pt-6 w-full max-w-sm"
+          >
+            <div
+              class="p-6 pt-0"
             >
-              What is the proper way to setup a group project? How do we make the best our of our IDE to increase code quality and productivity?
-            </p>
+              <h3
+                class="text-xl font-semibold mb-4 text-center"
+              >
+                NUS Students' Sports Club
+              </h3>
+              <p
+                class="text-muted-foreground text-center"
+              >
+                I developed a company website for the club. This was my first project using react.
+              </p>
+            </div>
+            <div
+              class="items-center p-6 pt-0 flex justify-center gap-3"
+            >
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                href="https://www.nussportsclub.org"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Website
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                href="https://github.com/yongchenglow/nus-students-sports-club"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Code
+              </a>
+            </div>
           </div>
+        </div>
+        <div>
           <div
-            class="px-6 pb-6 flex justify-center"
+            class="rounded-xl border bg-card text-card-foreground shadow overflow-hidden pt-6 w-full max-w-sm"
           >
-            <a
-              class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 border-none cursor-pointer inline-block text-center"
-              href="/blog/6"
+            <div
+              class="p-6 pt-0"
             >
-              Read Now
-            </a>
+              <h3
+                class="text-xl font-semibold mb-4 text-center"
+              >
+                My Personal Website
+              </h3>
+              <p
+                class="text-muted-foreground text-center"
+              >
+                Coded using NextJS and deployed through my own personal webserver on a RaspberryPi3.
+              </p>
+            </div>
+            <div
+              class="items-center p-6 pt-0 flex justify-center gap-3"
+            >
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                href="https://github.com/yongchenglow/yongchenglow.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Code
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow overflow-hidden pt-6 w-full max-w-sm"
+          >
+            <div
+              class="p-6 pt-0"
+            >
+              <h3
+                class="text-xl font-semibold mb-4 text-center"
+              >
+                AirBnB Clone
+              </h3>
+              <p
+                class="text-muted-foreground text-center"
+              >
+                This is a project written using Ruby on Rails for Le Wagon students to reference
+              </p>
+            </div>
+            <div
+              class="items-center p-6 pt-0 flex justify-center gap-3"
+            >
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                href="https://airbnb-yc.herokuapp.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Website
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                href="https://github.com/yongchenglow/airbnb-clone"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Code
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="py-12 text-center"
+      class="mb-3"
     >
-      <div
-        class="mb-8"
-      >
-        <h2
-          class="text-4xl font-bold text-foreground"
-        >
-          Project highlights
-        </h2>
-      </div>
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center max-w-6xl mx-auto"
-      >
-        <div
-          class="bg-card rounded-lg shadow-lg max-w-sm overflow-hidden border border-border"
-        >
-          <div
-            class="p-6"
-          >
-            <h3
-              class="text-xl font-semibold mb-4 text-card-foreground"
-            >
-              NUS Students' Sports Club
-            </h3>
-            <p
-              class="text-muted-foreground leading-relaxed"
-            >
-              I developed a company website for the club. This was my first project using react.
-            </p>
-          </div>
-          <div
-            class="px-6 pb-6 flex justify-center space-x-3"
-          >
-            <a
-              class="no-underline"
-              href="https://www.nussportsclub.org"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span
-                class="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block"
-              >
-                Website
-              </span>
-            </a>
-            <a
-              class="no-underline"
-              href="https://github.com/yongchenglow/nus-students-sports-club"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span
-                class="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block"
-              >
-                Code
-              </span>
-            </a>
-          </div>
-        </div>
-        <div
-          class="bg-card rounded-lg shadow-lg max-w-sm overflow-hidden border border-border"
-        >
-          <div
-            class="p-6"
-          >
-            <h3
-              class="text-xl font-semibold mb-4 text-card-foreground"
-            >
-              My Personal Website
-            </h3>
-            <p
-              class="text-muted-foreground leading-relaxed"
-            >
-              Coded using NextJS and deployed through my own personal webserver on a RaspberryPi3.
-            </p>
-          </div>
-          <div
-            class="px-6 pb-6 flex justify-center"
-          >
-            <a
-              class="no-underline"
-              href="https://github.com/yongchenglow/yongchenglow.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span
-                class="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block"
-              >
-                Code
-              </span>
-            </a>
-          </div>
-        </div>
-        <div
-          class="bg-card rounded-lg shadow-lg max-w-sm overflow-hidden border border-border"
-        >
-          <div
-            class="p-6"
-          >
-            <h3
-              class="text-xl font-semibold mb-4 text-card-foreground"
-            >
-              AirBnB Clone
-            </h3>
-            <p
-              class="text-muted-foreground leading-relaxed"
-            >
-              This is a project done using Ruby on Rails, mainly for students in Le Wagon students to see my twist on it.
-            </p>
-          </div>
-          <div
-            class="px-6 pb-6 flex justify-center space-x-3"
-          >
-            <a
-              class="no-underline"
-              href="https://airbnb-yc.herokuapp.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span
-                class="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block"
-              >
-                Website
-              </span>
-            </a>
-            <a
-              class="no-underline"
-              href="https://github.com/yongchenglow/airbnb-clone"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span
-                class="bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer inline-block"
-              >
-                Code
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <ins
+        class="adsbygoogle"
+        data-ad-format="fluid"
+        data-ad-layout="in-article"
+        data-ad-slot="5500217699"
+        style="display: block; text-align: center;"
+      />
     </div>
-    <ins
-      class="adsbygoogle"
-      data-ad-format="fluid"
-      data-ad-layout="in-article"
-      data-ad-slot="5500217699"
-      style="display: block; text-align: center;"
-    />
     <div
-      class="py-12 text-center"
+      class="my-6 mt-12"
     >
-      <div
-        class="mb-4"
+      <h3
+        class="text-3xl font-medium mb-3 font-medium text-center text-4xl font-bold text-foreground"
       >
-        <h2
-          class="text-4xl font-bold text-foreground"
-        >
-          Who am I?
-        </h2>
-      </div>
+        Who am I?
+      </h3>
       <div
         class="flex justify-center"
       >
         <div
-          class="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-12 items-center"
+          class="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-3 items-center"
         >
           <div
             class="sm:col-span-5 col-span-1 flex justify-center mb-12 sm:mb-0"
@@ -422,7 +424,7 @@ exports[`Index > renders correctly 1`] = `
                 I am Yong Cheng or YC, I grew up studying in various international schools in particular
                  
                 <a
-                  class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://www.scis-china.org"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -432,7 +434,7 @@ exports[`Index > renders correctly 1`] = `
                 ,
                  
                 <a
-                  class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://shanghai-pudong.dulwich.org"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -443,7 +445,7 @@ exports[`Index > renders correctly 1`] = `
                 and
                  
                 <a
-                  class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://shatincollege.edu.hk"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -463,26 +465,28 @@ exports[`Index > renders correctly 1`] = `
                 You can find out more about me in the
                  
                 <a
-                  class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
                   href="/about"
                 >
                   about
                 </a>
-                 
-                section.
+                 section.
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <ins
-      class="adsbygoogle"
-      data-ad-format="fluid"
-      data-ad-layout="in-article"
-      data-ad-slot="8155985403"
-      style="display: block; text-align: center;"
-    />
+    <div
+      class="mb-3"
+    >
+      <ins
+        class="adsbygoogle"
+        data-ad-format="fluid"
+        data-ad-layout="in-article"
+        data-ad-slot="8155985403"
+        style="display: block; text-align: center;"
+      />
+    </div>
   </div>
   <footer
     class="mt-auto"
@@ -607,7 +611,7 @@ exports[`Index > renders correctly 1`] = `
             class="flex items-center justify-center"
           >
             © 
-            2025
+            2026
              Yong Cheng Low
           </div>
           <div

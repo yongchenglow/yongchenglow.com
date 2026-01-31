@@ -1,0 +1,28 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"entry": ["src/app/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
+	"project": ["src/**/*.{ts,tsx}"],
+	"ignore": [
+		"**/*.test.{ts,tsx}",
+		"**/*.spec.{ts,tsx}",
+		"vitest.config.ts",
+		"next.config.js",
+		"postcss.config.mjs",
+		"tailwind.config.ts",
+		"commitlint.config.ts"
+	],
+	"ignoreDependencies": [
+		"@swc/core",
+		"autoprefixer",
+		"globals",
+		"shadcn",
+		"tailwindcss-animate",
+		"conventional-changelog-conventionalcommits"
+	],
+	"next": {
+		"entry": ["src/app/**/*.{ts,tsx}", "src/middleware.{ts,tsx}"]
+	},
+	"vitest": {
+		"config": ["vitest.config.ts"]
+	}
+}

@@ -21,6 +21,8 @@ This is Yong Cheng Low's personal website (<https://www.yongchenglow.com>), buil
 - `npm test` - Run Vitest tests
 - `npm run lint` - Run Biome linter only
 - `npm run format` - Format code only
+- `npm run knip` - Find unused files, dependencies, and exports
+- `npm run knip:production` - Check production dependencies only
 
 **Tools:**
 
@@ -37,6 +39,7 @@ This is Yong Cheng Low's personal website (<https://www.yongchenglow.com>), buil
 ## Code Standards
 
 - **Linting/Formatting:** Biome (replaced ESLint/Prettier) - config in `biome.json`
+- **Dead Code Detection:** Knip - config in `knip.json` - finds unused files, dependencies, and exports
 - **Style:** Tab indentation, double quotes, organized imports
 - **TypeScript:** ES2020 target, path mapping `@/*` to project root
 - **Git:** Conventional commits, branch naming: `feature/<name>` or `hotfix/<name>`
