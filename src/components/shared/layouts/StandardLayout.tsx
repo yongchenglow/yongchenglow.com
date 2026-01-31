@@ -1,7 +1,7 @@
 import type React from "react";
 import Container from "@/src/components/shared/atoms/Container";
 import Footer from "@/src/components/shared/organisms/Footer";
-import NavigationBar from "@/src/components/shared/organisms/NavigationBar";
+import NavigationBar from "@/src/components/shared/organisms/Navigationbar";
 
 const StandardLayout = ({ children }): React.ReactElement => {
 	return (

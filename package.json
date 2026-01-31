@@ -1,16 +1,16 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "pnpm next dev",
-		"build": "pnpm next build",
+		"dev": "next dev",
+		"build": "next build",
 		"test": "vitest",
 		"typecheck": "tsc --noEmit",
-		"lint": "pnpm exec biome lint --write",
+		"lint": "biome lint --write",
 		"start": "next start",
 		"analyze": "ANALYZE=true next build",
-		"format": "pnpm exec biome format --write",
-		"check": "pnpm exec biome check --write",
-		"check:ci": "pnpm exec biome check --write",
+		"format": "biome format --write",
+		"check": "biome check --write",
+		"check:ci": "biome check --write",
 		"prepare": "husky",
 		"release": "semantic-release"
 	},

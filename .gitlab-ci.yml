@@ -3,17 +3,12 @@ default:
   cache: &global_cache
     key:
       files:
-        - pnpm-lock.yaml
+        - package-lock.json
         - package.json
     paths:
-      - .pnpm-store
       - node_modules
       - .next/cache
     policy: pull
-
-.pnpm_before_script: &pnpm_before_script
-  - npm i -g pnpm
-  - pnpm config set store-dir .pnpm-store
 
 stages:
   - cache_dependencies
@@ -26,9 +21,8 @@ install:
   stage: cache_dependencies
   interruptible: true
   retry: 2
-  before_script: *pnpm_before_script
   script:
-    - pnpm install --no-frozen-lockfile
+    - npm install
   cache:
     <<: *global_cache
     policy: pull-push
@@ -42,11 +36,10 @@ audit:
   stage: audit
   interruptible: true
   retry: 2
-  before_script: *pnpm_before_script
   script:
-    - pnpm install --frozen-lockfile --prefer-offline
-    - pnpm check:ci
-    - pnpm test
+    - npm ci
+    - npm run check:ci
+    - npm test
   cache:
     <<: *global_cache
     policy: pull
@@ -66,9 +59,8 @@ build:
   stage: build
   interruptible: true
   retry: 2
-  before_script: *pnpm_before_script
   script:
-    - pnpm build
+    - npm run build
   artifacts:
     paths:
       - .next/
@@ -84,9 +76,8 @@ build:
 release:
   stage: release
   retry: 2
-  before_script: *pnpm_before_script
   script:
-    - pnpm release
+    - npm run release
   variables:
     GITLAB_TOKEN: $GITLAB_TOKEN
   rules:
