@@ -213,33 +213,114 @@ exports[`Index > renders correctly 1`] = `
           class="flex justify-center"
         >
           <a
-            href="/blog/6"
+            class="no-underline"
+            href="/blog/journey-to-the-web"
           >
             <div
-              class="rounded-xl border bg-card text-card-foreground shadow overflow-hidden pt-6 block hover:shadow-lg transition-shadow duration-200 max-w-md"
+              class="rounded-xl border bg-card text-card-foreground shadow h-full hover:shadow-lg transition-shadow cursor-pointer"
             >
+              <div
+                class="flex flex-col space-y-1.5 p-6"
+              >
+                <div
+                  class="font-semibold leading-none tracking-tight"
+                >
+                  Journey to the Web
+                </div>
+                <div
+                  class="text-sm text-muted-foreground"
+                >
+                  A comprehensive guide on how to prepare for your first software engineering role, from the perspective of a developer, hiring manager, and instructor.
+                </div>
+              </div>
               <div
                 class="p-6 pt-0"
               >
-                <h3
-                  class="text-xl font-semibold mb-4 text-center"
+                <div
+                  class="flex gap-4 text-sm text-muted-foreground mb-3"
                 >
-                  Setting up your Project
-                </h3>
-                <p
-                  class="text-muted-foreground text-center"
+                  <div
+                    class="flex items-center gap-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-calendar h-4 w-4"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 2v4"
+                      />
+                      <path
+                        d="M16 2v4"
+                      />
+                      <rect
+                        height="18"
+                        rx="2"
+                        width="18"
+                        x="3"
+                        y="4"
+                      />
+                      <path
+                        d="M3 10h18"
+                      />
+                    </svg>
+                    1/15/2022
+                  </div>
+                  <div
+                    class="flex items-center gap-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-clock h-4 w-4"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 6v6l4 2"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                      />
+                    </svg>
+                    3 min read
+                  </div>
+                </div>
+                <div
+                  class="flex flex-wrap gap-2"
                 >
-                  What is the proper way to setup a group project? How do we make the best our of our IDE to increase code quality and productivity?
-                </p>
-              </div>
-              <div
-                class="items-center p-6 pt-0 flex justify-center gap-3"
-              >
-                <button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 cursor-pointer"
-                >
-                  Read Now
-                </button>
+                  <div
+                    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  >
+                    career
+                  </div>
+                  <div
+                    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  >
+                    web-development
+                  </div>
+                  <div
+                    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  >
+                    beginners
+                  </div>
+                </div>
               </div>
             </div>
           </a>

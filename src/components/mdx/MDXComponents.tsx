@@ -4,6 +4,7 @@ import ArticleDefinition from "@/src/components/article/ArticleDefinition";
 import ArticleImage from "@/src/components/article/ArticleImage";
 import ArticleList from "@/src/components/article/ArticleList";
 import ArticleParagraph from "@/src/components/article/ArticleParagraph";
+import Admonition from "@/src/components/mdx/Admonition";
 import {
 	Table,
 	TableBody,
@@ -33,6 +34,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		// Custom components
 		ArticleDefinition,
 		ArticleCodeBlock,
+		Admonition,
 
 		// Allow overrides
 		...components,
