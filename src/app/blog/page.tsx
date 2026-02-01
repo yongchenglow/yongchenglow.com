@@ -1,4 +1,5 @@
 import ArticleCard from "@/src/components/article/ArticleCard";
+import ArticleGrid from "@/src/components/article/ArticleGrid";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -28,6 +29,9 @@ export default function BlogPage() {
 								title={featuredPost.frontmatter.title}
 								description={featuredPost.frontmatter.description}
 								href={`/blog/${featuredPost.slug}`}
+								readingTime={featuredPost.readingTime}
+								date={featuredPost.frontmatter.date}
+								tags={featuredPost.frontmatter.tags}
 							/>
 						</div>
 					</section>
@@ -36,7 +40,7 @@ export default function BlogPage() {
 				{/* Previous Articles Grid */}
 				<section className="my-8">
 					<h2 className="text-2xl font-bold mb-4">Previous Articles</h2>
-					<div className="flex flex-wrap justify-center gap-6 my-6">
+					<ArticleGrid>
 						{previousPosts.map((post) => (
 							<div
 								key={post.slug}
@@ -46,10 +50,13 @@ export default function BlogPage() {
 									title={post.frontmatter.title}
 									description={post.frontmatter.description}
 									href={`/blog/${post.slug}`}
+									readingTime={post.readingTime}
+									date={post.frontmatter.date}
+									tags={post.frontmatter.tags}
 								/>
 							</div>
 						))}
-					</div>
+					</ArticleGrid>
 				</section>
 
 				<GoogleAds slotId="9667543473" />

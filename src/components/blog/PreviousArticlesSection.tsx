@@ -1,3 +1,4 @@
+import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
 import Section from "@/src/components/shared/molecules/Section";
 
@@ -37,7 +38,20 @@ const previousArticles = [
 export default function PreviousArticlesSection() {
 	return (
 		<Section title="Previous Articles">
-			<ArticleGrid articles={previousArticles} />
+			<ArticleGrid>
+				{previousArticles.map((article) => (
+					<div
+						key={article.href}
+						className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
+					>
+						<ArticleCard
+							title={article.title}
+							description={article.description}
+							href={article.href}
+						/>
+					</div>
+				))}
+			</ArticleGrid>
 		</Section>
 	);
 }

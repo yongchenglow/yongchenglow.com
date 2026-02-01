@@ -4,7 +4,11 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import BlogPostLayout from "@/src/components/blog/BlogPostLayout";
-import { getAllBlogSlugs, getBlogPost } from "@/src/lib/blog";
+import {
+	getAllBlogSlugs,
+	getBlogPost,
+	getBlogPostNavigation,
+} from "@/src/lib/blog";
 import type { BlogPost } from "@/src/types/blog";
 
 interface BlogPostPageProps {
@@ -54,6 +58,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 		notFound();
 	}
 
+	const { previous, next } = getBlogPostNavigation(slug);
+
 	const mdxOptions = {
 		mdxOptions: {
 			remarkPlugins: [remarkGfm],
@@ -65,7 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 	};
 
 	return (
-		<BlogPostLayout post={post}>
+		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
 			{/* @ts-expect-error - rehype plugin types are incompatible */}
 			<MDXRemote source={post.content} options={mdxOptions} />
 		</BlogPostLayout>
