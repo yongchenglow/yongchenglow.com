@@ -1,3 +1,5 @@
+"use client";
+
 import type React from "react";
 import Container from "@/src/components/shared/atoms/Container";
 import Footer from "@/src/components/shared/organisms/Footer";

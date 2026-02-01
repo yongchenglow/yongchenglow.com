@@ -55,22 +55,3 @@ export function getFeaturedPost(): BlogPost | null {
 	const posts = getAllBlogPosts();
 	return posts.find((post) => post.frontmatter.featured) || posts[0] || null;
 }
-
-export function getBlogPostsByTag(tag: string): BlogPost[] {
-	const posts = getAllBlogPosts();
-	return posts.filter((post) => post.frontmatter.tags?.includes(tag));
-}
-
-export function getBlogPostNavigation(currentSlug: string): {
-	previous: BlogPost | null;
-	next: BlogPost | null;
-} {
-	const allPosts = getAllBlogPosts();
-	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
-
-	return {
-		previous: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
-		next:
-			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
-	};
-}
