@@ -1,5 +1,6 @@
 import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
+import SearchTrigger from "@/src/components/search/SearchTrigger";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -19,6 +20,10 @@ export default function BlogPage() {
 					Welcome to my blog! Hope you will enjoy my tech articles and learn
 					something!
 				</PageSubtitle>
+
+				<div className="my-6">
+					<SearchTrigger />
+				</div>
 
 				{/* Featured Article Section */}
 				{featuredPost && (

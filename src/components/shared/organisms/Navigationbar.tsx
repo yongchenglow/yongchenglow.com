@@ -1,4 +1,5 @@
 import { usePathname } from "next/navigation";
+import SearchTrigger from "@/src/components/search/SearchTrigger";
 import Container from "@/src/components/shared/atoms/Container";
 import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import {
@@ -50,7 +51,10 @@ const NavigationBar = () => {
 						))}
 					</NavigationMenuList>
 				</NavigationMenu>
-				<ThemeToggle />
+				<div className="flex items-center gap-3">
+					<SearchTrigger />
+					<ThemeToggle />
+				</div>
 			</Container>
 		</header>
 	);
