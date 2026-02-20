@@ -2,7 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import type { BlogFrontmatter, BlogPost } from "@/src/types/blog";
+import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
+import type {
+	BlogFrontmatter,
+	BlogPost,
+	Category,
+	PaginationResult,
+} from "@/src/types/blog";
 
 const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
 
@@ -72,5 +78,143 @@ export function getBlogPostNavigation(currentSlug: string): {
 		previous: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
 		next:
 			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
+	};
+}
+
+// Category Functions
+export function getAllCategories(): Category[] {
+	return Object.values(BLOG_CATEGORIES);
+}
+
+export function getCategoryMetadata(categorySlug: string): Category | null {
+	return BLOG_CATEGORIES[categorySlug] || null;
+}
+
+export function getBlogPostsByCategory(categorySlug: string): BlogPost[] {
+	const category = getCategoryMetadata(categorySlug);
+	if (!category) return [];
+
+	const posts = getAllBlogPosts();
+	return posts.filter((post) =>
+		post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
+	);
+}
+
+export function getCategoryPostCounts(): Record<string, number> {
+	const counts: Record<string, number> = {};
+	const categories = getAllCategories();
+
+	for (const category of categories) {
+		counts[category.slug] = getBlogPostsByCategory(category.slug).length;
+	}
+
+	return counts;
+}
+
+// Year Functions
+export function getAllPostYears(): number[] {
+	const posts = getAllBlogPosts();
+	const years = new Set<number>();
+
+	for (const post of posts) {
+		const year = new Date(post.frontmatter.date).getFullYear();
+		years.add(year);
+	}
+
+	return Array.from(years).sort((a, b) => b - a); // Descending order
+}
+
+export function getBlogPostsByYear(year: number): BlogPost[] {
+	const posts = getAllBlogPosts();
+	return posts.filter((post) => {
+		const postYear = new Date(post.frontmatter.date).getFullYear();
+		return postYear === year;
+	});
+}
+
+export function getYearPostCounts(): Record<number, number> {
+	const counts: Record<number, number> = {};
+	const years = getAllPostYears();
+
+	for (const year of years) {
+		counts[year] = getBlogPostsByYear(year).length;
+	}
+
+	return counts;
+}
+
+// Pagination Functions
+export function getPaginatedPosts(
+	page: number,
+	postsPerPage: number = BLOG_CONFIG.postsPerPage,
+): PaginationResult<BlogPost> {
+	const allPosts = getAllBlogPosts();
+	const totalItems = allPosts.length;
+	const totalPages = Math.ceil(totalItems / postsPerPage);
+
+	// Validate and clamp page number
+	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+	const startIndex = (currentPage - 1) * postsPerPage;
+	const endIndex = startIndex + postsPerPage;
+	const items = allPosts.slice(startIndex, endIndex);
+
+	return {
+		items,
+		currentPage,
+		totalPages,
+		totalItems,
+		hasNextPage: currentPage < totalPages,
+		hasPreviousPage: currentPage > 1,
+	};
+}
+
+export function getPaginatedPostsByCategory(
+	categorySlug: string,
+	page: number,
+	postsPerPage: number = BLOG_CONFIG.postsPerPage,
+): PaginationResult<BlogPost> {
+	const allPosts = getBlogPostsByCategory(categorySlug);
+	const totalItems = allPosts.length;
+	const totalPages = Math.ceil(totalItems / postsPerPage);
+
+	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+	const startIndex = (currentPage - 1) * postsPerPage;
+	const endIndex = startIndex + postsPerPage;
+	const items = allPosts.slice(startIndex, endIndex);
+
+	return {
+		items,
+		currentPage,
+		totalPages,
+		totalItems,
+		hasNextPage: currentPage < totalPages,
+		hasPreviousPage: currentPage > 1,
+	};
+}
+
+export function getPaginatedPostsByYear(
+	year: number,
+	page: number,
+	postsPerPage: number = BLOG_CONFIG.postsPerPage,
+): PaginationResult<BlogPost> {
+	const allPosts = getBlogPostsByYear(year);
+	const totalItems = allPosts.length;
+	const totalPages = Math.ceil(totalItems / postsPerPage);
+
+	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+	const startIndex = (currentPage - 1) * postsPerPage;
+	const endIndex = startIndex + postsPerPage;
+	const items = allPosts.slice(startIndex, endIndex);
+
+	return {
+		items,
+		currentPage,
+		totalPages,
+		totalItems,
+		hasNextPage: currentPage < totalPages,
+		hasPreviousPage: currentPage > 1,
 	};
 }

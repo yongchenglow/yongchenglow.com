@@ -19,3 +19,19 @@ export interface BlogPost {
 	readingTime: string;
 	excerpt?: string;
 }
+
+export interface Category {
+	slug: string;
+	label: string;
+	tags: string[];
+	description: string;
+}
+
+export interface PaginationResult<T> {
+	items: T[];
+	currentPage: number;
+	totalPages: number;
+	totalItems: number;
+	hasNextPage: boolean;
+	hasPreviousPage: boolean;
+}

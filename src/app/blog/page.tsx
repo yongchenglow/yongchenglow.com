@@ -1,10 +1,14 @@
+import Link from "next/link";
 import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
+import CategoryNavigation from "@/src/components/blog/CategoryNavigation";
+import YearFilter from "@/src/components/blog/YearFilter";
 import SearchTrigger from "@/src/components/search/SearchTrigger";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import { Button } from "@/src/components/shared/ui/button";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
 export default function BlogPage() {
@@ -24,6 +28,9 @@ export default function BlogPage() {
 				<div className="my-6">
 					<SearchTrigger />
 				</div>
+
+				<CategoryNavigation />
+				<YearFilter />
 
 				{/* Featured Article Section */}
 				{featuredPost && (
@@ -62,6 +69,12 @@ export default function BlogPage() {
 							</div>
 						))}
 					</ArticleGrid>
+
+					<div className="flex justify-center mt-8">
+						<Button variant="outline" size="lg" asChild>
+							<Link href="/blog/latest/1">View All Posts</Link>
+						</Button>
+					</div>
 				</section>
 
 				<GoogleAds slotId="9667543473" />
