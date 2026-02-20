@@ -18,15 +18,15 @@ In order to run the application please clone or download the repository
 
 ### For Development
 
-1. pnpm
-2. pnpm prepare (Only for development setup)
-3. pnpm dev
+1. npm install
+2. npm run prepare (Only for development setup)
+3. npm run dev
 
 ### For Production
 
-1. pnpm
-2. pnpm build
-3. pnpm start
+1. npm install
+2. npm run build
+3. npm start
 
 ### Using Docker
 
@@ -52,16 +52,15 @@ docker load -i file.tar
 ## Application Commands
 
 ```bash
-pnpm dev              # For development
-pnpm build            # To build the application
-pnpm start            # To run the built application
-pnpm lint             # To check eslint
-pnpm analyze          # To analyze the packages
-pnpm prettier:fix     # To automatically fix prettier issues
-pnpm prettier:check   # To check for prettier issues
-pnpm storybook        # To run the storybook environment
-pnpm build:storybook  # To build the storybook
-pnpm prepare          # To prepare the application
+npm run dev       # For development
+npm run build     # To build the application
+npm start         # To run the built application
+npm run lint      # To check Biome linting
+npm run format    # To format code with Biome
+npm run check     # To run Biome linting and formatting with auto-fix
+npm test          # To run tests
+npm run analyze   # To analyze the packages
+npm run prepare   # To prepare the application (husky setup)
 ```
 
 ## Git Conventions
@@ -74,7 +73,7 @@ hotfix/<branch_name>
 
 ### Commits
 
-Refer to [commitlint.config.js](./commitlint.config.js) for prefixes. We will be using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+Refer to [commitlint.config.ts](./commitlint.config.ts) for prefixes. We will be using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## VSCode Setup
 
@@ -83,10 +82,10 @@ Adjust your VS Code settings `code > preferences > settings`, add a `,` at the e
 
 ```json
 "editor.bracketPairColorization.enabled": true,
-"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.defaultFormatter": "biomejs.biome",
 "editor.formatOnSave": true,
 "editor.codeActionsOnSave": {
-  "source.fixAll": true
+  "source.fixAll": "explicit"
 },
 ```
 

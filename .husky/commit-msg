@@ -1,1 +1,2 @@
-pnpm commitlint --edit $1
+. ~/.nvm/nvm.sh
+npx commitlint --edit $1

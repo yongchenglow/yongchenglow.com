@@ -1,0 +1,45 @@
+"use client";
+
+import type React from "react";
+import { useEffect, useRef } from "react";
+
+declare global {
+	// eslint-disable-next-line no-unused-vars
+	interface Window {
+		adsbygoogle: { [key: string]: unknown }[];
+	}
+}
+
+interface Props {
+	slotId: string;
+}
+
+const GoogleAds: React.FunctionComponent<Props> = ({ slotId }) => {
+	const adLoaded = useRef(false);
+
+	useEffect(() => {
+		if (!adLoaded.current) {
+			window.adsbygoogle = window.adsbygoogle || [];
+			window.adsbygoogle.push({});
+			adLoaded.current = true;
+		}
+	}, []);
+
+	return (
+		<div className="mb-3">
+			<ins
+				className="adsbygoogle"
+				style={{
+					display: "block",
+					textAlign: "center",
+				}}
+				data-ad-layout="in-article"
+				data-ad-format="fluid"
+				data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}
+				data-ad-slot={slotId}
+			/>
+		</div>
+	);
+};
+
+export default GoogleAds;
