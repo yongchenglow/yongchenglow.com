@@ -45,7 +45,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html prefix="og: http://ogp.me/ns#" lang="en" suppressHydrationWarning>
-			<body className={primaryFont.className}>
+			<body className={primaryFont.className} suppressHydrationWarning>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"

@@ -4,6 +4,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import BlogPostLayout from "@/src/components/blog/BlogPostLayout";
+import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import {
 	getAllBlogSlugs,
 	getBlogPost,
@@ -60,20 +61,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
 	const { previous, next } = getBlogPostNavigation(slug);
 
-	const mdxOptions = {
-		mdxOptions: {
-			remarkPlugins: [remarkGfm],
-			rehypePlugins: [
-				rehypeSlug,
-				[rehypeAutolinkHeadings, { behavior: "wrap" }],
-			],
-		},
-	};
-
 	return (
 		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
-			{/* @ts-expect-error - rehype plugin types are incompatible */}
-			<MDXRemote source={post.content} options={mdxOptions} />
+			<MDXRemote
+				source={post.content}
+				components={{
+					img: MdxImage,
+					a: MdxLink,
+				}}
+				options={{
+					mdxOptions: {
+						remarkPlugins: [remarkGfm],
+						rehypePlugins: [
+							rehypeSlug,
+							[rehypeAutolinkHeadings, { behavior: "wrap" }],
+						],
+					},
+				}}
+			/>
 		</BlogPostLayout>
 	);
 }
