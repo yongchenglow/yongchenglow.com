@@ -26,7 +26,7 @@ exports[`Index > renders correctly 1`] = `
           >
             <li>
               <a
-                class="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent bg-accent text-accent-foreground"
+                class="cursor-pointer group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent bg-accent text-accent-foreground"
                 data-radix-collection-item=""
                 href="/"
               >
@@ -35,7 +35,7 @@ exports[`Index > renders correctly 1`] = `
             </li>
             <li>
               <a
-                class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
+                class="cursor-pointer group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
                 data-radix-collection-item=""
                 href="/about"
               >
@@ -44,7 +44,7 @@ exports[`Index > renders correctly 1`] = `
             </li>
             <li>
               <a
-                class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
+                class="cursor-pointer group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
                 data-radix-collection-item=""
                 href="/blog"
               >
@@ -65,7 +65,7 @@ exports[`Index > renders correctly 1`] = `
           aria-expanded="false"
           aria-haspopup="dialog"
           aria-label="Open navigation menu"
-          class="p-2 rounded-md hover:bg-accent transition-colors"
+          class="cursor-pointer p-2 rounded-md hover:bg-accent transition-colors"
           data-state="closed"
           type="button"
         >
@@ -101,7 +101,7 @@ exports[`Index > renders correctly 1`] = `
           class="hidden sm:flex items-center gap-3"
         >
           <button
-            class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs gap-2"
+            class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs gap-2"
           >
             <svg
               aria-hidden="true"
@@ -252,7 +252,7 @@ exports[`Index > renders correctly 1`] = `
               Senior Software Engineer at
                
               <a
-                class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+                class="cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                 href="https://glints.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -262,7 +262,7 @@ exports[`Index > renders correctly 1`] = `
               , part-time teacher at
                
               <a
-                class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+                class="cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                 href="https://www.lewagon.com/singapore"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -276,19 +276,21 @@ exports[`Index > renders correctly 1`] = `
               class="flex gap-3 justify-center sm:justify-start flex-wrap"
             >
               <a
+                class="cursor-pointer"
                 href="/blog"
               >
                 <button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 rounded-md px-8"
+                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 rounded-md px-8"
                 >
                   Read My Blog
                 </button>
               </a>
               <a
+                class="cursor-pointer"
                 href="/about"
               >
                 <button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8"
+                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8"
                 >
                   About Me
                 </button>
@@ -333,7 +335,7 @@ exports[`Index > renders correctly 1`] = `
           class="flex justify-center"
         >
           <a
-            class="no-underline group"
+            class="cursor-pointer no-underline group"
             href="/blog/journey-to-the-web"
           >
             <div
@@ -454,10 +456,11 @@ exports[`Index > renders correctly 1`] = `
           class="mt-6 flex justify-center"
         >
           <a
+            class="cursor-pointer"
             href="/blog"
           >
             <button
-              class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs gap-2"
+              class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs gap-2"
             >
               View all articles
               <svg
@@ -523,7 +526,7 @@ exports[`Index > renders correctly 1`] = `
               class="items-center p-6 pt-0 flex justify-center gap-3"
             >
               <a
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
                 href="https://www.nussportsclub.org"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -531,7 +534,7 @@ exports[`Index > renders correctly 1`] = `
                 Website
               </a>
               <a
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
                 href="https://github.com/yongchenglow/nus-students-sports-club"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -563,7 +566,7 @@ exports[`Index > renders correctly 1`] = `
               class="items-center p-6 pt-0 flex justify-center gap-3"
             >
               <a
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
                 href="https://github.com/yongchenglow/yongchenglow.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -595,7 +598,7 @@ exports[`Index > renders correctly 1`] = `
               class="items-center p-6 pt-0 flex justify-center gap-3"
             >
               <a
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
                 href="https://airbnb-yc.herokuapp.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -603,7 +606,7 @@ exports[`Index > renders correctly 1`] = `
                 Website
               </a>
               <a
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
                 href="https://github.com/yongchenglow/airbnb-clone"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -673,7 +676,7 @@ exports[`Index > renders correctly 1`] = `
                 I am Yong Cheng or YC, I grew up studying in various international schools in particular
                  
                 <a
-                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+                  class="cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://www.scis-china.org"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -683,7 +686,7 @@ exports[`Index > renders correctly 1`] = `
                 ,
                  
                 <a
-                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+                  class="cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://shanghai-pudong.dulwich.org"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -694,7 +697,7 @@ exports[`Index > renders correctly 1`] = `
                 and
                  
                 <a
-                  class="text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+                  class="cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
                   href="https://shatincollege.edu.hk"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -714,6 +717,7 @@ exports[`Index > renders correctly 1`] = `
                 You can find out more about me in the
                  
                 <a
+                  class="cursor-pointer"
                   href="/about"
                 >
                   about
@@ -769,7 +773,7 @@ exports[`Index > renders correctly 1`] = `
           >
             <li>
               <a
-                class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
                 href="/"
               >
                 Home
@@ -777,7 +781,7 @@ exports[`Index > renders correctly 1`] = `
             </li>
             <li>
               <a
-                class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
                 href="/blog"
               >
                 Blog
@@ -785,7 +789,7 @@ exports[`Index > renders correctly 1`] = `
             </li>
             <li>
               <a
-                class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
                 href="/about"
               >
                 About
@@ -804,7 +808,7 @@ exports[`Index > renders correctly 1`] = `
           >
             <a
               aria-label="LinkedIn"
-              class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
               data-state="closed"
               href="https://www.linkedin.com/in/yong-cheng-low/"
               rel="noopener noreferrer"
@@ -841,7 +845,7 @@ exports[`Index > renders correctly 1`] = `
             </a>
             <a
               aria-label="GitHub"
-              class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
               data-state="closed"
               href="https://github.com/yongchenglow"
               rel="noopener noreferrer"
@@ -870,7 +874,7 @@ exports[`Index > renders correctly 1`] = `
             </a>
             <a
               aria-label="Instagram"
-              class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
               data-state="closed"
               href="https://www.instagram.com/yclow88/"
               rel="noopener noreferrer"
@@ -910,7 +914,7 @@ exports[`Index > renders correctly 1`] = `
             </a>
             <a
               aria-label="Email"
-              class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              class="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
               data-state="closed"
               href="mailto:lowyongcheng@hotmail.com"
             >

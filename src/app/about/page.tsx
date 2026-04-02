@@ -1,13 +1,6 @@
 "use client";
 
-import {
-	BookOpen,
-	Briefcase,
-	Code,
-	Globe,
-	GraduationCap,
-	Shield,
-} from "lucide-react";
+import { Briefcase, GraduationCap, Shield } from "lucide-react";
 import Timeline from "@/src/components/about/Timeline";
 import TimelineItem from "@/src/components/about/TimelineItem";
 import ArticleContainer from "@/src/components/article/ArticleContainer";
@@ -53,40 +46,109 @@ export default function AboutPage() {
 
 				{/* Timeline */}
 				<Timeline>
+					{/* Work Experience */}
 					<TimelineItem
-						year="Early"
-						title="Mayflower Primary School"
-						icon={<GraduationCap className="h-4 w-4" />}
-						side="right"
+						title="Data & Software Engineer at National University Hospital"
+						icon={<Briefcase className="h-4 w-4" />}
+						category="work"
+						years="2025–Present"
+						location="Singapore"
 					>
-						My earliest education in Singapore instilled the motto
-						&ldquo;Service before Self&rdquo;, shaping my belief that
-						others&apos; priorities come first.
+						Developing proof of concepts including Speech to Speech agents for
+						PROMS collection using AWS Nova 2 Sonic and GPT Realtime. Working on
+						cluster-level projects including automatic speech recognition and
+						medical coding to improve workforce efficiency.
 					</TimelineItem>
 
 					<TimelineItem
-						year="2004–2010"
-						title="Shanghai — SCIS &amp; Dulwich"
-						icon={<Globe className="h-4 w-4" />}
-						side="left"
+						title="Senior Software Engineer at Glints"
+						icon={<Briefcase className="h-4 w-4" />}
+						category="work"
+						years="2023–2025"
+						location="Singapore"
 					>
-						Moved to Shanghai and studied at{" "}
-						<ExternalLink href="https://www.scis-china.org">
-							Shanghai Community International School
-						</ExternalLink>{" "}
-						and{" "}
-						<ExternalLink href="https://shanghai-pudong.dulwich.org">
-							Dulwich College Shanghai
+						Designed and implemented an automated multilingual resume parsing
+						workflow using OpenAI APIs, achieving over 90% accuracy. Developed a
+						multilingual job role inference system with 90%+ accuracy. Set up
+						dashboards and alerting systems, reducing MTTR to within 2 hours.
+					</TimelineItem>
+
+					<TimelineItem
+						title="Web Software Engineer at Glints"
+						icon={<Briefcase className="h-4 w-4" />}
+						category="work"
+						years="2021–2023"
+						location="Singapore"
+					>
+						Collaborated with Product and Design teams to deliver a
+						recruiter-centric product. Achieved median CES of 8/10. Maintained
+						search engine with boolean search features, enabling 30% of monthly
+						matches.
+					</TimelineItem>
+
+					<TimelineItem
+						title="Web Development Teacher at Le Wagon"
+						icon={<Briefcase className="h-4 w-4" />}
+						category="work"
+						years="2021–2025"
+						location="Singapore"
+					>
+						Delivering an immersive web development course equipping over 100
+						beginners and career switchers with junior software developer
+						skills. Guided students in building 25+ applications with an NPS
+						score of 82.7.
+					</TimelineItem>
+
+					<TimelineItem
+						title="Software Engineer at NCS (IOT Defence)"
+						icon={<Briefcase className="h-4 w-4" />}
+						category="work"
+						years="2020–2021"
+						location="Singapore"
+					>
+						Implemented a secure API Gateway for IoT using Java Spring Boot.
+						Collaborated on a Screen Lock Mobile Application with 3FA security
+						through Yubikey, Password, and Lockscreen Pattern.
+					</TimelineItem>
+
+					{/* Military Service */}
+					<TimelineItem
+						title="National Service — Guards Unit"
+						icon={<Shield className="h-4 w-4" />}
+						category="military"
+						years="2012–2014"
+						location="Singapore"
+					>
+						Returned to Singapore alone for National Service. Posted to the{" "}
+						<ExternalLink href="https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards">
+							Guards unit
 						</ExternalLink>
-						. Competed in ACAMIS sports tournaments and embraced multi-cultural
-						learning.
+						, which taught me resilience and the spirit of Always Ready, Ready
+						to Strike.
+					</TimelineItem>
+
+					{/* Education */}
+					<TimelineItem
+						title="NUS Computer Engineering (Bachelor with Honours)"
+						icon={<GraduationCap className="h-4 w-4" />}
+						category="school"
+						years="2014–2018"
+						location="Singapore"
+					>
+						Proved my doubters wrong by securing a place at{" "}
+						<ExternalLink href="https://ceg.nus.edu.sg">
+							NUS Computer Engineering
+						</ExternalLink>
+						. Graduated with Merit. Concentration in Interactive Digital Media,
+						Minor in Interactive Media Development.
 					</TimelineItem>
 
 					<TimelineItem
-						year="2010–2012"
-						title="Hong Kong — Sha Tin College"
+						title="Sha Tin College — IB Diploma"
 						icon={<GraduationCap className="h-4 w-4" />}
-						side="right"
+						category="school"
+						years="2010–2012"
+						location="Hong Kong"
 					>
 						After being rejected from several high schools in Shanghai, I found
 						my place at{" "}
@@ -101,69 +163,44 @@ export default function AboutPage() {
 					</TimelineItem>
 
 					<TimelineItem
-						year="2012–2014"
-						title="National Service"
-						icon={<Shield className="h-4 w-4" />}
-						side="left"
+						title="Dulwich College Shanghai — IGCSE"
+						icon={<GraduationCap className="h-4 w-4" />}
+						category="school"
+						years="2007–2010"
+						location="Shanghai, China"
 					>
-						Returned to Singapore alone for National Service. Posted to the{" "}
-						<ExternalLink href="https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards">
-							Guards unit
+						Continued my secondary education at{" "}
+						<ExternalLink href="https://shanghai-pudong.dulwich.org">
+							Dulwich College Shanghai
 						</ExternalLink>
-						, which taught me resilience and the spirit of Always Ready, Ready
-						to Strike.
+						. Competed in ACAMIS sports tournaments and embraced multi-cultural
+						learning.
 					</TimelineItem>
 
 					<TimelineItem
-						year="2014–2018"
-						title="NUS Computer Engineering"
-						icon={<Code className="h-4 w-4" />}
-						side="right"
+						title="Shanghai Community International School"
+						icon={<GraduationCap className="h-4 w-4" />}
+						category="school"
+						years="2004–2007"
+						location="Shanghai, China"
 					>
-						Proved my doubters wrong by securing a place at{" "}
-						<ExternalLink href="https://ceg.nus.edu.sg">
-							NUS Computer Engineering
+						Moved to Shanghai and studied at{" "}
+						<ExternalLink href="https://www.scis-china.org">
+							Shanghai Community International School
 						</ExternalLink>
-						. Took on leadership roles at NUS Computing Club and Sports Club
-						while building my engineering foundation.
+						. Embraced multi-cultural learning in an international environment.
 					</TimelineItem>
 
 					<TimelineItem
-						year="2018–2020"
-						title="NCS — First Job"
-						icon={<Briefcase className="h-4 w-4" />}
-						side="left"
+						title="Mayflower Primary School"
+						icon={<GraduationCap className="h-4 w-4" />}
+						category="school"
+						years="2002–2004"
+						location="Singapore"
 					>
-						Started my career at{" "}
-						<ExternalLink href="https://www.ncs.co/en-sg/">NCS</ExternalLink>,
-						building my web development foundations over 1.5 years before
-						deciding to seek a more dynamic environment.
-					</TimelineItem>
-
-					<TimelineItem
-						year="2020–Present"
-						title="Glints — Senior Software Engineer"
-						icon={<Briefcase className="h-4 w-4" />}
-						side="right"
-					>
-						Joined{" "}
-						<ExternalLink href="https://glints.com/sg">Glints</ExternalLink>, a
-						Human Resource startup with strong culture and values. Grew from
-						engineer to Senior Software Engineer.
-					</TimelineItem>
-
-					<TimelineItem
-						year="2021–Present"
-						title="Le Wagon — Part-time Teacher"
-						icon={<BookOpen className="h-4 w-4" />}
-						side="left"
-					>
-						Teaching full-stack web development at{" "}
-						<ExternalLink href="https://www.lewagon.com/singapore">
-							Le Wagon Singapore
-						</ExternalLink>
-						. Helping students transition into software engineering careers
-						using Ruby on Rails.
+						My earliest education in Singapore instilled the motto
+						&ldquo;Service before Self&rdquo;, shaping my belief that
+						others&apos; priorities come first.
 					</TimelineItem>
 				</Timeline>
 

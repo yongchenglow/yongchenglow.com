@@ -1,72 +1,77 @@
+import { MapPin } from "lucide-react";
 import type { ReactNode } from "react";
-import { cn } from "@/src/lib/utils";
+
+const categoryColors = {
+	school: {
+		bg: "bg-blue-500/10",
+		text: "text-blue-500",
+		border: "border-blue-500/20",
+	},
+	work: {
+		bg: "bg-emerald-500/10",
+		text: "text-emerald-500",
+		border: "border-emerald-500/20",
+	},
+	military: {
+		bg: "bg-red-500/10",
+		text: "text-red-500",
+		border: "border-red-500/20",
+	},
+};
 
 interface TimelineItemProps {
-	year: string;
 	title: string;
 	icon: ReactNode;
 	children: ReactNode;
-	side?: "left" | "right";
+	category: "school" | "work" | "military";
+	years: string;
+	location: string;
 }
 
 export default function TimelineItem({
-	year,
 	title,
 	icon,
 	children,
-	side = "left",
+	category,
+	years,
+	location,
 }: TimelineItemProps) {
+	const colors = categoryColors[category];
 	return (
-		<div
-			className={cn(
-				"relative flex items-start",
-				"sm:grid sm:grid-cols-2 sm:gap-8",
-			)}
-		>
+		<div className="relative flex items-start">
 			{/* Icon dot on timeline */}
-			<div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-background border-2 border-primary text-primary">
+			<div
+				className={`absolute left-4 -translate-x-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background border-2 ${colors.border} ${colors.text}`}
+			>
 				{icon}
 			</div>
 
-			{/* Content card - always right of dot on mobile, alternating on desktop */}
-			<div
-				className={cn(
-					"ml-12 sm:ml-0 flex-1",
-					side === "right"
-						? "sm:col-start-2"
-						: "sm:col-start-1 sm:text-right sm:flex sm:justify-end",
-				)}
-			>
+			{/* Content card - always on the right of the timeline */}
+			<div className="ml-12 flex-1">
 				<div
-					className={cn(
-						"rounded-lg border bg-card p-4 shadow-sm hover:shadow-md transition-shadow duration-200",
-						side === "left" ? "sm:mr-8" : "sm:ml-8",
-					)}
+					className={`rounded-lg border bg-card p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 ease-in-out text-left bg-gradient-to-br from-card to-muted/10`}
 				>
-					<div
-						className={cn(
-							"flex items-center gap-2 mb-1",
-							side === "left" ? "sm:flex-row-reverse" : "",
-						)}
-					>
-						<span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded">
-							{year}
-						</span>
-						<h3 className="font-semibold text-sm">{title}</h3>
+					<div className="flex flex-col gap-3">
+						<div className="flex items-start justify-between gap-4">
+							<div className="flex-1">
+								<h3 className="font-semibold text-base text-left">{title}</h3>
+								<div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+									<span className="flex items-center gap-1">
+										<MapPin className="h-3 w-3" />
+										{location}
+									</span>
+								</div>
+							</div>
+							<span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded whitespace-nowrap">
+								{years}
+							</span>
+						</div>
+						<p className="text-sm text-muted-foreground leading-relaxed text-left">
+							{children}
+						</p>
 					</div>
-					<p className="text-sm text-muted-foreground leading-relaxed">
-						{children}
-					</p>
 				</div>
 			</div>
-
-			{/* Spacer for the other column on desktop */}
-			<div
-				className={cn(
-					"hidden sm:block",
-					side === "right" ? "sm:col-start-1" : "sm:col-start-2",
-				)}
-			/>
 		</div>
 	);
 }
