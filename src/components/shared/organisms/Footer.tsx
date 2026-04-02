@@ -50,7 +50,7 @@ const Footer = () => {
 								<li key={link.href}>
 									<a
 										href={link.href}
-										className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+										className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
 									>
 										{link.label}
 									</a>
@@ -72,7 +72,7 @@ const Footer = () => {
 												target="_blank"
 												rel="noopener noreferrer"
 												aria-label={label}
-												className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+												className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
 											>
 												<Icon size={22} />
 											</a>
@@ -85,7 +85,7 @@ const Footer = () => {
 										<a
 											href="mailto:lowyongcheng@hotmail.com"
 											aria-label="Email"
-											className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+											className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors duration-200"
 										>
 											<Mail size={22} />
 										</a>

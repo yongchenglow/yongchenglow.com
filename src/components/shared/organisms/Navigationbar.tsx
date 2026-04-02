@@ -72,7 +72,7 @@ const NavigationBar = () => {
 							<button
 								type="button"
 								aria-label="Open navigation menu"
-								className="p-2 rounded-md hover:bg-accent transition-colors"
+								className="cursor-pointer p-2 rounded-md hover:bg-accent transition-colors"
 							>
 								<Menu className="h-5 w-5" />
 							</button>

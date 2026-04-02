@@ -20,7 +20,7 @@ export default function ExternalLink({
 			className={
 				unstyled
 					? "cursor-pointer"
-					: "text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+					: "cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
 			}
 			{...props}
 		>

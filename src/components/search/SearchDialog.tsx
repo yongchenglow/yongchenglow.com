@@ -99,7 +99,7 @@ export default function SearchDialog({
 									key={result.id}
 									type="button"
 									onClick={() => handleSelect(result.url)}
-									className="w-full text-left p-3 rounded-lg hover:bg-accent transition-colors group"
+									className="cursor-pointer w-full text-left p-3 rounded-lg hover:bg-accent transition-colors group"
 								>
 									<div className="flex items-start justify-between gap-2">
 										<div className="flex-1 min-w-0">
