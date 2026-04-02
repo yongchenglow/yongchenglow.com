@@ -1,5 +1,7 @@
 import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
+import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -31,18 +33,19 @@ export default async function TagPage({ params }: TagPageProps) {
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
-				<PageTitle>Tag: {tag}</PageTitle>
-				<PageSubtitle>
-					{posts.length} article{posts.length !== 1 ? "s" : ""} tagged with "
-					{tag}"
-				</PageSubtitle>
+				<FadeIn>
+					<PageTitle>Tag: {tag}</PageTitle>
+				</FadeIn>
+				<FadeIn delay={0.1}>
+					<PageSubtitle>
+						{posts.length} article{posts.length !== 1 ? "s" : ""} tagged with "
+						{tag}"
+					</PageSubtitle>
+				</FadeIn>
 
 				<ArticleGrid>
-					{posts.map((post) => (
-						<div
-							key={post.slug}
-							className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
-						>
+					{posts.map((post, index) => (
+						<AnimatedGridItem key={post.slug} index={index}>
 							<ArticleCard
 								title={post.frontmatter.title}
 								description={post.frontmatter.description}
@@ -51,7 +54,7 @@ export default async function TagPage({ params }: TagPageProps) {
 								date={post.frontmatter.date}
 								tags={post.frontmatter.tags}
 							/>
-						</div>
+						</AnimatedGridItem>
 					))}
 				</ArticleGrid>
 			</div>

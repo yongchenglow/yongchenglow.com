@@ -1,4 +1,5 @@
 import LatestPostsView from "@/src/components/blog/LatestPostsView";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -39,13 +40,17 @@ export default async function LatestPage({ params }: LatestPageProps) {
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
-				<PageTitle>Latest Posts</PageTitle>
-				<PageSubtitle>
-					Showing {paginationResult.items.length} of{" "}
-					{paginationResult.totalItems} articles
-					{paginationResult.totalPages > 1 &&
-						` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
-				</PageSubtitle>
+				<FadeIn>
+					<PageTitle>Latest Posts</PageTitle>
+				</FadeIn>
+				<FadeIn delay={0.1}>
+					<PageSubtitle>
+						Showing {paginationResult.items.length} of{" "}
+						{paginationResult.totalItems} articles
+						{paginationResult.totalPages > 1 &&
+							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
+					</PageSubtitle>
+				</FadeIn>
 
 				<LatestPostsView
 					paginationResult={paginationResult}

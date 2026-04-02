@@ -44,7 +44,7 @@ const NavigationBar = () => {
 	};
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 bg-navbar backdrop-blur-xl border-b border-border/50">
+		<header className="fixed top-0 left-0 right-0 z-50 bg-navbar backdrop-blur-xl">
 			<Container className="py-3 flex items-center justify-between">
 				{/* Desktop nav */}
 				<NavigationMenu className="hidden sm:flex">
@@ -97,7 +97,7 @@ const NavigationBar = () => {
 										{page.name}
 									</InternalLink>
 								))}
-								<div className="mt-4 flex flex-col gap-3 border-t pt-4">
+								<div className="mt-4 flex flex-col gap-3 pt-4">
 									<SearchTrigger />
 									<ThemeToggle />
 								</div>

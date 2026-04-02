@@ -158,7 +158,7 @@ export default function SearchDialog() {
 					) : null}
 				</div>
 
-				<div className="text-xs text-muted-foreground border-t pt-3">
+				<div className="text-xs text-muted-foreground pt-3">
 					<p>💡 Tip: Search by title, description, content, or tags</p>
 				</div>
 			</DialogContent>

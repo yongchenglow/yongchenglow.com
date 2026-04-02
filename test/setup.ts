@@ -14,3 +14,16 @@ vi.mock("next/navigation", () => ({
 	usePathname: () => "/",
 	useSearchParams: () => new URLSearchParams(),
 }));
+
+// Mock IntersectionObserver for Framer Motion useInView
+class IntersectionObserverMock {
+	observe = vi.fn();
+	unobserve = vi.fn();
+	disconnect = vi.fn();
+}
+
+Object.defineProperty(window, "IntersectionObserver", {
+	writable: true,
+	configurable: true,
+	value: IntersectionObserverMock,
+});

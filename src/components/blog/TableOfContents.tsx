@@ -69,8 +69,8 @@ export default function TableOfContents({
 								variant === "sidebar"
 									? `block text-sm transition-colors border-l-2 pl-3 py-0.5 ${
 											activeId === heading.id
-												? "border-primary text-primary font-semibold"
-												: "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground"
+												? "text-primary font-semibold pl-3"
+												: "text-muted-foreground hover:text-foreground pl-3"
 										}`
 									: `hover:text-primary transition-colors ${
 											activeId === heading.id

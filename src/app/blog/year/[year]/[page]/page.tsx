@@ -1,6 +1,8 @@
 import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
+import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
 import Pagination from "@/src/components/blog/Pagination";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -60,20 +62,21 @@ export default async function YearPageWithPagination({
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
-				<PageTitle>Posts from {year}</PageTitle>
-				<PageSubtitle>
-					Showing {paginationResult.items.length} of{" "}
-					{paginationResult.totalItems} articles published in {year}
-					{paginationResult.totalPages > 1 &&
-						` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
-				</PageSubtitle>
+				<FadeIn>
+					<PageTitle>Posts from {year}</PageTitle>
+				</FadeIn>
+				<FadeIn delay={0.1}>
+					<PageSubtitle>
+						Showing {paginationResult.items.length} of{" "}
+						{paginationResult.totalItems} articles published in {year}
+						{paginationResult.totalPages > 1 &&
+							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
+					</PageSubtitle>
+				</FadeIn>
 
 				<ArticleGrid>
-					{paginationResult.items.map((post) => (
-						<div
-							key={post.slug}
-							className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
-						>
+					{paginationResult.items.map((post, index) => (
+						<AnimatedGridItem key={post.slug} index={index}>
 							<ArticleCard
 								title={post.frontmatter.title}
 								description={post.frontmatter.description}
@@ -82,7 +85,7 @@ export default async function YearPageWithPagination({
 								date={post.frontmatter.date}
 								tags={post.frontmatter.tags}
 							/>
-						</div>
+						</AnimatedGridItem>
 					))}
 				</ArticleGrid>
 

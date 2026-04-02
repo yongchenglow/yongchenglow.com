@@ -26,7 +26,7 @@ const socialLinks = [
 
 const Footer = () => {
 	return (
-		<footer className="mt-auto bg-card text-card-foreground border-t">
+		<footer className="mt-auto bg-card text-card-foreground">
 			<div className="max-w-7xl mx-auto px-4 py-6">
 				<TooltipProvider>
 					<div className="flex items-center justify-center gap-6 mb-4">

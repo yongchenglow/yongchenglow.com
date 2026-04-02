@@ -13,7 +13,6 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
-import { Separator } from "@/src/components/shared/ui/separator";
 
 export default function AboutPage() {
 	return (
@@ -41,8 +40,6 @@ export default function AboutPage() {
 						.
 					</p>
 				</div>
-
-				<Separator className="mb-12" />
 
 				{/* Timeline */}
 				<Timeline>

@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ArticleCard from "@/src/components/article/ArticleCard";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { getStaggerDelay } from "@/src/lib/animation";
 import type { BlogPost } from "@/src/types/blog";
 
 interface InfiniteScrollProps {
@@ -72,9 +74,10 @@ export default function InfiniteScroll({
 
 	return (
 		<>
-			{posts.map((post) => (
-				<div
+			{posts.map((post, index) => (
+				<FadeIn
 					key={post.slug}
+					delay={getStaggerDelay(index)}
 					className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 				>
 					<ArticleCard
@@ -85,7 +88,7 @@ export default function InfiniteScroll({
 						date={post.frontmatter.date}
 						tags={post.frontmatter.tags}
 					/>
-				</div>
+				</FadeIn>
 			))}
 
 			{/* Intersection Observer Target */}

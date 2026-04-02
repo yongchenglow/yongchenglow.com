@@ -11,7 +11,6 @@ import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Badge } from "@/src/components/shared/ui/badge";
-import { Separator } from "@/src/components/shared/ui/separator";
 import type { BlogPost } from "@/src/types/blog";
 
 interface BlogPostLayoutProps {
@@ -65,8 +64,6 @@ export default function BlogPostLayout({
 						))}
 					</div>
 				)}
-
-				<Separator className="mb-8" />
 
 				{/* Mobile TOC */}
 				<div className="lg:hidden mb-6">

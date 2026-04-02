@@ -5,7 +5,9 @@ import ArticleCard from "@/src/components/article/ArticleCard";
 import ArticleGrid from "@/src/components/article/ArticleGrid";
 import InfiniteScroll from "@/src/components/blog/InfiniteScroll";
 import Pagination from "@/src/components/blog/Pagination";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import { Button } from "@/src/components/shared/ui/button";
+import { getStaggerDelay } from "@/src/lib/animation";
 import type { BlogPost, PaginationResult } from "@/src/types/blog";
 
 interface LatestPostsViewProps {
@@ -55,9 +57,10 @@ export default function LatestPostsView({
 						loadMorePosts={loadMorePosts}
 					/>
 				) : (
-					paginationResult.items.map((post) => (
-						<div
+					paginationResult.items.map((post, index) => (
+						<FadeIn
 							key={post.slug}
+							delay={getStaggerDelay(index)}
 							className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 						>
 							<ArticleCard
@@ -68,7 +71,7 @@ export default function LatestPostsView({
 								date={post.frontmatter.date}
 								tags={post.frontmatter.tags}
 							/>
-						</div>
+						</FadeIn>
 					))
 				)}
 			</ArticleGrid>

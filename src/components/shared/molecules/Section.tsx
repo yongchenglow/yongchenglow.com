@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import { cn } from "@/src/lib/utils";
 
 interface SectionProps {
@@ -16,14 +17,16 @@ export default function Section({
 }: SectionProps) {
 	return (
 		<div className={cn("my-6", className)}>
-			<h3
-				className={cn(
-					"text-3xl font-medium tracking-tight mb-3 text-center",
-					titleClassName,
-				)}
-			>
-				{title}
-			</h3>
+			<FadeIn>
+				<h3
+					className={cn(
+						"text-3xl font-medium tracking-tight mb-3 text-center",
+						titleClassName,
+					)}
+				>
+					{title}
+				</h3>
+			</FadeIn>
 			{children}
 		</div>
 	);
