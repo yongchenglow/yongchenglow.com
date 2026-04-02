@@ -7,6 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/src/components/shared/ui/card";
+import { ScrollArea } from "@/src/components/shared/ui/scroll-area";
 
 interface TocItem {
 	id: string;
@@ -14,7 +15,13 @@ interface TocItem {
 	level: number;
 }
 
-export default function TableOfContents() {
+interface TableOfContentsProps {
+	variant?: "inline" | "sidebar";
+}
+
+export default function TableOfContents({
+	variant = "inline",
+}: TableOfContentsProps) {
 	const [headings, setHeadings] = useState<TocItem[]>([]);
 	const [activeId, setActiveId] = useState<string>("");
 
@@ -48,32 +55,55 @@ export default function TableOfContents() {
 
 	if (headings.length === 0) return null;
 
+	const navContent = (
+		<nav className="text-left">
+			<ul className="space-y-2">
+				{headings.map((heading) => (
+					<li
+						key={heading.id}
+						style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
+					>
+						<a
+							href={`#${heading.id}`}
+							className={
+								variant === "sidebar"
+									? `block text-sm transition-colors border-l-2 pl-3 py-0.5 ${
+											activeId === heading.id
+												? "border-primary text-primary font-semibold"
+												: "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground"
+										}`
+									: `hover:text-primary transition-colors ${
+											activeId === heading.id
+												? "text-primary font-semibold"
+												: ""
+										}`
+							}
+						>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	);
+
+	if (variant === "sidebar") {
+		return (
+			<ScrollArea className="max-h-[calc(100vh-8rem)]">
+				<p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+					On this page
+				</p>
+				{navContent}
+			</ScrollArea>
+		);
+	}
+
 	return (
 		<Card className="mb-8 max-w-4xl mx-auto">
 			<CardHeader>
 				<CardTitle>Table of Contents</CardTitle>
 			</CardHeader>
-			<CardContent>
-				<nav className="text-left">
-					<ul className="space-y-2">
-						{headings.map((heading) => (
-							<li
-								key={heading.id}
-								style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
-							>
-								<a
-									href={`#${heading.id}`}
-									className={`hover:text-primary transition-colors ${
-										activeId === heading.id ? "text-primary font-semibold" : ""
-									}`}
-								>
-									{heading.text}
-								</a>
-							</li>
-						))}
-					</ul>
-				</nav>
-			</CardContent>
+			<CardContent>{navContent}</CardContent>
 		</Card>
 	);
 }

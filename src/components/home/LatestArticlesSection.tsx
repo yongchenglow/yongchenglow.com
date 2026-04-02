@@ -1,7 +1,10 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import ArticleCard from "@/src/components/article/ArticleCard";
+import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import Section from "@/src/components/shared/molecules/Section";
+import { Button } from "@/src/components/shared/ui/button";
 import type { BlogPost } from "@/src/types/blog";
 
 interface LatestArticlesSectionProps {
@@ -25,6 +28,14 @@ export default function LatestArticlesSection({
 						date={post.frontmatter.date}
 						tags={post.frontmatter.tags}
 					/>
+				</div>
+				<div className="mt-6 flex justify-center">
+					<InternalLink href="/blog">
+						<Button variant="ghost" size="sm" className="gap-2">
+							View all articles
+							<ArrowRight className="h-4 w-4" />
+						</Button>
+					</InternalLink>
 				</div>
 			</Section>
 		</div>

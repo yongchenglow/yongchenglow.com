@@ -18,7 +18,7 @@ export default function AboutMeSection() {
 							src="/img/yong-cheng-metasprint.jpeg"
 							width={400}
 							height={400}
-							className="w-full h-auto rounded-lg shadow-md max-w-sm"
+							className="w-full h-auto rounded-2xl shadow-md max-w-sm"
 						/>
 					</div>
 					<div className="sm:col-span-7 col-span-1 flex items-center">

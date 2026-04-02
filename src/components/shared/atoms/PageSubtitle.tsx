@@ -10,7 +10,9 @@ export default function PageSubtitle({
 	className = "",
 }: PageSubtitleProps) {
 	return (
-		<h2 className={`text-gray-600 text-center mb-4 ${className}`.trim()}>
+		<h2
+			className={`text-muted-foreground text-center mb-4 ${className}`.trim()}
+		>
 			{children}
 		</h2>
 	);

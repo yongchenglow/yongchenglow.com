@@ -29,7 +29,7 @@ export default function ArticleCodeBlock({
 	if (!mounted) {
 		return (
 			<div className={`text-center mb-7 ${className}`.trim()}>
-				<div className="inline-block bg-gray-100 dark:bg-gray-800 p-8 text-left">
+				<div className="inline-block bg-muted p-8 text-left">
 					<pre>{children.trim()}</pre>
 				</div>
 			</div>

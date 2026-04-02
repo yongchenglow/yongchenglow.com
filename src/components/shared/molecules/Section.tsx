@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface SectionProps {
 	title: string | ReactNode;
@@ -14,9 +15,12 @@ export default function Section({
 	titleClassName = "",
 }: SectionProps) {
 	return (
-		<div className={`my-6 ${className}`.trim()}>
+		<div className={cn("my-6", className)}>
 			<h3
-				className={`text-3xl font-medium mb-3 font-medium text-center ${titleClassName}`.trim()}
+				className={cn(
+					"text-3xl font-medium tracking-tight mb-3 text-center",
+					titleClassName,
+				)}
 			>
 				{title}
 			</h3>

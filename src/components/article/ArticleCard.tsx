@@ -8,6 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/src/components/shared/ui/card";
+import { Separator } from "@/src/components/shared/ui/separator";
 
 interface ArticleCardProps {
 	title: string;
@@ -27,29 +28,36 @@ export default function ArticleCard({
 	tags,
 }: ArticleCardProps) {
 	return (
-		<InternalLink href={href} className="no-underline">
-			<Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+		<InternalLink href={href} className="no-underline group">
+			<Card className="h-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
 				<CardHeader>
-					<CardTitle>{title}</CardTitle>
+					<CardTitle className="group-hover:text-primary transition-colors duration-200">
+						{title}
+					</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					{/* Metadata */}
 					{(date || readingTime) && (
-						<div className="flex gap-4 text-sm text-muted-foreground mb-3">
-							{date && (
-								<div className="flex items-center gap-1">
-									<Calendar className="h-4 w-4" />
-									{new Date(date).toLocaleDateString()}
-								</div>
-							)}
-							{readingTime && (
-								<div className="flex items-center gap-1">
-									<Clock className="h-4 w-4" />
-									{readingTime}
-								</div>
-							)}
-						</div>
+						<>
+							<div className="flex gap-4 text-sm text-muted-foreground mb-3">
+								{date && (
+									<div className="flex items-center gap-1">
+										<Calendar className="h-4 w-4" />
+										{new Date(date).toLocaleDateString()}
+									</div>
+								)}
+								{readingTime && (
+									<div className="flex items-center gap-1">
+										<Clock className="h-4 w-4" />
+										{readingTime}
+									</div>
+								)}
+							</div>
+
+							{/* Tags */}
+							{tags && tags.length > 0 && <Separator className="mb-3" />}
+						</>
 					)}
 
 					{/* Tags */}

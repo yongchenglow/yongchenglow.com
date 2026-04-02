@@ -3,6 +3,7 @@
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleHeader from "@/src/components/article/ArticleHeader";
 import ArticleMetadata from "@/src/components/article/ArticleMetadata";
+import BlogBreadcrumb from "@/src/components/blog/BlogBreadcrumb";
 import BlogNavigation from "@/src/components/blog/BlogNavigation";
 import ReadingProgress from "@/src/components/blog/ReadingProgress";
 import TableOfContents from "@/src/components/blog/TableOfContents";
@@ -10,6 +11,7 @@ import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Badge } from "@/src/components/shared/ui/badge";
+import { Separator } from "@/src/components/shared/ui/separator";
 import type { BlogPost } from "@/src/types/blog";
 
 interface BlogPostLayoutProps {
@@ -31,6 +33,9 @@ export default function BlogPostLayout({
 		<StandardLayout>
 			<ReadingProgress />
 			<ArticleContainer>
+				{/* Breadcrumb */}
+				<BlogBreadcrumb title={frontmatter.title} />
+
 				{/* Header Section */}
 				<ArticleHeader
 					title={frontmatter.title}
@@ -38,7 +43,7 @@ export default function BlogPostLayout({
 				/>
 
 				{/* Metadata Bar */}
-				<div className="flex flex-wrap gap-2 justify-center items-center mb-6">
+				<div className="flex flex-wrap gap-2 justify-center items-center mb-4">
 					<ArticleMetadata>
 						Published: {new Date(frontmatter.date).toLocaleDateString()}
 					</ArticleMetadata>
@@ -61,19 +66,35 @@ export default function BlogPostLayout({
 					</div>
 				)}
 
-				{/* Table of Contents */}
-				<TableOfContents />
+				<Separator className="mb-8" />
 
-				{/* Main Content */}
-				<article className="prose dark:prose-invert max-w-4xl mx-auto">
-					{children}
-				</article>
+				{/* Mobile TOC */}
+				<div className="lg:hidden mb-6">
+					<TableOfContents variant="inline" />
+				</div>
 
-				{/* Blog Navigation */}
-				<BlogNavigation previousPost={previousPost} nextPost={nextPost} />
+				{/* Two-column layout on large screens */}
+				<div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12 lg:items-start">
+					{/* Main Content */}
+					<div>
+						<article className="prose dark:prose-invert max-w-none">
+							{children}
+						</article>
 
-				{/* Google Ads */}
-				{frontmatter.adsSlotId && <GoogleAds slotId={frontmatter.adsSlotId} />}
+						{/* Blog Navigation */}
+						<BlogNavigation previousPost={previousPost} nextPost={nextPost} />
+
+						{/* Google Ads */}
+						{frontmatter.adsSlotId && (
+							<GoogleAds slotId={frontmatter.adsSlotId} />
+						)}
+					</div>
+
+					{/* Sidebar TOC (desktop only) */}
+					<aside className="hidden lg:block sticky top-24">
+						<TableOfContents variant="sidebar" />
+					</aside>
+				</div>
 			</ArticleContainer>
 		</StandardLayout>
 	);
