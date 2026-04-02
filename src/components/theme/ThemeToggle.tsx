@@ -1,7 +1,6 @@
 "use client";
 
 import { Switch } from "@radix-ui/react-switch";
-import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -50,10 +49,11 @@ export function ThemeToggle() {
 					isDark ? "opacity-100" : "opacity-40",
 				)}
 			/>
-			<motion.div
-				animate={{ x: isDark ? 24 : 0 }}
-				transition={{ duration: 0.2, ease: "easeInOut" }}
-				className="absolute z-0 h-6 w-6 rounded-full bg-background shadow-sm"
+			<div
+				className={cn(
+					"absolute z-0 h-6 w-6 rounded-full bg-background shadow-sm transition-transform duration-200",
+					isDark ? "translate-x-6" : "translate-x-0",
+				)}
 			/>
 		</Switch>
 	);
