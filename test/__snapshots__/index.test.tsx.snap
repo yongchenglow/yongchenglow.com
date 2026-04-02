@@ -142,11 +142,19 @@ exports[`Index > renders correctly 1`] = `
             </kbd>
           </button>
           <button
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9"
+            aria-checked="false"
+            aria-label="Toggle theme"
+            class="relative flex h-8 w-14 cursor-pointer items-center rounded-full border bg-muted p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            data-slot="switch"
+            data-state="unchecked"
+            role="switch"
+            type="button"
+            value="on"
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-sun h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+              class="lucide lucide-sun absolute z-10 h-4 w-4 transition-opacity left-2 opacity-100"
+              data-testid="sun-icon"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -189,7 +197,8 @@ exports[`Index > renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden="true"
-              class="lucide lucide-moon absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+              class="lucide lucide-moon absolute z-10 h-4 w-4 transition-opacity left-8 opacity-40"
+              data-testid="moon-icon"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -204,11 +213,9 @@ exports[`Index > renders correctly 1`] = `
                 d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
               />
             </svg>
-            <span
-              class="sr-only"
-            >
-              Toggle theme
-            </span>
+            <div
+              class="absolute z-0 h-6 w-6 rounded-full bg-background shadow-sm"
+            />
           </button>
         </div>
       </div>
