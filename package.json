@@ -61,6 +61,7 @@
 		"@semantic-release/git": "^10.0.1",
 		"@semantic-release/gitlab": "^13.2.9",
 		"@swc/core": "^1.15.11",
+		"@tailwindcss/typography": "^0.5.19",
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.2",
 		"@types/mdx": "^2.0.13",

@@ -10,6 +10,10 @@ export default function ArticleContainer({
 	className = "",
 }: ArticleContainerProps) {
 	return (
-		<div className={`py-3 text-center ${className}`.trim()}>{children}</div>
+		<div
+			className={`py-3 px-4 mx-auto max-w-prose md:max-w-3xl lg:max-w-4xl text-left w-full ${className}`.trim()}
+		>
+			{children}
+		</div>
 	);
 }

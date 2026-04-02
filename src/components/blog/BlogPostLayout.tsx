@@ -3,7 +3,7 @@
 import ArticleContainer from "@/src/components/article/ArticleContainer";
 import ArticleHeader from "@/src/components/article/ArticleHeader";
 import ArticleMetadata from "@/src/components/article/ArticleMetadata";
-import BlogBreadcrumb from "@/src/components/blog/BlogBreadcrumb";
+import BlogBackButton from "@/src/components/blog/BlogBackButton";
 import BlogNavigation from "@/src/components/blog/BlogNavigation";
 import ReadingProgress from "@/src/components/blog/ReadingProgress";
 import TableOfContents from "@/src/components/blog/TableOfContents";
@@ -33,8 +33,8 @@ export default function BlogPostLayout({
 		<StandardLayout>
 			<ReadingProgress />
 			<ArticleContainer>
-				{/* Breadcrumb */}
-				<BlogBreadcrumb title={frontmatter.title} />
+				{/* Back Button */}
+				<BlogBackButton />
 
 				{/* Header Section */}
 				<ArticleHeader
@@ -77,9 +77,7 @@ export default function BlogPostLayout({
 				<div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12 lg:items-start">
 					{/* Main Content */}
 					<div>
-						<article className="prose dark:prose-invert max-w-none">
-							{children}
-						</article>
+						<article className="prose dark:prose-invert">{children}</article>
 
 						{/* Blog Navigation */}
 						<BlogNavigation previousPost={previousPost} nextPost={nextPost} />

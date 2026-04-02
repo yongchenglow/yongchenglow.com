@@ -151,3 +151,135 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* Blog typography styles */
+@layer components {
+	.prose {
+		@apply text-left;
+		max-width: 100%;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
+	}
+
+	.prose h1 {
+		@apply text-4xl font-bold mt-12 mb-6 text-foreground;
+	}
+
+	.prose h2 {
+		@apply text-3xl font-semibold mt-10 mb-4 text-foreground;
+	}
+
+	.prose h3 {
+		@apply text-2xl font-semibold mt-8 mb-3 text-foreground;
+	}
+
+	.prose h4 {
+		@apply text-xl font-medium mt-6 mb-2 text-foreground;
+	}
+
+	.prose h5 {
+		@apply text-lg font-medium mt-4 mb-2 text-foreground;
+	}
+
+	.prose h6 {
+		@apply text-base font-medium mt-4 mb-2 text-foreground scroll-mt-24;
+	}
+
+	/* Heading anchor links (rehype-autolink-headings) */
+	.prose h1 a,
+	.prose h2 a,
+	.prose h3 a,
+	.prose h4 a,
+	.prose h5 a,
+	.prose h6 a {
+		@apply no-underline hover:text-primary transition-colors;
+	}
+
+	.prose h1 a:hover,
+	.prose h2 a:hover,
+	.prose h3 a:hover,
+	.prose h4 a:hover,
+	.prose h5 a:hover,
+	.prose h6 a:hover {
+		@apply text-primary;
+	}
+
+	.prose p {
+		@apply mt-4 mb-4 leading-relaxed break-words;
+	}
+
+	.prose a {
+		@apply text-primary underline-offset-4 hover:underline break-words;
+	}
+
+	.prose strong {
+		@apply font-semibold text-foreground;
+	}
+
+	.prose ul,
+	.prose ol {
+		@apply mt-4 mb-4 pl-6;
+	}
+
+	.prose ul {
+		@apply list-disc;
+	}
+
+	.prose ol {
+		@apply list-decimal;
+	}
+
+	.prose li {
+		@apply mt-2 mb-2;
+	}
+
+	.prose li > ul,
+	.prose li > ol {
+		@apply mt-2 mb-0;
+	}
+
+	.prose blockquote {
+		@apply border-l-4 border-primary pl-4 py-2 my-6 italic text-muted-foreground bg-muted/30 rounded-r-lg;
+	}
+
+	.prose code {
+		@apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-foreground;
+	}
+
+	.prose pre {
+		@apply bg-muted text-foreground p-4 rounded-lg overflow-x-auto my-6 border border-border;
+	}
+
+	.prose pre code {
+		@apply bg-transparent p-0 text-sm;
+	}
+
+	.prose hr {
+		@apply border-border my-8;
+	}
+
+	.prose table {
+		@apply w-full border-collapse my-6;
+	}
+
+	.prose th {
+		@apply bg-muted font-semibold text-left p-3 border-b border-border;
+	}
+
+	.prose td {
+		@apply p-3 border-b border-border;
+	}
+
+	.prose img {
+		@apply rounded-lg my-6 max-w-full h-auto;
+		@apply sm:max-w-md md:max-w-lg lg:max-w-2xl;
+	}
+
+	.prose figure {
+		@apply my-6;
+	}
+
+	.prose figcaption {
+		@apply text-sm text-muted-foreground mt-2 text-center;
+	}
+}
