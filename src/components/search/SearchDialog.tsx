@@ -12,21 +12,34 @@ import {
 } from "@/src/components/shared/ui/dialog";
 import { Input } from "@/src/components/shared/ui/input";
 import { useSearch } from "@/src/hooks/useSearch";
+import { setOpenSearchHandler } from "./SearchTrigger";
 
-interface SearchDialogProps {
-	open: boolean;
-	onOpenChange: (open: boolean) => void;
-}
-
-export default function SearchDialog({
-	open,
-	onOpenChange,
-}: SearchDialogProps) {
+export default function SearchDialog() {
+	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const { search, results, isLoading, clearResults, initializeIndex } =
 		useSearch();
 	const router = useRouter();
 
+	// Register global handler for Command+K and button clicks
+	useEffect(() => {
+		return setOpenSearchHandler(() => setOpen(true));
+	}, []);
+
+	// Global keyboard shortcut - only ONE listener
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+				e.preventDefault();
+				setOpen(true);
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, []);
+
+	// Initialize search index when dialog opens
 	useEffect(() => {
 		if (open) {
 			initializeIndex();
@@ -47,25 +60,22 @@ export default function SearchDialog({
 
 	const handleSelect = useCallback(
 		(url: string) => {
-			onOpenChange(false);
+			setOpen(false);
 			setQuery("");
 			clearResults();
 			router.push(url);
 		},
-		[onOpenChange, clearResults, router],
+		[clearResults, router],
 	);
 
-	const handleKeyDown = useCallback(
-		(e: React.KeyboardEvent) => {
-			if (e.key === "Escape") {
-				onOpenChange(false);
-			}
-		},
-		[onOpenChange],
-	);
+	const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+		if (e.key === "Escape") {
+			setOpen(false);
+		}
+	}, []);
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent className="max-w-2xl">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">

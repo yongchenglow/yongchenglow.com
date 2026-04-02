@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import SearchDialogWrapper from "@/src/components/search/SearchDialogWrapper";
 import { ThemeProvider } from "@/src/components/theme/ThemeProvider";
 import { primaryFont } from "../components/theme/font";
 import "./globals.css";
@@ -53,6 +54,7 @@ export default function RootLayout({
 				>
 					<div className="root">
 						<main>{children}</main>
+						<SearchDialogWrapper />
 						<Script
 							async
 							src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}

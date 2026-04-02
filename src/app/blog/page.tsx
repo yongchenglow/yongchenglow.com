@@ -4,7 +4,6 @@ import ArticleGrid from "@/src/components/article/ArticleGrid";
 import CategoryNavigation from "@/src/components/blog/CategoryNavigation";
 import FeaturedPostCard from "@/src/components/blog/FeaturedPostCard";
 import YearFilter from "@/src/components/blog/YearFilter";
-import SearchTrigger from "@/src/components/search/SearchTrigger";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -24,12 +23,8 @@ export default function BlogPage() {
 				<PageTitle>Blog</PageTitle>
 				<PageSubtitle>
 					Welcome to my blog! Hope you will enjoy my tech articles and learn
-					something!
+					something new!
 				</PageSubtitle>
-
-				<div className="my-6">
-					<SearchTrigger />
-				</div>
 
 				<CategoryNavigation />
 				<YearFilter />
