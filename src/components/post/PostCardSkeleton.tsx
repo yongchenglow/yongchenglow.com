@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/src/components/shared/ui/card";
 import { Skeleton } from "@/src/components/shared/ui/skeleton";
 
-export default function ArticleCardSkeleton() {
+export default function PostCardSkeleton() {
 	return (
 		<Card className="h-full">
 			<CardHeader>

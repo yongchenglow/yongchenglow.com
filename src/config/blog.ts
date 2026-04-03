@@ -18,7 +18,7 @@ export const BLOG_CATEGORIES: Record<string, Category> = {
 			"vscode",
 		],
 		description:
-			"Articles about web development, databases, and development tools",
+			"Posts about web development, databases, and development tools",
 	},
 	process: {
 		slug: "process",

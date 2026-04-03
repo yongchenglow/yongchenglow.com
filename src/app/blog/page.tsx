@@ -1,9 +1,9 @@
 import Link from "next/link";
-import ArticleCard from "@/src/components/article/ArticleCard";
-import ArticleGrid from "@/src/components/article/ArticleGrid";
 import CategoryNavigation from "@/src/components/blog/CategoryNavigation";
 import FeaturedPostCard from "@/src/components/blog/FeaturedPostCard";
 import YearFilter from "@/src/components/blog/YearFilter";
+import PostCard from "@/src/components/post/PostCard";
+import PostGrid from "@/src/components/post/PostGrid";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
@@ -26,7 +26,7 @@ export default function BlogPage() {
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						Welcome to my blog! Hope you will enjoy my tech articles and learn
+						Welcome to my blog! Hope you will enjoy my tech posts and learn
 						something new!
 					</PageSubtitle>
 				</FadeIn>
@@ -34,11 +34,11 @@ export default function BlogPage() {
 				<CategoryNavigation />
 				<YearFilter />
 
-				{/* Featured Article Section */}
+				{/* Featured Post Section */}
 				{featuredPost && (
 					<section className="my-8 text-left">
 						<FadeIn>
-							<h2 className="text-2xl font-bold mb-4">Latest Article</h2>
+							<h2 className="text-2xl font-bold mb-4">Latest Post</h2>
 						</FadeIn>
 						<FadeIn delay={0.1}>
 							<FeaturedPostCard
@@ -53,19 +53,19 @@ export default function BlogPage() {
 					</section>
 				)}
 
-				{/* Previous Articles Grid */}
+				{/* Previous Posts Grid */}
 				<section className="my-8 text-left">
 					<FadeIn>
-						<h2 className="text-2xl font-bold mb-4">Previous Articles</h2>
+						<h2 className="text-2xl font-bold mb-4">Previous Posts</h2>
 					</FadeIn>
-					<ArticleGrid>
+					<PostGrid>
 						{previousPosts.map((post, index) => (
 							<FadeIn
 								key={post.slug}
 								delay={getStaggerDelay(index)}
 								className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 							>
-								<ArticleCard
+								<PostCard
 									title={post.frontmatter.title}
 									description={post.frontmatter.description}
 									href={`/blog/${post.slug}`}
@@ -75,7 +75,7 @@ export default function BlogPage() {
 								/>
 							</FadeIn>
 						))}
-					</ArticleGrid>
+					</PostGrid>
 
 					<div className="flex justify-center mt-8">
 						<Button variant="ghost" size="lg" asChild className="gap-2">

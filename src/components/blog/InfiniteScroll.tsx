@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ArticleCard from "@/src/components/article/ArticleCard";
+import PostCard from "@/src/components/post/PostCard";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import { getStaggerDelay } from "@/src/lib/animation";
 import type { BlogPost } from "@/src/types/blog";
@@ -80,7 +80,7 @@ export default function InfiniteScroll({
 					delay={getStaggerDelay(index)}
 					className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 				>
-					<ArticleCard
+					<PostCard
 						title={post.frontmatter.title}
 						description={post.frontmatter.description}
 						href={`/blog/${post.slug}`}

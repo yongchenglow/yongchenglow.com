@@ -64,7 +64,7 @@ export default function FeaturedPostCard({
 							</div>
 
 							<Button variant="ghost" size="sm" className="gap-1">
-								Read article
+								Read post
 								<ArrowRight className="h-4 w-4" />
 							</Button>
 						</div>

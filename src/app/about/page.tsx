@@ -3,7 +3,7 @@
 import { Briefcase, GraduationCap, Shield } from "lucide-react";
 import Timeline from "@/src/components/about/Timeline";
 import TimelineItem from "@/src/components/about/TimelineItem";
-import ArticleContainer from "@/src/components/article/ArticleContainer";
+import PostContainer from "@/src/components/post/PostContainer";
 import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -17,7 +17,7 @@ import {
 export default function AboutPage() {
 	return (
 		<StandardLayout>
-			<ArticleContainer>
+			<PostContainer>
 				{/* Hero */}
 				<div className="flex flex-col items-center text-center mb-10">
 					<Avatar className="h-28 w-28 mb-4">
@@ -202,7 +202,7 @@ export default function AboutPage() {
 				</Timeline>
 
 				<GoogleAds slotId="7158598508" />
-			</ArticleContainer>
+			</PostContainer>
 		</StandardLayout>
 	);
 }

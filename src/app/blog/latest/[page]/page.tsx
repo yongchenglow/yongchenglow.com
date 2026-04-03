@@ -46,7 +46,7 @@ export default async function LatestPage({ params }: LatestPageProps) {
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
 						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} articles
+						{paginationResult.totalItems} posts
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>

@@ -46,13 +46,13 @@ export default function AboutMeSection() {
 							</FadeIn>
 							<FadeIn delay={0.3}>
 								<p className="mb-8 text-muted-foreground leading-relaxed text-lg">
-									During my free time, I will write Tech Articles to share my
+									During my free time, I will write Tech Posts to share my
 									learning experience as a web software engineer. I hope that
-									these articles will help my students and others transition
-									into the Software Engineering careers. These articles are
-									mainly targeted at junior web software engineers. If you are a
-									mid or senior level, feel free to take a peek at them if you
-									are free.
+									these posts will help my students and others transition into
+									the Software Engineering careers. These posts are mainly
+									targeted at junior web software engineers. If you are a mid or
+									senior level, feel free to take a peek at them if you are
+									free.
 								</p>
 							</FadeIn>
 							<FadeIn delay={0.4}>

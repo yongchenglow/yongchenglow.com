@@ -8,17 +8,17 @@ import {
 	atomOneLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-interface ArticleCodeBlockProps {
+interface PostCodeBlockProps {
 	children: string;
 	language?: string;
 	className?: string;
 }
 
-export default function ArticleCodeBlock({
+export default function PostCodeBlock({
 	children,
 	language = "bash",
 	className = "",
-}: ArticleCodeBlockProps) {
+}: PostCodeBlockProps) {
 	const { theme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 

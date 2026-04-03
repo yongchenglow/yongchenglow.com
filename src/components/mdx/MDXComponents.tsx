@@ -1,10 +1,10 @@
 import type { MDXComponents } from "mdx/types";
-import ArticleCodeBlock from "@/src/components/article/ArticleCodeBlock";
-import ArticleDefinition from "@/src/components/article/ArticleDefinition";
-import ArticleImage from "@/src/components/article/ArticleImage";
-import ArticleList from "@/src/components/article/ArticleList";
-import ArticleParagraph from "@/src/components/article/ArticleParagraph";
 import Admonition from "@/src/components/mdx/Admonition";
+import PostCodeBlock from "@/src/components/post/PostCodeBlock";
+import PostDefinition from "@/src/components/post/PostDefinition";
+import PostImage from "@/src/components/post/PostImage";
+import PostList from "@/src/components/post/PostList";
+import PostParagraph from "@/src/components/post/PostParagraph";
 import {
 	Table,
 	TableBody,
@@ -17,11 +17,11 @@ import {
 export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
 		// Map HTML elements to custom components
-		p: ArticleParagraph,
-		ul: (props) => <ArticleList type="unordered" {...props} />,
-		ol: (props) => <ArticleList type="ordered" {...props} />,
-		img: ArticleImage,
-		code: ArticleCodeBlock,
+		p: PostParagraph,
+		ul: (props) => <PostList type="unordered" {...props} />,
+		ol: (props) => <PostList type="ordered" {...props} />,
+		img: PostImage,
+		code: PostCodeBlock,
 
 		// Table components
 		table: Table,
@@ -32,8 +32,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		td: TableCell,
 
 		// Custom components
-		ArticleDefinition,
-		ArticleCodeBlock,
+		PostDefinition,
+		PostCodeBlock,
 		Admonition,
 
 		// Allow overrides

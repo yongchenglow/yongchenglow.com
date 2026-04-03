@@ -1,7 +1,7 @@
-import ArticleCard from "@/src/components/article/ArticleCard";
-import ArticleGrid from "@/src/components/article/ArticleGrid";
 import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
 import Pagination from "@/src/components/blog/Pagination";
+import PostCard from "@/src/components/post/PostCard";
+import PostGrid from "@/src/components/post/PostGrid";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -76,16 +76,16 @@ export default async function CategoryPageWithPagination({
 						{categoryMetadata.description}
 						<br />
 						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} articles
+						{paginationResult.totalItems} posts
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>
 				</FadeIn>
 
-				<ArticleGrid>
+				<PostGrid>
 					{paginationResult.items.map((post, index) => (
 						<AnimatedGridItem key={post.slug} index={index}>
-							<ArticleCard
+							<PostCard
 								title={post.frontmatter.title}
 								description={post.frontmatter.description}
 								href={`/blog/${post.slug}`}
@@ -95,7 +95,7 @@ export default async function CategoryPageWithPagination({
 							/>
 						</AnimatedGridItem>
 					))}
-				</ArticleGrid>
+				</PostGrid>
 
 				<Pagination
 					currentPage={paginationResult.currentPage}

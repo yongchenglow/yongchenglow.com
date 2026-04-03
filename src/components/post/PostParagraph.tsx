@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 
-interface ArticleParagraphProps {
+interface PostParagraphProps {
 	children: ReactNode;
 	className?: string;
 }
 
-export default function ArticleParagraph({
+export default function PostParagraph({
 	children,
 	className = "",
-}: ArticleParagraphProps) {
+}: PostParagraphProps) {
 	return <p className={`mb-3 ${className}`.trim()}>{children}</p>;
 }

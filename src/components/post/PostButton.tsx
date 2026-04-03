@@ -1,15 +1,15 @@
 import type { ButtonHTMLAttributes } from "react";
 import { Button } from "@/src/components/shared/ui/button";
 
-interface ArticleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface PostButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 }
 
-export default function ArticleButton({
+export default function PostButton({
 	children,
 	className = "",
 	...props
-}: ArticleButtonProps) {
+}: PostButtonProps) {
 	return (
 		<Button
 			variant="outline"

@@ -9,7 +9,7 @@ import {
 	CardTitle,
 } from "@/src/components/shared/ui/card";
 
-interface ArticleCardProps {
+interface PostCardProps {
 	title: string;
 	description: string;
 	href: string;
@@ -19,7 +19,7 @@ interface ArticleCardProps {
 	className?: string;
 }
 
-export default function ArticleCard({
+export default function PostCard({
 	title,
 	description,
 	href,
@@ -27,7 +27,7 @@ export default function ArticleCard({
 	date,
 	tags,
 	className,
-}: ArticleCardProps) {
+}: PostCardProps) {
 	return (
 		<div className={className}>
 			<InternalLink href={href} className="no-underline group">

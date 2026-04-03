@@ -1,14 +1,14 @@
-interface ArticleHeaderProps {
+interface PostHeaderProps {
 	title: string;
 	subtitle?: string;
 	className?: string;
 }
 
-export default function ArticleHeader({
+export default function PostHeader({
 	title,
 	subtitle,
 	className = "",
-}: ArticleHeaderProps) {
+}: PostHeaderProps) {
 	return (
 		<div className={`mb-6 text-center ${className}`.trim()}>
 			<h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-2">

@@ -1,6 +1,6 @@
-import ArticleCard from "@/src/components/article/ArticleCard";
-import ArticleGrid from "@/src/components/article/ArticleGrid";
 import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
+import PostCard from "@/src/components/post/PostCard";
+import PostGrid from "@/src/components/post/PostGrid";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
 import PageTitle from "@/src/components/shared/atoms/PageTitle";
@@ -38,15 +38,15 @@ export default async function TagPage({ params }: TagPageProps) {
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						{posts.length} article{posts.length !== 1 ? "s" : ""} tagged with "
+						{posts.length} post{posts.length !== 1 ? "s" : ""} tagged with "
 						{tag}"
 					</PageSubtitle>
 				</FadeIn>
 
-				<ArticleGrid>
+				<PostGrid>
 					{posts.map((post, index) => (
 						<AnimatedGridItem key={post.slug} index={index}>
-							<ArticleCard
+							<PostCard
 								title={post.frontmatter.title}
 								description={post.frontmatter.description}
 								href={`/blog/${post.slug}`}
@@ -56,7 +56,7 @@ export default async function TagPage({ params }: TagPageProps) {
 							/>
 						</AnimatedGridItem>
 					))}
-				</ArticleGrid>
+				</PostGrid>
 			</div>
 		</StandardLayout>
 	);

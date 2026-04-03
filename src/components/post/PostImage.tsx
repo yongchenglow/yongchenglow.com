@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from "next/image";
 
-interface ArticleImageProps extends Omit<ImageProps, "width" | "height"> {
+interface PostImageProps extends Omit<ImageProps, "width" | "height"> {
 	src: string;
 	alt: string;
 	width?: number;
@@ -8,7 +8,7 @@ interface ArticleImageProps extends Omit<ImageProps, "width" | "height"> {
 	className?: string;
 }
 
-export default function ArticleImage({
+export default function PostImage({
 	src,
 	alt,
 	width = 1280,
@@ -17,7 +17,7 @@ export default function ArticleImage({
 	style = { width: "100%", height: "auto" },
 	className = "",
 	...props
-}: ArticleImageProps) {
+}: PostImageProps) {
 	return (
 		<div className={`max-w-3xl mx-auto mb-4 ${className}`.trim()}>
 			<Image

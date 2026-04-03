@@ -1,12 +1,12 @@
 "use client";
 
-import ArticleContainer from "@/src/components/article/ArticleContainer";
-import ArticleHeader from "@/src/components/article/ArticleHeader";
-import ArticleMetadata from "@/src/components/article/ArticleMetadata";
 import BlogBackButton from "@/src/components/blog/BlogBackButton";
 import BlogNavigation from "@/src/components/blog/BlogNavigation";
 import ReadingProgress from "@/src/components/blog/ReadingProgress";
 import TableOfContents from "@/src/components/blog/TableOfContents";
+import PostContainer from "@/src/components/post/PostContainer";
+import PostHeader from "@/src/components/post/PostHeader";
+import PostMetadata from "@/src/components/post/PostMetadata";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import InternalLink from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
@@ -31,27 +31,24 @@ export default function BlogPostLayout({
 	return (
 		<StandardLayout>
 			<ReadingProgress />
-			<ArticleContainer>
+			<PostContainer>
 				{/* Back Button */}
 				<BlogBackButton />
 
 				{/* Header Section */}
-				<ArticleHeader
-					title={frontmatter.title}
-					subtitle={frontmatter.subtitle}
-				/>
+				<PostHeader title={frontmatter.title} subtitle={frontmatter.subtitle} />
 
 				{/* Metadata Bar */}
 				<div className="flex flex-wrap gap-2 justify-center items-center mb-4">
-					<ArticleMetadata>
+					<PostMetadata>
 						Published: {new Date(frontmatter.date).toLocaleDateString()}
-					</ArticleMetadata>
+					</PostMetadata>
 					{frontmatter.lastUpdated && (
-						<ArticleMetadata>
+						<PostMetadata>
 							Updated: {new Date(frontmatter.lastUpdated).toLocaleDateString()}
-						</ArticleMetadata>
+						</PostMetadata>
 					)}
-					<ArticleMetadata>{readingTime}</ArticleMetadata>
+					<PostMetadata>{readingTime}</PostMetadata>
 				</div>
 
 				{/* Tags */}
@@ -90,7 +87,7 @@ export default function BlogPostLayout({
 						<TableOfContents variant="sidebar" />
 					</aside>
 				</div>
-			</ArticleContainer>
+			</PostContainer>
 		</StandardLayout>
 	);
 }

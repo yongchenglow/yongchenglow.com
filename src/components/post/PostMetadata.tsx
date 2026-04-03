@@ -1,12 +1,12 @@
-interface ArticleMetadataProps {
+interface PostMetadataProps {
 	children: React.ReactNode;
 	className?: string;
 }
 
-export default function ArticleMetadata({
+export default function PostMetadata({
 	children,
 	className = "",
-}: ArticleMetadataProps) {
+}: PostMetadataProps) {
 	return (
 		<div
 			className={`text-xs text-muted-foreground text-right mb-3 ${className}`.trim()}

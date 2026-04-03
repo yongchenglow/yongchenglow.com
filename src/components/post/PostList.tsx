@@ -1,14 +1,14 @@
-interface ArticleListProps {
+interface PostListProps {
 	children: React.ReactNode;
 	className?: string;
 	type?: "ordered" | "unordered";
 }
 
-export default function ArticleList({
+export default function PostList({
 	children,
 	className = "",
 	type = "ordered",
-}: ArticleListProps) {
+}: PostListProps) {
 	const Tag = type === "ordered" ? "ol" : "ul";
 
 	return (

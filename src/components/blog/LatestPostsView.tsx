@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import ArticleCard from "@/src/components/article/ArticleCard";
-import ArticleGrid from "@/src/components/article/ArticleGrid";
 import InfiniteScroll from "@/src/components/blog/InfiniteScroll";
 import Pagination from "@/src/components/blog/Pagination";
+import PostCard from "@/src/components/post/PostCard";
+import PostGrid from "@/src/components/post/PostGrid";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import { Button } from "@/src/components/shared/ui/button";
 import { getStaggerDelay } from "@/src/lib/animation";
@@ -47,7 +47,7 @@ export default function LatestPostsView({
 				</div>
 			)}
 
-			<ArticleGrid>
+			<PostGrid>
 				{useInfiniteScroll ? (
 					<InfiniteScroll
 						initialPosts={paginationResult.items}
@@ -63,7 +63,7 @@ export default function LatestPostsView({
 							delay={getStaggerDelay(index)}
 							className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 						>
-							<ArticleCard
+							<PostCard
 								title={post.frontmatter.title}
 								description={post.frontmatter.description}
 								href={`/blog/${post.slug}`}
@@ -74,7 +74,7 @@ export default function LatestPostsView({
 						</FadeIn>
 					))
 				)}
-			</ArticleGrid>
+			</PostGrid>
 
 			{!useInfiniteScroll && (
 				<Pagination
