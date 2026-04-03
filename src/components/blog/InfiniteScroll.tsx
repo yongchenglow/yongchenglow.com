@@ -29,8 +29,21 @@ export default function InfiniteScroll({
 	const observerTarget = useRef<HTMLDivElement>(null);
 	const router = useRouter();
 
+	// Use refs to access latest state values in callback without causing re-creation
+	const hasMoreRef = useRef(hasMore);
+	const isLoadingRef = useRef(isLoading);
+
+	// Keep refs in sync with state
+	useEffect(() => {
+		hasMoreRef.current = hasMore;
+	}, [hasMore]);
+
+	useEffect(() => {
+		isLoadingRef.current = isLoading;
+	}, [isLoading]);
+
 	const loadMore = useCallback(async () => {
-		if (isLoading || !hasMore) return;
+		if (isLoadingRef.current || !hasMoreRef.current) return;
 
 		setIsLoading(true);
 		const nextPage = page + 1;
@@ -48,7 +61,7 @@ export default function InfiniteScroll({
 		} finally {
 			setIsLoading(false);
 		}
-	}, [page, hasMore, isLoading, totalPages, baseUrl, router, loadMorePosts]);
+	}, [page, totalPages, baseUrl, router, loadMorePosts]);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -66,9 +79,7 @@ export default function InfiniteScroll({
 		}
 
 		return () => {
-			if (currentTarget) {
-				observer.unobserve(currentTarget);
-			}
+			observer.disconnect();
 		};
 	}, [hasMore, isLoading, loadMore]);
 
