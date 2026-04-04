@@ -32,6 +32,9 @@ import {
   getBlogPostNavigation,
   getAllPostYears,
   getBlogPostsByYear,
+  getPaginatedPosts,
+  getPaginatedPostsByCategory,
+  getPaginatedPostsByYear,
 } from "@/src/lib/blog";
 
 const mockPost = (
@@ -208,5 +211,98 @@ describe("getBlogPostsByYear", () => {
 
   it("returns empty array for a year with no posts", () => {
     expect(getBlogPostsByYear(2020)).toHaveLength(0);
+  });
+});
+
+// Helper: generate N mock slugs with descending dates
+const setupNPosts = (n: number) => {
+  const files = Array.from({ length: n }, (_, i) => `post-${i}.mdx`);
+  vi.mocked(fs.readdirSync).mockReturnValue(files as never);
+  vi.mocked(fs.existsSync).mockReturnValue(false);
+  vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+    const match = String(filePath).match(/post-(\d+)/);
+    const idx = match ? Number(match[1]) : 0;
+    const date = new Date(2024, 0, n - idx).toISOString().split("T")[0];
+    return mockPost(`post-${idx}`, { date });
+  });
+};
+
+describe("getPaginatedPosts", () => {
+  it("returns correct slice for page 1", () => {
+    setupNPosts(15);
+    const result = getPaginatedPosts(1, 12);
+    expect(result.items).toHaveLength(12);
+    expect(result.currentPage).toBe(1);
+  });
+
+  it("returns correct slice for page 2", () => {
+    setupNPosts(15);
+    const result = getPaginatedPosts(2, 12);
+    expect(result.items).toHaveLength(3);
+    expect(result.currentPage).toBe(2);
+  });
+
+  it("clamps page 0 to page 1", () => {
+    setupNPosts(5);
+    const result = getPaginatedPosts(0, 12);
+    expect(result.currentPage).toBe(1);
+  });
+
+  it("clamps page beyond total to last page", () => {
+    setupNPosts(5);
+    const result = getPaginatedPosts(99, 12);
+    expect(result.currentPage).toBe(1);
+  });
+
+  it("hasNextPage is true when not on last page", () => {
+    setupNPosts(15);
+    const result = getPaginatedPosts(1, 12);
+    expect(result.hasNextPage).toBe(true);
+  });
+
+  it("hasPreviousPage is false on page 1", () => {
+    setupNPosts(15);
+    const result = getPaginatedPosts(1, 12);
+    expect(result.hasPreviousPage).toBe(false);
+  });
+
+  it("hasPreviousPage is true on page 2", () => {
+    setupNPosts(15);
+    const result = getPaginatedPosts(2, 12);
+    expect(result.hasPreviousPage).toBe(true);
+  });
+});
+
+describe("getPaginatedPostsByCategory", () => {
+  it("filters posts by category tags before paginating", () => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["dev.mdx", "other.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("dev")) return mockPost("dev", { date: "2024-01-01", tags: "web-development" });
+      return mockPost("other", { date: "2023-01-01", tags: "agile" });
+    });
+    const result = getPaginatedPostsByCategory("development", 1, 12);
+    expect(result.items.map((p) => p.slug)).toContain("dev");
+    expect(result.items.map((p) => p.slug)).not.toContain("other");
+  });
+
+  it("returns empty result for unknown category slug", () => {
+    setupNPosts(3);
+    const result = getPaginatedPostsByCategory("nonexistent", 1, 12);
+    expect(result.items).toHaveLength(0);
+    expect(result.totalItems).toBe(0);
+  });
+});
+
+describe("getPaginatedPostsByYear", () => {
+  it("filters posts by year before paginating", () => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["y2024.mdx", "y2023.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("y2024")) return mockPost("y2024", { date: "2024-06-01" });
+      return mockPost("y2023", { date: "2023-06-01" });
+    });
+    const result = getPaginatedPostsByYear(2024, 1, 12);
+    expect(result.items.map((p) => p.slug)).toEqual(["y2024"]);
   });
 });
