@@ -28,6 +28,10 @@ import {
   getAllBlogPosts,
   getAllBlogSlugs,
   getFeaturedPost,
+  getBlogPostsByTag,
+  getBlogPostNavigation,
+  getAllPostYears,
+  getBlogPostsByYear,
 } from "@/src/lib/blog";
 
 const mockPost = (
@@ -124,5 +128,85 @@ describe("getFeaturedPost", () => {
   it("returns null when there are no posts", () => {
     (fs.readdirSync as any).mockReturnValue([]);
     expect(getFeaturedPost()).toBeNull();
+  });
+});
+
+describe("getBlogPostsByTag", () => {
+  beforeEach(() => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["a.mdx", "b.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("/a")) return mockPost("a", { date: "2024-01-01", tags: "react, typescript" });
+      return mockPost("b", { date: "2023-01-01", tags: "vue" });
+    });
+  });
+
+  it("returns posts that include the given tag", () => {
+    const posts = getBlogPostsByTag("react");
+    expect(posts.map((p) => p.slug)).toContain("a");
+  });
+
+  it("returns empty array when no posts match the tag", () => {
+    expect(getBlogPostsByTag("angular")).toHaveLength(0);
+  });
+});
+
+describe("getBlogPostNavigation", () => {
+  beforeEach(() => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["newest.mdx", "middle.mdx", "oldest.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("newest")) return mockPost("newest", { date: "2024-03-01" });
+      if (String(filePath).includes("middle")) return mockPost("middle", { date: "2024-02-01" });
+      return mockPost("oldest", { date: "2024-01-01" });
+    });
+  });
+
+  it("returns correct previous and next for a middle post", () => {
+    const nav = getBlogPostNavigation("middle");
+    expect(nav.previous?.slug).toBe("newest");
+    expect(nav.next?.slug).toBe("oldest");
+  });
+
+  it("returns null for previous on the first (newest) post", () => {
+    const nav = getBlogPostNavigation("newest");
+    expect(nav.previous).toBeNull();
+  });
+
+  it("returns null for next on the last (oldest) post", () => {
+    const nav = getBlogPostNavigation("oldest");
+    expect(nav.next).toBeNull();
+  });
+});
+
+describe("getAllPostYears", () => {
+  it("returns unique years in descending order", () => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["a.mdx", "b.mdx", "c.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("/a")) return mockPost("a", { date: "2024-05-01" });
+      if (String(filePath).includes("/b")) return mockPost("b", { date: "2023-05-01" });
+      return mockPost("c", { date: "2024-11-01" });
+    });
+    expect(getAllPostYears()).toEqual([2024, 2023]);
+  });
+});
+
+describe("getBlogPostsByYear", () => {
+  beforeEach(() => {
+    vi.mocked(fs.readdirSync).mockReturnValue(["y2024.mdx", "y2023.mdx"] as never);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
+    vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+      if (String(filePath).includes("y2024")) return mockPost("y2024", { date: "2024-06-01" });
+      return mockPost("y2023", { date: "2023-06-01" });
+    });
+  });
+
+  it("returns only posts from the given year", () => {
+    expect(getBlogPostsByYear(2024).map((p) => p.slug)).toEqual(["y2024"]);
+  });
+
+  it("returns empty array for a year with no posts", () => {
+    expect(getBlogPostsByYear(2020)).toHaveLength(0);
   });
 });
