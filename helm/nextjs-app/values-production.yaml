@@ -1,0 +1,55 @@
+# Production environment values for yongchenglow
+replicaCount: 1
+
+# Common labels for cost allocation and resource organization
+commonLabels:
+  team: "frontend"
+  project: "yongchenglow"
+  cost-center: "personal"
+  environment: "production"
+
+image:
+  repository: yongchenglow
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: NodePort
+  port: 3000
+  nodePort: 30001
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "yongchenglow"
+
+# Environment variables injected at deploy time by GitHub Actions
+podAnnotations: {}
+
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: NEXT_PUBLIC_ENV
+    value: "production"
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
