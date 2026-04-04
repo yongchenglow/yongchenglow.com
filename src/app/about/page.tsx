@@ -13,6 +13,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
+import aboutData from "@/src/data/about.json";
 
 export default function AboutPage() {
 	return (
@@ -28,176 +29,100 @@ export default function AboutPage() {
 						<AvatarFallback>YC</AvatarFallback>
 					</Avatar>
 					<PageTitle>About Me</PageTitle>
-					<p className="text-muted-foreground max-w-xl mt-2">
-						Hi! I&apos;m Yong Cheng (or YC). Software engineer, part-time
-						teacher, and sports enthusiast. Here&apos;s my story.
+					<h2 className="text-xl font-semibold mt-2">{aboutData.hero.name}</h2>
+					<p className="text-muted-foreground max-w-xl mt-1">
+						{aboutData.hero.title}
 					</p>
-					<p className="text-sm text-muted-foreground mt-2">
-						Find my professional details on{" "}
-						<ExternalLink href="https://www.linkedin.com/in/yong-cheng-low/">
-							LinkedIn
-						</ExternalLink>
-						.
+					<p className="text-sm text-muted-foreground max-w-lg mt-3 italic">
+						&quot;{aboutData.hero.objective}&quot;
 					</p>
+					<div className="flex flex-wrap gap-4 justify-center mt-4 text-sm">
+						{aboutData.hero.links.map((link) => (
+							<div key={link.label} className="flex items-center gap-2">
+								<ExternalLink href={link.url}>{link.label}</ExternalLink>
+							</div>
+						))}
+					</div>
 				</div>
 
 				{/* Timeline */}
 				<Timeline>
 					{/* Work Experience */}
-					<TimelineItem
-						title="Data & Software Engineer at National University Hospital"
-						icon={<Briefcase className="h-4 w-4" />}
-						category="work"
-						years="2025–Present"
-						location="Singapore"
-					>
-						Developing proof of concepts including Speech to Speech agents for
-						PROMS collection using AWS Nova 2 Sonic and GPT Realtime. Working on
-						cluster-level projects including automatic speech recognition and
-						medical coding to improve workforce efficiency.
-					</TimelineItem>
+					{aboutData.work_experience.map((job) => (
+						<TimelineItem
+							key={job.title}
+							title={job.title}
+							icon={<Briefcase className="h-4 w-4" />}
+							category="work"
+							years={job.years}
+							location={job.location}
+						>
+							<ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+								{job.bullets.map((bullet) => (
+									<li key={bullet} className="leading-relaxed">
+										{bullet}
+									</li>
+								))}
+							</ul>
+							<p className="mt-3 text-xs font-medium text-muted-foreground">
+								<strong>Skills:</strong> {job.skills.join(", ")}
+							</p>
+						</TimelineItem>
+					))}
 
-					<TimelineItem
-						title="Senior Software Engineer at Glints"
-						icon={<Briefcase className="h-4 w-4" />}
-						category="work"
-						years="2023–2025"
-						location="Singapore"
-					>
-						Designed and implemented an automated multilingual resume parsing
-						workflow using OpenAI APIs, achieving over 90% accuracy. Developed a
-						multilingual job role inference system with 90%+ accuracy. Set up
-						dashboards and alerting systems, reducing MTTR to within 2 hours.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Web Software Engineer at Glints"
-						icon={<Briefcase className="h-4 w-4" />}
-						category="work"
-						years="2021–2023"
-						location="Singapore"
-					>
-						Collaborated with Product and Design teams to deliver a
-						recruiter-centric product. Achieved median CES of 8/10. Maintained
-						search engine with boolean search features, enabling 30% of monthly
-						matches.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Web Development Teacher at Le Wagon"
-						icon={<Briefcase className="h-4 w-4" />}
-						category="work"
-						years="2021–2025"
-						location="Singapore"
-					>
-						Delivering an immersive web development course equipping over 100
-						beginners and career switchers with junior software developer
-						skills. Guided students in building 25+ applications with an NPS
-						score of 82.7.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Software Engineer at NCS (IOT Defence)"
-						icon={<Briefcase className="h-4 w-4" />}
-						category="work"
-						years="2020–2021"
-						location="Singapore"
-					>
-						Implemented a secure API Gateway for IoT using Java Spring Boot.
-						Collaborated on a Screen Lock Mobile Application with 3FA security
-						through Yubikey, Password, and Lockscreen Pattern.
-					</TimelineItem>
+					{/* Education */}
+					{aboutData.education.map((edu) => (
+						<TimelineItem
+							key={edu.title}
+							title={edu.title}
+							icon={<GraduationCap className="h-4 w-4" />}
+							category="school"
+							years={edu.years}
+							location={edu.location}
+						>
+							{edu.link ? (
+								<>
+									{edu.description.split(edu.link.label)[0]}
+									<ExternalLink href={edu.link.url}>
+										{edu.link.label}
+									</ExternalLink>
+									{edu.description.split(edu.link.label)[1]}
+								</>
+							) : edu.links ? (
+								<>
+									{edu.description.split(edu.links[0].label)[0]}
+									<ExternalLink href={edu.links[0].url}>
+										{edu.links[0].label}
+									</ExternalLink>
+									{
+										edu.description
+											.split(edu.links[0].label)[1]
+											.split(edu.links[1].label)[0]
+									}
+									<ExternalLink href={edu.links[1].url}>
+										{edu.links[1].label}
+									</ExternalLink>
+									{edu.description.split(edu.links[1].label)[1]}
+								</>
+							) : (
+								<p>{edu.description}</p>
+							)}
+						</TimelineItem>
+					))}
 
 					{/* Military Service */}
 					<TimelineItem
-						title="National Service — Guards Unit"
+						title={aboutData.military_service.title}
 						icon={<Shield className="h-4 w-4" />}
 						category="military"
-						years="2012–2014"
-						location="Singapore"
+						years={aboutData.military_service.years}
+						location={aboutData.military_service.location}
 					>
-						Returned to Singapore alone for National Service. Posted to the{" "}
-						<ExternalLink href="https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards">
+						{aboutData.military_service.description.split("Guards unit")[0]}
+						<ExternalLink href={aboutData.military_service.link.url}>
 							Guards unit
 						</ExternalLink>
-						, which taught me resilience and the spirit of Always Ready, Ready
-						to Strike.
-					</TimelineItem>
-
-					{/* Education */}
-					<TimelineItem
-						title="NUS Computer Engineering (Bachelor with Honours)"
-						icon={<GraduationCap className="h-4 w-4" />}
-						category="school"
-						years="2014–2018"
-						location="Singapore"
-					>
-						Proved my doubters wrong by securing a place at{" "}
-						<ExternalLink href="https://ceg.nus.edu.sg">
-							NUS Computer Engineering
-						</ExternalLink>
-						. Graduated with Merit. Concentration in Interactive Digital Media,
-						Minor in Interactive Media Development.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Sha Tin College — IB Diploma"
-						icon={<GraduationCap className="h-4 w-4" />}
-						category="school"
-						years="2010–2012"
-						location="Hong Kong"
-					>
-						After being rejected from several high schools in Shanghai, I found
-						my place at{" "}
-						<ExternalLink href="https://shatincollege.edu.hk">
-							Sha Tin College
-						</ExternalLink>{" "}
-						where I completed the{" "}
-						<ExternalLink href="https://www.ibo.org/programmes/diploma-programme/">
-							IB Diploma Programme
-						</ExternalLink>
-						.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Dulwich College Shanghai — IGCSE"
-						icon={<GraduationCap className="h-4 w-4" />}
-						category="school"
-						years="2007–2010"
-						location="Shanghai, China"
-					>
-						Continued my secondary education at{" "}
-						<ExternalLink href="https://shanghai-pudong.dulwich.org">
-							Dulwich College Shanghai
-						</ExternalLink>
-						. Competed in ACAMIS sports tournaments and embraced multi-cultural
-						learning.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Shanghai Community International School"
-						icon={<GraduationCap className="h-4 w-4" />}
-						category="school"
-						years="2004–2007"
-						location="Shanghai, China"
-					>
-						Moved to Shanghai and studied at{" "}
-						<ExternalLink href="https://www.scis-china.org">
-							Shanghai Community International School
-						</ExternalLink>
-						. Embraced multi-cultural learning in an international environment.
-					</TimelineItem>
-
-					<TimelineItem
-						title="Mayflower Primary School"
-						icon={<GraduationCap className="h-4 w-4" />}
-						category="school"
-						years="2002–2004"
-						location="Singapore"
-					>
-						My earliest education in Singapore instilled the motto
-						&ldquo;Service before Self&rdquo;, shaping my belief that
-						others&apos; priorities come first.
+						{aboutData.military_service.description.split("Guards unit")[1]}
 					</TimelineItem>
 				</Timeline>
 

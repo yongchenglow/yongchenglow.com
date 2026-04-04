@@ -1,0 +1,169 @@
+{
+	"hero": {
+		"name": "Yong Cheng Low",
+		"title": "Senior Full-Stack Software Engineer",
+		"objective": "Using modern day technologies to improve the lives of others",
+		"links": [
+			{
+				"label": "LinkedIn",
+				"url": "https://www.linkedin.com/in/yong-cheng-low/"
+			},
+			{
+				"label": "GitHub",
+				"url": "https://github.com/yongchenglow"
+			}
+		]
+	},
+	"work_experience": [
+		{
+			"title": "Data & Software Engineer at National University Hospital",
+			"location": "Singapore",
+			"years": "2025-Present",
+			"bullets": [
+				"Developed a proof of concepts such as a Speech to Speech agent for PROMS collection using AWS Nova 2 Sonic and GPT Realtime",
+				"Help work on various cluster level projects including automatic speech recognition and medical coding to improve workforce efficiency",
+				"Setup repository, CI/CD, Open Telemetry, Grafana, Prometheus, Helm, Docusaurus for the office"
+			],
+			"skills": [
+				"Python",
+				"Go",
+				"AWS",
+				"Next.js",
+				"Open Telemetry",
+				"Terraform",
+				"OpenAI API",
+				"Anthropic API"
+			]
+		},
+		{
+			"title": "Senior Software Engineer at Glints",
+			"location": "Singapore",
+			"years": "2023-2025",
+			"bullets": [
+				"Designed and implemented an automated multilingual resume parsing workflow using OpenAI APIs, achieving over 90% accuracy across all data points",
+				"Developed a multilingual job role inference system using open source NLPs from job titles and work experience, attaining over 90% accuracy",
+				"Setup of Dashboards and Alerting system to catch and report incidents, system performance and suspicious activities reducing mean time to restore (MTTR) to within 2 hours",
+				"Automating workflow processes to increase workplace productivity through Jira, Gitlab, Lark, Anycross for QA, Project Tracking, Code Reviews, Bugs Reporting saving over 150 engineering hours per year"
+			],
+			"skills": [
+				"Python",
+				"Go",
+				"Elasticsearch",
+				"Grafana",
+				"Next.js",
+				"PostgreSQL",
+				"Apache Kafka",
+				"Docker",
+				"Kubernetes",
+				"OpenAI API",
+				"LLMs"
+			]
+		},
+		{
+			"title": "Web Software Engineer at Glints",
+			"location": "Singapore",
+			"years": "2021-2023",
+			"bullets": [
+				"Collaborated with the Product, Designers, and other Engineers to deliver a recruiter-centric product",
+				"Translated designs into functional and responsive web applications to ensure a seamless user experience achieving a median CES of 8/10",
+				"Ensured the scalability and reliability of the web application by implementing best practices and regularly testing for bugs and issues achieving an uptime of over 99%",
+				"Maintained and enhanced the recruiter's search engine by incorporating new features such as boolean search, enabling efficient candidate filtering sourcing 30% of monthly matches"
+			],
+			"skills": [
+				"Elasticsearch",
+				"Grafana",
+				"Next.js",
+				"PostgreSQL",
+				"Docker",
+				"Kubernetes",
+				"TypeScript"
+			]
+		},
+		{
+			"title": "Web Development Teacher at Le Wagon",
+			"location": "Singapore",
+			"years": "2021-2025",
+			"bullets": [
+				"Delivered an immersive web development course that equips over 100 beginners and career switches with the skills to become junior software developers",
+				"Guided students in building over 25 robust and user-friendly software applications",
+				"Achieved a high student satisfaction and completion rate with a NPS score of 82.7"
+			],
+			"skills": ["Ruby on Rails", "JavaScript", "Teaching", "Mentoring"]
+		},
+		{
+			"title": "Software Engineer at NCS (IOT Defence)",
+			"location": "Singapore",
+			"years": "2020-2021",
+			"bullets": [
+				"Implemented a secure API Gateway for an IoT project, facilitating seamless data transfer between different micro-services using Java Spring Boot",
+				"Collaborated on the development of a Screen Lock Mobile Application that allows the mobile phone to have 3FA security through Yubikey, Password and Lockscreen Pattern",
+				"Assisted with the frontend development of the web application using Angular to ensure seamless integration of features and optimal user experience"
+			],
+			"skills": ["Java", "Kubernetes", "Angular", "Docker", "Spring Boot"]
+		}
+	],
+	"military_service": {
+		"title": "National Service — Guards Unit",
+		"years": "2012-2014",
+		"location": "Singapore",
+		"description": "Returned to Singapore alone for National Service. Posted to the Guards unit, which taught me resilience and the spirit of Always Ready, Ready to Strike.",
+		"link": {
+			"label": "Guards unit",
+			"url": "https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards"
+		}
+	},
+	"education": [
+		{
+			"title": "NUS Computer Engineering (Bachelor with Honours)",
+			"location": "Singapore",
+			"years": "2015-2019",
+			"description": "Proved my doubters wrong by securing a place at NUS Computer Engineering. Graduated with Honours (Merit). Concentration in Interactive Digital Media, Minor in Interactive Media Development.",
+			"link": {
+				"label": "NUS Computer Engineering",
+				"url": "https://ceg.nus.edu.sg"
+			}
+		},
+		{
+			"title": "Sha Tin College — IB Diploma",
+			"location": "Hong Kong",
+			"years": "2010-2012",
+			"description": "After being rejected from several high schools in Shanghai, I found my place at Sha Tin College where I completed the IB Diploma Programme.",
+			"links": [
+				{
+					"label": "Sha Tin College",
+					"url": "https://shatincollege.edu.hk"
+				},
+				{
+					"label": "IB Diploma Programme",
+					"url": "https://www.ibo.org/programmes/diploma-programme/"
+				}
+			]
+		},
+		{
+			"title": "Dulwich College Shanghai — IGCSE",
+			"location": "Shanghai, China",
+			"years": "2007-2010",
+			"description": "Continued my secondary education at Dulwich College Shanghai. Competed in ACAMIS sports tournaments and embraced multi-cultural learning.",
+			"link": {
+				"label": "Dulwich College Shanghai",
+				"url": "https://shanghai-pudong.dulwich.org"
+			}
+		},
+		{
+			"title": "Shanghai Community International School",
+			"location": "Shanghai, China",
+			"years": "2004-2007",
+			"description": "Moved to Shanghai and studied at Shanghai Community International School. Embraced multi-cultural learning in an international environment.",
+			"link": {
+				"label": "Shanghai Community International School",
+				"url": "https://www.scis-china.org"
+			}
+		},
+		{
+			"title": "Mayflower Primary School",
+			"location": "Singapore",
+			"years": "2002-2004",
+			"description": "My earliest education in Singapore instilled the motto \"Service before Self\", shaping my belief that others' priorities come first."
+		}
+	]
+}

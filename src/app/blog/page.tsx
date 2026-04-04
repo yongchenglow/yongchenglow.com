@@ -20,7 +20,7 @@ export default function BlogPage() {
 
 	return (
 		<StandardLayout>
-			<div className="py-8 text-center">
+			<div className="py-8 text-center max-w-4xl mx-auto">
 				<FadeIn>
 					<PageTitle>Blog</PageTitle>
 				</FadeIn>
@@ -60,11 +60,7 @@ export default function BlogPage() {
 					</FadeIn>
 					<PostGrid>
 						{previousPosts.map((post, index) => (
-							<FadeIn
-								key={post.slug}
-								delay={getStaggerDelay(index)}
-								className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
-							>
+							<FadeIn key={post.slug} delay={getStaggerDelay(index)}>
 								<PostCard
 									title={post.frontmatter.title}
 									description={post.frontmatter.description}

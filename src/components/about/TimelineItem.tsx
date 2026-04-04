@@ -14,9 +14,9 @@ const categoryColors = {
 		border: "border-emerald-500/20",
 	},
 	military: {
-		bg: "bg-red-500/10",
-		text: "text-red-500",
-		border: "border-red-500/20",
+		bg: "bg-violet-500/10",
+		text: "text-violet-500",
+		border: "border-violet-500/20",
 	},
 };
 
@@ -68,9 +68,9 @@ export default function TimelineItem({
 									{years}
 								</span>
 							</div>
-							<p className="text-sm text-muted-foreground leading-relaxed text-left">
+							<div className="text-sm text-muted-foreground leading-relaxed text-left">
 								{children}
-							</p>
+							</div>
 						</div>
 					</div>
 				</div>
