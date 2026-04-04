@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import FlexSearch from "flexsearch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,8 +45,8 @@ function getAllSearchablePosts() {
 
 		const { data, content } = matter(fileContents);
 
-		// Skip drafts in production
-		if (data.draft && process.env.NODE_ENV === "production") {
+		// Always skip drafts — this script runs as part of the production build
+		if (data.draft) {
 			continue;
 		}
 
@@ -68,22 +67,11 @@ function getAllSearchablePosts() {
 	return posts;
 }
 
-async function generateSearchIndex() {
-	console.log("🔍 Generating search index...");
+function generateSearchIndex() {
+	console.log("Generating search index...");
 
 	const posts = getAllSearchablePosts();
-	console.log(`📄 Found ${posts.length} blog posts`);
-
-	const index = new FlexSearch.Document({
-		document: {
-			id: "id",
-			index: ["title", "subtitle", "description", "content", "tags"],
-		},
-	});
-
-	for (const post of posts) {
-		index.add(post);
-	}
+	console.log(`Found ${posts.length} blog posts`);
 
 	const postsData = {};
 	for (const post of posts) {
@@ -98,11 +86,13 @@ async function generateSearchIndex() {
 	fs.writeFileSync(OUTPUT_PATH, JSON.stringify(searchBundle), "utf8");
 
 	const fileSizeKB = (fs.statSync(OUTPUT_PATH).size / 1024).toFixed(2);
-	console.log(`✅ Search index generated: ${fileSizeKB} KB`);
-	console.log(`📍 Output: ${OUTPUT_PATH}`);
+	console.log(`Search index generated: ${fileSizeKB} KB`);
+	console.log(`Output: ${OUTPUT_PATH}`);
 }
 
-generateSearchIndex().catch((err) => {
-	console.error("❌ Failed to generate search index:", err);
+try {
+	generateSearchIndex();
+} catch (err) {
+	console.error("Failed to generate search index:", err);
 	process.exit(1);
-});
+}

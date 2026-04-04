@@ -40,6 +40,9 @@ yarn-error.log*
 *.graphqls.d.ts
 
 
+# Generated search index (built by npm run build)
+/public/search-index.json
+
 # Serena
 .serena/
 .playwright-mcp/

@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "npm run generate-search-index && next dev",
 		"build": "npm run generate-search-index && next build",
 		"generate-search-index": "node scripts/generate-search-index.mjs",
 		"test": "vitest",

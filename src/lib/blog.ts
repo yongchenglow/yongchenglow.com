@@ -20,7 +20,9 @@ export function getAllBlogSlugs(): string[] {
 }
 
 export function getBlogPost(slug: string): BlogPost {
-	const fullPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
+	const mdxPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
+	const mdPath = path.join(BLOG_CONTENT_PATH, `${slug}.md`);
+	const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath;
 	const fileContents = fs.readFileSync(fullPath, "utf8");
 
 	const { data, content } = matter(fileContents);
