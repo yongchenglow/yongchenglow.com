@@ -185,6 +185,14 @@
 		@apply text-base font-medium mt-4 mb-2 text-foreground scroll-mt-24;
 	}
 
+	.prose a {
+		@apply text-primary underline-offset-4 hover:underline break-words;
+	}
+
+	.prose p {
+		@apply mt-4 mb-4 leading-relaxed break-words;
+	}
+
 	/* Heading anchor links (rehype-autolink-headings) */
 	.prose h1 a,
 	.prose h2 a,
@@ -202,14 +210,6 @@
 	.prose h5 a:hover,
 	.prose h6 a:hover {
 		@apply text-primary;
-	}
-
-	.prose p {
-		@apply mt-4 mb-4 leading-relaxed break-words;
-	}
-
-	.prose a {
-		@apply text-primary underline-offset-4 hover:underline break-words;
 	}
 
 	.prose strong {
