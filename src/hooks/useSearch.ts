@@ -68,13 +68,13 @@ export function useSearch() {
 				const postIds = new Set<string>();
 				const mergedResults: SearchResult[] = [];
 
+				// When enrich: true with FlexSearch Document, result is the ID string
 				// biome-ignore lint/suspicious/noExplicitAny: FlexSearch search results type is complex
 				for (const fieldResults of searchResults as any[]) {
 					if (!Array.isArray(fieldResults.result)) continue;
 
-					for (const result of fieldResults.result) {
-						const postId = result.id as string;
-						if (postIds.has(postId)) continue;
+					for (const postId of fieldResults.result as string[]) {
+						if (!postId || postIds.has(postId)) continue;
 
 						const post = postsRef.current[postId];
 						if (!post) continue;
