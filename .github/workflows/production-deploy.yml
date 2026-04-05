@@ -12,7 +12,7 @@ env:
   NODE_VERSION: "24.14.1"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  PRODUCTION_PORT: 30001
+  PRODUCTION_PORT: 30000
 
 jobs:
   deploy:
@@ -21,13 +21,13 @@ jobs:
     timeout-minutes: 10
     environment:
       name: production
-      url: https://${{ github.event.repository.name }}.${{ vars.CLOUDFLARE_DOMAIN }}
+      url: https://${{ vars.CLOUDFLARE_DOMAIN }}
     permissions:
       contents: read
       packages: read
       deployments: write
     outputs:
-      deployment_url: https://${{ github.event.repository.name }}.${{ vars.CLOUDFLARE_DOMAIN }}
+      deployment_url: https://${{ vars.CLOUDFLARE_DOMAIN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -78,16 +78,16 @@ jobs:
       - name: Copy GHCR secret to production namespace
         run: |
           # Create namespace if it doesn't exist
-          kubectl create namespace ${{ github.event.repository.name }} --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create namespace production --dry-run=client -o yaml | kubectl apply -f -
 
           # Copy ghcr-secret from main namespace to production namespace only if it doesn't exist
-          if ! kubectl get secret ghcr-secret -n ${{ github.event.repository.name }} &>/dev/null; then
-            kubectl get secret ghcr-secret -n yongchenglow -o yaml | \
-              sed "s/namespace: nextjs-frontend-template/namespace: ${{ github.event.repository.name }}/" | \
+          if ! kubectl get secret ghcr-secret -n production &>/dev/null; then
+            kubectl get secret ghcr-secret -n nextjs-frontend-template -o yaml | \
+              sed "s/namespace: nextjs-frontend-template/namespace: production/" | \
               kubectl apply -f -
-            echo "✓ Copied ghcr-secret to ${{ github.event.repository.name }}"
+            echo "✓ Copied ghcr-secret to production"
           else
-            echo "✓ Secret ghcr-secret already exists in ${{ github.event.repository.name }}"
+            echo "✓ Secret ghcr-secret already exists in production"
           fi
 
       - name: Deploy with Helm
@@ -95,7 +95,7 @@ jobs:
           IMAGE_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
 
           helm upgrade --install nextjs-app ./helm/nextjs-app \
-            -n ${{ github.event.repository.name }} \
+            -n production \
             --create-namespace \
             -f ./helm/nextjs-app/values-production.yaml \
             --set image.tag=${{ inputs.image_tag }} \
@@ -106,7 +106,7 @@ jobs:
 
       - name: Verify deployment
         run: |
-          kubectl rollout status deployment/nextjs-app -n ${{ github.event.repository.name }} --timeout=1m
+          kubectl rollout status deployment/nextjs-app -n production --timeout=1m
 
       - name: Create Cloudflare Tunnel route
         env:
@@ -114,10 +114,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
           CLOUDFLARE_DOMAIN: ${{ vars.CLOUDFLARE_DOMAIN }}
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
           PORT="${{ env.PRODUCTION_PORT }}"
-          FULL_HOSTNAME="${REPOSITORY_NAME}.${CLOUDFLARE_DOMAIN}"
+          FULL_HOSTNAME="${CLOUDFLARE_DOMAIN}"
 
           echo "Adding Cloudflare tunnel route for: $FULL_HOSTNAME -> http://localhost:${PORT}"
 
@@ -177,9 +176,8 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
           CLOUDFLARE_DOMAIN: ${{ vars.CLOUDFLARE_DOMAIN }}
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
-          FULL_HOSTNAME="${REPOSITORY_NAME}.${CLOUDFLARE_DOMAIN}"
+          FULL_HOSTNAME="${CLOUDFLARE_DOMAIN}"
 
           echo "Creating DNS A/CNAME record for: $FULL_HOSTNAME"
 
