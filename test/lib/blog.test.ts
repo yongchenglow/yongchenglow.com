@@ -406,7 +406,7 @@ describe("getYearPostCounts", () => {
 		vi.mocked(fs.existsSync).mockReturnValue(false);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("y2024"))
-				return mockPost(`${String(filePath).match(/y\d+\-?\w*/)?.[0]}`, {
+				return mockPost(`${String(filePath).match(/y\d+-?\w*/)?.[0]}`, {
 					date: "2024-06-01",
 				});
 			return mockPost("y2023", { date: "2023-06-01" });
