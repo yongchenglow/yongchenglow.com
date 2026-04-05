@@ -11,30 +11,37 @@ Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com
    1. [Directory Structure](#directory-structure)
    2. [Component Structure](#component-structure)
    3. [Blog Posts](#blog-posts)
-   4. [Search Index](#search-index)
-   5. [Home Page](#home-page)
-   6. [About Page](#about-page)
+   4. [Categories and Tags](#categories-and-tags)
+   5. [Search Index](#search-index)
+   6. [Blog Features](#blog-features)
+   7. [Home Page](#home-page)
+   8. [About Page](#about-page)
 5. [Git Conventions](#git-conventions)
    1. [Branching](#branching)
    2. [Commits](#commits)
+   3. [Releases](#releases)
 6. [VSCode Setup](#vscode-setup)
-7. [License](#license)
+7. [Testing](#testing)
+8. [Configuration Files](#configuration-files)
+9. [License](#license)
 
 ## Tech Stack
 
-| Category       | Technology                                                         |
-| -------------- | ------------------------------------------------------------------ |
-| Framework      | [Next.js](https://nextjs.org/) (App Router, standalone output)     |
-| Language       | [TypeScript](https://www.typescriptlang.org/)                      |
-| Styling        | [Tailwind CSS v4](https://tailwindcss.com/)                        |
-| UI Components  | [shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/) |
-| Animations     | [Framer Motion](https://www.framer.com/motion/)                    |
-| Content        | [MDX](https://mdxjs.com/) via `@next/mdx`                          |
-| Search         | [FlexSearch](https://github.com/nextapps-de/flexsearch)            |
-| Linting        | [Biome](https://biomejs.dev/)                                      |
-| Testing        | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) |
-| Dead Code      | [Knip](https://knip.dev/)                                          |
-| Git Hooks      | [Husky](https://typicode.github.io/husky/) + [commitlint](https://commitlint.js.org/) |
+| Category           | Technology                                                         |
+| ------------------ | ------------------------------------------------------------------ |
+| Framework          | [Next.js 16](https://nextjs.org/) (App Router, standalone output)  |
+| Language           | [TypeScript](https://www.typescriptlang.org/)                      |
+| Styling            | [Tailwind CSS v4](https://tailwindcss.com/)                        |
+| UI Components      | [shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/) |
+| Animations         | [Framer Motion](https://www.framer.com/motion/)                    |
+| Content            | [MDX](https://mdxjs.com/) via `@next/mdx`                          |
+| Search             | [FlexSearch](https://github.com/nextapps-de/flexsearch)            |
+| Linting/Formatting | [Biome 2](https://biomejs.dev/)                                    |
+| Testing            | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) |
+| Dead Code          | [Knip](https://knip.dev/)                                          |
+| Git Hooks          | [Husky](https://typicode.github.io/husky/) + [commitlint](https://commitlint.js.org/) |
+| Analytics          | Google Analytics, Google AdSense                                   |
+| Icons              | [Lucide React](https://lucide.dev/)                                |
 
 ## Running the Application
 
@@ -55,19 +62,23 @@ In order to run the application please clone or download the repository
 ## Application Commands
 
 ```bash
-npm run dev              # For development
-npm run build            # To build the application
-npm start                # To run the built application
-npm run lint             # To check Biome linting
-npm run format           # To format code with Biome
-npm run check            # To run Biome linting and formatting with auto-fix
-npm run check:all        # To run TypeScript, Biome, and Knip checks
-npm test                 # To run tests
-npm run typecheck        # To run TypeScript type checking
-npm run knip             # To find unused files, dependencies, and exports
-npm run knip:production  # To check production dependencies only
-npm run analyze          # To analyze the packages
-npm run prepare          # To prepare the application (husky setup)
+npm run dev                    # Start development server (generates search index first)
+npm run build                  # Build for production (generates search index first)
+npm start                      # Run production build
+npm run generate-search-index  # Generate search index from blog posts
+npm run lint                   # Run Biome linting with auto-fix
+npm run format                 # Run Biome formatting
+npm run check                  # Run Biome linting and formatting with auto-fix
+npm run check:all              # Run TypeScript, Biome, and Knip checks
+npm run check:ci               # Run Biome checks for CI
+npm test                       # Run tests with Vitest
+npm run typecheck              # Run TypeScript type checking
+npm run tsc                    # Alias for typecheck
+npm run knip                   # Find unused files, dependencies, and exports
+npm run knip:production        # Check production dependencies only
+npm run analyze                # Analyze bundles with @next/bundle-analyzer (set ANALYZE=true)
+npm run prepare                # Install Husky hooks
+npm run release                # Run semantic-release for versioning and publishing
 ```
 
 ## Architecture
@@ -78,59 +89,77 @@ npm run prepare          # To prepare the application (husky setup)
 src/
 ├── app/                        # Next.js App Router pages
 │   ├── page.tsx                # Home page
-│   ├── layout.tsx              # Root layout (navbar, search, analytics)
+│   ├── layout.tsx              # Root layout (theme provider, search, analytics)
 │   ├── globals.css             # Global styles and CSS variables
 │   ├── about/
-│   │   └── page.tsx            # About page
+│   │   └── page.tsx            # About page (timeline from about.json)
 │   └── blog/
 │       ├── page.tsx            # Blog listing page
 │       ├── [slug]/page.tsx     # Individual blog post (dynamic route)
 │       ├── latest/[page]/      # Paginated all posts
-│       ├── category/[category] # Posts filtered by category
+│       ├── category/[category]/ # Posts filtered by category
+│       ├── category/[category]/[page]/ # Paginated category posts
 │       ├── tag/[tag]/          # Posts filtered by tag
 │       ├── year/[year]/        # Posts filtered by year
-│       └── api/                # API routes for categories, latest, years
+│       ├── year/[year]/[page]/ # Paginated year posts
+│       └── api/
+│           ├── category/route.ts    # API endpoint for categories
+│           ├── latest/route.ts      # API endpoint for latest posts
+│           └── year/route.ts        # API endpoint for years
 ├── components/
 │   ├── shared/
-│   │   ├── atoms/              # Smallest building blocks
-│   │   ├── molecules/          # Combinations of atoms
-│   │   ├── organisms/          # Complex components (navbar, footer)
-│   │   └── ui/                 # shadcn/ui components
-│   ├── blog/                   # Blog-specific components
-│   ├── home/                   # Home page sections
-│   ├── about/                  # About page components
-│   ├── mdx/                    # MDX element mappings
-│   ├── post/                   # Post display components
-│   ├── search/                 # Search dialog and trigger
-│   └── theme/                  # Theme provider and toggle
+│   │   ├── atoms/              # Smallest building blocks (Container, FadeIn, ExternalLink, etc.)
+│   │   ├── molecules/          # Combinations of atoms (Section)
+│   │   ├── organisms/          # Complex components (NavigationBar, Footer, ContentCard)
+│   │   ├── layouts/            # Layout components (StandardLayout)
+│   │   └── ui/                 # shadcn/ui components (button, card, dialog, etc.)
+│   ├── about/                  # About page components (Timeline, TimelineItem)
+│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, etc.)
+│   ├── home/                   # Home page sections (IntroSection, ProjectsSection, etc.)
+│   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents)
+│   ├── post/                   # Blog post display components (PostCard, PostHeader, etc.)
+│   ├── project/                # Project components (ProjectCard, ProjectGrid)
+│   ├── search/                 # Search components (SearchDialog, SearchTrigger)
+│   └── theme/                  # Theme provider, toggle, and font configuration
+├── hooks/
+│   └── useSearch.ts            # Search hook for FlexSearch integration
 ├── lib/
-│   └── blog.ts                 # Blog utility functions
+│   ├── blog.ts                 # Blog utility functions (pagination, categories, years)
+│   ├── animation.ts            # Animation helpers (stagger delays)
+│   └── utils.ts                # General utilities (cn helper)
 ├── data/
-│   └── about.json              # About page data (experience, education)
+│   └── about.json              # About page data (experience, education, military service)
 ├── config/
-│   └── blog.ts                 # Blog categories configuration
+│   └── blog.ts                 # Blog configuration (categories, posts per page)
 └── types/
-    └── blog.ts                 # TypeScript types for blog
+    ├── blog.ts                 # TypeScript types for blog
+    └── search.ts               # TypeScript types for search
 
 content/
 └── blog/                       # MDX blog post files
+    ├── authors/
+    │   └── yongchenglow.json   # Author metadata
 
 public/
 ├── img/                        # Images
 └── search-index.json           # Auto-generated search index (do not edit)
 
 scripts/
-└── generate-search-index.mjs   # Search index generator
+└── generate-search-index.mjs   # Search index generator (runs before dev/build)
+
+test/
+└── setup.ts                    # Vitest test setup file
 ```
 
 ### Component Structure
 
 Components follow the [Atomic Design](https://atomicdesign.bradfrost.com/) pattern:
 
-- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, etc.
+- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`
 - **Molecules** — combinations of atoms: `Section`
 - **Organisms** — complex, self-contained components: `NavigationBar`, `Footer`, `ContentCard`
-- **UI** — shadcn/ui components (Radix UI primitives with Tailwind styling)
+- **Layouts** — page layout wrappers: `StandardLayout`
+- **UI** — shadcn/ui components (Radix UI primitives with Tailwind styling): `Button`, `Card`, `Dialog`, `Command`, `Avatar`, `Badge`, `Skeleton`, `Switch`, `Tooltip`, `Table`, `Sheet`, `NavigationMenu`, `ScrollArea`, `Separator`, `Input`, `Breadcrumb`, `Alert`
 
 ### Blog Posts
 
@@ -142,13 +171,12 @@ Blog posts are MDX files in `content/blog/`. Each file becomes a route at `/blog
 ---
 title: "Your Post Title"          # Required
 description: "Short description"  # Required - shown in post cards
-date: "2025-04-04"                # Required - ISO 8601 format
-author: "yongchenglow"            # Required
-subtitle: "Optional subtitle"     # Optional
+date: "2025-04-04"                # Required - ISO 8601 format (YYYY-MM-DD)
+author: "yongchenglow"            # Required - matches author file
 lastUpdated: "2025-04-05"         # Optional - ISO 8601 format
-tags: ["tag1", "tag2"]            # Optional
+tags: ["tag1", "tag2"]            # Optional - used for categorization
 image: "/img/your-image.png"      # Optional - featured image
-featured: false                   # Optional - highlights post on home page
+featured: false                   # Optional - highlights post on home page and blog page
 draft: false                      # Optional - skips post in builds if true
 ---
 ```
@@ -172,12 +200,26 @@ The post is automatically added to:
 
 Custom components available in MDX content (defined in `src/components/mdx/MDXComponents.tsx`):
 
-- Standard HTML elements (`p`, `ul`, `ol`, `img`, `code`) are mapped to styled components
-- `<Admonition>` — callout/notice block
-- `<PostDefinition>` — definition block
-- Code blocks use `react-syntax-highlighter` for syntax highlighting
+- Standard HTML elements (`p`, `ul`, `ol`, `img`, `code`, `h1`-`h6`) are mapped to styled components
+- `<Admonition>` — callout/notice block for important information
+- `<PostDefinition>` — definition block for term explanations
+- `<MdxImage>` — enhanced image component for blog posts
+- Code blocks use `react-syntax-highlighter` for syntax highlighting with Prism themes
 - `rehype-slug` and `rehype-autolink-headings` add anchor links to headings
-- `remark-gfm` enables GitHub Flavored Markdown (tables, strikethrough, etc.)
+- `remark-gfm` enables GitHub Flavored Markdown (tables, strikethrough, task lists, etc.)
+
+### Categories and Tags
+
+Blog categories are defined in `src/config/blog.ts`:
+
+| Category       | Slug        | Tags                                                                 |
+|----------------|-------------|----------------------------------------------------------------------|
+| Development    | development | web-development, database, sql, postgresql, setup, ide, vscode       |
+| Process & Agile| process     | agile, scrum, project-management, sprint-planning, product-management, teamwork |
+| Design         | design      | design, ui-ux, prototyping, user-experience, design-thinking         |
+| Career & Learning | career   | career, beginners, best-practices, normalization                     |
+
+Posts are automatically categorized based on their tags.
 
 ### Search Index
 
@@ -186,21 +228,34 @@ The search index is generated by `scripts/generate-search-index.mjs` and written
 - **Triggers:** Runs automatically before `npm run dev` and `npm run build`
 - **Input:** All non-draft MDX files in `content/blog/`
 - **Output:** `public/search-index.json` — indexed by title, subtitle, description, content, and tags
-- **Frontend:** The `SearchDialog` component lazy-loads the JSON and uses FlexSearch when the search dialog opens (`Cmd+K`)
+- **Frontend:** The `SearchDialog` component (`Cmd+K`) lazy-loads the JSON and uses FlexSearch for client-side search
 - **Do not edit** `public/search-index.json` manually — it is always overwritten on the next build
+
+### Blog Features
+
+- **Pagination:** Posts are paginated with 12 posts per page (`/blog/latest/[page]`)
+- **Category Filtering:** Posts filtered by category tags (`/blog/category/[category]`)
+- **Year Filtering:** Posts filtered by publication year (`/blog/year/[year]`)
+- **Tag Filtering:** Posts filtered by individual tags (`/blog/tag/[tag]`)
+- **Reading Time:** Automatically calculated using `reading-time` package
+- **Table of Contents:** Auto-generated from headings with scroll tracking
+- **Reading Progress:** Progress bar at top of blog post pages
+- **Previous/Next Navigation:** Auto-generated navigation between posts
+- **Featured Post:** Highlighted on home page and top of blog listing
 
 ### Home Page
 
 **File:** `src/app/page.tsx`
 
-The home page is composed of section components rendered in order:
+The home page is composed of section components rendered in order within a `StandardLayout`:
 
-1. `IntroSection` — hero with name, description, photo, and CTA buttons
-2. `LatestPostsSection` — displays the post marked `featured: true` (or the most recent post)
-3. `ProjectsSection` — projects showcase
-4. `AboutMeSection` — brief about snippet
+1. **IntroSection** — hero with name, title, description, photo, and CTA buttons (LinkedIn, GitHub)
+2. **LatestPostsSection** — displays the featured post (or most recent post if none featured)
+3. **ProjectsSection** — projects showcase with grid layout
+4. **GoogleAds** — ad placements for monetization
+5. **AboutMeSection** — brief about snippet with link to full about page
 
-To feature a blog post on the home page, set `featured: true` in its frontmatter.
+To feature a blog post on the home page, set `featured: true` in its frontmatter. If no post is marked as featured, the most recent post is shown.
 
 ### About Page
 
@@ -212,10 +267,40 @@ Structure of `about.json`:
 
 ```json
 {
-  "hero": { "name", "title", "objective", "socialLinks" },
-  "work_experience": [{ "title", "location", "years", "bullets", "skills" }],
-  "education": [{ "title", "location", "years", "description", "links" }],
-  "military_service": [{ ... }]
+  "hero": {
+    "name": "Your Name",
+    "title": "Your Title",
+    "objective": "Your objective/mission statement",
+    "links": [
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/yourprofile" },
+      { "label": "GitHub", "url": "https://github.com/yourusername" }
+    ]
+  },
+  "work_experience": [
+    {
+      "title": "Job Title at Company",
+      "location": "City, Country",
+      "years": "2023-Present",
+      "bullets": ["Achievement 1", "Achievement 2"],
+      "skills": ["Skill 1", "Skill 2"]
+    }
+  ],
+  "education": [
+    {
+      "title": "Degree/Program",
+      "location": "City, Country",
+      "years": "2015-2019",
+      "description": "Description of your studies",
+      "link": { "label": "University Name", "url": "https://university.edu" }
+    }
+  ],
+  "military_service": {
+    "title": "Service Branch",
+    "years": "2012-2014",
+    "location": "Country",
+    "description": "Description of service",
+    "link": { "label": "Unit Name", "url": "https://..." }
+  }
 }
 ```
 
@@ -223,17 +308,71 @@ Structure of `about.json`:
 
 ### Branching
 
-feature/<branch_name>
+Feature branches: `feature/<branch_name>`
 
-hotfix/<branch_name>
+Hotfix branches: `hotfix/<branch_name>`
 
 ### Commits
 
-Refer to [commitlint.config.ts](./commitlint.config.ts) for prefixes. We will be using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) enforced by commitlint.
+
+**Format:** `<type>: <subject>`
+
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, `revert`
+
+**Rules:**
+- Subject must not be empty
+- Type must not be empty
+- Type can be lowercase or uppercase
+- Subject can have any casing
+- Header maximum 72 characters
+
+**Examples:**
+```
+feat: add infinite scroll to blog listing
+fix: resolve hydration mismatch in theme toggle
+docs: update README with new architecture
+refactor: extract pagination logic to utility
+test: add unit tests for blog functions
+chore: update dependencies
+```
+
+### Releases
+
+Automated releases via `semantic-release` with GitLab integration. Run `npm run release` to publish.
 
 ## VSCode Setup
 
-Install the recommended extensions inside the .vscode folder. The workspace settings are pre-configured in `.vscode/settings.json` and will be applied automatically.
+Install the recommended extensions inside the `.vscode/extensions.json` folder. The workspace settings are pre-configured in `.vscode/settings.json` and will be applied automatically.
+
+Recommended extensions:
+- ESLint (for Biome support)
+- Tailwind CSS IntelliSense
+- TypeScript Hero Import
+
+## Testing
+
+Tests are run using Vitest with JSDOM environment and React Testing Library.
+
+```bash
+npm test                 # Run all tests
+npm test -- --watch      # Run tests in watch mode
+npm test -- --coverage   # Run tests with coverage
+```
+
+Test files are located alongside source files with `.test.tsx` or `.test.ts` extension. Test setup is configured in `test/setup.ts`.
+
+## Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `biome.json` | Biome linting and formatting configuration |
+| `knip.json` | Knip dead code detection configuration |
+| `commitlint.config.ts` | Commit message linting rules |
+| `next.config.js` | Next.js configuration |
+| `tailwind.config.ts` | Tailwind CSS configuration |
+| `vitest.config.ts` | Vitest test configuration |
+| `.vscode/settings.json` | VSCode workspace settings |
 
 ## License
 
