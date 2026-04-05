@@ -1,4 +1,5 @@
 import { AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
+import type { ReactNode } from "react";
 import {
 	Alert,
 	AlertDescription,
@@ -8,7 +9,7 @@ import {
 interface AdmonitionProps {
 	type?: "note" | "tip" | "warning" | "danger";
 	title?: string;
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 const admonitionConfig = {

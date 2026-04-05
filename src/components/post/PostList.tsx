@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
+
 interface PostListProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	className?: string;
 	type?: "ordered" | "unordered";
 }

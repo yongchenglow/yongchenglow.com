@@ -105,9 +105,12 @@ export function getBlogPostsByCategory(categorySlug: string): BlogPost[] {
 export function getCategoryPostCounts(): Record<string, number> {
 	const counts: Record<string, number> = {};
 	const categories = getAllCategories();
+	const allPosts = getAllBlogPosts();
 
 	for (const category of categories) {
-		counts[category.slug] = getBlogPostsByCategory(category.slug).length;
+		counts[category.slug] = allPosts.filter((post) =>
+			post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
+		).length;
 	}
 
 	return counts;
@@ -137,9 +140,13 @@ export function getBlogPostsByYear(year: number): BlogPost[] {
 export function getYearPostCounts(): Record<number, number> {
 	const counts: Record<number, number> = {};
 	const years = getAllPostYears();
+	const allPosts = getAllBlogPosts();
 
 	for (const year of years) {
-		counts[year] = getBlogPostsByYear(year).length;
+		counts[year] = allPosts.filter((post) => {
+			const postYear = new Date(post.frontmatter.date).getFullYear();
+			return postYear === year;
+		}).length;
 	}
 
 	return counts;

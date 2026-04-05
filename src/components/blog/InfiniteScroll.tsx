@@ -32,6 +32,7 @@ export default function InfiniteScroll({
 	// Use refs to access latest state values in callback without causing re-creation
 	const hasMoreRef = useRef(hasMore);
 	const isLoadingRef = useRef(isLoading);
+	const pageRef = useRef(currentPage);
 
 	// Keep refs in sync with state
 	useEffect(() => {
@@ -42,11 +43,15 @@ export default function InfiniteScroll({
 		isLoadingRef.current = isLoading;
 	}, [isLoading]);
 
+	useEffect(() => {
+		pageRef.current = page;
+	}, [page]);
+
 	const loadMore = useCallback(async () => {
 		if (isLoadingRef.current || !hasMoreRef.current) return;
 
 		setIsLoading(true);
-		const nextPage = page + 1;
+		const nextPage = pageRef.current + 1;
 
 		try {
 			const newPosts = await loadMorePosts(nextPage);
@@ -61,7 +66,7 @@ export default function InfiniteScroll({
 		} finally {
 			setIsLoading(false);
 		}
-	}, [page, totalPages, baseUrl, router, loadMorePosts]);
+	}, [totalPages, baseUrl, router, loadMorePosts]);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(

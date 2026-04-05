@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import LatestPostsView from "@/src/components/blog/LatestPostsView";
 import FadeIn from "@/src/components/shared/atoms/FadeIn";
 import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
@@ -27,14 +28,14 @@ export default async function LatestPage({ params }: LatestPageProps) {
 
 	// Validate page number
 	if (Number.isNaN(pageNumber) || pageNumber < 1) {
-		throw new Error("Invalid page number");
+		notFound();
 	}
 
 	const paginationResult = getPaginatedPosts(pageNumber);
 
 	// If page is out of bounds, redirect would be handled by Next.js 404
 	if (paginationResult.items.length === 0 && pageNumber > 1) {
-		throw new Error("Page not found");
+		notFound();
 	}
 
 	return (

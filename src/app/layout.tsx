@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import type { ReactNode } from "react";
 import SearchDialog from "@/src/components/search/SearchDialog";
 import { ThemeProvider } from "@/src/components/theme/ThemeProvider";
 import { primaryFont } from "../components/theme/font";
@@ -38,11 +39,7 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html prefix="og: http://ogp.me/ns#" lang="en" suppressHydrationWarning>
 			<body className={primaryFont.className} suppressHydrationWarning>

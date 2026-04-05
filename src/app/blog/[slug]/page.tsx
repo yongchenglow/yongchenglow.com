@@ -27,26 +27,33 @@ export async function generateStaticParams() {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
 	const { slug } = await params;
-	const post = getBlogPost(slug);
 
-	if (!post) {
+	try {
+		const post = getBlogPost(slug);
+
+		if (!post) {
+			return {
+				title: "Post Not Found",
+			};
+		}
+
+		return {
+			title: post.frontmatter.title,
+			description: post.frontmatter.description,
+			openGraph: {
+				title: post.frontmatter.title,
+				description: post.frontmatter.description,
+				type: "article",
+				publishedTime: post.frontmatter.date,
+				modifiedTime: post.frontmatter.lastUpdated,
+				images: post.frontmatter.image ? [post.frontmatter.image] : [],
+			},
+		};
+	} catch {
 		return {
 			title: "Post Not Found",
 		};
 	}
-
-	return {
-		title: post.frontmatter.title,
-		description: post.frontmatter.description,
-		openGraph: {
-			title: post.frontmatter.title,
-			description: post.frontmatter.description,
-			type: "article",
-			publishedTime: post.frontmatter.date,
-			modifiedTime: post.frontmatter.lastUpdated,
-			images: post.frontmatter.image ? [post.frontmatter.image] : [],
-		},
-	};
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

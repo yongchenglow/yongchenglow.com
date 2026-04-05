@@ -38,10 +38,17 @@ export default function TableOfContents({
 		// Intersection Observer for active heading
 		const observer = new IntersectionObserver(
 			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						setActiveId(entry.target.id);
-					}
+				const intersectingEntries = entries.filter(
+					(entry) => entry.isIntersecting,
+				);
+				if (intersectingEntries.length > 0) {
+					// Sort by position (top of viewport) and pick the topmost
+					const topmost = intersectingEntries.reduce((prev, current) =>
+						current.boundingClientRect.top < prev.boundingClientRect.top
+							? current
+							: prev,
+					);
+					setActiveId(topmost.target.id);
 				}
 			},
 			{ rootMargin: "-100px 0px -80% 0px" },

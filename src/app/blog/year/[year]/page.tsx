@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAllPostYears } from "@/src/lib/blog";
 
 interface YearPageProps {
@@ -18,7 +18,7 @@ export default async function YearPage({ params }: YearPageProps) {
 
 	// Validate year
 	if (Number.isNaN(yearNumber)) {
-		throw new Error("Invalid year");
+		notFound();
 	}
 
 	// Redirect to page 1

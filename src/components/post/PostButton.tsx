@@ -1,8 +1,8 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Button } from "@/src/components/shared/ui/button";
 
 interface PostButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export default function PostButton({

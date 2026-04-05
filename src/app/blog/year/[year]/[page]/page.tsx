@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
 import Pagination from "@/src/components/blog/Pagination";
 import PostCard from "@/src/components/post/PostCard";
@@ -49,14 +50,14 @@ export default async function YearPageWithPagination({
 
 	// Validate year and page
 	if (Number.isNaN(yearNumber) || Number.isNaN(pageNumber) || pageNumber < 1) {
-		throw new Error("Invalid year or page number");
+		notFound();
 	}
 
 	const paginationResult = getPaginatedPostsByYear(yearNumber, pageNumber);
 
 	// If page is out of bounds, throw error
 	if (paginationResult.items.length === 0 && pageNumber > 1) {
-		throw new Error("Page not found");
+		notFound();
 	}
 
 	return (

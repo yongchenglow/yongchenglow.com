@@ -1,6 +1,7 @@
 import { ExternalLink as ExternalLinkIcon } from "lucide-react";
+import type { AnchorHTMLAttributes } from "react";
 
-type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 	icon?: boolean;
 	unstyled?: boolean;
 };

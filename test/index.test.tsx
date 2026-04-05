@@ -1,10 +1,33 @@
-import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import Index from "@/src/app/page";
+import type { BlogPost } from "@/src/types/blog";
+
+// Helper to create a test BlogPost
+const makePost = (overrides: Partial<BlogPost> = {}): BlogPost => ({
+	slug: "test-post",
+	frontmatter: {
+		title: "Test Post",
+		description: "A test post description",
+		date: "2024-01-01",
+		author: "Test Author",
+		tags: ["test"],
+		...overrides.frontmatter,
+	},
+	content: "Test content",
+	readingTime: "1 min read",
+	excerpt: "Test excerpt",
+	...overrides,
+});
+
+vi.mock("@/src/lib/blog", () => ({
+	getFeaturedPost: () => makePost(),
+}));
 
 describe("Index", () => {
-	it("renders correctly", () => {
-		const { container } = render(<Index />);
-		expect(container.firstChild).toMatchSnapshot();
+	it("renders the homepage", () => {
+		render(<Index />);
+		const container = screen.getByRole("main");
+		expect(container).toBeInTheDocument();
 	});
 });

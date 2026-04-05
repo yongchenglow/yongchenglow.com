@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
 import Pagination from "@/src/components/blog/Pagination";
 import PostCard from "@/src/components/post/PostCard";
@@ -49,20 +50,20 @@ export default async function CategoryPageWithPagination({
 
 	// Validate page number
 	if (Number.isNaN(pageNumber) || pageNumber < 1) {
-		throw new Error("Invalid page number");
+		notFound();
 	}
 
 	const categoryMetadata = getCategoryMetadata(category);
 
 	if (!categoryMetadata) {
-		throw new Error("Invalid category");
+		notFound();
 	}
 
 	const paginationResult = getPaginatedPostsByCategory(category, pageNumber);
 
 	// If page is out of bounds, throw error
 	if (paginationResult.items.length === 0 && pageNumber > 1) {
-		throw new Error("Page not found");
+		notFound();
 	}
 
 	return (

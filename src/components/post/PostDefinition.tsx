@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
+
 interface PostDefinitionProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	className?: string;
 }
 

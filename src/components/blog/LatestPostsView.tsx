@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import InfiniteScroll from "@/src/components/blog/InfiniteScroll";
 import Pagination from "@/src/components/blog/Pagination";
 import PostCard from "@/src/components/post/PostCard";
@@ -21,14 +21,17 @@ export default function LatestPostsView({
 }: LatestPostsViewProps) {
 	const [useInfiniteScroll, setUseInfiniteScroll] = useState(false);
 
-	const loadMorePosts = async (page: number): Promise<BlogPost[]> => {
-		const response = await fetch(`/api/blog/latest?page=${page}`);
-		if (!response.ok) {
-			throw new Error("Failed to fetch posts");
-		}
-		const data: PaginationResult<BlogPost> = await response.json();
-		return data.items;
-	};
+	const loadMorePosts = useCallback(
+		async (page: number): Promise<BlogPost[]> => {
+			const response = await fetch(`${baseUrl}${page}`);
+			if (!response.ok) {
+				throw new Error("Failed to fetch posts");
+			}
+			const data: PaginationResult<BlogPost> = await response.json();
+			return data.items;
+		},
+		[baseUrl],
+	);
 
 	return (
 		<>

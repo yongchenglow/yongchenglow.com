@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAllCategories, getCategoryMetadata } from "@/src/lib/blog";
 
 interface CategoryPageProps {
@@ -17,7 +17,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 	const categoryMetadata = getCategoryMetadata(category);
 
 	if (!categoryMetadata) {
-		throw new Error("Invalid category");
+		notFound();
 	}
 
 	// Redirect to page 1

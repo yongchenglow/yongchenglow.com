@@ -18,6 +18,8 @@ export function useSearch() {
 		try {
 			setIsLoading(true);
 			const response = await fetch("/search-index.json");
+			if (!response.ok)
+				throw new Error(`Failed to fetch search index: ${response.statusText}`);
 			const data: SerializedSearchIndex = await response.json();
 
 			const index = new FlexSearch.Document({

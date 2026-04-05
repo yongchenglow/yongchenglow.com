@@ -1,5 +1,3 @@
-"use client";
-
 import { Briefcase, GraduationCap, Shield } from "lucide-react";
 import Timeline from "@/src/components/about/Timeline";
 import TimelineItem from "@/src/components/about/TimelineItem";

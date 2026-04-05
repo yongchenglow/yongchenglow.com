@@ -16,11 +16,12 @@ export default function BlogNavigation({
 		<nav className="flex justify-between items-center gap-4 py-4">
 			<div className="flex-1">
 				{previousPost && (
-					<InternalLink href={`/blog/${previousPost.slug}`}>
-						<Button
-							variant="outline"
-							className="w-full justify-start h-auto py-3 px-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
-						>
+					<Button
+						asChild
+						variant="outline"
+						className="w-full justify-start h-auto py-3 px-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+					>
+						<InternalLink href={`/blog/${previousPost.slug}`}>
 							<ChevronLeft className="mr-2 h-4 w-4 flex-shrink-0" />
 							<div className="text-left min-w-0">
 								<div className="text-xs text-muted-foreground">Previous</div>
@@ -28,18 +29,19 @@ export default function BlogNavigation({
 									{previousPost.frontmatter.title}
 								</div>
 							</div>
-						</Button>
-					</InternalLink>
+						</InternalLink>
+					</Button>
 				)}
 			</div>
 
 			<div className="flex-1 text-right">
 				{nextPost && (
-					<InternalLink href={`/blog/${nextPost.slug}`}>
-						<Button
-							variant="outline"
-							className="w-full justify-end h-auto py-3 px-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
-						>
+					<Button
+						asChild
+						variant="outline"
+						className="w-full justify-end h-auto py-3 px-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+					>
+						<InternalLink href={`/blog/${nextPost.slug}`}>
 							<div className="text-right min-w-0">
 								<div className="text-xs text-muted-foreground">Next</div>
 								<div className="font-semibold truncate">
@@ -47,8 +49,8 @@ export default function BlogNavigation({
 								</div>
 							</div>
 							<ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />
-						</Button>
-					</InternalLink>
+						</InternalLink>
+					</Button>
 				)}
 			</div>
 		</nav>
