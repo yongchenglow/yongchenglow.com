@@ -58,9 +58,7 @@ describe("BlogNavigation", () => {
 			slug: "next-post",
 			frontmatter: { title: "Next Post" },
 		});
-		render(
-			<BlogNavigation previousPost={previousPost} nextPost={nextPost} />,
-		);
+		render(<BlogNavigation previousPost={previousPost} nextPost={nextPost} />);
 		const links = screen.getAllByRole("link");
 		expect(links).toHaveLength(2);
 		expect(links[0]).toHaveAttribute("href", "/blog/previous-post");

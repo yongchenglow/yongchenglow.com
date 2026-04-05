@@ -112,32 +112,24 @@ describe("InfiniteScroll", () => {
 		];
 		const loadMorePosts = vi.fn().mockResolvedValue(newPosts);
 
-		// Create mock for IntersectionObserver callback
-		let observerCallback: ((entries: Partial<IntersectionObserverEntry>[]) => void) | null =
-			null;
+		// Track created observers
+		let capturedCallback:
+			| ((entries: IntersectionObserverEntry[]) => void)
+			| null = null;
 
-		const mockIntersectionObserver = vi.fn(
-			(callback: (entries: Partial<IntersectionObserverEntry>[]) => void) => ({
-				observe: vi.fn(),
-				unobserve: vi.fn(),
-				disconnect: vi.fn(),
-			}),
-		);
-
-		// Capture the callback passed to IntersectionObserver
-		mockIntersectionObserver.mockImplementationOnce(
-			(callback: (entries: Partial<IntersectionObserverEntry>[]) => void) => {
-				observerCallback = callback;
-				return {
-					observe: vi.fn(),
-					unobserve: vi.fn(),
-					disconnect: vi.fn(),
-				};
-			},
-		);
-
-		// Replace the IntersectionObserver with our mock
-		window.IntersectionObserver = mockIntersectionObserver as any;
+		// Mock IntersectionObserver to capture callback
+		const OriginalObserver = window.IntersectionObserver;
+		window.IntersectionObserver = class MockIntersectionObserver {
+			constructor(
+				callback: (entries: IntersectionObserverEntry[]) => void,
+				options?: IntersectionObserverInit,
+			) {
+				capturedCallback = callback;
+			}
+			observe = vi.fn();
+			unobserve = vi.fn();
+			disconnect = vi.fn();
+		} as any;
 
 		render(
 			<InfiniteScroll
@@ -152,9 +144,17 @@ describe("InfiniteScroll", () => {
 		// Verify initial post is rendered
 		expect(screen.getByText("Initial Post")).toBeInTheDocument();
 
+		// Wait for the captured callback to be set (observer created)
+		await waitFor(() => {
+			expect(capturedCallback).not.toBeNull();
+		});
+
+		// Allow effects to run (sync refs)
+		await new Promise((resolve) => setTimeout(resolve, 10));
+
 		// Fire the observer callback with isIntersecting: true
-		if (observerCallback) {
-			observerCallback([{ isIntersecting: true }]);
+		if (capturedCallback) {
+			capturedCallback([{ isIntersecting: true } as IntersectionObserverEntry]);
 		}
 
 		// Wait for loadMorePosts to be called and new posts to render
@@ -166,5 +166,8 @@ describe("InfiniteScroll", () => {
 			expect(screen.getByText("Loaded Post 1")).toBeInTheDocument();
 			expect(screen.getByText("Loaded Post 2")).toBeInTheDocument();
 		});
+
+		// Restore original IntersectionObserver
+		window.IntersectionObserver = OriginalObserver;
 	});
 });
