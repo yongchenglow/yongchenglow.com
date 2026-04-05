@@ -28,13 +28,18 @@ import {
 	getAllBlogPosts,
 	getAllBlogSlugs,
 	getAllPostYears,
+	getBlogPost,
 	getBlogPostNavigation,
+	getBlogPostsByCategory,
 	getBlogPostsByTag,
 	getBlogPostsByYear,
+	getCategoryMetadata,
+	getCategoryPostCounts,
 	getFeaturedPost,
 	getPaginatedPosts,
 	getPaginatedPostsByCategory,
 	getPaginatedPostsByYear,
+	getYearPostCounts,
 } from "@/src/lib/blog";
 
 const mockPost = (
@@ -246,6 +251,169 @@ describe("getBlogPostsByYear", () => {
 
 	it("returns empty array for a year with no posts", () => {
 		expect(getBlogPostsByYear(2020)).toHaveLength(0);
+	});
+});
+
+describe("getBlogPost", () => {
+	it("returns a BlogPost with the correct slug", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			mockPost("test-slug", { date: "2024-01-01" }),
+		);
+		const post = getBlogPost("test-slug");
+		expect(post.slug).toBe("test-slug");
+	});
+
+	it("reads .mdx file when it exists", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(true);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			mockPost("mdx-post", { date: "2024-01-01" }),
+		);
+		const post = getBlogPost("mdx-post");
+		expect(post.slug).toBe("mdx-post");
+		expect(vi.mocked(fs.existsSync)).toHaveBeenCalled();
+	});
+
+	it("falls back to .md file when .mdx does not exist", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			mockPost("md-post", { date: "2024-01-01" }),
+		);
+		const post = getBlogPost("md-post");
+		expect(post.slug).toBe("md-post");
+	});
+
+	it("truncates excerpt to 200 characters", () => {
+		const longContent = "A".repeat(300);
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			`---\ntitle: test\ndescription: desc\ndate: 2024-01-01\nauthor: Test\ntags: []\n---\n${longContent}`,
+		);
+		const post = getBlogPost("long-excerpt");
+		expect(post.excerpt.length).toBeLessThanOrEqual(200);
+	});
+
+	it("sets readingTime as non-empty string", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			mockPost("reading-test", { date: "2024-01-01" }),
+		);
+		const post = getBlogPost("reading-test");
+		expect(typeof post.readingTime).toBe("string");
+		expect(post.readingTime.length).toBeGreaterThan(0);
+	});
+});
+
+describe("getCategoryMetadata", () => {
+	it("returns metadata for known category slug", () => {
+		const metadata = getCategoryMetadata("development");
+		expect(metadata).not.toBeNull();
+		expect(metadata?.slug).toBe("development");
+		expect(metadata?.label).toBe("Development");
+	});
+
+	it("returns null for unknown slug", () => {
+		const metadata = getCategoryMetadata("nonexistent-category");
+		expect(metadata).toBeNull();
+	});
+});
+
+describe("getBlogPostsByCategory", () => {
+	beforeEach(() => {
+		vi.mocked(fs.readdirSync).mockReturnValue([
+			"dev-post.mdx",
+			"process-post.mdx",
+			"other-post.mdx",
+		] as never);
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+			if (String(filePath).includes("dev-post"))
+				return mockPost("dev-post", {
+					date: "2024-01-01",
+					tags: "web-development",
+				});
+			if (String(filePath).includes("process-post"))
+				return mockPost("process-post", {
+					date: "2024-01-01",
+					tags: "agile",
+				});
+			return mockPost("other-post", {
+				date: "2024-01-01",
+				tags: "random-tag",
+			});
+		});
+	});
+
+	it("returns posts matching category tags", () => {
+		const posts = getBlogPostsByCategory("development");
+		expect(posts.map((p) => p.slug)).toContain("dev-post");
+		expect(posts.map((p) => p.slug)).not.toContain("process-post");
+	});
+
+	it("returns empty array for unknown category", () => {
+		const posts = getBlogPostsByCategory("nonexistent-category");
+		expect(posts).toHaveLength(0);
+	});
+
+	it("excludes posts that don't match category tags", () => {
+		const posts = getBlogPostsByCategory("development");
+		expect(posts.map((p) => p.slug)).not.toContain("other-post");
+	});
+});
+
+describe("getCategoryPostCounts", () => {
+	beforeEach(() => {
+		vi.mocked(fs.readdirSync).mockReturnValue([
+			"dev-post.mdx",
+			"process-post.mdx",
+		] as never);
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+			if (String(filePath).includes("dev-post"))
+				return mockPost("dev-post", {
+					date: "2024-01-01",
+					tags: "web-development",
+				});
+			return mockPost("process-post", {
+				date: "2024-01-01",
+				tags: "agile",
+			});
+		});
+	});
+
+	it("returns counts keyed by category slug", () => {
+		const counts = getCategoryPostCounts();
+		expect(counts).toHaveProperty("development");
+		expect(counts).toHaveProperty("process");
+		expect(counts).toHaveProperty("design");
+		expect(counts).toHaveProperty("career");
+	});
+
+	it("returns 0 for categories with no posts", () => {
+		const counts = getCategoryPostCounts();
+		expect(counts["design"]).toBe(0);
+		expect(counts["career"]).toBe(0);
+	});
+});
+
+describe("getYearPostCounts", () => {
+	it("returns correct count per year", () => {
+		vi.mocked(fs.readdirSync).mockReturnValue([
+			"y2024-a.mdx",
+			"y2024-b.mdx",
+			"y2023.mdx",
+		] as never);
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
+			if (String(filePath).includes("y2024"))
+				return mockPost(`${String(filePath).match(/y\d+\-?\w*/)?.[0]}`, {
+					date: "2024-06-01",
+				});
+			return mockPost("y2023", { date: "2023-06-01" });
+		});
+		const counts = getYearPostCounts();
+		expect(counts[2024]).toBe(2);
+		expect(counts[2023]).toBe(1);
 	});
 });
 
