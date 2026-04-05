@@ -32,7 +32,12 @@ describe("BlogNavigation", () => {
 	it("renders previous link with correct href", () => {
 		const previousPost = makePost({
 			slug: "previous-post",
-			frontmatter: { title: "Previous Post" },
+			frontmatter: {
+				title: "Previous Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		render(<BlogNavigation previousPost={previousPost} nextPost={null} />);
 		const link = screen.getByRole("link");
@@ -42,7 +47,12 @@ describe("BlogNavigation", () => {
 	it("renders next link with correct href", () => {
 		const nextPost = makePost({
 			slug: "next-post",
-			frontmatter: { title: "Next Post" },
+			frontmatter: {
+				title: "Next Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		render(<BlogNavigation previousPost={null} nextPost={nextPost} />);
 		const link = screen.getByRole("link");
@@ -52,11 +62,21 @@ describe("BlogNavigation", () => {
 	it("renders both links when both provided", () => {
 		const previousPost = makePost({
 			slug: "previous-post",
-			frontmatter: { title: "Previous Post" },
+			frontmatter: {
+				title: "Previous Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		const nextPost = makePost({
 			slug: "next-post",
-			frontmatter: { title: "Next Post" },
+			frontmatter: {
+				title: "Next Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		render(<BlogNavigation previousPost={previousPost} nextPost={nextPost} />);
 		const links = screen.getAllByRole("link");
@@ -68,7 +88,12 @@ describe("BlogNavigation", () => {
 	it("renders 'Previous' label for previous post", () => {
 		const previousPost = makePost({
 			slug: "previous-post",
-			frontmatter: { title: "Previous Post" },
+			frontmatter: {
+				title: "Previous Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		render(<BlogNavigation previousPost={previousPost} nextPost={null} />);
 		expect(screen.getByText("Previous")).toBeInTheDocument();
@@ -77,7 +102,12 @@ describe("BlogNavigation", () => {
 	it("renders 'Next' label for next post", () => {
 		const nextPost = makePost({
 			slug: "next-post",
-			frontmatter: { title: "Next Post" },
+			frontmatter: {
+				title: "Next Post",
+				description: "",
+				author: "",
+				date: "2024-01-01",
+			},
 		});
 		render(<BlogNavigation previousPost={null} nextPost={nextPost} />);
 		expect(screen.getByText("Next")).toBeInTheDocument();

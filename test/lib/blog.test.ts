@@ -290,7 +290,7 @@ describe("getBlogPost", () => {
 			`---\ntitle: test\ndescription: desc\ndate: 2024-01-01\nauthor: Test\ntags: []\n---\n${longContent}`,
 		);
 		const post = getBlogPost("long-excerpt");
-		expect(post.excerpt.length).toBeLessThanOrEqual(200);
+		expect(post.excerpt?.length).toBeLessThanOrEqual(200);
 	});
 
 	it("sets readingTime as non-empty string", () => {
@@ -391,8 +391,8 @@ describe("getCategoryPostCounts", () => {
 
 	it("returns 0 for categories with no posts", () => {
 		const counts = getCategoryPostCounts();
-		expect(counts["design"]).toBe(0);
-		expect(counts["career"]).toBe(0);
+		expect(counts.design).toBe(0);
+		expect(counts.career).toBe(0);
 	});
 });
 

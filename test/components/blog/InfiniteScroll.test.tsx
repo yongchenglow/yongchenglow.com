@@ -122,13 +122,14 @@ describe("InfiniteScroll", () => {
 		window.IntersectionObserver = class MockIntersectionObserver {
 			constructor(
 				callback: (entries: IntersectionObserverEntry[]) => void,
-				options?: IntersectionObserverInit,
+				_options?: IntersectionObserverInit,
 			) {
 				capturedCallback = callback;
 			}
 			observe = vi.fn();
 			unobserve = vi.fn();
 			disconnect = vi.fn();
+			// biome-ignore lint/suspicious/noExplicitAny: Mock class doesn't need full IntersectionObserver type
 		} as any;
 
 		render(
@@ -153,9 +154,11 @@ describe("InfiniteScroll", () => {
 		await new Promise((resolve) => setTimeout(resolve, 10));
 
 		// Fire the observer callback with isIntersecting: true
-		if (capturedCallback) {
-			capturedCallback([{ isIntersecting: true } as IntersectionObserverEntry]);
-		}
+		(
+			capturedCallback as unknown as (
+				entries: IntersectionObserverEntry[],
+			) => void
+		)([{ isIntersecting: true } as IntersectionObserverEntry]);
 
 		// Wait for loadMorePosts to be called and new posts to render
 		await waitFor(() => {

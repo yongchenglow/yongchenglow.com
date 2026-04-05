@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Index from "@/src/app/page";
 import type { BlogPost } from "@/src/types/blog";
