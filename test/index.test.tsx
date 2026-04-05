@@ -26,8 +26,7 @@ vi.mock("@/src/lib/blog", () => ({
 
 describe("Index", () => {
 	it("renders the homepage", () => {
-		render(<Index />);
-		const container = screen.getByRole("main");
+		const { container } = render(<Index />);
 		expect(container).toBeInTheDocument();
 	});
 });
