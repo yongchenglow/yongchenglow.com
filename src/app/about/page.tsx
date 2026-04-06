@@ -1,4 +1,5 @@
 import { Briefcase, GraduationCap, Shield } from "lucide-react";
+import aboutData from "@/content/about.json";
 import Timeline from "@/src/components/about/Timeline";
 import TimelineItem from "@/src/components/about/TimelineItem";
 import PostContainer from "@/src/components/post/PostContainer";
@@ -11,7 +12,6 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
-import aboutData from "@/src/data/about.json";
 
 export default function AboutPage() {
 	return (
