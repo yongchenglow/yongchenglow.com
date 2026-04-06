@@ -127,8 +127,6 @@ src/
 │   ├── blog.ts                 # Blog utility functions (pagination, categories, years)
 │   ├── animation.ts            # Animation helpers (stagger delays)
 │   └── utils.ts                # General utilities (cn helper)
-├── data/
-│   └── about.json              # About page data (experience, education, military service)
 ├── config/
 │   └── blog.ts                 # Blog configuration (categories, posts per page)
 └── types/
@@ -136,9 +134,11 @@ src/
     └── search.ts               # TypeScript types for search
 
 content/
-└── blog/                       # MDX blog post files
-    ├── authors/
-    │   └── yongchenglow.json   # Author metadata
+├── blog/                       # MDX blog post files
+│   └── authors/
+│       └── yongchenglow.json   # Author metadata
+├── about.json                  # About page content (experience, education, military service)
+└── home.json                   # Home page content (intro, projects, about section)
 
 public/
 ├── img/                        # Images
@@ -246,23 +246,77 @@ The search functionality uses [FlexSearch](https://github.com/nextapps-de/flexse
 
 ### Home Page
 
-**File:** `src/app/page.tsx`
+**File:** `src/app/page.tsx`, `content/home.json`
 
 The home page is composed of section components rendered in order within a `StandardLayout`:
 
-1. **IntroSection** — hero with name, title, description, photo, and CTA buttons (LinkedIn, GitHub)
+1. **IntroSection** — hero with greeting, name, title, photo, and CTA buttons (Blog, About)
 2. **LatestPostsSection** — displays the featured post (or most recent post if none featured)
 3. **ProjectsSection** — projects showcase with grid layout
 4. **GoogleAds** — ad placements for monetization
 5. **AboutMeSection** — brief about snippet with link to full about page
 
+Content is stored in `content/home.json` with the following structure:
+
+```json
+{
+  "intro": {
+    "greeting": "Hello, I'm",
+    "name": "Your Name",
+    "title": "Your title with company links",
+    "companyLinks": [
+      { "label": "Company", "url": "https://..." }
+    ],
+    "ctaButtons": [
+      { "label": "Read My Blog", "href": "/blog", "variant": "default" },
+      { "label": "About Me", "href": "/about", "variant": "outline" }
+    ],
+    "image": {
+      "src": "/img/photo.jpg",
+      "alt": "Your Name",
+      "width": 400,
+      "height": 400
+    }
+  },
+  "projects": {
+    "title": "Project Highlights",
+    "items": [
+      {
+        "title": "Project Name",
+        "description": "Description",
+        "buttons": [
+          { "text": "Website", "href": "https://..." },
+          { "text": "Code", "href": "https://github.com/..." }
+        ]
+      }
+    ]
+  },
+  "about": {
+    "title": "Who am I?",
+    "paragraphs": ["Bio text..."],
+    "image": {
+      "src": "/img/photo.jpg",
+      "alt": "Your Name",
+      "width": 400,
+      "height": 400
+    },
+    "externalLinks": [
+      { "label": "School/Company", "url": "https://..." }
+    ],
+    "internalLinks": [
+      { "label": "about", "href": "/about" }
+    ]
+  }
+}
+```
+
 To feature a blog post on the home page, set `featured: true` in its frontmatter. If no post is marked as featured, the most recent post is shown.
 
 ### About Page
 
-**Files:** `src/app/about/page.tsx`, `src/data/about.json`
+**Files:** `src/app/about/page.tsx`, `content/about.json`
 
-The about page renders a timeline of experience and education. All data is sourced from `src/data/about.json` — update that file to change the content displayed on the about page.
+The about page renders a timeline of experience and education. All data is sourced from `content/about.json` — update that file to change the content displayed on the about page.
 
 Structure of `about.json`:
 

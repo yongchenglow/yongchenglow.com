@@ -1,0 +1,112 @@
+{
+	"intro": {
+		"greeting": "Hello, I'm",
+		"name": "Yong Cheng Low",
+		"title": "Senior Software Engineer at Glints, part-time teacher at Le Wagon and a Sports Enthusiast.",
+		"companyLinks": [
+			{
+				"label": "Glints",
+				"url": "https://glints.com"
+			},
+			{
+				"label": "Le Wagon",
+				"url": "https://www.lewagon.com/singapore"
+			}
+		],
+		"ctaButtons": [
+			{
+				"label": "Read My Blog",
+				"href": "/blog",
+				"variant": "default"
+			},
+			{
+				"label": "About Me",
+				"href": "/about",
+				"variant": "outline"
+			}
+		],
+		"image": {
+			"src": "/img/yong-cheng-badminton.jpg",
+			"alt": "Low Yong Cheng",
+			"width": 400,
+			"height": 400
+		}
+	},
+	"projects": {
+		"title": "Project Highlights",
+		"items": [
+			{
+				"title": "NUS Students' Sports Club",
+				"description": "I developed a company website for the club. This was my first project using react.",
+				"buttons": [
+					{
+						"text": "Website",
+						"href": "https://www.nussportsclub.org"
+					},
+					{
+						"text": "Code",
+						"href": "https://github.com/yongchenglow/nus-students-sports-club"
+					}
+				]
+			},
+			{
+				"title": "My Personal Website",
+				"description": "Coded using NextJS and deployed through my own personal webserver on a RaspberryPi3.",
+				"buttons": [
+					{
+						"text": "Code",
+						"href": "https://github.com/yongchenglow/yongchenglow.com"
+					}
+				]
+			},
+			{
+				"title": "AirBnB Clone",
+				"description": "This is a project written using Ruby on Rails for Le Wagon students to reference",
+				"buttons": [
+					{
+						"text": "Website",
+						"href": "https://airbnb-yc.herokuapp.com"
+					},
+					{
+						"text": "Code",
+						"href": "https://github.com/yongchenglow/airbnb-clone"
+					}
+				]
+			}
+		]
+	},
+	"about": {
+		"title": "Who am I?",
+		"image": {
+			"src": "/img/yong-cheng-metasprint.jpeg",
+			"alt": "Low Yong Cheng",
+			"width": 400,
+			"height": 400
+		},
+		"paragraphs": [
+			"I grew up studying in various international schools in particular Shanghai Community International School, Dulwich College Shanghai and Sha Tin College Hong Kong.",
+			"During my free time, I will write Tech Posts to share my learning experience as a web software engineer. I hope that these posts will help my students and others transition into the Software Engineering careers. These posts are mainly targeted at junior web software engineers. If you are a mid or senior level, feel free to take a peek at them if you are free.",
+			"You can find out more about me in the about section."
+		],
+		"externalLinks": [
+			{
+				"label": "Shanghai Community International School",
+				"url": "https://www.scis-china.org"
+			},
+			{
+				"label": "Dulwich College Shanghai",
+				"url": "https://shanghai-pudong.dulwich.org"
+			},
+			{
+				"label": "Sha Tin College Hong Kong",
+				"url": "https://shatincollege.edu.hk"
+			}
+		],
+		"internalLinks": [
+			{
+				"label": "about",
+				"href": "/about"
+			}
+		]
+	}
+}
