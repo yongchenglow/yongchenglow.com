@@ -7,6 +7,7 @@ import { Badge } from "@/src/components/shared/ui/badge";
 import {
 	Dialog,
 	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 } from "@/src/components/shared/ui/dialog";
@@ -82,6 +83,9 @@ export default function SearchDialog() {
 						<Search className="h-5 w-5" />
 						Search Blog Posts
 					</DialogTitle>
+					<DialogDescription className="sr-only">
+						Search through blog posts by title, description, content, or tags
+					</DialogDescription>
 				</DialogHeader>
 
 				<div className="relative">
