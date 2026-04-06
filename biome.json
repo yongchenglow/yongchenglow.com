@@ -10,7 +10,6 @@
 		"includes": [
 			".claude/**/*",
 			".husky/**/*",
-			"chart/**/*",
 			"test/**/*",
 			"src/**/*",
 			"*.ts",
