@@ -22,7 +22,7 @@ on:
         description: "Target platforms for multi-arch builds"
         required: false
         type: string
-        default: "linux/amd64,linux/arm64"
+        default: "linux/arm64"
       tag_prefix:
         description: "Prefix for image tags (e.g., branch name)"
         required: false
@@ -44,7 +44,7 @@ on:
 jobs:
   docker:
     name: Build & Push Docker Image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     permissions:
       contents: read
