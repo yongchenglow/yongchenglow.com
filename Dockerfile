@@ -1,5 +1,6 @@
 # Build arguments for versioning and metadata
-ARG NODE_VERSION=22
+# NODE_VERSION is passed from CI (reads from package.json engines.node)
+ARG NODE_VERSION
 
 # Stage 1: Builder
 FROM node:${NODE_VERSION}-alpine AS builder

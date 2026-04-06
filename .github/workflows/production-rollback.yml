@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   workflow_call:
 
-env:
-  NODE_VERSION: "24.14.1"
 
 jobs:
   rollback:
