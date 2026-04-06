@@ -15,7 +15,7 @@ on:
 jobs:
   setup:
     name: Setup & Cache Dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     outputs:
       cache_hit: ${{ steps.cache-node-modules.outputs.cache-hit }}
@@ -42,7 +42,7 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     needs: setup
     steps:
@@ -65,7 +65,7 @@ jobs:
 
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     needs: setup
     steps:
@@ -88,7 +88,7 @@ jobs:
 
   knip:
     name: Dependency Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     needs: setup
     steps:
@@ -111,7 +111,7 @@ jobs:
 
   security-scan:
     name: Security Scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     needs: setup
     permissions:
