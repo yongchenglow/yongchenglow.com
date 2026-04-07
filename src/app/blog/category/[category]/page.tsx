@@ -7,12 +7,12 @@ interface CategoryPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const categories = getAllCategories();
 	return categories.map((category) => ({ category: category.slug }));
-}
+};
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export const CategoryPage = async ({ params }: CategoryPageProps) => {
 	const { category } = await params;
 	const categoryMetadata = getCategoryMetadata(category);
 
@@ -22,4 +22,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
 	// Redirect to page 1
 	redirect(`/blog/category/${category}/1`);
-}
+};
+
+export default CategoryPage;

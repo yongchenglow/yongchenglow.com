@@ -31,11 +31,11 @@ const admonitionConfig = {
 	},
 };
 
-export default function Admonition({
+export const Admonition = ({
 	type = "note",
 	title,
 	children,
-}: AdmonitionProps) {
+}: AdmonitionProps) => {
 	const config = admonitionConfig[type];
 	const Icon = config.icon;
 
@@ -46,4 +46,4 @@ export default function Admonition({
 			<AlertDescription>{children}</AlertDescription>
 		</Alert>
 	);
-}
+};

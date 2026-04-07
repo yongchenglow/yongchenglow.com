@@ -15,7 +15,7 @@ import { Input } from "@/src/components/shared/ui/input";
 import { useSearch } from "@/src/hooks/useSearch";
 import { setOpenSearchHandler } from "./SearchTrigger";
 
-export default function SearchDialog() {
+export const SearchDialog = () => {
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const { search, results, isLoading, clearResults, initializeIndex } =
@@ -168,4 +168,4 @@ export default function SearchDialog() {
 			</DialogContent>
 		</Dialog>
 	);
-}
+};

@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
-import Pagination from "@/src/components/blog/Pagination";
-import PostCard from "@/src/components/post/PostCard";
-import PostGrid from "@/src/components/post/PostGrid";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
-import PageTitle from "@/src/components/shared/atoms/PageTitle";
+import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
+import { Pagination } from "@/src/components/blog/Pagination";
+import { PostCard } from "@/src/components/post/PostCard";
+import { PostGrid } from "@/src/components/post/PostGrid";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
+import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import {
@@ -21,7 +21,7 @@ interface YearPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const years = getAllPostYears();
 	const params: { year: string; page: string }[] = [];
 
@@ -39,11 +39,9 @@ export async function generateStaticParams() {
 	}
 
 	return params;
-}
+};
 
-export default async function YearPageWithPagination({
-	params,
-}: YearPageProps) {
+export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 	const { year, page } = await params;
 	const yearNumber = Number.parseInt(year, 10);
 	const pageNumber = Number.parseInt(page, 10);
@@ -98,4 +96,6 @@ export default async function YearPageWithPagination({
 			</div>
 		</StandardLayout>
 	);
-}
+};
+
+export default YearPageWithPagination;

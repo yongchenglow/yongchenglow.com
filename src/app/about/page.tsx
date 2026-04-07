@@ -1,11 +1,11 @@
 import { Briefcase, GraduationCap, Shield } from "lucide-react";
 import aboutData from "@/content/about.json";
-import Timeline from "@/src/components/about/Timeline";
-import TimelineItem from "@/src/components/about/TimelineItem";
-import PostContainer from "@/src/components/post/PostContainer";
-import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
+import { Timeline } from "@/src/components/about/Timeline";
+import { TimelineItem } from "@/src/components/about/TimelineItem";
+import { PostContainer } from "@/src/components/post/PostContainer";
+import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import PageTitle from "@/src/components/shared/atoms/PageTitle";
+import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import {
 	Avatar,
@@ -13,7 +13,7 @@ import {
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
 
-export default function AboutPage() {
+export const AboutPage = () => {
 	return (
 		<StandardLayout>
 			<PostContainer>
@@ -70,56 +70,56 @@ export default function AboutPage() {
 
 					{/* Education */}
 					{aboutData.education.map((edu) => (
-						<TimelineItem
-							key={edu.title}
-							title={edu.title}
-							icon={<GraduationCap className="h-4 w-4" />}
-							category="school"
-							years={edu.years}
-							location={edu.location}
-						>
-							{edu.link ? (
-								<>
-									{edu.description.split(edu.link.label)[0]}
-									<ExternalLink href={edu.link.url}>
-										{edu.link.label}
-									</ExternalLink>
-									{edu.description.split(edu.link.label)[1]}
-								</>
-							) : edu.links ? (
-								<>
-									{edu.description.split(edu.links[0].label)[0]}
-									<ExternalLink href={edu.links[0].url}>
-										{edu.links[0].label}
-									</ExternalLink>
-									{
-										edu.description
-											.split(edu.links[0].label)[1]
-											.split(edu.links[1].label)[0]
-									}
-									<ExternalLink href={edu.links[1].url}>
-										{edu.links[1].label}
-									</ExternalLink>
-									{edu.description.split(edu.links[1].label)[1]}
-								</>
-							) : (
-								<p>{edu.description}</p>
-							)}
+								<TimelineItem
+									key={edu.title}
+									title={edu.title}
+									icon={<GraduationCap className="h-4 w-4" />}
+									category="school"
+									years={edu.years}
+									location={edu.location}
+								>
+									{edu.link ? (
+										<>
+											{edu.description.split(edu.link.label)[0]}
+											<ExternalLink href={edu.link.url}>
+												{edu.link.label}
+											</ExternalLink>
+											{edu.description.split(edu.link.label)[1]}
+										</>
+									) : edu.links ? (
+										<>
+											{edu.description.split(edu.links[0].label)[0]}
+											<ExternalLink href={edu.links[0].url}>
+												{edu.links[0].label}
+											</ExternalLink>
+											{
+												edu.description
+													.split(edu.links[0].label)[1]
+													.split(edu.links[1].label)[0]
+											}
+											<ExternalLink href={edu.links[1].url}>
+												{edu.links[1].label}
+											</ExternalLink>
+											{edu.description.split(edu.links[1].label)[1]}
+										</>
+									) : (
+										<p>{edu.description}</p>
+									)}
 						</TimelineItem>
 					))}
 
 					{/* Military Service */}
-					<TimelineItem
-						title={aboutData.military_service.title}
-						icon={<Shield className="h-4 w-4" />}
-						category="military"
-						years={aboutData.military_service.years}
-						location={aboutData.military_service.location}
-					>
+									<TimelineItem
+										title={aboutData.military_service.title}
+										icon={<Shield className="h-4 w-4" />}
+										category="military"
+										years={aboutData.military_service.years}
+										location={aboutData.military_service.location}
+									>
 						{aboutData.military_service.description.split("Guards unit")[0]}
-						<ExternalLink href={aboutData.military_service.link.url}>
-							Guards unit
-						</ExternalLink>
+										<ExternalLink href={aboutData.military_service.link.url}>
+											Guards unit
+										</ExternalLink>
 						{aboutData.military_service.description.split("Guards unit")[1]}
 					</TimelineItem>
 				</Timeline>
@@ -128,4 +128,6 @@ export default function AboutPage() {
 			</PostContainer>
 		</StandardLayout>
 	);
-}
+};
+
+export default AboutPage;

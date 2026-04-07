@@ -1,5 +1,5 @@
 import { Calendar, Clock } from "lucide-react";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import {
 	Card,
@@ -19,7 +19,7 @@ interface PostCardProps {
 	className?: string;
 }
 
-export default function PostCard({
+export const PostCard = ({
 	title,
 	description,
 	href,
@@ -27,7 +27,7 @@ export default function PostCard({
 	date,
 	tags,
 	className,
-}: PostCardProps) {
+}: PostCardProps) => {
 	return (
 		<div className={className}>
 			<InternalLink href={href} className="no-underline group">
@@ -72,4 +72,4 @@ export default function PostCard({
 			</InternalLink>
 		</div>
 	);
-}
+};

@@ -13,7 +13,7 @@ interface FadeInProps {
 	className?: string;
 }
 
-export default function FadeIn({
+export const FadeIn = ({
 	children,
 	delay = 0,
 	duration = 0.5,
@@ -21,7 +21,7 @@ export default function FadeIn({
 	threshold = 0.1,
 	once = true,
 	className,
-}: FadeInProps) {
+}: FadeInProps) => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once, amount: threshold });
 
@@ -42,4 +42,4 @@ export default function FadeIn({
 			{children}
 		</motion.div>
 	);
-}
+};

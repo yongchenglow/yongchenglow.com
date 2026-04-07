@@ -3,9 +3,9 @@
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import SearchTrigger from "@/src/components/search/SearchTrigger";
+import { SearchTrigger } from "@/src/components/search/SearchTrigger";
 import Container from "@/src/components/shared/atoms/Container";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import {
 	NavigationMenu,
 	NavigationMenuItem,

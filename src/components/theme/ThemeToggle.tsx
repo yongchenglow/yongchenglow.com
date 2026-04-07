@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+export const ThemeToggle = () => {
 	const { resolvedTheme, setTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 
@@ -18,9 +18,9 @@ export function ThemeToggle() {
 
 	const isDark = resolvedTheme === "dark";
 
-	function toggle() {
+	const toggle = () => {
 		setTheme(isDark ? "light" : "dark");
-	}
+	};
 
 	return (
 		<Switch
@@ -57,4 +57,4 @@ export function ThemeToggle() {
 			/>
 		</Switch>
 	);
-}
+};

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getPaginatedPostsByCategory } from "@/src/lib/blog";
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
 	const category = searchParams.get("category");
 	const page = Number.parseInt(searchParams.get("page") || "1", 10);
@@ -27,4 +27,4 @@ export async function GET(request: Request) {
 			{ status: 500 },
 		);
 	}
-}
+};

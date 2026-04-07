@@ -1,11 +1,11 @@
 import Image from "next/image";
 import homeData from "@/content/home.json";
-import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
-import Section from "@/src/components/shared/molecules/Section";
+import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
+import { Section } from "@/src/components/shared/molecules/Section";
 
-export default function AboutMeSection() {
+export const AboutMeSection = () => {
 	const { about } = homeData;
 
 	return (
@@ -42,12 +42,12 @@ export default function AboutMeSection() {
 			</div>
 		</Section>
 	);
-}
+};
 
-function renderParagraphContent(
+const renderParagraphContent = (
 	paragraph: string,
 	about: (typeof homeData)["about"],
-) {
+) => {
 	// Check if this paragraph contains external links
 	for (const link of about.externalLinks) {
 		if (paragraph.includes(link.label)) {
@@ -77,4 +77,4 @@ function renderParagraphContent(
 	}
 
 	return paragraph;
-}
+};

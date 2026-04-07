@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 
 interface AnimatedGridItemProps {
 	children: ReactNode;
@@ -9,11 +9,11 @@ interface AnimatedGridItemProps {
 	className?: string;
 }
 
-export default function AnimatedGridItem({
+export const AnimatedGridItem = ({
 	children,
 	index,
 	className,
-}: AnimatedGridItemProps) {
+}: AnimatedGridItemProps) => {
 	return (
 		<FadeIn
 			delay={index * 0.05}
@@ -25,4 +25,4 @@ export default function AnimatedGridItem({
 			{children}
 		</FadeIn>
 	);
-}
+};

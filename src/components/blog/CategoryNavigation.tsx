@@ -1,10 +1,10 @@
 import { Folder } from "lucide-react";
 import Link from "next/link";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { getAllCategories, getCategoryPostCounts } from "@/src/lib/blog";
 
-export default function CategoryNavigation() {
+export const CategoryNavigation = () => {
 	const categories = getAllCategories();
 	const counts = getCategoryPostCounts();
 
@@ -34,4 +34,4 @@ export default function CategoryNavigation() {
 			</div>
 		</FadeIn>
 	);
-}
+};

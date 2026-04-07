@@ -5,10 +5,10 @@ interface PostContainerProps {
 	className?: string;
 }
 
-export default function PostContainer({
+export const PostContainer = ({
 	children,
 	className = "",
-}: PostContainerProps) {
+}: PostContainerProps) => {
 	return (
 		<div
 			className={`py-3 px-4 mx-auto max-w-prose md:max-w-3xl lg:max-w-4xl text-left w-full ${className}`.trim()}
@@ -16,4 +16,4 @@ export default function PostContainer({
 			{children}
 		</div>
 	);
-}
+};

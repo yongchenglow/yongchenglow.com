@@ -1,10 +1,10 @@
 import { CalendarDays } from "lucide-react";
 import Link from "next/link";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { getAllPostYears, getYearPostCounts } from "@/src/lib/blog";
 
-export default function YearFilter() {
+export const YearFilter = () => {
 	const years = getAllPostYears();
 	const counts = getYearPostCounts();
 
@@ -32,4 +32,4 @@ export default function YearFilter() {
 			</div>
 		</FadeIn>
 	);
-}
+};

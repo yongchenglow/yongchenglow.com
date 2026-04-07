@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import InfiniteScroll from "@/src/components/blog/InfiniteScroll";
+import { InfiniteScroll } from "@/src/components/blog/InfiniteScroll";
 import type { BlogPost } from "@/src/types/blog";
 
 // Helper function to create test posts

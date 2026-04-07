@@ -1,8 +1,8 @@
 import { ArrowLeft } from "lucide-react";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 
-export default function BlogBackButton() {
+export const BlogBackButton = () => {
 	return (
 		<div className="flex justify-end mb-6">
 			<Button variant="ghost" size="sm" asChild>
@@ -13,4 +13,4 @@ export default function BlogBackButton() {
 			</Button>
 		</div>
 	);
-}
+};

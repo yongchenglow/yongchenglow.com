@@ -8,7 +8,7 @@ interface PostImageProps extends Omit<ImageProps, "width" | "height"> {
 	className?: string;
 }
 
-export default function PostImage({
+export const PostImage = ({
 	src,
 	alt,
 	width = 1280,
@@ -17,7 +17,7 @@ export default function PostImage({
 	style = { width: "100%", height: "auto" },
 	className = "",
 	...props
-}: PostImageProps) {
+}: PostImageProps) => {
 	return (
 		<div className={`max-w-3xl mx-auto mb-4 ${className}`.trim()}>
 			<Image
@@ -31,4 +31,4 @@ export default function PostImage({
 			/>
 		</div>
 	);
-}
+};

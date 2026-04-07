@@ -1,5 +1,5 @@
-import ContentCard from "@/src/components/shared/organisms/ContentCard";
-import ProjectButton from "./ProjectButton";
+import { ContentCard } from "@/src/components/shared/organisms/ContentCard";
+import { ProjectButton } from "./ProjectButton";
 
 export interface ProjectProps {
 	title: string;
@@ -10,11 +10,7 @@ export interface ProjectProps {
 	}>;
 }
 
-export default function ProjectCard({
-	title,
-	description,
-	buttons,
-}: ProjectProps) {
+export const ProjectCard = ({ title, description, buttons }: ProjectProps) => {
 	return (
 		<ContentCard
 			title={title}
@@ -29,4 +25,4 @@ export default function ProjectCard({
 			))}
 		/>
 	);
-}
+};

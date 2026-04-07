@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import PostCard from "@/src/components/post/PostCard";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { PostCard } from "@/src/components/post/PostCard";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { getStaggerDelay } from "@/src/lib/animation";
 import type { BlogPost } from "@/src/types/blog";
 
@@ -15,13 +15,13 @@ interface InfiniteScrollProps {
 	loadMorePosts: (page: number) => Promise<BlogPost[]>;
 }
 
-export default function InfiniteScroll({
+export const InfiniteScroll = ({
 	initialPosts,
 	currentPage,
 	totalPages,
 	baseUrl,
 	loadMorePosts,
-}: InfiniteScrollProps) {
+}: InfiniteScrollProps) => {
 	const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
 	const [page, setPage] = useState(currentPage);
 	const [isLoading, setIsLoading] = useState(false);
@@ -137,4 +137,4 @@ export default function InfiniteScroll({
 			)}
 		</>
 	);
-}
+};

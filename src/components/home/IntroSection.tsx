@@ -1,11 +1,11 @@
 import Image from "next/image";
 import homeData from "@/content/home.json";
-import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 
-export default function IntroSection() {
+export const IntroSection = () => {
 	const { intro } = homeData;
 
 	return (
@@ -70,4 +70,4 @@ export default function IntroSection() {
 			</div>
 		</div>
 	);
-}
+};

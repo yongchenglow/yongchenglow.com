@@ -1,10 +1,10 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import PostCard from "@/src/components/post/PostCard";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
-import Section from "@/src/components/shared/molecules/Section";
+import { PostCard } from "@/src/components/post/PostCard";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
+import { Section } from "@/src/components/shared/molecules/Section";
 import { Button } from "@/src/components/shared/ui/button";
 import type { BlogPost } from "@/src/types/blog";
 
@@ -12,7 +12,7 @@ interface LatestPostsSectionProps {
 	post: BlogPost | null;
 }
 
-export default function LatestPostsSection({ post }: LatestPostsSectionProps) {
+export const LatestPostsSection = ({ post }: LatestPostsSectionProps) => {
 	if (!post) return null;
 
 	return (
@@ -43,4 +43,4 @@ export default function LatestPostsSection({ post }: LatestPostsSectionProps) {
 			</Section>
 		</div>
 	);
-}
+};

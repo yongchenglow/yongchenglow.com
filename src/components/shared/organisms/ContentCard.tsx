@@ -9,12 +9,12 @@ interface ContentCardProps {
 	className?: string;
 }
 
-export default function ContentCard({
+export const ContentCard = ({
 	title,
 	description,
 	footer,
 	className = "",
-}: ContentCardProps) {
+}: ContentCardProps) => {
 	return (
 		<Card
 			className={cn(
@@ -29,4 +29,4 @@ export default function ContentCard({
 			<CardFooter className="flex justify-center gap-3">{footer}</CardFooter>
 		</Card>
 	);
-}
+};

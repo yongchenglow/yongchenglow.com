@@ -5,10 +5,10 @@ interface PageSubtitleProps {
 	className?: string;
 }
 
-export default function PageSubtitle({
+export const PageSubtitle = ({
 	children,
 	className = "",
-}: PageSubtitleProps) {
+}: PageSubtitleProps) => {
 	return (
 		<h2
 			className={`text-muted-foreground text-center mb-4 ${className}`.trim()}
@@ -16,4 +16,4 @@ export default function PageSubtitle({
 			{children}
 		</h2>
 	);
-}
+};

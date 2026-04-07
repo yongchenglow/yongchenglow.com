@@ -1,4 +1,4 @@
-import ExternalLink from "@/src/components/shared/atoms/ExternalLink";
+import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 
 export interface ProjectButtonProps {
@@ -6,7 +6,7 @@ export interface ProjectButtonProps {
 	href: string;
 }
 
-export default function ProjectButton({ text, href }: ProjectButtonProps) {
+export const ProjectButton = ({ text, href }: ProjectButtonProps) => {
 	return (
 		<Button variant="outline" asChild>
 			<ExternalLink href={href} unstyled>
@@ -14,4 +14,4 @@ export default function ProjectButton({ text, href }: ProjectButtonProps) {
 			</ExternalLink>
 		</Button>
 	);
-}
+};

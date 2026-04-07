@@ -13,12 +13,12 @@ interface ImageModalProps {
 	className?: string;
 }
 
-export default function ImageModal({
+export const ImageModal = ({
 	src,
 	alt,
 	source,
 	className,
-}: ImageModalProps) {
+}: ImageModalProps) => {
 	const [open, setOpen] = useState(false);
 	const [parentSource, setParentSource] = useState<string | undefined>(source);
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -151,4 +151,4 @@ export default function ImageModal({
 			</DialogPrimitive.Portal>
 		</DialogPrimitive.Root>
 	);
-}
+};

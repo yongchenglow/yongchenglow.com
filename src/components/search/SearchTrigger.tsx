@@ -6,14 +6,14 @@ import { Button } from "@/src/components/shared/ui/button";
 // Global event emitter for search dialog
 let globalOpenSearch: (() => void) | null = null;
 
-export function setOpenSearchHandler(handler: () => void) {
+export const setOpenSearchHandler = (handler: () => void) => {
 	globalOpenSearch = handler;
 	return () => {
 		globalOpenSearch = null;
 	};
-}
+};
 
-export default function SearchTrigger() {
+export const SearchTrigger = () => {
 	const handleClick = () => {
 		globalOpenSearch?.();
 	};
@@ -33,4 +33,4 @@ export default function SearchTrigger() {
 			</kbd>
 		</Button>
 	);
-}
+};

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import CategoryNavigation from "@/src/components/blog/CategoryNavigation";
+import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
 
 vi.mock("@/src/lib/blog", () => ({
 	getAllCategories: () => [

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import BlogNavigation from "@/src/components/blog/BlogNavigation";
+import { BlogNavigation } from "@/src/components/blog/BlogNavigation";
 import type { BlogPost } from "@/src/types/blog";
 
 // Helper to create a test BlogPost

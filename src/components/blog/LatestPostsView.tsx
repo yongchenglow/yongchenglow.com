@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import InfiniteScroll from "@/src/components/blog/InfiniteScroll";
-import Pagination from "@/src/components/blog/Pagination";
-import PostCard from "@/src/components/post/PostCard";
-import PostGrid from "@/src/components/post/PostGrid";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { InfiniteScroll } from "@/src/components/blog/InfiniteScroll";
+import { Pagination } from "@/src/components/blog/Pagination";
+import { PostCard } from "@/src/components/post/PostCard";
+import { PostGrid } from "@/src/components/post/PostGrid";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Button } from "@/src/components/shared/ui/button";
 import { getStaggerDelay } from "@/src/lib/animation";
 import type { BlogPost, PaginationResult } from "@/src/types/blog";
@@ -15,10 +15,10 @@ interface LatestPostsViewProps {
 	baseUrl: string;
 }
 
-export default function LatestPostsView({
+export const LatestPostsView = ({
 	paginationResult,
 	baseUrl,
-}: LatestPostsViewProps) {
+}: LatestPostsViewProps) => {
 	const [useInfiniteScroll, setUseInfiniteScroll] = useState(false);
 
 	const loadMorePosts = useCallback(
@@ -88,4 +88,4 @@ export default function LatestPostsView({
 			)}
 		</>
 	);
-}
+};

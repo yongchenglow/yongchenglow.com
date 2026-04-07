@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 
 type InternalLinkProps = ComponentProps<typeof Link>;
 
-export default function InternalLink({
+export const InternalLink = ({
 	className,
 	children,
 	...props
-}: InternalLinkProps) {
+}: InternalLinkProps) => {
 	return (
 		<Link className={cn("cursor-pointer", className)} {...props}>
 			{children}
 		</Link>
 	);
-}
+};

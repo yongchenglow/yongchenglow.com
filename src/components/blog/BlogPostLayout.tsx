@@ -1,14 +1,14 @@
 "use client";
 
-import BlogBackButton from "@/src/components/blog/BlogBackButton";
-import BlogNavigation from "@/src/components/blog/BlogNavigation";
-import ReadingProgress from "@/src/components/blog/ReadingProgress";
-import TableOfContents from "@/src/components/blog/TableOfContents";
-import PostContainer from "@/src/components/post/PostContainer";
-import PostHeader from "@/src/components/post/PostHeader";
-import PostMetadata from "@/src/components/post/PostMetadata";
+import { BlogBackButton } from "@/src/components/blog/BlogBackButton";
+import { BlogNavigation } from "@/src/components/blog/BlogNavigation";
+import { ReadingProgress } from "@/src/components/blog/ReadingProgress";
+import { TableOfContents } from "@/src/components/blog/TableOfContents";
+import { PostContainer } from "@/src/components/post/PostContainer";
+import { PostHeader } from "@/src/components/post/PostHeader";
+import { PostMetadata } from "@/src/components/post/PostMetadata";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Badge } from "@/src/components/shared/ui/badge";
 import type { BlogPost } from "@/src/types/blog";
@@ -20,12 +20,12 @@ interface BlogPostLayoutProps {
 	nextPost?: BlogPost | null;
 }
 
-export default function BlogPostLayout({
+export const BlogPostLayout = ({
 	post,
 	children,
 	previousPost,
 	nextPost,
-}: BlogPostLayoutProps) {
+}: BlogPostLayoutProps) => {
 	const { frontmatter, readingTime } = post;
 
 	return (
@@ -90,4 +90,4 @@ export default function BlogPostLayout({
 			</PostContainer>
 		</StandardLayout>
 	);
-}
+};

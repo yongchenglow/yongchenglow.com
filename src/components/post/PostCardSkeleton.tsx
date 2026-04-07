@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/src/components/shared/ui/card";
 import { Skeleton } from "@/src/components/shared/ui/skeleton";
 
-export default function PostCardSkeleton() {
+export const PostCardSkeleton = () => {
 	return (
 		<Card className="h-full">
 			<CardHeader>
@@ -21,4 +21,4 @@ export default function PostCardSkeleton() {
 			</CardContent>
 		</Card>
 	);
-}
+};

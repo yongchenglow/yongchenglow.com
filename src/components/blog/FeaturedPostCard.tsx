@@ -1,5 +1,5 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { Button } from "@/src/components/shared/ui/button";
 
@@ -12,14 +12,14 @@ interface FeaturedPostCardProps {
 	tags?: string[];
 }
 
-export default function FeaturedPostCard({
+export const FeaturedPostCard = ({
 	title,
 	description,
 	href,
 	date,
 	readingTime,
 	tags,
-}: FeaturedPostCardProps) {
+}: FeaturedPostCardProps) => {
 	return (
 		<InternalLink href={href} className="no-underline group">
 			<div className="rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer">
@@ -73,4 +73,4 @@ export default function FeaturedPostCard({
 			</div>
 		</InternalLink>
 	);
-}
+};

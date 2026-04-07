@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 import type { ReactNode } from "react";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 
 const categoryColors = {
 	school: {
@@ -29,14 +29,14 @@ interface TimelineItemProps {
 	location: string;
 }
 
-export default function TimelineItem({
+export const TimelineItem = ({
 	title,
 	icon,
 	children,
 	category,
 	years,
 	location,
-}: TimelineItemProps) {
+}: TimelineItemProps) => {
 	const colors = categoryColors[category];
 	return (
 		<FadeIn>
@@ -77,4 +77,4 @@ export default function TimelineItem({
 			</div>
 		</FadeIn>
 	);
-}
+};

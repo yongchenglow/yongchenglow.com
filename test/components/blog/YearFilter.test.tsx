@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import YearFilter from "@/src/components/blog/YearFilter";
+import { YearFilter } from "@/src/components/blog/YearFilter";
 import * as blogLib from "@/src/lib/blog";
 
 vi.mock("@/src/lib/blog");

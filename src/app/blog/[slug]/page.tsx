@@ -3,7 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import BlogPostLayout from "@/src/components/blog/BlogPostLayout";
+import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import {
 	getAllBlogSlugs,
@@ -19,13 +19,13 @@ interface BlogPostPageProps {
 }
 
 // Generate static params for all blog posts
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const slugs = getAllBlogSlugs();
 	return slugs.map((slug) => ({ slug }));
-}
+};
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
 
 	try {
@@ -54,9 +54,9 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 			title: "Post Not Found",
 		};
 	}
-}
+};
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
 	let post: BlogPost;
 
@@ -88,4 +88,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 			/>
 		</BlogPostLayout>
 	);
-}
+};
+
+export default BlogPostPage;

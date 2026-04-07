@@ -7,12 +7,12 @@ interface YearPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const years = getAllPostYears();
 	return years.map((year) => ({ year: String(year) }));
-}
+};
 
-export default async function YearPage({ params }: YearPageProps) {
+export const YearPage = async ({ params }: YearPageProps) => {
 	const { year } = await params;
 	const yearNumber = Number.parseInt(year, 10);
 
@@ -23,4 +23,6 @@ export default async function YearPage({ params }: YearPageProps) {
 
 	// Redirect to page 1
 	redirect(`/blog/year/${year}/1`);
-}
+};
+
+export default YearPage;

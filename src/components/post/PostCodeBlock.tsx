@@ -14,11 +14,11 @@ interface PostCodeBlockProps {
 	className?: string;
 }
 
-export default function PostCodeBlock({
+export const PostCodeBlock = ({
 	children,
 	language = "bash",
 	className = "",
-}: PostCodeBlockProps) {
+}: PostCodeBlockProps) => {
 	const { theme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 
@@ -51,4 +51,4 @@ export default function PostCodeBlock({
 			</SyntaxHighlighter>
 		</div>
 	);
-}
+};

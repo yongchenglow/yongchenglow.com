@@ -7,11 +7,11 @@ interface PaginationProps {
 	baseUrl: string;
 }
 
-export default function Pagination({
+export const Pagination = ({
 	currentPage,
 	totalPages,
 	baseUrl,
-}: PaginationProps) {
+}: PaginationProps) => {
 	if (totalPages <= 1) return null;
 
 	const getPageNumbers = (): (number | string)[] => {
@@ -128,4 +128,4 @@ export default function Pagination({
 			)}
 		</nav>
 	);
-}
+};

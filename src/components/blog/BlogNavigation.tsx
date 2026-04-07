@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import InternalLink from "@/src/components/shared/atoms/InternalLink";
+import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 import type { BlogPost } from "@/src/types/blog";
 
@@ -8,10 +8,10 @@ interface BlogNavigationProps {
 	nextPost?: BlogPost | null;
 }
 
-export default function BlogNavigation({
+export const BlogNavigation = ({
 	previousPost,
 	nextPost,
-}: BlogNavigationProps) {
+}: BlogNavigationProps) => {
 	return (
 		<nav className="flex justify-between items-center gap-4 py-4">
 			<div className="flex-1">
@@ -55,4 +55,4 @@ export default function BlogNavigation({
 			</div>
 		</nav>
 	);
-}
+};

@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
-import Pagination from "@/src/components/blog/Pagination";
-import PostCard from "@/src/components/post/PostCard";
-import PostGrid from "@/src/components/post/PostGrid";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
-import PageTitle from "@/src/components/shared/atoms/PageTitle";
+import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
+import { Pagination } from "@/src/components/blog/Pagination";
+import { PostCard } from "@/src/components/post/PostCard";
+import { PostGrid } from "@/src/components/post/PostGrid";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
+import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import {
@@ -22,7 +22,7 @@ interface CategoryPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const categories = getAllCategories();
 	const params: { category: string; page: string }[] = [];
 
@@ -40,11 +40,11 @@ export async function generateStaticParams() {
 	}
 
 	return params;
-}
+};
 
-export default async function CategoryPageWithPagination({
+export const CategoryPageWithPagination = async ({
 	params,
-}: CategoryPageProps) {
+}: CategoryPageProps) => {
 	const { category, page } = await params;
 	const pageNumber = Number.parseInt(page, 10);
 
@@ -106,4 +106,6 @@ export default async function CategoryPageWithPagination({
 			</div>
 		</StandardLayout>
 	);
-}
+};
+
+export default CategoryPageWithPagination;

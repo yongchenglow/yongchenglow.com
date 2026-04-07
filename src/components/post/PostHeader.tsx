@@ -4,11 +4,11 @@ interface PostHeaderProps {
 	className?: string;
 }
 
-export default function PostHeader({
+export const PostHeader = ({
 	title,
 	subtitle,
 	className = "",
-}: PostHeaderProps) {
+}: PostHeaderProps) => {
 	return (
 		<div className={`mb-6 text-center ${className}`.trim()}>
 			<h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-2">
@@ -19,4 +19,4 @@ export default function PostHeader({
 			)}
 		</div>
 	);
-}
+};

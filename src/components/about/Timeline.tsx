@@ -4,7 +4,7 @@ interface TimelineProps {
 	children: ReactNode;
 }
 
-export default function Timeline({ children }: TimelineProps) {
+export const Timeline = ({ children }: TimelineProps) => {
 	return (
 		<div className="relative">
 			{/* Vertical line */}
@@ -12,4 +12,4 @@ export default function Timeline({ children }: TimelineProps) {
 			<div className="space-y-6">{children}</div>
 		</div>
 	);
-}
+};

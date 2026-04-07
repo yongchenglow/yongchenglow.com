@@ -6,11 +6,11 @@ interface PostListProps {
 	type?: "ordered" | "unordered";
 }
 
-export default function PostList({
+export const PostList = ({
 	children,
 	className = "",
 	type = "ordered",
-}: PostListProps) {
+}: PostListProps) => {
 	const Tag = type === "ordered" ? "ol" : "ul";
 
 	return (
@@ -18,4 +18,4 @@ export default function PostList({
 			<Tag className="ml-6">{children}</Tag>
 		</div>
 	);
-}
+};

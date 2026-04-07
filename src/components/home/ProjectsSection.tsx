@@ -1,8 +1,8 @@
 import homeData from "@/content/home.json";
-import ProjectGrid from "@/src/components/project/ProjectGrid";
-import Section from "@/src/components/shared/molecules/Section";
+import { ProjectGrid } from "@/src/components/project/ProjectGrid";
+import { Section } from "@/src/components/shared/molecules/Section";
 
-export default function ProjectsSection() {
+export const ProjectsSection = () => {
 	const { projects } = homeData;
 
 	return (
@@ -10,4 +10,4 @@ export default function ProjectsSection() {
 			<ProjectGrid projects={projects.items} />
 		</Section>
 	);
-}
+};

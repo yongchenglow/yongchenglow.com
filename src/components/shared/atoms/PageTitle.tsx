@@ -5,13 +5,10 @@ interface PageTitleProps {
 	className?: string;
 }
 
-export default function PageTitle({
-	children,
-	className = "",
-}: PageTitleProps) {
+export const PageTitle = ({ children, className = "" }: PageTitleProps) => {
 	return (
 		<h1 className={`text-5xl font-bold my-3 ${className}`.trim()}>
 			{children}
 		</h1>
 	);
-}
+};

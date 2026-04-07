@@ -5,10 +5,10 @@ interface PostMetadataProps {
 	className?: string;
 }
 
-export default function PostMetadata({
+export const PostMetadata = ({
 	children,
 	className = "",
-}: PostMetadataProps) {
+}: PostMetadataProps) => {
 	return (
 		<div
 			className={`text-xs text-muted-foreground text-right mb-3 ${className}`.trim()}
@@ -16,4 +16,4 @@ export default function PostMetadata({
 			{children}
 		</div>
 	);
-}
+};

@@ -12,14 +12,14 @@ import type {
 
 const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
 
-export function getAllBlogSlugs(): string[] {
+export const getAllBlogSlugs = (): string[] => {
 	const files = fs.readdirSync(BLOG_CONTENT_PATH);
 	return files
 		.filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
 		.map((file) => file.replace(/\.mdx?$/, ""));
-}
+};
 
-export function getBlogPost(slug: string): BlogPost {
+export const getBlogPost = (slug: string): BlogPost => {
 	const mdxPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
 	const mdPath = path.join(BLOG_CONTENT_PATH, `${slug}.md`);
 	const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath;
@@ -41,9 +41,9 @@ export function getBlogPost(slug: string): BlogPost {
 		readingTime: readingTimeText,
 		excerpt,
 	};
-}
+};
 
-export function getAllBlogPosts(includesDrafts = false): BlogPost[] {
+export const getAllBlogPosts = (includesDrafts = false): BlogPost[] => {
 	const slugs = getAllBlogSlugs();
 	const posts = slugs
 		.map((slug) => getBlogPost(slug))
@@ -57,22 +57,24 @@ export function getAllBlogPosts(includesDrafts = false): BlogPost[] {
 		});
 
 	return posts;
-}
+};
 
-export function getFeaturedPost(): BlogPost | null {
+export const getFeaturedPost = (): BlogPost | null => {
 	const posts = getAllBlogPosts();
 	return posts.find((post) => post.frontmatter.featured) || posts[0] || null;
-}
+};
 
-export function getBlogPostsByTag(tag: string): BlogPost[] {
+export const getBlogPostsByTag = (tag: string): BlogPost[] => {
 	const posts = getAllBlogPosts();
 	return posts.filter((post) => post.frontmatter.tags?.includes(tag));
-}
+};
 
-export function getBlogPostNavigation(currentSlug: string): {
+export const getBlogPostNavigation = (
+	currentSlug: string,
+): {
 	previous: BlogPost | null;
 	next: BlogPost | null;
-} {
+} => {
 	const allPosts = getAllBlogPosts();
 	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
 
@@ -81,18 +83,18 @@ export function getBlogPostNavigation(currentSlug: string): {
 		next:
 			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
 	};
-}
+};
 
 // Category Functions
-export function getAllCategories(): Category[] {
+export const getAllCategories = (): Category[] => {
 	return Object.values(BLOG_CATEGORIES);
-}
+};
 
-export function getCategoryMetadata(categorySlug: string): Category | null {
+export const getCategoryMetadata = (categorySlug: string): Category | null => {
 	return BLOG_CATEGORIES[categorySlug] || null;
-}
+};
 
-export function getBlogPostsByCategory(categorySlug: string): BlogPost[] {
+export const getBlogPostsByCategory = (categorySlug: string): BlogPost[] => {
 	const category = getCategoryMetadata(categorySlug);
 	if (!category) return [];
 
@@ -100,9 +102,9 @@ export function getBlogPostsByCategory(categorySlug: string): BlogPost[] {
 	return posts.filter((post) =>
 		post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
 	);
-}
+};
 
-export function getCategoryPostCounts(): Record<string, number> {
+export const getCategoryPostCounts = (): Record<string, number> => {
 	const counts: Record<string, number> = {};
 	const categories = getAllCategories();
 	const allPosts = getAllBlogPosts();
@@ -114,10 +116,10 @@ export function getCategoryPostCounts(): Record<string, number> {
 	}
 
 	return counts;
-}
+};
 
 // Year Functions
-export function getAllPostYears(): number[] {
+export const getAllPostYears = (): number[] => {
 	const posts = getAllBlogPosts();
 	const years = new Set<number>();
 
@@ -127,17 +129,17 @@ export function getAllPostYears(): number[] {
 	}
 
 	return Array.from(years).sort((a, b) => b - a); // Descending order
-}
+};
 
-export function getBlogPostsByYear(year: number): BlogPost[] {
+export const getBlogPostsByYear = (year: number): BlogPost[] => {
 	const posts = getAllBlogPosts();
 	return posts.filter((post) => {
 		const postYear = new Date(post.frontmatter.date).getFullYear();
 		return postYear === year;
 	});
-}
+};
 
-export function getYearPostCounts(): Record<number, number> {
+export const getYearPostCounts = (): Record<number, number> => {
 	const counts: Record<number, number> = {};
 	const years = getAllPostYears();
 	const allPosts = getAllBlogPosts();
@@ -150,13 +152,13 @@ export function getYearPostCounts(): Record<number, number> {
 	}
 
 	return counts;
-}
+};
 
 // Pagination Functions
-export function getPaginatedPosts(
+export const getPaginatedPosts = (
 	page: number,
 	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> {
+): PaginationResult<BlogPost> => {
 	const allPosts = getAllBlogPosts();
 	const totalItems = allPosts.length;
 	const totalPages = Math.ceil(totalItems / postsPerPage);
@@ -176,13 +178,13 @@ export function getPaginatedPosts(
 		hasNextPage: currentPage < totalPages,
 		hasPreviousPage: currentPage > 1,
 	};
-}
+};
 
-export function getPaginatedPostsByCategory(
+export const getPaginatedPostsByCategory = (
 	categorySlug: string,
 	page: number,
 	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> {
+): PaginationResult<BlogPost> => {
 	const allPosts = getBlogPostsByCategory(categorySlug);
 	const totalItems = allPosts.length;
 	const totalPages = Math.ceil(totalItems / postsPerPage);
@@ -201,13 +203,13 @@ export function getPaginatedPostsByCategory(
 		hasNextPage: currentPage < totalPages,
 		hasPreviousPage: currentPage > 1,
 	};
-}
+};
 
-export function getPaginatedPostsByYear(
+export const getPaginatedPostsByYear = (
 	year: number,
 	page: number,
 	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> {
+): PaginationResult<BlogPost> => {
 	const allPosts = getBlogPostsByYear(year);
 	const totalItems = allPosts.length;
 	const totalPages = Math.ceil(totalItems / postsPerPage);
@@ -226,4 +228,4 @@ export function getPaginatedPostsByYear(
 		hasNextPage: currentPage < totalPages,
 		hasPreviousPage: currentPage > 1,
 	};
-}
+};

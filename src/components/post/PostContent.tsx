@@ -5,13 +5,10 @@ interface PostContentProps {
 	className?: string;
 }
 
-export default function PostContent({
-	children,
-	className = "",
-}: PostContentProps) {
+export const PostContent = ({ children, className = "" }: PostContentProps) => {
 	return (
 		<div className={`max-w-7xl mx-auto mb-2 text-left ${className}`}>
 			{children}
 		</div>
 	);
-}
+};

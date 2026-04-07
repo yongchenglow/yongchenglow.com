@@ -5,11 +5,11 @@ interface PostButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
 }
 
-export default function PostButton({
+export const PostButton = ({
 	children,
 	className = "",
 	...props
-}: PostButtonProps) {
+}: PostButtonProps) => {
 	return (
 		<Button
 			variant="outline"
@@ -19,4 +19,4 @@ export default function PostButton({
 			{children}
 		</Button>
 	);
-}
+};

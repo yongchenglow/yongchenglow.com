@@ -6,13 +6,13 @@ type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 	unstyled?: boolean;
 };
 
-export default function ExternalLink({
+export const ExternalLink = ({
 	href,
 	children,
 	icon = false,
 	unstyled = false,
 	...props
-}: LinkProps) {
+}: LinkProps) => {
 	return (
 		<a
 			href={href}
@@ -29,4 +29,4 @@ export default function ExternalLink({
 			{icon && <ExternalLinkIcon className="h-4 w-4" />}
 		</a>
 	);
-}
+};

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
-import ImageModal from "./ImageModal";
+import { ImageModal } from "./ImageModal";
 
 // Context to track if image is inside a link
 const ParentLinkContext = createContext<string | undefined>(undefined);
@@ -23,7 +23,7 @@ interface MdxLinkProps {
  * Wraps images in a modal dialog that opens on click.
  * Uses data attribute for source URL from parent link.
  */
-export function MdxImage({ src, alt, title }: MdxImageProps) {
+export const MdxImage = ({ src, alt, title }: MdxImageProps) => {
 	const parentLink = useContext(ParentLinkContext);
 
 	return (
@@ -34,7 +34,7 @@ export function MdxImage({ src, alt, title }: MdxImageProps) {
 			className="my-4"
 		/>
 	);
-}
+};
 
 /**
  * Custom link component for MDX content.
@@ -42,7 +42,7 @@ export function MdxImage({ src, alt, title }: MdxImageProps) {
  * Does NOT render an anchor tag - images with links show the source as reference in modal.
  * Uses span instead of div to avoid hydration error when inside <p> tags.
  */
-export function MdxLink({ href, children }: MdxLinkProps) {
+export const MdxLink = ({ href, children }: MdxLinkProps) => {
 	// Always provide context for child images
 	// Add data attribute for the href which will be picked up by images
 	return (
@@ -52,4 +52,4 @@ export function MdxLink({ href, children }: MdxLinkProps) {
 			</span>
 		</ParentLinkContext.Provider>
 	);
-}
+};

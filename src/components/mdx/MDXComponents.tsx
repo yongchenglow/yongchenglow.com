@@ -1,10 +1,10 @@
 import type { MDXComponents } from "mdx/types";
-import Admonition from "@/src/components/mdx/Admonition";
-import PostCodeBlock from "@/src/components/post/PostCodeBlock";
-import PostDefinition from "@/src/components/post/PostDefinition";
-import PostImage from "@/src/components/post/PostImage";
-import PostList from "@/src/components/post/PostList";
-import PostParagraph from "@/src/components/post/PostParagraph";
+import { Admonition } from "@/src/components/mdx/Admonition";
+import { PostCodeBlock } from "@/src/components/post/PostCodeBlock";
+import { PostDefinition } from "@/src/components/post/PostDefinition";
+import { PostImage } from "@/src/components/post/PostImage";
+import { PostList } from "@/src/components/post/PostList";
+import { PostParagraph } from "@/src/components/post/PostParagraph";
 import {
 	Table,
 	TableBody,
@@ -14,7 +14,7 @@ import {
 	TableRow,
 } from "@/src/components/shared/ui/table";
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 	return {
 		// Map HTML elements to custom components
 		p: PostParagraph,
@@ -39,4 +39,4 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		// Allow overrides
 		...components,
 	};
-}
+};

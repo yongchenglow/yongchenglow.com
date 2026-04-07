@@ -1,9 +1,9 @@
-import AnimatedGridItem from "@/src/components/blog/AnimatedGridItem";
-import PostCard from "@/src/components/post/PostCard";
-import PostGrid from "@/src/components/post/PostGrid";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
-import PageTitle from "@/src/components/shared/atoms/PageTitle";
+import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
+import { PostCard } from "@/src/components/post/PostCard";
+import { PostGrid } from "@/src/components/post/PostGrid";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
+import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
 
@@ -13,7 +13,7 @@ interface TagPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const posts = getAllBlogPosts();
 	const tags = new Set<string>();
 
@@ -24,9 +24,9 @@ export async function generateStaticParams() {
 	}
 
 	return Array.from(tags).map((tag) => ({ tag }));
-}
+};
 
-export default async function TagPage({ params }: TagPageProps) {
+export const TagPage = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
 	const posts = getBlogPostsByTag(tag);
 
@@ -60,4 +60,6 @@ export default async function TagPage({ params }: TagPageProps) {
 			</div>
 		</StandardLayout>
 	);
-}
+};
+
+export default TagPage;

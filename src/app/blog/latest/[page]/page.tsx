@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import LatestPostsView from "@/src/components/blog/LatestPostsView";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
-import PageSubtitle from "@/src/components/shared/atoms/PageSubtitle";
-import PageTitle from "@/src/components/shared/atoms/PageTitle";
+import { LatestPostsView } from "@/src/components/blog/LatestPostsView";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
+import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { getAllBlogPosts, getPaginatedPosts } from "@/src/lib/blog";
@@ -13,16 +13,16 @@ interface LatestPageProps {
 	}>;
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
 	const allPosts = getAllBlogPosts();
 	const totalPages = Math.ceil(allPosts.length / BLOG_CONFIG.postsPerPage);
 
 	return Array.from({ length: totalPages }, (_, i) => ({
 		page: String(i + 1),
 	}));
-}
+};
 
-export default async function LatestPage({ params }: LatestPageProps) {
+export const LatestPage = async ({ params }: LatestPageProps) => {
 	const { page } = await params;
 	const pageNumber = Number.parseInt(page, 10);
 
@@ -60,4 +60,6 @@ export default async function LatestPage({ params }: LatestPageProps) {
 			</div>
 		</StandardLayout>
 	);
-}
+};
+
+export default LatestPage;

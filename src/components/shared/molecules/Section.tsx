@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import FadeIn from "@/src/components/shared/atoms/FadeIn";
+import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { cn } from "@/src/lib/utils";
 
 interface SectionProps {
@@ -9,12 +9,12 @@ interface SectionProps {
 	titleClassName?: string;
 }
 
-export default function Section({
+export const Section = ({
 	title,
 	children,
 	className = "",
 	titleClassName = "",
-}: SectionProps) {
+}: SectionProps) => {
 	return (
 		<div className={cn("my-6", className)}>
 			<FadeIn>
@@ -30,4 +30,4 @@ export default function Section({
 			{children}
 		</div>
 	);
-}
+};

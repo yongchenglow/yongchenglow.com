@@ -19,9 +19,9 @@ interface TableOfContentsProps {
 	variant?: "inline" | "sidebar";
 }
 
-export default function TableOfContents({
+export const TableOfContents = ({
 	variant = "inline",
-}: TableOfContentsProps) {
+}: TableOfContentsProps) => {
 	const [headings, setHeadings] = useState<TocItem[]>([]);
 	const [activeId, setActiveId] = useState<string>("");
 
@@ -113,4 +113,4 @@ export default function TableOfContents({
 			<CardContent>{navContent}</CardContent>
 		</Card>
 	);
-}
+};

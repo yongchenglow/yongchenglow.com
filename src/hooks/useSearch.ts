@@ -6,7 +6,7 @@ import type { SearchResult, SerializedSearchIndex } from "@/src/types/search";
 
 type FlexSearchDocument = InstanceType<typeof FlexSearch.Document>;
 
-export function useSearch() {
+export const useSearch = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [results, setResults] = useState<SearchResult[]>([]);
 	const indexRef = useRef<FlexSearchDocument | null>(null);
@@ -112,4 +112,4 @@ export function useSearch() {
 		clearResults,
 		initializeIndex,
 	};
-}
+};
