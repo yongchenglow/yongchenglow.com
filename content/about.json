@@ -14,8 +14,9 @@
 			}
 		]
 	},
-	"work_experience": [
+	"timeline": [
 		{
+			"type": "work",
 			"title": "Data & Software Engineer at National University Hospital",
 			"location": "Singapore",
 			"years": "2025-Present",
@@ -36,6 +37,7 @@
 			]
 		},
 		{
+			"type": "work",
 			"title": "Senior Software Engineer at Glints",
 			"location": "Singapore",
 			"years": "2023-2025",
@@ -60,6 +62,7 @@
 			]
 		},
 		{
+			"type": "work",
 			"title": "Web Software Engineer at Glints",
 			"location": "Singapore",
 			"years": "2021-2023",
@@ -80,6 +83,7 @@
 			]
 		},
 		{
+			"type": "work",
 			"title": "Web Development Teacher at Le Wagon",
 			"location": "Singapore",
 			"years": "2021-2025",
@@ -91,6 +95,7 @@
 			"skills": ["Ruby on Rails", "JavaScript", "Teaching", "Mentoring"]
 		},
 		{
+			"type": "work",
 			"title": "Software Engineer at NCS (IOT Defence)",
 			"location": "Singapore",
 			"years": "2020-2021",
@@ -100,20 +105,9 @@
 				"Assisted with the frontend development of the web application using Angular to ensure seamless integration of features and optimal user experience"
 			],
 			"skills": ["Java", "Kubernetes", "Angular", "Docker", "Spring Boot"]
-		}
-	],
-	"military_service": {
-		"title": "National Service — Guards Unit",
-		"years": "2012-2014",
-		"location": "Singapore",
-		"description": "Returned to Singapore alone for National Service. Posted to the Guards unit, which taught me resilience and the spirit of Always Ready, Ready to Strike.",
-		"link": {
-			"label": "Guards unit",
-			"url": "https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards"
-		}
-	},
-	"education": [
+		},
 		{
+			"type": "education",
 			"title": "NUS Computer Engineering (Bachelor with Honours)",
 			"location": "Singapore",
 			"years": "2015-2019",
@@ -124,6 +118,18 @@
 			}
 		},
 		{
+			"type": "military",
+			"title": "National Service — Guards Unit",
+			"years": "2012-2014",
+			"location": "Singapore",
+			"description": "Returned to Singapore alone for National Service. Posted to the Guards unit, which taught me resilience and the spirit of Always Ready, Ready to Strike.",
+			"link": {
+				"label": "Guards unit",
+				"url": "https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards"
+			}
+		},
+		{
+			"type": "education",
 			"title": "Sha Tin College — IB Diploma",
 			"location": "Hong Kong",
 			"years": "2010-2012",
@@ -140,6 +146,7 @@
 			]
 		},
 		{
+			"type": "education",
 			"title": "Dulwich College Shanghai — IGCSE",
 			"location": "Shanghai, China",
 			"years": "2007-2010",
@@ -150,6 +157,7 @@
 			}
 		},
 		{
+			"type": "education",
 			"title": "Shanghai Community International School",
 			"location": "Shanghai, China",
 			"years": "2004-2007",
@@ -160,6 +168,7 @@
 			}
 		},
 		{
+			"type": "education",
 			"title": "Mayflower Primary School",
 			"location": "Singapore",
 			"years": "2002-2004",
