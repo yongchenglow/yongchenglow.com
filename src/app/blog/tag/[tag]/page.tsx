@@ -1,6 +1,7 @@
 import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
+import { JsonLd } from "@/src/components/seo/JsonLd";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -43,6 +44,32 @@ export const TagPage = async ({ params }: TagPageProps) => {
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
+				<JsonLd
+					data={{
+						"@context": "https://schema.org",
+						"@type": "BreadcrumbList",
+						itemListElement: [
+							{
+								"@type": "ListItem",
+								position: 1,
+								name: "Home",
+								item: "https://www.yongchenglow.com",
+							},
+							{
+								"@type": "ListItem",
+								position: 2,
+								name: "Blog",
+								item: "https://www.yongchenglow.com/blog",
+							},
+							{
+								"@type": "ListItem",
+								position: 3,
+								name: `Tag: ${tag}`,
+								item: `https://www.yongchenglow.com/blog/tag/${tag}`,
+							},
+						],
+					}}
+				/>
 				<FadeIn>
 					<PageTitle>Tag: {tag}</PageTitle>
 				</FadeIn>

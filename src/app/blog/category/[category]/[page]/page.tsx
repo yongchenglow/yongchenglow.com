@@ -3,6 +3,7 @@ import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
 import { Pagination } from "@/src/components/blog/Pagination";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
+import { JsonLd } from "@/src/components/seo/JsonLd";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -81,6 +82,42 @@ export const CategoryPageWithPagination = async ({
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
+				<JsonLd
+					data={{
+						"@context": "https://schema.org",
+						"@type": "BreadcrumbList",
+						itemListElement: [
+							{
+								"@type": "ListItem",
+								position: 1,
+								name: "Home",
+								item: "https://www.yongchenglow.com",
+							},
+							{
+								"@type": "ListItem",
+								position: 2,
+								name: "Blog",
+								item: "https://www.yongchenglow.com/blog",
+							},
+							{
+								"@type": "ListItem",
+								position: 3,
+								name: categoryMetadata.label,
+								item: `https://www.yongchenglow.com/blog/category/${category}/1`,
+							},
+							...(pageNumber > 1
+								? [
+										{
+											"@type": "ListItem",
+											position: 4,
+											name: `Page ${pageNumber}`,
+											item: `https://www.yongchenglow.com/blog/category/${category}/${pageNumber}`,
+										},
+									]
+								: []),
+						],
+					}}
+				/>
 				<FadeIn>
 					<PageTitle>{categoryMetadata.label}</PageTitle>
 				</FadeIn>

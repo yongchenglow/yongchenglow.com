@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { LatestPostsView } from "@/src/components/blog/LatestPostsView";
+import { JsonLd } from "@/src/components/seo/JsonLd";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -51,6 +52,42 @@ export const LatestPage = async ({ params }: LatestPageProps) => {
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
+				<JsonLd
+					data={{
+						"@context": "https://schema.org",
+						"@type": "BreadcrumbList",
+						itemListElement: [
+							{
+								"@type": "ListItem",
+								position: 1,
+								name: "Home",
+								item: "https://www.yongchenglow.com",
+							},
+							{
+								"@type": "ListItem",
+								position: 2,
+								name: "Blog",
+								item: "https://www.yongchenglow.com/blog",
+							},
+							{
+								"@type": "ListItem",
+								position: 3,
+								name: "Latest Posts",
+								item: "https://www.yongchenglow.com/blog/latest/1",
+							},
+							...(pageNumber > 1
+								? [
+										{
+											"@type": "ListItem",
+											position: 4,
+											name: `Page ${pageNumber}`,
+											item: `https://www.yongchenglow.com/blog/latest/${pageNumber}`,
+										},
+									]
+								: []),
+						],
+					}}
+				/>
 				<FadeIn>
 					<PageTitle>Latest Posts</PageTitle>
 				</FadeIn>
