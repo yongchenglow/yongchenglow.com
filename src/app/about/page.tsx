@@ -4,6 +4,7 @@ import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import { TimelineItem as TimelineItemComponent } from "@/src/components/about/TimelineItem";
 import { PostContainer } from "@/src/components/post/PostContainer";
+import { JsonLd } from "@/src/components/seo/JsonLd";
 import { BulletList } from "@/src/components/shared/atoms/BulletList";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
@@ -137,6 +138,18 @@ export const AboutPage = () => {
 				<Timeline>{about.timeline.map(renderTimelineItem)}</Timeline>
 
 				<GoogleAds slotId="7158598508" />
+				<JsonLd
+					data={{
+						"@context": "https://schema.org",
+						"@type": "Person",
+						name: about.hero.name,
+						url: "https://www.yongchenglow.com",
+						jobTitle: about.hero.title,
+						image:
+							"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+						sameAs: about.hero.links.map((link) => link.url),
+					}}
+				/>
 			</PostContainer>
 		</StandardLayout>
 	);
