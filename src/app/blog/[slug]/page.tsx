@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
+import { JsonLd } from "@/src/components/seo/JsonLd";
 import {
 	getAllBlogSlugs,
 	getBlogPost,
@@ -79,8 +80,58 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 
 	const { previous, next } = getBlogPostNavigation(slug);
 
+	const articleSchema = {
+		"@context": "https://schema.org",
+		"@type": "Article",
+		headline: post.frontmatter.title,
+		description: post.frontmatter.description,
+		datePublished: post.frontmatter.date,
+		dateModified: post.frontmatter.lastUpdated ?? post.frontmatter.date,
+		url: `https://www.yongchenglow.com/blog/${slug}`,
+		image:
+			post.frontmatter.image ??
+			"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+		author: {
+			"@type": "Person",
+			name: "Yong Cheng Low",
+			url: "https://www.yongchenglow.com/about",
+		},
+		publisher: {
+			"@type": "Person",
+			name: "Yong Cheng Low",
+			url: "https://www.yongchenglow.com",
+		},
+	};
+
+	const breadcrumbSchema = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: "https://www.yongchenglow.com",
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Blog",
+				item: "https://www.yongchenglow.com/blog",
+			},
+			{
+				"@type": "ListItem",
+				position: 3,
+				name: post.frontmatter.title,
+				item: `https://www.yongchenglow.com/blog/${slug}`,
+			},
+		],
+	};
+
 	return (
 		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
+			<JsonLd data={articleSchema} />
+			<JsonLd data={breadcrumbSchema} />
 			<MDXRemote
 				source={post.content}
 				components={{
