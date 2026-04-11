@@ -8,7 +8,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://www.yongchenglow.com"),
-	title: "Yong Cheng Low",
+	title: {
+		default: "Yong Cheng Low (YC)",
+		template: "%s | YC",
+	},
 	description:
 		"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
 	keywords:
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: "website",
 		url: "https://www.yongchenglow.com",
-		title: "Yong Cheng Low",
+		title: "Yong Cheng Low (YC)",
 		description:
 			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
 		images: [
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary",
-		title: "Yong Cheng Low",
+		title: "Yong Cheng Low (YC)",
 		description:
 			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
 		images: ["/img/yong-cheng-metasprint.jpeg"],

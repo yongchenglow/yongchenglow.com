@@ -22,6 +22,13 @@ interface CategoryPageProps {
 	}>;
 }
 
+export const generateMetadata = async ({ params }: CategoryPageProps) => {
+	const { category, page } = await params;
+	const categoryMetadata = getCategoryMetadata(category);
+	const label = categoryMetadata?.label ?? category;
+	return { title: `${label} - Page ${page}` };
+};
+
 export const generateStaticParams = async () => {
 	const categories = getAllCategories();
 	const params: { category: string; page: string }[] = [];

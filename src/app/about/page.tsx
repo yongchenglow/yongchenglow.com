@@ -1,4 +1,5 @@
 import { Briefcase, GraduationCap, Shield } from "lucide-react";
+import type { Metadata } from "next";
 import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import { TimelineItem as TimelineItemComponent } from "@/src/components/about/TimelineItem";
@@ -14,6 +15,10 @@ import {
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
 import type { AboutData, TimelineItem } from "@/src/content/schema";
+
+export const metadata: Metadata = {
+	title: "About",
+};
 
 // Type assertion - validated at runtime by tests
 const about = aboutData as AboutData;

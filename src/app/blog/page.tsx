@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
 import { FeaturedPostCard } from "@/src/components/blog/FeaturedPostCard";
@@ -12,6 +13,10 @@ import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 import { getStaggerDelay } from "@/src/lib/animation";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
+
+export const metadata: Metadata = {
+	title: "Blog",
+};
 
 export const BlogPage = () => {
 	const featuredPost = getFeaturedPost();

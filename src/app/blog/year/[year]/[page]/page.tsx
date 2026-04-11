@@ -21,6 +21,11 @@ interface YearPageProps {
 	}>;
 }
 
+export const generateMetadata = async ({ params }: YearPageProps) => {
+	const { year, page } = await params;
+	return { title: `Posts from ${year} - Page ${page}` };
+};
+
 export const generateStaticParams = async () => {
 	const years = getAllPostYears();
 	const params: { year: string; page: string }[] = [];

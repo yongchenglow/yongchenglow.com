@@ -7,6 +7,11 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
 
+export const generateMetadata = async ({ params }: TagPageProps) => {
+	const { tag } = await params;
+	return { title: `Tag: ${tag}` };
+};
+
 interface TagPageProps {
 	params: Promise<{
 		tag: string;

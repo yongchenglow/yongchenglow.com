@@ -13,6 +13,11 @@ interface LatestPageProps {
 	}>;
 }
 
+export const generateMetadata = async ({ params }: LatestPageProps) => {
+	const { page } = await params;
+	return { title: `Latest Posts - Page ${page}` };
+};
+
 export const generateStaticParams = async () => {
 	const allPosts = getAllBlogPosts();
 	const totalPages = Math.ceil(allPosts.length / BLOG_CONFIG.postsPerPage);
