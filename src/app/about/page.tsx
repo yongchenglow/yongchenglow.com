@@ -3,6 +3,7 @@ import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import { TimelineItem as TimelineItemComponent } from "@/src/components/about/TimelineItem";
 import { PostContainer } from "@/src/components/post/PostContainer";
+import { BulletList } from "@/src/components/shared/atoms/BulletList";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -29,13 +30,7 @@ const renderTimelineItem = (item: TimelineItem) => {
 					years={item.years}
 					location={item.location}
 				>
-					<ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-						{item.bullets.map((bullet) => (
-							<li key={bullet} className="leading-relaxed">
-								{bullet}
-							</li>
-						))}
-					</ul>
+					<BulletList bullets={item.bullets} />
 					<p className="mt-3 text-xs font-medium text-muted-foreground">
 						<strong>Skills:</strong> {item.skills.join(", ")}
 					</p>
@@ -78,6 +73,7 @@ const renderTimelineItem = (item: TimelineItem) => {
 					) : (
 						<p>{item.description}</p>
 					)}
+					<BulletList bullets={item.bullets} className="mt-2" />
 				</TimelineItemComponent>
 			);
 		case "military":
@@ -93,6 +89,7 @@ const renderTimelineItem = (item: TimelineItem) => {
 					{item.description.split("Guards unit")[0]}
 					<ExternalLink href={item.link.url}>Guards unit</ExternalLink>
 					{item.description.split("Guards unit")[1]}
+					<BulletList bullets={item.bullets} className="mt-2" />
 				</TimelineItemComponent>
 			);
 	}

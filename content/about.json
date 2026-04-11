@@ -21,9 +21,9 @@
 			"location": "Singapore",
 			"years": "2025-Present",
 			"bullets": [
-				"Developed a proof of concepts such as a Speech to Speech agent for PROMS collection using AWS Nova 2 Sonic and GPT Realtime",
-				"Help work on various cluster level projects including automatic speech recognition and medical coding to improve workforce efficiency",
-				"Setup repository, CI/CD, Open Telemetry, Grafana, Prometheus, Helm, Docusaurus for the office"
+				"Built proof-of-concept AI projects, including a Speech-to-Speech agent for PROMS collection using AWS Nova Sonic 2 and GPT Realtime",
+				"Contributed to cluster-level initiatives in automatic speech recognition and medical coding to improve workforce efficiency",
+				"Established the office's engineering foundations, including repository setup, CI/CD pipelines, observability stack (OpenTelemetry, Grafana, Prometheus), Helm chart configuration, and internal documentation via Docusaurus"
 			],
 			"skills": [
 				"Python",
@@ -32,8 +32,8 @@
 				"Next.js",
 				"Open Telemetry",
 				"Terraform",
-				"OpenAI API",
-				"Anthropic API"
+				"Kubernetes",
+				"LLMs"
 			]
 		},
 		{
@@ -45,7 +45,9 @@
 				"Designed and implemented an automated multilingual resume parsing workflow using OpenAI APIs, achieving over 90% accuracy across all data points",
 				"Developed a multilingual job role inference system using open source NLPs from job titles and work experience, attaining over 90% accuracy",
 				"Setup of Dashboards and Alerting system to catch and report incidents, system performance and suspicious activities reducing mean time to restore (MTTR) to within 2 hours",
-				"Automating workflow processes to increase workplace productivity through Jira, Gitlab, Lark, Anycross for QA, Project Tracking, Code Reviews, Bugs Reporting saving over 150 engineering hours per year"
+				"Automating workflow processes to increase workplace productivity through Jira, Gitlab, Lark, Anycross for QA, Project Tracking, Code Reviews, Bugs Reporting saving over 150 engineering hours per year",
+				"Maintained and improved the Kafka pipelines using Scala to deliver real-time updates to the Elasticsearch index",
+				"Worked on the migration of the Managed Talent Platform from Rust to Go and deliver improvements to existing platform features"
 			],
 			"skills": [
 				"Python",
@@ -111,7 +113,12 @@
 			"title": "NUS Computer Engineering (Bachelor with Honours)",
 			"location": "Singapore",
 			"years": "2015-2019",
-			"description": "Proved my doubters wrong by securing a place at NUS Computer Engineering. Graduated with Honours (Merit). Concentration in Interactive Digital Media, Minor in Interactive Media Development.",
+			"description": "Graduated NUS Computer Engineering with Honours (Merit). Concentration in Interactive Digital Media, Minor in Interactive Media Development.",
+			"bullets": [
+				"President of NUS Student's Sports Club 39th Management Committee",
+				"Vice Project Director of NUS Biathlon 2018",
+				"Vice President of Human Resource and Development 19th Management Committee"
+			],
 			"link": {
 				"label": "NUS Computer Engineering",
 				"url": "https://ceg.nus.edu.sg"
@@ -123,6 +130,11 @@
 			"years": "2012-2014",
 			"location": "Singapore",
 			"description": "Returned to Singapore alone for National Service. Posted to the Guards unit, which taught me resilience and the spirit of Always Ready, Ready to Strike.",
+			"bullets": [
+				"Guard Unit 16th Mono GPMG Commander",
+				"Specialist Command School",
+				"BMTC Viper Company"
+			],
 			"link": {
 				"label": "Guards unit",
 				"url": "https://www.mindef.gov.sg/web/portal/army/our-forces/formations/formations-detail/guards/guards"
@@ -133,7 +145,13 @@
 			"title": "Sha Tin College — IB Diploma",
 			"location": "Hong Kong",
 			"years": "2010-2012",
-			"description": "After being rejected from several high schools in Shanghai, I found my place at Sha Tin College where I completed the IB Diploma Programme.",
+			"description": "Obtained 35 points at Sha Tin College for the IB Diploma Programme (Bilingual)",
+			"bullets": [
+				"Hong Kong School Sports Federation Badminton Bronze Group (3rd Place)",
+				"Hong Kong School Sports Federations Boys A Grade (Champions)",
+				"Hot Hoops (Most Inspirational Player)",
+				"Hot Hoops 5 on 5 (2nd Place)"
+			],
 			"links": [
 				{
 					"label": "Sha Tin College",
@@ -150,7 +168,15 @@
 			"title": "Dulwich College Shanghai — IGCSE",
 			"location": "Shanghai, China",
 			"years": "2007-2010",
-			"description": "Continued my secondary education at Dulwich College Shanghai. Competed in ACAMIS sports tournaments and embraced multi-cultural learning.",
+			"description": "Obtained 7A*, 1A, 1B, 1C at Dulwich College Shanghai",
+			"bullets": [
+				"ACAMIS Division 2 Badminton (3rd Place)",
+				"ACAMIS Badminton Division 1 (7th Place)",
+				"Dulwich Open Badminton Boys Singles Champion 2 years in a row",
+				"ACAMIS Boys (All-Star)",
+				"ACAMIS Boys Basketball Division 2 (Champions)",
+				"ACAMIS Basketball Division 2 (3rd Place)"
+			],
 			"link": {
 				"label": "Dulwich College Shanghai",
 				"url": "https://shanghai-pudong.dulwich.org"
@@ -161,7 +187,14 @@
 			"title": "Shanghai Community International School",
 			"location": "Shanghai, China",
 			"years": "2004-2007",
-			"description": "Moved to Shanghai and studied at Shanghai Community International School. Embraced multi-cultural learning in an international environment.",
+			"description": "Moved to Shanghai and studied at Shanghai Community International School",
+			"bullets": [
+				"CISSA Swimming Participation Award",
+				"CISSA Badminton Participation Award",
+				"CISSA Boys Soccer Participation",
+				"SCIS Invention Convention",
+				"Most Outstanding Student at Children's Palace"
+			],
 			"link": {
 				"label": "Shanghai Community International School",
 				"url": "https://www.scis-china.org"
@@ -172,7 +205,12 @@
 			"title": "Mayflower Primary School",
 			"location": "Singapore",
 			"years": "2002-2004",
-			"description": "My earliest education in Singapore instilled the motto \"Service before Self\", shaping my belief that others' priorities come first."
+			"description": "Help me instilled the motto \"Service before Self\", shaping my belief that others' priorities come first.",
+			"bullets": [
+				"Mayflower Primary School Primary Two Best Conduct Award",
+				"Lower Primary Sports Day Primary Two (2nd Place)",
+				"Lower Primary Sports Day Primary One (Champion)"
+			]
 		}
 	]
 }

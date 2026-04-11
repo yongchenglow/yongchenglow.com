@@ -29,6 +29,7 @@ const EducationTimelineItemSchema = z.object({
 	location: z.string(),
 	years: z.string(),
 	description: z.string(),
+	bullets: z.array(z.string()).optional(),
 	link: LinkSchema.optional(),
 	links: z.array(LinkSchema).optional(),
 });
@@ -39,6 +40,7 @@ const MilitaryTimelineItemSchema = z.object({
 	years: z.string(),
 	location: z.string(),
 	description: z.string(),
+	bullets: z.array(z.string()).optional(),
 	link: LinkSchema,
 });
 
