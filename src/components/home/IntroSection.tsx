@@ -5,6 +5,28 @@ import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 
+const renderTitleWithLinks = (
+	title: string,
+	links: { label: string; url: string }[],
+) => {
+	const parts: (string | JSX.Element)[] = [title];
+	for (const link of links) {
+		const last = parts[parts.length - 1];
+		if (typeof last !== "string" || !last.includes(link.label)) continue;
+		const [before, after] = last.split(link.label);
+		parts.splice(
+			parts.length - 1,
+			1,
+			before,
+			<ExternalLink key={link.url} href={link.url}>
+				{link.label}
+			</ExternalLink>,
+			after,
+		);
+	}
+	return parts;
+};
+
 export const IntroSection = () => {
 	const { intro } = homeData;
 
@@ -15,7 +37,7 @@ export const IntroSection = () => {
 				<div className="sm:col-span-7 col-span-1 flex items-center order-2 sm:order-1">
 					<div className="text-center sm:text-left">
 						<FadeIn delay={0}>
-							<p className="text-sm text-muted-foreground mb-2 font-medium uppercase tracking-widest">
+							<p className="text-sm text-muted-foreground mb-2 font-medium tracking-widest">
 								{intro.greeting}
 							</p>
 						</FadeIn>
@@ -26,15 +48,7 @@ export const IntroSection = () => {
 						</FadeIn>
 						<FadeIn delay={0.2}>
 							<p className="text-lg text-muted-foreground mb-8">
-								{intro.title.split("Glints")[0]}
-								<ExternalLink href={intro.companyLinks[0].url}>
-									Glints
-								</ExternalLink>
-								{intro.title.split("Glints")[1].split("Le Wagon")[0]}
-								<ExternalLink href={intro.companyLinks[1].url}>
-									Le Wagon
-								</ExternalLink>
-								{intro.title.split("Le Wagon")[1]}
+								{renderTitleWithLinks(intro.title, intro.companyLinks)}
 							</p>
 						</FadeIn>
 						<FadeIn delay={0.3}>

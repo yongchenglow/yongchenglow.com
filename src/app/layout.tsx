@@ -52,25 +52,25 @@ export const RootLayout = ({ children }: { children: ReactNode }) => {
 					<div className="root">
 						<main>{children}</main>
 						<SearchDialog />
-						<Script
-							async
-							src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
-							crossOrigin="anonymous"
-						/>
-						<Script
-							async
-							src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}
-						/>
-						<Script id="google-analytics" strategy="afterInteractive">
-							{`
-						window.dataLayer = window.dataLayer || [];
-						function gtag(){window.dataLayer.push(arguments);}
-						gtag('js', new Date());
-						gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}');
-					`}
-						</Script>
 					</div>
 				</ThemeProvider>
+				<Script
+					async
+					src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
+					crossOrigin="anonymous"
+				/>
+				<Script
+					async
+					src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}
+				/>
+				<Script id="google-analytics" strategy="afterInteractive">
+					{`
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){window.dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}');
+				`}
+				</Script>
 			</body>
 		</html>
 	);

@@ -10,7 +10,13 @@ export const InternalLink = ({
 	...props
 }: InternalLinkProps) => {
 	return (
-		<Link className={cn("cursor-pointer", className)} {...props}>
+		<Link
+			className={cn(
+				"cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200",
+				className,
+			)}
+			{...props}
+		>
 			{children}
 		</Link>
 	);

@@ -1,16 +1,16 @@
 {
 	"intro": {
 		"greeting": "Hello, I'm",
-		"name": "Yong Cheng Low",
-		"title": "Senior Software Engineer at Glints, part-time teacher at Le Wagon and a Sports Enthusiast.",
+		"name": "Yong Cheng Low or YC",
+		"title": "Software & Data Engineer at National University Hospital, part-time educator at TalentGeist",
 		"companyLinks": [
 			{
-				"label": "Glints",
-				"url": "https://glints.com"
+				"label": "National University Hospital",
+				"url": "https://www.nuh.com.sg"
 			},
-			{
-				"label": "Le Wagon",
-				"url": "https://www.lewagon.com/singapore"
+						{
+				"label": "TalentGeist",
+				"url": "https://www.linkedin.com/company/talentgeist/posts/?feedView=all"
 			}
 		],
 		"ctaButtons": [
@@ -36,16 +36,12 @@
 		"title": "Project Highlights",
 		"items": [
 			{
-				"title": "NUS Students' Sports Club",
-				"description": "I developed a company website for the club. This was my first project using react.",
+				"title": "NUH Clinical Innovation Office",
+				"description": "Public repositories include setup guides and Frontend Next.js templates",
 				"buttons": [
 					{
-						"text": "Website",
-						"href": "https://www.nussportsclub.org"
-					},
-					{
-						"text": "Code",
-						"href": "https://github.com/yongchenglow/nus-students-sports-club"
+						"text": "Repository",
+						"href": "https://github.com/NUH-Clinical-Innovation-Office"
 					}
 				]
 			},
@@ -56,20 +52,6 @@
 					{
 						"text": "Code",
 						"href": "https://github.com/yongchenglow/yongchenglow.com"
-					}
-				]
-			},
-			{
-				"title": "AirBnB Clone",
-				"description": "This is a project written using Ruby on Rails for Le Wagon students to reference",
-				"buttons": [
-					{
-						"text": "Website",
-						"href": "https://airbnb-yc.herokuapp.com"
-					},
-					{
-						"text": "Code",
-						"href": "https://github.com/yongchenglow/airbnb-clone"
 					}
 				]
 			}
@@ -85,7 +67,7 @@
 		},
 		"paragraphs": [
 			"I grew up studying in various international schools in particular Shanghai Community International School, Dulwich College Shanghai and Sha Tin College Hong Kong.",
-			"During my free time, I will write Tech Posts to share my learning experience as a web software engineer. I hope that these posts will help my students and others transition into the Software Engineering careers. These posts are mainly targeted at junior web software engineers. If you are a mid or senior level, feel free to take a peek at them if you are free.",
+			"During my free time, I write blog posts to reflect on my experiences as a software engineer, helping me organize my thoughts and consolidate my learning.",
 			"You can find out more about me in the about section."
 		],
 		"externalLinks": [
@@ -104,7 +86,7 @@
 		],
 		"internalLinks": [
 			{
-				"label": "about",
+				"label": "about section",
 				"href": "/about"
 			}
 		]

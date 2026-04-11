@@ -44,37 +44,89 @@ export const AboutMeSection = () => {
 	);
 };
 
+type LinkToken =
+	| { type: "text"; id: string; value: string }
+	| { type: "external"; id: string; label: string; url: string }
+	| { type: "internal"; id: string; label: string; href: string };
+
+const tokenizeParagraph = (
+	paragraph: string,
+	about: (typeof homeData)["about"],
+): LinkToken[] => {
+	const allLinks: LinkToken[] = [
+		...about.externalLinks.map((l) => ({
+			type: "external" as const,
+			id: l.label,
+			label: l.label,
+			url: l.url,
+		})),
+		...about.internalLinks.map((l) => ({
+			type: "internal" as const,
+			id: l.label,
+			label: l.label,
+			href: l.href,
+		})),
+	];
+
+	let tokens: LinkToken[] = [{ type: "text", id: "text-0", value: paragraph }];
+	let counter = 1;
+
+	for (const link of allLinks) {
+		const next: LinkToken[] = [];
+		for (const token of tokens) {
+			if (token.type !== "text" || !token.value.includes(link.label)) {
+				next.push(token);
+				continue;
+			}
+			const parts = token.value.split(link.label);
+			for (let i = 0; i < parts.length; i++) {
+				if (parts[i])
+					next.push({
+						type: "text",
+						id: `text-${counter++}`,
+						value: parts[i],
+					});
+				if (i < parts.length - 1) {
+					const linkToken = { ...link, id: `${link.id}-${counter++}` };
+					next.push(linkToken);
+				}
+			}
+		}
+		tokens = next;
+	}
+
+	return tokens;
+};
+
 const renderParagraphContent = (
 	paragraph: string,
 	about: (typeof homeData)["about"],
 ) => {
-	// Check if this paragraph contains external links
-	for (const link of about.externalLinks) {
-		if (paragraph.includes(link.label)) {
-			const parts = paragraph.split(link.label);
-			return (
-				<>
-					{parts[0]}
-					<ExternalLink href={link.url}>{link.label}</ExternalLink>
-					{parts[1]}
-				</>
-			);
-		}
+	const tokens = tokenizeParagraph(paragraph, about);
+
+	if (tokens.length === 1 && tokens[0].type === "text") {
+		return paragraph;
 	}
 
-	// Check if this paragraph contains internal links
-	for (const link of about.internalLinks) {
-		if (paragraph.includes(link.label)) {
-			const parts = paragraph.split(link.label);
-			return (
-				<>
-					{parts[0]}
-					<InternalLink href={link.href}>{link.label}</InternalLink>
-					{parts[1]}
-				</>
-			);
-		}
-	}
-
-	return paragraph;
+	return (
+		<>
+			{tokens.map((token) => {
+				if (token.type === "external") {
+					return (
+						<ExternalLink key={token.id} href={token.url}>
+							{token.label}
+						</ExternalLink>
+					);
+				}
+				if (token.type === "internal") {
+					return (
+						<InternalLink key={token.id} href={token.href}>
+							{token.label}
+						</InternalLink>
+					);
+				}
+				return token.value;
+			})}
+		</>
+	);
 };
