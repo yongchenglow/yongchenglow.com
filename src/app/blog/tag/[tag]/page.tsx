@@ -9,7 +9,12 @@ import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
 
 export const generateMetadata = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
-	return { title: `Tag: ${tag}` };
+	return {
+		title: `Tag: ${tag}`,
+		alternates: {
+			canonical: `/blog/tag/${tag}`,
+		},
+	};
 };
 
 interface TagPageProps {

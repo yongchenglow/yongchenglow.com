@@ -26,7 +26,12 @@ export const generateMetadata = async ({ params }: CategoryPageProps) => {
 	const { category, page } = await params;
 	const categoryMetadata = getCategoryMetadata(category);
 	const label = categoryMetadata?.label ?? category;
-	return { title: `${label} - Page ${page}` };
+	return {
+		title: `${label} - Page ${page}`,
+		alternates: {
+			canonical: `/blog/category/${category}/${page}`,
+		},
+	};
 };
 
 export const generateStaticParams = async () => {

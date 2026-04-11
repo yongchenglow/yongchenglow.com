@@ -18,6 +18,9 @@ export const metadata: Metadata = {
 		"Yong Cheng Low, YC, Glints, Le Wagon, NUS, Tech, Computing, Computer Enginering, Blog, NUS Students' Sports Club",
 	authors: [{ name: "Yong Cheng Low" }],
 	robots: "index, follow",
+	alternates: {
+		canonical: "/",
+	},
 	openGraph: {
 		type: "website",
 		url: "https://www.yongchenglow.com",

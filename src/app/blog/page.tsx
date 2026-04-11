@@ -16,6 +16,9 @@ import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
 export const metadata: Metadata = {
 	title: "Blog",
+	alternates: {
+		canonical: "/blog",
+	},
 };
 
 export const BlogPage = () => {

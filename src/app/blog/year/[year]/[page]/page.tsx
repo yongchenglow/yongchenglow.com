@@ -23,7 +23,12 @@ interface YearPageProps {
 
 export const generateMetadata = async ({ params }: YearPageProps) => {
 	const { year, page } = await params;
-	return { title: `Posts from ${year} - Page ${page}` };
+	return {
+		title: `Posts from ${year} - Page ${page}`,
+		alternates: {
+			canonical: `/blog/year/${year}/${page}`,
+		},
+	};
 };
 
 export const generateStaticParams = async () => {

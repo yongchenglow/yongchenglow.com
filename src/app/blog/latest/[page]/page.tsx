@@ -15,7 +15,12 @@ interface LatestPageProps {
 
 export const generateMetadata = async ({ params }: LatestPageProps) => {
 	const { page } = await params;
-	return { title: `Latest Posts - Page ${page}` };
+	return {
+		title: `Latest Posts - Page ${page}`,
+		alternates: {
+			canonical: `/blog/latest/${page}`,
+		},
+	};
 };
 
 export const generateStaticParams = async () => {

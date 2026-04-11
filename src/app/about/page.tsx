@@ -18,6 +18,9 @@ import type { AboutData, TimelineItem } from "@/src/content/schema";
 
 export const metadata: Metadata = {
 	title: "About",
+	alternates: {
+		canonical: "/about",
+	},
 };
 
 // Type assertion - validated at runtime by tests

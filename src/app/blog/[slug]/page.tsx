@@ -37,16 +37,27 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 			};
 		}
 
+		const ogImage =
+			post.frontmatter.image ??
+			`/og?title=${encodeURIComponent(post.frontmatter.title)}&tags=${encodeURIComponent((post.frontmatter.tags ?? []).join(","))}`;
+
 		return {
 			title: post.frontmatter.title,
 			description: post.frontmatter.description,
+			alternates: {
+				canonical: `/blog/${slug}`,
+			},
 			openGraph: {
 				title: post.frontmatter.title,
 				description: post.frontmatter.description,
 				type: "article",
 				publishedTime: post.frontmatter.date,
 				modifiedTime: post.frontmatter.lastUpdated,
-				images: post.frontmatter.image ? [post.frontmatter.image] : [],
+				images: [ogImage],
+			},
+			twitter: {
+				card: post.frontmatter.image ? "summary" : "summary_large_image",
+				images: [ogImage],
 			},
 		};
 	} catch {
