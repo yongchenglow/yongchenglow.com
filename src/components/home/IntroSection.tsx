@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import homeData from "@/content/home.json";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
@@ -9,7 +10,7 @@ const renderTitleWithLinks = (
 	title: string,
 	links: { label: string; url: string }[],
 ) => {
-	const parts: (string | JSX.Element)[] = [title];
+	const parts: (string | ReactNode)[] = [title];
 	for (const link of links) {
 		const last = parts[parts.length - 1];
 		if (typeof last !== "string" || !last.includes(link.label)) continue;

@@ -72,6 +72,9 @@ const tokenizeParagraph = (
 	let counter = 1;
 
 	for (const link of allLinks) {
+		// Skip text tokens - only process external/internal links
+		if (link.type === "text") continue;
+
 		const next: LinkToken[] = [];
 		for (const token of tokens) {
 			if (token.type !== "text" || !token.value.includes(link.label)) {

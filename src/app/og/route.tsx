@@ -16,7 +16,10 @@ export const GET = async (request: NextRequest) => {
 		"/img/yong-cheng-metasprint.jpeg",
 		request.url,
 	).toString();
-	const avatarData = await fetch(avatarUrl).then((res) => res.arrayBuffer());
+	const avatarArrayBuffer = await fetch(avatarUrl).then((res) =>
+		res.arrayBuffer(),
+	);
+	const avatarData = new Blob([avatarArrayBuffer], { type: "image/jpeg" });
 
 	return new ImageResponse(
 		<div
@@ -42,7 +45,6 @@ export const GET = async (request: NextRequest) => {
 					border: "3px solid #334155",
 				}}
 			>
-				{/* @ts-expect-error: ImageResponse accepts ArrayBuffer for img src */}
 				<img
 					src={avatarData}
 					width={140}
