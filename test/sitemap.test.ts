@@ -62,4 +62,15 @@ describe("sitemap", () => {
 			expect(page.priority).toBe(0.5);
 		}
 	});
+
+	it("percent-encodes tag URLs so they are valid URIs", async () => {
+		const entries = await sitemap();
+		const tagEntries = entries.filter((e) => e.url.includes("/blog/tag/"));
+		expect(tagEntries.length).toBeGreaterThan(0);
+		for (const entry of tagEntries) {
+			// A valid URL must not contain raw spaces or unencoded special chars
+			expect(() => new URL(entry.url)).not.toThrow();
+			expect(entry.url).not.toMatch(/ /);
+		}
+	});
 });

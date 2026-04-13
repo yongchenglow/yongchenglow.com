@@ -1,6 +1,6 @@
-import { readdirSync, readFileSync } from "fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import matter from "gray-matter";
-import { join } from "path";
 import { describe, expect, it } from "vitest";
 import {
 	AboutSchema,
@@ -48,7 +48,7 @@ describe("Content JSON Validation", () => {
 		const authorsDir = join(contentDir, "authors");
 		const files = readdirSync(authorsDir).filter((f) => f.endsWith(".json"));
 
-		files.forEach((file) => {
+		for (const file of files) {
 			const content = readFileSync(join(authorsDir, file), "utf-8");
 			const data = JSON.parse(content);
 			const result = AuthorSchema.safeParse(data);
@@ -62,7 +62,7 @@ describe("Content JSON Validation", () => {
 			}
 
 			expect(result.data).toBeDefined();
-		});
+		}
 	});
 
 	it("timeline in about.json should have correct order (work first, then education/military)", () => {
@@ -88,10 +88,10 @@ describe("Content JSON Validation", () => {
 		// All work items should come before non-work items
 		if (firstNonWorkIndex !== -1) {
 			for (let i = firstNonWorkIndex; i < about.timeline.length; i++) {
-				expect(about.timeline[i].type).not.toBe(
-					"work",
+				expect(
+					about.timeline[i].type,
 					`Work item found after non-work item at index ${i}`,
-				);
+				).not.toBe("work");
 			}
 		}
 
@@ -106,13 +106,12 @@ describe("Content JSON Validation", () => {
 			(f) => f.endsWith(".mdx") || f.endsWith(".md"),
 		);
 
-		files.forEach((file) => {
+		for (const file of files) {
 			const content = readFileSync(join(blogDir, file), "utf-8");
 			const { data } = matter(content);
 			const result = BlogFrontmatterSchema.safeParse(data);
 
 			if (!result.success) {
-				const slug = file.replace(/\.(mdx|md)$/, "");
 				throw new Error(
 					`blog/${file} frontmatter validation failed:\n${result.error.errors
 						.map((e) => `  - ${e.path.join(".")}: ${e.message}`)
@@ -121,6 +120,6 @@ describe("Content JSON Validation", () => {
 			}
 
 			expect(result.data).toBeDefined();
-		});
+		}
 	});
 });

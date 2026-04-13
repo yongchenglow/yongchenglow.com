@@ -7,7 +7,11 @@ export const JsonLd = ({ data }: JsonLdProps) => {
 		<script
 			type="application/ld+json"
 			// biome-ignore lint/security/noDangerouslySetInnerHtml: controlled schema.org data, no user input
-			dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+			dangerouslySetInnerHTML={{
+				__html: JSON.stringify(data)
+					.replace(/</g, "\\u003c")
+					.replace(/>/g, "\\u003e"),
+			}}
 		/>
 	);
 };

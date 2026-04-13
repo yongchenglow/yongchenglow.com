@@ -62,9 +62,6 @@ export const AboutSchema = z.object({
 });
 
 export type AboutData = z.infer<typeof AboutSchema>;
-export type WorkTimelineItem = z.infer<typeof WorkTimelineItemSchema>;
-export type EducationTimelineItem = z.infer<typeof EducationTimelineItemSchema>;
-export type MilitaryTimelineItem = z.infer<typeof MilitaryTimelineItemSchema>;
 export type TimelineItem = z.infer<typeof TimelineItemSchema>;
 
 // Home content schemas
@@ -117,8 +114,6 @@ export const HomeSchema = z.object({
 	}),
 });
 
-export type HomeData = z.infer<typeof HomeSchema>;
-
 // Author content schemas
 export const AuthorSchema = z.object({
 	name: z.string(),
@@ -126,8 +121,6 @@ export const AuthorSchema = z.object({
 	url: z.string().url(),
 	image: z.string(),
 });
-
-export type AuthorData = z.infer<typeof AuthorSchema>;
 
 // Blog post frontmatter schema
 export const BlogFrontmatterSchema = z.object({
@@ -143,5 +136,3 @@ export const BlogFrontmatterSchema = z.object({
 	featured: z.boolean().optional(),
 	adsSlotId: z.string().optional(),
 });
-
-export type BlogFrontmatter = z.infer<typeof BlogFrontmatterSchema>;

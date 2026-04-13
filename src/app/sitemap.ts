@@ -85,7 +85,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 	for (const tag of allTagsSet) {
 		entries.push({
-			url: `${BASE_URL}/blog/tag/${tag}`,
+			url: `${BASE_URL}/blog/tag/${encodeURIComponent(tag)}`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,

@@ -57,7 +57,7 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 				images: [ogImage],
 			},
 			twitter: {
-				card: post.frontmatter.image ? "summary" : "summary_large_image",
+				card: "summary_large_image",
 				images: [ogImage],
 			},
 		};
@@ -85,12 +85,17 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 		"@type": "Article",
 		headline: post.frontmatter.title,
 		description: post.frontmatter.description,
-		datePublished: post.frontmatter.date,
-		dateModified: post.frontmatter.lastUpdated ?? post.frontmatter.date,
+		datePublished: `${post.frontmatter.date}T00:00:00+08:00`,
+		dateModified: `${post.frontmatter.lastUpdated ?? post.frontmatter.date}T00:00:00+08:00`,
 		url: `https://www.yongchenglow.com/blog/${slug}`,
-		image:
-			post.frontmatter.image ??
-			"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+		image: {
+			"@type": "ImageObject",
+			url:
+				post.frontmatter.image ??
+				"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+			width: 1200,
+			height: 630,
+		},
 		author: {
 			"@type": "Person",
 			name: "Yong Cheng Low",

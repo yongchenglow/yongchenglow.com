@@ -19,7 +19,8 @@ export const GET = async (request: NextRequest) => {
 	const avatarArrayBuffer = await fetch(avatarUrl).then((res) =>
 		res.arrayBuffer(),
 	);
-	const avatarData = new Blob([avatarArrayBuffer], { type: "image/jpeg" });
+	const avatarBase64 = Buffer.from(avatarArrayBuffer).toString("base64");
+	const avatarSrc = `data:image/jpeg;base64,${avatarBase64}`;
 
 	return new ImageResponse(
 		<div
@@ -45,8 +46,9 @@ export const GET = async (request: NextRequest) => {
 					border: "3px solid #334155",
 				}}
 			>
+				{/* biome-ignore lint/performance/noImgElement: next/image cannot be used inside ImageResponse (Satori edge runtime) */}
 				<img
-					src={avatarData}
+					src={avatarSrc}
 					width={140}
 					height={140}
 					style={{ objectFit: "cover" }}
