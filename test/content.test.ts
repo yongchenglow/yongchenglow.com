@@ -19,7 +19,7 @@ describe("Content JSON Validation", () => {
 
 		if (!result.success) {
 			throw new Error(
-				`about.json validation failed:\n${result.error.errors
+				`about.json validation failed:\n${result.error.issues
 					.map((e) => `  - ${e.path.join(".")}: ${e.message}`)
 					.join("\n")}`,
 			);
@@ -35,7 +35,7 @@ describe("Content JSON Validation", () => {
 
 		if (!result.success) {
 			throw new Error(
-				`home.json validation failed:\n${result.error.errors
+				`home.json validation failed:\n${result.error.issues
 					.map((e) => `  - ${e.path.join(".")}: ${e.message}`)
 					.join("\n")}`,
 			);
@@ -55,7 +55,7 @@ describe("Content JSON Validation", () => {
 
 			if (!result.success) {
 				throw new Error(
-					`authors/${file} validation failed:\n${result.error.errors
+					`authors/${file} validation failed:\n${result.error.issues
 						.map((e) => `  - ${e.path.join(".")}: ${e.message}`)
 						.join("\n")}`,
 				);
@@ -113,7 +113,7 @@ describe("Content JSON Validation", () => {
 
 			if (!result.success) {
 				throw new Error(
-					`blog/${file} frontmatter validation failed:\n${result.error.errors
+					`blog/${file} frontmatter validation failed:\n${result.error.issues
 						.map((e) => `  - ${e.path.join(".")}: ${e.message}`)
 						.join("\n")}`,
 				);

@@ -30,7 +30,7 @@ export const BlogPostLayout = ({
 
 	return (
 		<StandardLayout>
-			<ReadingProgress />
+			<ReadingProgress pageTitle={frontmatter.title} />
 			<PostContainer>
 				{/* Back Button */}
 				<BlogBackButton />
