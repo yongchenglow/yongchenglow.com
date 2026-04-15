@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import homeData from "@/content/home.json";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { ImageSkeleton } from "@/src/components/shared/atoms/ImageSkeleton";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
+import { cn, getImagePlaceholder } from "@/src/lib/utils";
 
 const renderTitleWithLinks = (
 	title: string,
@@ -30,6 +34,7 @@ const renderTitleWithLinks = (
 
 export const IntroSection = () => {
 	const { intro } = homeData;
+	const [isImageLoading, setIsImageLoading] = useState(true);
 
 	return (
 		<div className="flex justify-center py-16 sm:py-24">
@@ -72,14 +77,30 @@ export const IntroSection = () => {
 				{/* Image second on mobile, right on desktop */}
 				<div className="sm:col-span-5 col-span-1 flex justify-center order-1 sm:order-2">
 					<FadeIn delay={0.2}>
-						<Image
-							alt={intro.image.alt}
-							src={intro.image.src}
-							width={intro.image.width}
-							height={intro.image.height}
-							className="w-full h-auto rounded-2xl shadow-md max-w-sm"
-							priority
-						/>
+						<div className="relative">
+							{/* Skeleton loader */}
+							{isImageLoading && (
+								<ImageSkeleton
+									className="absolute inset-0 rounded-2xl"
+									aspectRatio="square"
+								/>
+							)}
+							<Image
+								alt={intro.image.alt}
+								src={intro.image.src}
+								width={intro.image.width}
+								height={intro.image.height}
+								className={cn(
+									"w-full h-auto rounded-2xl shadow-md max-w-sm",
+									isImageLoading ? "opacity-0" : "opacity-100",
+								)}
+								priority
+								placeholder="blur"
+								blurDataURL={getImagePlaceholder(intro.image.src)}
+								quality={85}
+								onLoad={() => setIsImageLoading(false)}
+							/>
+						</div>
 					</FadeIn>
 				</div>
 			</div>

@@ -4,7 +4,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, getBlurDataURL, getImagePlaceholder } from "@/src/lib/utils";
 
 interface ImageModalProps {
 	src: string;
@@ -20,6 +20,7 @@ export const ImageModal = ({
 	className,
 }: ImageModalProps) => {
 	const [open, setOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [parentSource, setParentSource] = useState<string | undefined>(source);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -54,14 +55,34 @@ export const ImageModal = ({
 						className,
 					)}
 				>
-					<Image
-						src={src}
-						alt={alt}
-						width={800}
-						height={600}
-						className="w-full h-auto"
-						unoptimized={!src.startsWith("/")}
-					/>
+					<div className="relative aspect-[4/3]">
+						{/* Skeleton loader */}
+						{isLoading && (
+							<div
+								className={cn(
+									"absolute inset-0 rounded-lg",
+									"bg-gradient-to-r from-muted via-muted-foreground/10 to-muted",
+									"animate-shimmer",
+								)}
+							/>
+						)}
+						<Image
+							src={src}
+							alt={alt}
+							width={800}
+							height={600}
+							className={cn(
+								"w-full h-auto",
+								isLoading ? "opacity-0" : "opacity-100",
+							)}
+							unoptimized={!src.startsWith("/")}
+							placeholder="blur"
+							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
+							quality={85}
+							loading="lazy"
+							onLoad={() => setIsLoading(false)}
+						/>
+					</div>
 				</button>
 			</DialogPrimitive.Trigger>
 
@@ -121,6 +142,9 @@ export const ImageModal = ({
 							height={900}
 							className="max-h-[80vh] w-auto mx-auto object-contain rounded-sm"
 							unoptimized={!src.startsWith("/")}
+							placeholder="blur"
+							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
+							quality={85}
 						/>
 					</div>
 

@@ -1,12 +1,18 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import homeData from "@/content/home.json";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
+import { ImageSkeleton } from "@/src/components/shared/atoms/ImageSkeleton";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Section } from "@/src/components/shared/molecules/Section";
+import { cn, getImagePlaceholder } from "@/src/lib/utils";
 
 export const AboutMeSection = () => {
 	const { about } = homeData;
+	const [isImageLoading, setIsImageLoading] = useState(true);
 
 	return (
 		<Section
@@ -18,13 +24,30 @@ export const AboutMeSection = () => {
 				<div className="grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-4xl my-3 items-center">
 					<div className="sm:col-span-5 col-span-1 flex justify-center mb-12 sm:mb-0">
 						<FadeIn delay={0.1}>
-							<Image
-								alt={about.image.alt}
-								src={about.image.src}
-								width={about.image.width}
-								height={about.image.height}
-								className="w-full h-auto rounded-2xl shadow-md max-w-sm"
-							/>
+							<div className="relative">
+								{/* Skeleton loader */}
+								{isImageLoading && (
+									<ImageSkeleton
+										className="absolute inset-0 rounded-2xl"
+										aspectRatio="square"
+									/>
+								)}
+								<Image
+									alt={about.image.alt}
+									src={about.image.src}
+									width={about.image.width}
+									height={about.image.height}
+									className={cn(
+										"w-full h-auto rounded-2xl shadow-md max-w-sm",
+										isImageLoading ? "opacity-0" : "opacity-100",
+									)}
+									placeholder="blur"
+									blurDataURL={getImagePlaceholder(about.image.src)}
+									quality={85}
+									loading="lazy"
+									onLoad={() => setIsImageLoading(false)}
+								/>
+							</div>
 						</FadeIn>
 					</div>
 					<div className="sm:col-span-7 col-span-1 flex items-center">
