@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { lqip } from "./lqip";
 
 export const cn = (...inputs: ClassValue[]) => {
 	return twMerge(clsx(inputs));
@@ -49,8 +50,13 @@ export const imagePlaceholders = {
 
 /**
  * Get placeholder color for an image path.
- * Falls back to neutral gray if no specific color is defined.
+ * First checks LQIP map for actual blurred preview, falls back to solid color.
  */
 export const getImagePlaceholder = (src: string): string => {
+	// First check LQIP map for actual blurred preview
+	const lqipData = lqip[src];
+	if (lqipData) return lqipData;
+
+	// Fall back to solid color placeholder
 	return imagePlaceholders[src as keyof typeof imagePlaceholders] ?? "#888888";
 };
