@@ -1,13 +1,13 @@
-import { createElement } from "react";
+import type { ReactElement } from "react";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 
-export interface ExternalTextLink {
+interface ExternalTextLink {
 	label: string;
 	url: string;
 }
 
-export interface InternalTextLink {
+interface InternalTextLink {
 	label: string;
 	href: string;
 }
@@ -22,12 +22,12 @@ type TextLink = ExternalTextLink | InternalTextLink;
 export function tokenizeWithLinks(
 	text: string,
 	links: TextLink[],
-): (string | JSX.Element)[] {
-	let parts: (string | JSX.Element)[] = [text];
+): (string | ReactElement)[] {
+	let parts: (string | ReactElement)[] = [text];
 	let keyCounter = 0;
 
 	for (const link of links) {
-		const nextParts: (string | JSX.Element)[] = [];
+		const nextParts: (string | ReactElement)[] = [];
 
 		for (const part of parts) {
 			if (typeof part !== "string") {
@@ -47,18 +47,20 @@ export function tokenizeWithLinks(
 				}
 
 				if (i < segments.length - 1) {
-					const LinkComponent = "url" in link ? ExternalLink : InternalLink;
-					const linkProps =
-						"url" in link
-							? { href: link.url, children: link.label }
-							: { href: link.href, children: link.label };
-
-					nextParts.push(
-						createElement(LinkComponent, {
-							...linkProps,
-							key: `link-${keyCounter++}`,
-						}),
-					);
+					const key = `link-${keyCounter++}`;
+					if ("url" in link) {
+						nextParts.push(
+							<ExternalLink href={link.url} key={key}>
+								{link.label}
+							</ExternalLink>,
+						);
+					} else {
+						nextParts.push(
+							<InternalLink href={link.href} key={key}>
+								{link.label}
+							</InternalLink>,
+						);
+					}
 				}
 			}
 		}

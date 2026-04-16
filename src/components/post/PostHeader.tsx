@@ -1,3 +1,5 @@
+import { cn } from "@/src/lib/utils";
+
 interface PostHeaderProps {
 	title: string;
 	subtitle?: string;
