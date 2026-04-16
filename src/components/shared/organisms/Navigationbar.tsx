@@ -21,13 +21,10 @@ import {
 	SheetTrigger,
 } from "@/src/components/shared/ui/sheet";
 import { ThemeToggle } from "@/src/components/theme/ThemeToggle";
+import { SITE_NAV_LINKS } from "@/src/config/site";
 import { cn } from "@/src/lib/utils";
 
-const pages = [
-	{ name: "Home", href: "/" },
-	{ name: "About", href: "/about" },
-	{ name: "Blog", href: "/blog" },
-];
+const pages = SITE_NAV_LINKS;
 
 const NavigationBar = () => {
 	const pathname = usePathname();

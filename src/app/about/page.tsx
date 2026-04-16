@@ -15,6 +15,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
+import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import type { AboutData, TimelineItem } from "@/src/content/schema";
 
 export const metadata: Metadata = {
@@ -111,10 +112,7 @@ export const AboutPage = () => {
 				{/* Hero */}
 				<div className="flex flex-col items-center text-center mb-10">
 					<Avatar className="h-28 w-28 mb-4">
-						<AvatarImage
-							src="/img/yong-cheng-metasprint.jpeg"
-							alt="Yong Cheng Low"
-						/>
+						<AvatarImage src={SITE_AUTHOR.image} alt={SITE_AUTHOR.name} />
 						<AvatarFallback>YC</AvatarFallback>
 					</Avatar>
 					<PageTitle>About Me</PageTitle>
@@ -143,10 +141,9 @@ export const AboutPage = () => {
 						"@context": "https://schema.org",
 						"@type": "Person",
 						name: about.hero.name,
-						url: "https://www.yongchenglow.com",
+						url: SITE_URL,
 						jobTitle: about.hero.title,
-						image:
-							"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+						image: `${SITE_URL}${SITE_AUTHOR.image}`,
 						sameAs: about.hero.links.map((link) => link.url),
 					}}
 				/>

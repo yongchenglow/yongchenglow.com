@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/src/config/site";
 
 const robots = (): MetadataRoute.Robots => ({
 	rules: {
@@ -6,7 +7,7 @@ const robots = (): MetadataRoute.Robots => ({
 		allow: "/",
 		disallow: "/api/",
 	},
-	sitemap: "https://www.yongchenglow.com/sitemap.xml",
+	sitemap: `${SITE_URL}/sitemap.xml`,
 });
 
 export default robots;

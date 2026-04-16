@@ -6,6 +6,7 @@ import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import { SITE_URL } from "@/src/config/site";
 import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
 
 export const generateMetadata = async ({ params }: TagPageProps) => {
@@ -53,19 +54,19 @@ export const TagPage = async ({ params }: TagPageProps) => {
 								"@type": "ListItem",
 								position: 1,
 								name: "Home",
-								item: "https://www.yongchenglow.com",
+								item: SITE_URL,
 							},
 							{
 								"@type": "ListItem",
 								position: 2,
 								name: "Blog",
-								item: "https://www.yongchenglow.com/blog",
+								item: `${SITE_URL}/blog`,
 							},
 							{
 								"@type": "ListItem",
 								position: 3,
 								name: `Tag: ${tag}`,
-								item: `https://www.yongchenglow.com/blog/tag/${tag}`,
+								item: `${SITE_URL}/blog/tag/${tag}`,
 							},
 						],
 					}}

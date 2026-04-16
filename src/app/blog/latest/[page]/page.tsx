@@ -7,6 +7,7 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { SITE_URL } from "@/src/config/site";
 import { getAllBlogPosts, getPaginatedPosts } from "@/src/lib/blog";
 
 interface LatestPageProps {
@@ -62,19 +63,19 @@ export const LatestPage = async ({ params }: LatestPageProps) => {
 								"@type": "ListItem",
 								position: 1,
 								name: "Home",
-								item: "https://www.yongchenglow.com",
+								item: SITE_URL,
 							},
 							{
 								"@type": "ListItem",
 								position: 2,
 								name: "Blog",
-								item: "https://www.yongchenglow.com/blog",
+								item: `${SITE_URL}/blog`,
 							},
 							{
 								"@type": "ListItem",
 								position: 3,
 								name: BLOG_LABELS.featured.pageHeading,
-								item: "https://www.yongchenglow.com/blog/latest/1",
+								item: `${SITE_URL}/blog/latest/1`,
 							},
 							...(pageNumber > 1
 								? [
@@ -82,7 +83,7 @@ export const LatestPage = async ({ params }: LatestPageProps) => {
 											"@type": "ListItem",
 											position: 4,
 											name: `Page ${pageNumber}`,
-											item: `https://www.yongchenglow.com/blog/latest/${pageNumber}`,
+											item: `${SITE_URL}/blog/latest/${pageNumber}`,
 										},
 									]
 								: []),

@@ -10,6 +10,7 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { SITE_URL } from "@/src/config/site";
 import {
 	getAllPostYears,
 	getBlogPostsByYear,
@@ -82,19 +83,19 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 								"@type": "ListItem",
 								position: 1,
 								name: "Home",
-								item: "https://www.yongchenglow.com",
+								item: SITE_URL,
 							},
 							{
 								"@type": "ListItem",
 								position: 2,
 								name: "Blog",
-								item: "https://www.yongchenglow.com/blog",
+								item: `${SITE_URL}/blog`,
 							},
 							{
 								"@type": "ListItem",
 								position: 3,
 								name: `Posts from ${year}`,
-								item: `https://www.yongchenglow.com/blog/year/${year}/1`,
+								item: `${SITE_URL}/blog/year/${year}/1`,
 							},
 							...(pageNumber > 1
 								? [
@@ -102,7 +103,7 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 											"@type": "ListItem",
 											position: 4,
 											name: `Page ${pageNumber}`,
-											item: `https://www.yongchenglow.com/blog/year/${year}/${pageNumber}`,
+											item: `${SITE_URL}/blog/year/${year}/${pageNumber}`,
 										},
 									]
 								: []),
