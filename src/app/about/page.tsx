@@ -13,7 +13,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
-import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
+import { AD_SLOTS, SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import type { AboutData } from "@/src/content/schema";
 
 export const metadata: Metadata = {
@@ -60,7 +60,7 @@ export const AboutPage = () => {
 					))}
 				</Timeline>
 
-				<GoogleAds slotId="7158598508" />
+				<GoogleAds slotId={AD_SLOTS.about} />
 				<JsonLd
 					data={{
 						"@context": "https://schema.org",

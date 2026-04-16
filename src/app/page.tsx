@@ -4,6 +4,7 @@ import { LatestPostsSection } from "@/src/components/home/LatestPostsSection";
 import { ProjectsSection } from "@/src/components/home/ProjectsSection";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
+import { AD_SLOTS } from "@/src/config/site";
 import { getFeaturedPost } from "@/src/lib/blog";
 
 export const HomePage = () => {
@@ -14,9 +15,9 @@ export const HomePage = () => {
 			<IntroSection />
 			<LatestPostsSection post={featuredPost} />
 			<ProjectsSection />
-			<GoogleAds slotId="5500217699" />
+			<GoogleAds slotId={AD_SLOTS.homeTop} />
 			<AboutMeSection />
-			<GoogleAds slotId="8155985403" />
+			<GoogleAds slotId={AD_SLOTS.homeBottom} />
 		</StandardLayout>
 	);
 };

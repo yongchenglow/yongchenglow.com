@@ -12,6 +12,7 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
+import { AD_SLOTS } from "@/src/config/site";
 import { getStaggerDelay } from "@/src/lib/animation";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
@@ -95,7 +96,7 @@ export const BlogPage = () => {
 					</div>
 				</section>
 
-				<GoogleAds slotId="9667543473" />
+				<GoogleAds slotId={AD_SLOTS.blog} />
 			</div>
 		</StandardLayout>
 	);

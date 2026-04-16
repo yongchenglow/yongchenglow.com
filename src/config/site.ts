@@ -17,3 +17,10 @@ export const SITE_SOCIAL_LINKS = {
 	github: "https://github.com/yongchenglow",
 	instagram: "https://www.instagram.com/yclow88/",
 } as const;
+
+export const AD_SLOTS = {
+	homeTop: "5500217699",
+	homeBottom: "8155985403",
+	about: "7158598508",
+	blog: "9667543473",
+} as const;
