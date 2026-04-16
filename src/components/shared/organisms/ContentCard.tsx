@@ -18,7 +18,7 @@ export const ContentCard = ({
 	return (
 		<Card
 			className={cn(
-				"overflow-hidden pt-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300",
+				"overflow-hidden pt-6 hover:-translate-y-1 hover:shadow-md transition-all duration-300",
 				className,
 			)}
 		>
