@@ -10,7 +10,7 @@ export const PostHeader = ({
 	className = "",
 }: PostHeaderProps) => {
 	return (
-		<div className={`mb-6 text-center ${className}`.trim()}>
+		<div className={cn("mb-6 text-center ", className)}>
 			<h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-2">
 				{title}
 			</h1>

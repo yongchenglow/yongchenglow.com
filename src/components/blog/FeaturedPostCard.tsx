@@ -3,6 +3,7 @@ import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { Button } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
+import { formatDate } from "@/src/lib/utils";
 
 interface FeaturedPostCardProps {
 	title: string;
@@ -53,7 +54,7 @@ export const FeaturedPostCard = ({
 								{date && (
 									<div className="flex items-center gap-1">
 										<Calendar className="h-4 w-4" />
-										{new Date(date).toLocaleDateString()}
+										{formatDate(date)}
 									</div>
 								)}
 								{readingTime && (

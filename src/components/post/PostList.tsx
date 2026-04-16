@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface PostListProps {
 	children: ReactNode;
@@ -14,7 +15,7 @@ export const PostList = ({
 	const Tag = type === "ordered" ? "ol" : "ul";
 
 	return (
-		<div className={`text-base mb-5 ${className}`.trim()}>
+		<div className={cn("text-base mb-5 ", className)}>
 			<Tag className="ml-6">{children}</Tag>
 		</div>
 	);

@@ -11,6 +11,7 @@ import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Badge } from "@/src/components/shared/ui/badge";
+import { formatDate } from "@/src/lib/utils";
 import type { BlogPost } from "@/src/types/blog";
 
 interface BlogPostLayoutProps {
@@ -40,12 +41,10 @@ export const BlogPostLayout = ({
 
 				{/* Metadata Bar */}
 				<div className="flex flex-wrap gap-2 justify-center items-center mb-4">
-					<PostMetadata>
-						Published: {new Date(frontmatter.date).toLocaleDateString()}
-					</PostMetadata>
+					<PostMetadata>Published: {formatDate(frontmatter.date)}</PostMetadata>
 					{frontmatter.lastUpdated && (
 						<PostMetadata>
-							Updated: {new Date(frontmatter.lastUpdated).toLocaleDateString()}
+							Updated: {formatDate(frontmatter.lastUpdated)}
 						</PostMetadata>
 					)}
 					<PostMetadata>{readingTime}</PostMetadata>

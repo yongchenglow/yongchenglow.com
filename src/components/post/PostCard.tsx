@@ -8,6 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/src/components/shared/ui/card";
+import { formatDate } from "@/src/lib/utils";
 
 interface PostCardProps {
 	title: string;
@@ -45,7 +46,7 @@ export const PostCard = ({
 								{date && (
 									<div className="flex items-center gap-1">
 										<Calendar className="h-4 w-4" />
-										{new Date(date).toLocaleDateString()}
+										{formatDate(date)}
 									</div>
 								)}
 								{readingTime && (

@@ -30,7 +30,7 @@ export const PostImage = ({
 	const aspectRatio = `${(width / height) * 100}%`;
 
 	return (
-		<div className={`max-w-3xl mx-auto mb-4 ${className}`.trim()}>
+		<div className={cn("max-w-3xl mx-auto mb-4", className)}>
 			<div className="relative" style={{ paddingBottom: aspectRatio }}>
 				{/* Skeleton loader - shown while image loads */}
 				{isLoading && (

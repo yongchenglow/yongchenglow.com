@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface PostDefinitionProps {
 	children: ReactNode;
@@ -10,7 +11,7 @@ export const PostDefinition = ({
 	className = "",
 }: PostDefinitionProps) => {
 	return (
-		<div className={`my-3 max-w-sm mx-auto ${className}`.trim()}>
+		<div className={cn("my-3 max-w-sm mx-auto ", className)}>
 			<div className="text-center mb-2 italic">{children}</div>
 		</div>
 	);
