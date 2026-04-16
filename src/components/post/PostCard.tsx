@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import {
@@ -31,7 +31,7 @@ export const PostCard = ({
 	return (
 		<div className={className}>
 			<InternalLink href={href} className="no-underline group">
-				<Card className="h-full hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer">
+				<Card className="h-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
 					<CardHeader>
 						<CardTitle className="group-hover:text-primary transition-colors duration-200">
 							{title}
@@ -67,14 +67,6 @@ export const PostCard = ({
 								))}
 							</div>
 						)}
-
-						{/* Hover-reveal CTA */}
-						<div className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pt-4 border-t border-border mt-4">
-							<span className="text-sm font-medium text-primary flex items-center gap-1">
-								Read full story
-								<ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-							</span>
-						</div>
 					</CardContent>
 				</Card>
 			</InternalLink>
