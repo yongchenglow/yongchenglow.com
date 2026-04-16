@@ -31,7 +31,7 @@ In order to ensure that we keep things focused, the next few articles will only 
 
 ![studying](/img/studying-g69d74ed4b_1280.jpg)
 
-If you want to follow along this project setup series, please setup your computer according to the following website. The setup instructions are courtesy of [Le Wagon](https://www.lewagon.com), I do teach there part time. If you are interested in their courses feel free to sign up. They have offices everywhere world wide.
+If you want to follow along this project setup series, please setup your computer according to the [Le Wagon setup instructions](https://github.com/lewagon/setup). The setup instructions are courtesy of [Le Wagon](https://www.lewagon.com), I do teach there part time. If you are interested in their courses feel free to sign up. They have offices everywhere world wide.
 
 After that you can open your terminal and copy and paste the following. Replace &lt;YOUR_APP_NAME&gt; with your own application name. If you want you can call it myapp.
 
@@ -63,7 +63,7 @@ For Ruby on Rails, there are many extensions that you project could include, how
 4. Collaboration Tools (ms-vsliveshare.vsliveshare)
 5. Version Control Tools (eamodio.gitlens)
 
-A **code formatter** is used to format our code. This ensures that or coding style remains consistent throughout the project. For example, how we indent the code? Where should the brackets be? Should we end the line with trailing commas? Through the code formatter standardization, this makes the project look as if it was written by one person, which makes things easier to read, learn and write. It is also important that we turn on the format on save feature on, this ensures we don't have to waste time adjusting our coding style to match the required standard.
+A **code formatter** is used to format our code. This ensures that our coding style remains consistent throughout the project. For example, how we indent the code? Where should the brackets be? Should we end the line with trailing commas? Through the code formatter standardization, this makes the project look as if it was written by one person, which makes things easier to read, learn and write. It is also important that we turn on the format on save feature on, this ensures we don't have to waste time adjusting our coding style to match the required standard.
 
 A **language beautifier** allows the IDE to colorize the code correctly. Keywords such as const or let should be in a different color when you type them in a js file. Reserved words should also be in a different color to prevent weird variable naming errors. This ensure that the code is easy to read and reduce the chance of dirty code.
 
@@ -78,9 +78,8 @@ A **version control tool** such as gitlens will allow you to easily see who is t
 In the root of your project, you can run the following code to create a VS Code extensions file.
 
 ```bash
-mkdir .vscode
-cd .vscode
-touch extensions.json
+mkdir -p .vscode
+touch .vscode/extensions.json
 ```
 
 In the extensions.json file, you should add the extensions for your project. For those who are following along, you can copy the file information below
@@ -118,7 +117,7 @@ Adjust your VS Code settings code > preferences > settings, add a , at the end o
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  },
+  }
 }
 ```
 

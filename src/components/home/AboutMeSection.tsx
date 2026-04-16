@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import homeData from "@/content/home.json";
-import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
-import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Section } from "@/src/components/shared/molecules/Section";
+import { tokenizeWithLinks } from "@/src/lib/text";
 import { getImagePlaceholder } from "@/src/lib/utils";
 
 export const AboutMeSection = () => {
@@ -42,7 +41,10 @@ export const AboutMeSection = () => {
 							{about.paragraphs.map((paragraph) => (
 								<FadeIn key={paragraph.slice(0, 30)} delay={0.1}>
 									<p className="mb-8 text-muted-foreground leading-relaxed text-lg">
-										{renderParagraphContent(paragraph, about)}
+										{tokenizeWithLinks(paragraph, [
+											...about.externalLinks,
+											...about.internalLinks,
+										])}
 									</p>
 								</FadeIn>
 							))}
@@ -51,95 +53,5 @@ export const AboutMeSection = () => {
 				</div>
 			</div>
 		</Section>
-	);
-};
-
-type LinkToken =
-	| { type: "text"; id: string; value: string }
-	| { type: "external"; id: string; label: string; url: string }
-	| { type: "internal"; id: string; label: string; href: string };
-
-const tokenizeParagraph = (
-	paragraph: string,
-	about: (typeof homeData)["about"],
-): LinkToken[] => {
-	const allLinks: LinkToken[] = [
-		...about.externalLinks.map((l) => ({
-			type: "external" as const,
-			id: l.label,
-			label: l.label,
-			url: l.url,
-		})),
-		...about.internalLinks.map((l) => ({
-			type: "internal" as const,
-			id: l.label,
-			label: l.label,
-			href: l.href,
-		})),
-	];
-
-	let tokens: LinkToken[] = [{ type: "text", id: "text-0", value: paragraph }];
-	let counter = 1;
-
-	for (const link of allLinks) {
-		// Skip text tokens - only process external/internal links
-		if (link.type === "text") continue;
-
-		const next: LinkToken[] = [];
-		for (const token of tokens) {
-			if (token.type !== "text" || !token.value.includes(link.label)) {
-				next.push(token);
-				continue;
-			}
-			const parts = token.value.split(link.label);
-			for (let i = 0; i < parts.length; i++) {
-				if (parts[i])
-					next.push({
-						type: "text",
-						id: `text-${counter++}`,
-						value: parts[i],
-					});
-				if (i < parts.length - 1) {
-					const linkToken = { ...link, id: `${link.id}-${counter++}` };
-					next.push(linkToken);
-				}
-			}
-		}
-		tokens = next;
-	}
-
-	return tokens;
-};
-
-const renderParagraphContent = (
-	paragraph: string,
-	about: (typeof homeData)["about"],
-) => {
-	const tokens = tokenizeParagraph(paragraph, about);
-
-	if (tokens.length === 1 && tokens[0].type === "text") {
-		return paragraph;
-	}
-
-	return (
-		<>
-			{tokens.map((token) => {
-				if (token.type === "external") {
-					return (
-						<ExternalLink key={token.id} href={token.url}>
-							{token.label}
-						</ExternalLink>
-					);
-				}
-				if (token.type === "internal") {
-					return (
-						<InternalLink key={token.id} href={token.href}>
-							{token.label}
-						</InternalLink>
-					);
-				}
-				return token.value;
-			})}
-		</>
 	);
 };

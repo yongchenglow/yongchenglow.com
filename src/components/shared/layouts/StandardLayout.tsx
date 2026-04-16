@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Container from "@/src/components/shared/atoms/Container";
 import Footer from "@/src/components/shared/organisms/Footer";

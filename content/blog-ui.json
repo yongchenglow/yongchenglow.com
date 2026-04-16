@@ -1,0 +1,24 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Blog UI Labels",
+	"description": "Single source of truth for all blog-related UI text labels",
+	"blogTitle": "Blog",
+	"featured": {
+		"sectionHeading": "Featured Post",
+		"pageHeading": "Featured Posts",
+		"badge": "Featured"
+	},
+	"previousPosts": {
+		"sectionHeading": "Previous Posts",
+		"viewAllLink": "View All Posts →"
+	},
+	"categoryNavigation": {
+		"heading": "Browse by Category"
+	},
+	"yearFilter": {
+		"heading": "Browse by Year"
+	},
+	"pagination": {
+		"showingText": "Showing {current} of {total} posts"
+	}
+}

@@ -7,6 +7,7 @@ import {
 	atomOneDark,
 	atomOneLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { cn } from "@/src/lib/utils";
 
 interface PostCodeBlockProps {
 	children: string;
@@ -28,7 +29,7 @@ export const PostCodeBlock = ({
 
 	if (!mounted) {
 		return (
-			<div className={`text-center mb-7 ${className}`.trim()}>
+			<div className={cn("text-center mb-7 ", className)}>
 				<div className="inline-block bg-muted p-8 text-left">
 					<pre>{children.trim()}</pre>
 				</div>
@@ -37,7 +38,7 @@ export const PostCodeBlock = ({
 	}
 
 	return (
-		<div className={`text-center mb-7 ${className}`.trim()}>
+		<div className={cn("text-center mb-7 ", className)}>
 			<SyntaxHighlighter
 				language={language}
 				style={theme === "dark" ? atomOneDark : atomOneLight}

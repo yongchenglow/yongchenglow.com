@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-	getBlurDataURL,
-	getImagePlaceholder,
-	imagePlaceholders,
-} from "@/src/lib/utils";
+import { getBlurDataURL, getImagePlaceholder } from "@/src/lib/utils";
 
 /**
  * Tests for image rendering performance utilities.
@@ -35,41 +31,15 @@ describe("Image Placeholder Utilities", () => {
 		});
 	});
 
-	describe("imagePlaceholders", () => {
-		it("should have placeholder for hero image", () => {
-			expect(imagePlaceholders["/img/yong-cheng-badminton.jpg"]).toBe(
-				"#D4C5B9",
-			);
-		});
-
-		it("should have placeholder for about image", () => {
-			expect(imagePlaceholders["/img/yong-cheng-metasprint.jpeg"]).toBe(
-				"#A8B8C8",
-			);
-		});
-
-		it("should have placeholders for blog images", () => {
-			expect(
-				imagePlaceholders[
-					"/img/MaxPixel.net-Internet-The-Web-Website-Design-Web-Design-4875183.jpg"
-				],
-			).toBe("#2D4A3E");
-			expect(imagePlaceholders["/img/computer-g39398e915_1280.jpg"]).toBe(
-				"#8B9BA8",
-			);
-			expect(imagePlaceholders["/img/design_thinking.png"]).toBe("#5B7C99");
-		});
-	});
-
 	describe("getImagePlaceholder", () => {
-		it("should return correct color for hero image", () => {
+		it("should return base64 data URL for hero image", () => {
 			const result = getImagePlaceholder("/img/yong-cheng-badminton.jpg");
-			expect(result).toBe("#D4C5B9");
+			expect(result).toMatch(/^data:image\/jpeg;base64,/);
 		});
 
-		it("should return correct color for blog image", () => {
+		it("should return base64 data URL for blog image", () => {
 			const result = getImagePlaceholder("/img/computer-g39398e915_1280.jpg");
-			expect(result).toBe("#8B9BA8");
+			expect(result).toMatch(/^data:image\/jpeg;base64,/);
 		});
 
 		it("should return default gray for unknown images", () => {

@@ -11,6 +11,8 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
+import { BLOG_UI } from "@/src/config/blog-ui";
+import { AD_SLOTS } from "@/src/config/site";
 import { getStaggerDelay } from "@/src/lib/animation";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
@@ -46,7 +48,9 @@ export const BlogPage = () => {
 				{featuredPost && (
 					<section className="my-8 text-left">
 						<FadeIn>
-							<h2 className="text-2xl font-bold mb-4">Latest Post</h2>
+							<h2 className="text-2xl font-bold mb-4">
+								{BLOG_UI.featured.sectionHeading}
+							</h2>
 						</FadeIn>
 						<FadeIn delay={0.1}>
 							<FeaturedPostCard
@@ -64,7 +68,9 @@ export const BlogPage = () => {
 				{/* Previous Posts Grid */}
 				<section className="my-8 text-left">
 					<FadeIn>
-						<h2 className="text-2xl font-bold mb-4">Previous Posts</h2>
+						<h2 className="text-2xl font-bold mb-4">
+							{BLOG_UI.previousPosts.sectionHeading}
+						</h2>
 					</FadeIn>
 					<PostGrid>
 						{previousPosts.map((post, index) => (
@@ -83,12 +89,14 @@ export const BlogPage = () => {
 
 					<div className="flex justify-center mt-8">
 						<Button variant="ghost" size="lg" asChild className="gap-2">
-							<Link href="/blog/latest/1">View All Posts →</Link>
+							<Link href="/blog/latest/1">
+								{BLOG_UI.previousPosts.viewAllLink}
+							</Link>
 						</Button>
 					</div>
 				</section>
 
-				<GoogleAds slotId="9667543473" />
+				<GoogleAds slotId={AD_SLOTS.blog} />
 			</div>
 		</StandardLayout>
 	);

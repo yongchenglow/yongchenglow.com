@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import { JsonLd } from "@/src/components/seo/JsonLd";
+import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import {
 	getAllBlogSlugs,
 	getBlogPost,
@@ -87,24 +88,22 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 		description: post.frontmatter.description,
 		datePublished: `${post.frontmatter.date}T00:00:00+08:00`,
 		dateModified: `${post.frontmatter.lastUpdated ?? post.frontmatter.date}T00:00:00+08:00`,
-		url: `https://www.yongchenglow.com/blog/${slug}`,
+		url: `${SITE_URL}/blog/${slug}`,
 		image: {
 			"@type": "ImageObject",
-			url:
-				post.frontmatter.image ??
-				"https://www.yongchenglow.com/img/yong-cheng-metasprint.jpeg",
+			url: post.frontmatter.image ?? `${SITE_URL}${SITE_AUTHOR.image}`,
 			width: 1200,
 			height: 630,
 		},
 		author: {
 			"@type": "Person",
-			name: "Yong Cheng Low",
-			url: "https://www.yongchenglow.com/about",
+			name: SITE_AUTHOR.name,
+			url: SITE_AUTHOR.url,
 		},
 		publisher: {
 			"@type": "Person",
-			name: "Yong Cheng Low",
-			url: "https://www.yongchenglow.com",
+			name: SITE_AUTHOR.name,
+			url: SITE_URL,
 		},
 	};
 
@@ -116,19 +115,19 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 				"@type": "ListItem",
 				position: 1,
 				name: "Home",
-				item: "https://www.yongchenglow.com",
+				item: SITE_URL,
 			},
 			{
 				"@type": "ListItem",
 				position: 2,
 				name: "Blog",
-				item: "https://www.yongchenglow.com/blog",
+				item: `${SITE_URL}/blog`,
 			},
 			{
 				"@type": "ListItem",
 				position: 3,
 				name: post.frontmatter.title,
-				item: `https://www.yongchenglow.com/blog/${slug}`,
+				item: `${SITE_URL}/blog/${slug}`,
 			},
 		],
 	};

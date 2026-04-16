@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface PostContainerProps {
 	children: ReactNode;
@@ -11,7 +12,10 @@ export const PostContainer = ({
 }: PostContainerProps) => {
 	return (
 		<div
-			className={`py-3 px-4 mx-auto max-w-prose md:max-w-3xl lg:max-w-4xl text-left w-full ${className}`.trim()}
+			className={cn(
+				"py-3 px-4 mx-auto max-w-prose md:max-w-3xl lg:max-w-4xl text-left w-full",
+				className,
+			)}
 		>
 			{children}
 		</div>

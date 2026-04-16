@@ -1,21 +1,19 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
+import { SITE_AUTHOR } from "@/src/config/site";
 
 export const runtime = "edge";
 
 export const GET = async (request: NextRequest) => {
 	const { searchParams } = new URL(request.url);
-	const title = searchParams.get("title") ?? "Yong Cheng Low";
+	const title = searchParams.get("title") ?? SITE_AUTHOR.name;
 	const tagsParam = searchParams.get("tags") ?? "";
 	const tags = tagsParam
 		.split(",")
 		.map((t) => t.trim())
 		.filter(Boolean);
 
-	const avatarUrl = new URL(
-		"/img/yong-cheng-metasprint.jpeg",
-		request.url,
-	).toString();
+	const avatarUrl = new URL(SITE_AUTHOR.image, request.url).toString();
 	const avatarArrayBuffer = await fetch(avatarUrl).then((res) =>
 		res.arrayBuffer(),
 	);

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_CONFIG } from "@/src/config/blog";
+import { SITE_URL } from "@/src/config/site";
 import {
 	getAllBlogPosts,
 	getAllCategories,
@@ -8,27 +9,25 @@ import {
 	getBlogPostsByYear,
 } from "@/src/lib/blog";
 
-const BASE_URL = "https://www.yongchenglow.com";
-
 const sitemap = (): MetadataRoute.Sitemap => {
 	const entries: MetadataRoute.Sitemap = [];
 
 	// Static pages
 	entries.push(
 		{
-			url: BASE_URL,
+			url: SITE_URL,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 1.0,
 		},
 		{
-			url: `${BASE_URL}/about`,
+			url: `${SITE_URL}/about`,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.8,
 		},
 		{
-			url: `${BASE_URL}/blog`,
+			url: `${SITE_URL}/blog`,
 			lastModified: new Date(),
 			changeFrequency: "daily",
 			priority: 0.9,
@@ -39,7 +38,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	const posts = getAllBlogPosts();
 	for (const post of posts) {
 		entries.push({
-			url: `${BASE_URL}/blog/${post.slug}`,
+			url: `${SITE_URL}/blog/${post.slug}`,
 			lastModified: new Date(
 				post.frontmatter.lastUpdated ?? post.frontmatter.date,
 			),
@@ -52,7 +51,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	const totalLatestPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
 	for (let i = 1; i <= totalLatestPages; i++) {
 		entries.push({
-			url: `${BASE_URL}/blog/latest/${i}`,
+			url: `${SITE_URL}/blog/latest/${i}`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,
@@ -68,7 +67,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 		);
 		for (let i = 1; i <= totalCategoryPages; i++) {
 			entries.push({
-				url: `${BASE_URL}/blog/category/${category.slug}/${i}`,
+				url: `${SITE_URL}/blog/category/${category.slug}/${i}`,
 				lastModified: new Date(),
 				changeFrequency: "weekly",
 				priority: 0.5,
@@ -85,7 +84,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 	for (const tag of allTagsSet) {
 		entries.push({
-			url: `${BASE_URL}/blog/tag/${encodeURIComponent(tag)}`,
+			url: `${SITE_URL}/blog/tag/${encodeURIComponent(tag)}`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,
@@ -101,7 +100,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 		);
 		for (let i = 1; i <= totalYearPages; i++) {
 			entries.push({
-				url: `${BASE_URL}/blog/year/${year}/${i}`,
+				url: `${SITE_URL}/blog/year/${year}/${i}`,
 				lastModified: new Date(),
 				changeFrequency: "weekly",
 				priority: 0.5,

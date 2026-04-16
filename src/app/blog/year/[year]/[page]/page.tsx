@@ -9,6 +9,8 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_UI } from "@/src/config/blog-ui";
+import { SITE_URL } from "@/src/config/site";
 import {
 	getAllPostYears,
 	getBlogPostsByYear,
@@ -81,19 +83,19 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 								"@type": "ListItem",
 								position: 1,
 								name: "Home",
-								item: "https://www.yongchenglow.com",
+								item: SITE_URL,
 							},
 							{
 								"@type": "ListItem",
 								position: 2,
 								name: "Blog",
-								item: "https://www.yongchenglow.com/blog",
+								item: `${SITE_URL}/blog`,
 							},
 							{
 								"@type": "ListItem",
 								position: 3,
 								name: `Posts from ${year}`,
-								item: `https://www.yongchenglow.com/blog/year/${year}/1`,
+								item: `${SITE_URL}/blog/year/${year}/1`,
 							},
 							...(pageNumber > 1
 								? [
@@ -101,7 +103,7 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 											"@type": "ListItem",
 											position: 4,
 											name: `Page ${pageNumber}`,
-											item: `https://www.yongchenglow.com/blog/year/${year}/${pageNumber}`,
+											item: `${SITE_URL}/blog/year/${year}/${pageNumber}`,
 										},
 									]
 								: []),
@@ -113,8 +115,10 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} posts published in {year}
+						{BLOG_UI.pagination.showingText
+							.replace("{current}", String(paginationResult.items.length))
+							.replace("{total}", String(paginationResult.totalItems))}{" "}
+						published in {year}
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>

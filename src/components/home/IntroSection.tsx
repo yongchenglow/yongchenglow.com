@@ -1,35 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
 import homeData from "@/content/home.json";
-import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
+import { tokenizeWithLinks } from "@/src/lib/text";
 import { getImagePlaceholder } from "@/src/lib/utils";
-
-const renderTitleWithLinks = (
-	title: string,
-	links: { label: string; url: string }[],
-) => {
-	const parts: (string | ReactNode)[] = [title];
-	for (const link of links) {
-		const last = parts[parts.length - 1];
-		if (typeof last !== "string" || !last.includes(link.label)) continue;
-		const [before, after] = last.split(link.label);
-		parts.splice(
-			parts.length - 1,
-			1,
-			before,
-			<ExternalLink key={link.url} href={link.url}>
-				{link.label}
-			</ExternalLink>,
-			after,
-		);
-	}
-	return parts;
-};
 
 export const IntroSection = () => {
 	const { intro } = homeData;
@@ -52,7 +29,7 @@ export const IntroSection = () => {
 						</FadeIn>
 						<FadeIn delay={0.2}>
 							<p className="text-lg text-muted-foreground mb-8">
-								{renderTitleWithLinks(intro.title, intro.companyLinks)}
+								{tokenizeWithLinks(intro.title, intro.companyLinks)}
 							</p>
 						</FadeIn>
 						<FadeIn delay={0.3}>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface PostParagraphProps {
 	children: ReactNode;
@@ -9,5 +10,5 @@ export const PostParagraph = ({
 	children,
 	className = "",
 }: PostParagraphProps) => {
-	return <p className={`mb-3 ${className}`.trim()}>{children}</p>;
+	return <p className={cn("mb-3 ", className)}>{children}</p>;
 };

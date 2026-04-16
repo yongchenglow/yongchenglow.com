@@ -4,41 +4,39 @@ import type { ReactNode } from "react";
 import { SearchDialog } from "@/src/components/search/SearchDialog";
 import { ThemeProvider } from "@/src/components/theme/ThemeProvider";
 import { primaryFont } from "../components/theme/font";
+import { SITE_AUTHOR, SITE_URL } from "../config/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://www.yongchenglow.com"),
+	metadataBase: new URL(SITE_URL),
 	title: {
-		default: "Yong Cheng Low (YC)",
+		default: `${SITE_AUTHOR.name} (YC)`,
 		template: "%s | YC",
 	},
-	description:
-		"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
+	description: `${SITE_AUTHOR.name}'s personal website where he talks about tech, personal life, and his experiences`,
 	keywords:
 		"Yong Cheng Low, YC, Glints, Le Wagon, NUS, Tech, Computing, Computer Enginering, Blog, NUS Students' Sports Club",
-	authors: [{ name: "Yong Cheng Low" }],
+	authors: [{ name: SITE_AUTHOR.name }],
 	robots: "index, follow",
 	alternates: {
 		canonical: "/",
 	},
 	openGraph: {
 		type: "website",
-		url: "https://www.yongchenglow.com",
-		title: "Yong Cheng Low (YC)",
-		description:
-			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
+		url: SITE_URL,
+		title: `${SITE_AUTHOR.name} (YC)`,
+		description: `${SITE_AUTHOR.name}'s personal website where he talks about tech, personal life, and his experiences`,
 		images: [
 			{
-				url: "/img/yong-cheng-metasprint.jpeg",
+				url: SITE_AUTHOR.image,
 			},
 		],
 	},
 	twitter: {
 		card: "summary",
-		title: "Yong Cheng Low (YC)",
-		description:
-			"Yong Cheng Low's personal website where he talks about tech, personal life, and his experiences",
-		images: ["/img/yong-cheng-metasprint.jpeg"],
+		title: `${SITE_AUTHOR.name} (YC)`,
+		description: `${SITE_AUTHOR.name}'s personal website where he talks about tech, personal life, and his experiences`,
+		images: [SITE_AUTHOR.image],
 	},
 	icons: {
 		icon: "/img/YongCheng.jpg",

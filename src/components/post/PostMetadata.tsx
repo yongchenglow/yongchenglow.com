@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface PostMetadataProps {
 	children: ReactNode;
@@ -11,7 +12,7 @@ export const PostMetadata = ({
 }: PostMetadataProps) => {
 	return (
 		<div
-			className={`text-xs text-muted-foreground text-right mb-3 ${className}`.trim()}
+			className={cn("text-xs text-muted-foreground text-right mb-3", className)}
 		>
 			{children}
 		</div>

@@ -9,6 +9,8 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_UI } from "@/src/config/blog-ui";
+import { SITE_URL } from "@/src/config/site";
 import {
 	getAllCategories,
 	getBlogPostsByCategory,
@@ -91,19 +93,19 @@ export const CategoryPageWithPagination = async ({
 								"@type": "ListItem",
 								position: 1,
 								name: "Home",
-								item: "https://www.yongchenglow.com",
+								item: SITE_URL,
 							},
 							{
 								"@type": "ListItem",
 								position: 2,
 								name: "Blog",
-								item: "https://www.yongchenglow.com/blog",
+								item: `${SITE_URL}/blog`,
 							},
 							{
 								"@type": "ListItem",
 								position: 3,
 								name: categoryMetadata.label,
-								item: `https://www.yongchenglow.com/blog/category/${category}/1`,
+								item: `${SITE_URL}/blog/category/${category}/1`,
 							},
 							...(pageNumber > 1
 								? [
@@ -111,7 +113,7 @@ export const CategoryPageWithPagination = async ({
 											"@type": "ListItem",
 											position: 4,
 											name: `Page ${pageNumber}`,
-											item: `https://www.yongchenglow.com/blog/category/${category}/${pageNumber}`,
+											item: `${SITE_URL}/blog/category/${category}/${pageNumber}`,
 										},
 									]
 								: []),
@@ -125,8 +127,9 @@ export const CategoryPageWithPagination = async ({
 					<PageSubtitle>
 						{categoryMetadata.description}
 						<br />
-						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} posts
+						{BLOG_UI.pagination.showingText
+							.replace("{current}", String(paginationResult.items.length))
+							.replace("{total}", String(paginationResult.totalItems))}
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>

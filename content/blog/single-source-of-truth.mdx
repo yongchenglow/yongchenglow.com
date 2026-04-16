@@ -20,14 +20,14 @@ To keep things simple for this beginner series, we will focus on a SQL Database.
 
 ![server](/img/server-gebd52a943_1280.jpg)
 
-**[Database constraints](https://www.postgresql.org/docs/current/datatype.html)** give you control over the data stored inside the tables
+**[Database constraints](https://www.postgresql.org/docs/current/ddl-constraints.html)** give you control over the data stored inside the tables
 
 In order to ensure that our database is the single source of truth, we need to ensure that our validations occur at the database level. This can be done by adding constraints to what we can store in our database through the different kinds of data types.
 
 Let's say we want to store a user's username into our database. We will be using a character varying data type. We can further strengthen the database validation by limiting the username to be a maximum of 50 characters long:
 
 ```sql
-CREATE TABLE user(id serial primary key, username varchar(50));
+CREATE TABLE users(id serial primary key, username varchar(50));
 ```
 
 ## Checks
@@ -42,7 +42,7 @@ CREATE TABLE products (
 );
 ```
 
-The `numeric(5,2)` allows us to have a maximum and minimum of 5 digits of which 2 are decimal points(-999.99 to 999.99)
+The `numeric(5,2)` allows us to store numbers with up to 5 total digits, of which 2 are decimal places (e.g. -999.99 to 999.99)
 
 ## Primary Keys
 
@@ -78,7 +78,7 @@ CREATE TABLE order_items (
 It is important to note that null does not mean empty string. If you want to validate for a non-empty string, you need to add an additional length check.
 
 ```sql
-CREATE TABLE user (
+CREATE TABLE users (
   id serial primary key,
   username VARCHAR NOT NULL CONSTRAINT non_empty CHECK(length(username) > 0)
 )
@@ -88,7 +88,7 @@ CREATE TABLE user (
 
 **Unique** constraint means that every value in the column must be unique
 
-It is important to note that a unique contain can also be placed on multiple columns at the same time. For example, if we want to go back to our trustworthy AirBnB application, lets say we want to create a favorites table to store flats that the user saved. In order to prevent double insertions (saving to favorites twice), we add a unique constraint on user_id and flat_id
+It is important to note that a unique constraint can also be placed on multiple columns at the same time. For example, if we want to go back to our trustworthy AirBnB application, lets say we want to create a favorites table to store flats that the user saved. In order to prevent double insertions (saving to favorites twice), we add a unique constraint on user_id and flat_id
 
 ```ruby
 class CreateFavorites < ActiveRecord::Migration[6.1]
