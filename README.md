@@ -93,50 +93,57 @@ src/
 │   ├── globals.css             # Global styles and CSS variables
 │   ├── about/
 │   │   └── page.tsx            # About page (timeline from about.json)
-│   └── blog/
-│       ├── page.tsx            # Blog listing page
-│       ├── [slug]/page.tsx     # Individual blog post (dynamic route)
-│       ├── latest/[page]/      # Paginated all posts
-│       ├── category/[category]/ # Posts filtered by category
-│       ├── category/[category]/[page]/ # Paginated category posts
-│       ├── tag/[tag]/          # Posts filtered by tag
-│       ├── year/[year]/        # Posts filtered by year
-│       ├── year/[year]/[page]/ # Paginated year posts
-│       └── api/
-│           ├── category/route.ts    # API endpoint for categories
-│           ├── latest/route.ts      # API endpoint for latest posts
-│           └── year/route.ts        # API endpoint for years
+│   ├── blog/
+│   │   ├── page.tsx            # Blog listing page
+│   │   ├── [slug]/page.tsx     # Individual blog post (dynamic route)
+│   │   ├── latest/[page]/      # Paginated all posts
+│   │   ├── category/[category]/ # Posts filtered by category
+│   │   ├── category/[category]/[page]/ # Paginated category posts
+│   │   ├── tag/[tag]/          # Posts filtered by tag
+│   │   ├── year/[year]/        # Posts filtered by year
+│   │   └── year/[year]/[page]/ # Paginated year posts
+│   ├── api/
+│   │   └── blog/
+│   │       ├── category/route.ts    # API endpoint for categories
+│   │       ├── latest/route.ts      # API endpoint for latest posts
+│   │       └── year/route.ts        # API endpoint for years
+│   ├── og/route.tsx            # Open Graph image generation
+│   ├── robots.ts               # Robots.txt configuration
+│   └── sitemap.ts              # Sitemap configuration
 ├── components/
 │   ├── shared/
-│   │   ├── atoms/              # Smallest building blocks (Container, FadeIn, ExternalLink, etc.)
+│   │   ├── atoms/              # Smallest building blocks (Container, FadeIn, ExternalLink, ImageSkeleton, etc.)
 │   │   ├── molecules/          # Combinations of atoms (Section)
 │   │   ├── organisms/          # Complex components (NavigationBar, Footer, ContentCard)
 │   │   ├── layouts/            # Layout components (StandardLayout)
 │   │   └── ui/                 # shadcn/ui components (button, card, dialog, etc.)
 │   ├── about/                  # About page components (Timeline, TimelineItem)
-│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, etc.)
-│   ├── home/                   # Home page sections (IntroSection, ProjectsSection, etc.)
-│   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents)
-│   ├── post/                   # Blog post display components (PostCard, PostHeader, etc.)
+│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, etc.)
+│   ├── home/                   # Home page sections (IntroSection, ProjectsSection, LatestPostsSection, AboutMeSection)
+│   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents, MDXImage)
+│   ├── post/                   # Blog post display components (PostCard, PostHeader, PostContent, etc.)
 │   ├── project/                # Project components (ProjectCard, ProjectGrid)
 │   ├── search/                 # Search components (SearchDialog, SearchTrigger)
+│   ├── seo/                    # SEO components (JsonLd)
 │   └── theme/                  # Theme provider, toggle, and font configuration
 ├── hooks/
 │   └── useSearch.ts            # Search hook for FlexSearch integration
 ├── lib/
 │   ├── blog.ts                 # Blog utility functions (pagination, categories, years)
 │   ├── animation.ts            # Animation helpers (stagger delays)
-│   └── utils.ts                # General utilities (cn helper)
+│   └── utils.ts                # General utilities (cn helper, image placeholders)
 ├── config/
 │   └── blog.ts                 # Blog configuration (categories, posts per page)
+├── content/
+│   └── schema.ts               # Content schema definitions
 └── types/
     ├── blog.ts                 # TypeScript types for blog
     └── search.ts               # TypeScript types for search
 
 content/
 ├── blog/                       # MDX blog post files
-│   └── authors/
-│       └── yongchenglow.json   # Author metadata
+├── authors/
+│   └── yongchenglow.json       # Author metadata
 ├── about.json                  # About page content (experience, education, military service)
 └── home.json                   # Home page content (intro, projects, about section)
 
@@ -148,14 +155,17 @@ scripts/
 └── generate-search-index.mjs   # Search index generator (runs before dev/build)
 
 test/
-└── setup.ts                    # Vitest test setup file
+├── setup.ts                    # Vitest test setup file
+└── *.test.{ts,tsx}             # Test files
 ```
+
+**Note:** Test files are located both in the `test/` directory and alongside source files (e.g., `src/components/shared/atoms/ImageSkeleton.test.tsx`, `src/lib/utils.test.ts`).
 
 ### Component Structure
 
 Components follow the [Atomic Design](https://atomicdesign.bradfrost.com/) pattern:
 
-- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`
+- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`, `ImageSkeleton`
 - **Molecules** — combinations of atoms: `Section`
 - **Organisms** — complex, self-contained components: `NavigationBar`, `Footer`, `ContentCard`
 - **Layouts** — page layout wrappers: `StandardLayout`
@@ -203,7 +213,10 @@ Custom components available in MDX content (defined in `src/components/mdx/MDXCo
 - Standard HTML elements (`p`, `ul`, `ol`, `img`, `code`, `h1`-`h6`) are mapped to styled components
 - `<Admonition>` — callout/notice block for important information
 - `<PostDefinition>` — definition block for term explanations
-- `<MdxImage>` — enhanced image component for blog posts
+- `<PostImage>` — enhanced image component for blog posts with modal support
+- `<PostCodeBlock>` — syntax-highlighted code blocks with line numbers
+- `<PostList>` — styled ordered and unordered lists
+- Table components (`table`, `thead`, `tbody`, `tr`, `th`, `td`) — styled table elements
 - Code blocks use `react-syntax-highlighter` for syntax highlighting with Prism themes
 - `rehype-slug` and `rehype-autolink-headings` add anchor links to headings
 - `remark-gfm` enables GitHub Flavored Markdown (tables, strikethrough, task lists, etc.)
@@ -238,11 +251,13 @@ The search functionality uses [FlexSearch](https://github.com/nextapps-de/flexse
 - **Category Filtering:** Posts filtered by category tags (`/blog/category/[category]`)
 - **Year Filtering:** Posts filtered by publication year (`/blog/year/[year]`)
 - **Tag Filtering:** Posts filtered by individual tags (`/blog/tag/[tag]`)
+- **Infinite Scroll:** Optional infinite scroll for blog listing pages
 - **Reading Time:** Automatically calculated using `reading-time` package
 - **Table of Contents:** Auto-generated from headings with scroll tracking
 - **Reading Progress:** Progress bar at top of blog post pages
 - **Previous/Next Navigation:** Auto-generated navigation between posts
 - **Featured Post:** Highlighted on home page and top of blog listing
+- **Image Modals:** Click-to-expand images in blog posts with modal view
 
 ### Home Page
 
