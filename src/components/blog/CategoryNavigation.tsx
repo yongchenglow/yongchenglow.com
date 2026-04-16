@@ -2,7 +2,7 @@ import { Folder } from "lucide-react";
 import Link from "next/link";
 import FilterPanel from "@/src/components/blog/FilterPanel";
 import { Badge } from "@/src/components/shared/ui/badge";
-import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { BLOG_UI } from "@/src/config/blog-ui";
 import { getAllCategories, getCategoryPostCounts } from "@/src/lib/blog";
 
 export const CategoryNavigation = () => {
@@ -10,7 +10,7 @@ export const CategoryNavigation = () => {
 	const counts = getCategoryPostCounts();
 
 	return (
-		<FilterPanel icon={Folder} heading={BLOG_LABELS.categoryNavigation.heading}>
+		<FilterPanel icon={Folder} heading={BLOG_UI.categoryNavigation.heading}>
 			{categories.map((category) => (
 				<Link
 					key={category.slug}

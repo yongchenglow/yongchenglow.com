@@ -11,7 +11,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
-import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { BLOG_UI } from "@/src/config/blog-ui";
 import { getStaggerDelay } from "@/src/lib/animation";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
@@ -48,7 +48,7 @@ export const BlogPage = () => {
 					<section className="my-8 text-left">
 						<FadeIn>
 							<h2 className="text-2xl font-bold mb-4">
-								{BLOG_LABELS.featured.sectionHeading}
+								{BLOG_UI.featured.sectionHeading}
 							</h2>
 						</FadeIn>
 						<FadeIn delay={0.1}>
@@ -68,7 +68,7 @@ export const BlogPage = () => {
 				<section className="my-8 text-left">
 					<FadeIn>
 						<h2 className="text-2xl font-bold mb-4">
-							{BLOG_LABELS.previousPosts.sectionHeading}
+							{BLOG_UI.previousPosts.sectionHeading}
 						</h2>
 					</FadeIn>
 					<PostGrid>
@@ -89,7 +89,7 @@ export const BlogPage = () => {
 					<div className="flex justify-center mt-8">
 						<Button variant="ghost" size="lg" asChild className="gap-2">
 							<Link href="/blog/latest/1">
-								{BLOG_LABELS.previousPosts.viewAllLink}
+								{BLOG_UI.previousPosts.viewAllLink}
 							</Link>
 						</Button>
 					</div>

@@ -6,7 +6,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
-import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { BLOG_UI } from "@/src/config/blog-ui";
 import { SITE_URL } from "@/src/config/site";
 import { getAllBlogPosts, getPaginatedPosts } from "@/src/lib/blog";
 
@@ -19,7 +19,7 @@ interface LatestPageProps {
 export const generateMetadata = async ({ params }: LatestPageProps) => {
 	const { page } = await params;
 	return {
-		title: `${BLOG_LABELS.featured.pageHeading} - Page ${page}`,
+		title: `${BLOG_UI.featured.pageHeading} - Page ${page}`,
 		alternates: {
 			canonical: `/blog/latest/${page}`,
 		},
@@ -74,7 +74,7 @@ export const LatestPage = async ({ params }: LatestPageProps) => {
 							{
 								"@type": "ListItem",
 								position: 3,
-								name: BLOG_LABELS.featured.pageHeading,
+								name: BLOG_UI.featured.pageHeading,
 								item: `${SITE_URL}/blog/latest/1`,
 							},
 							...(pageNumber > 1
@@ -91,11 +91,11 @@ export const LatestPage = async ({ params }: LatestPageProps) => {
 					}}
 				/>
 				<FadeIn>
-					<PageTitle>{BLOG_LABELS.featured.pageHeading}</PageTitle>
+					<PageTitle>{BLOG_UI.featured.pageHeading}</PageTitle>
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						{BLOG_LABELS.pagination.showingText
+						{BLOG_UI.pagination.showingText
 							.replace("{current}", String(paginationResult.items.length))
 							.replace("{total}", String(paginationResult.totalItems))}
 						{paginationResult.totalPages > 1 &&

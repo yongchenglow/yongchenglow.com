@@ -2,7 +2,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { Button } from "@/src/components/shared/ui/button";
-import { BLOG_LABELS } from "@/src/config/blog-ui";
+import { BLOG_UI } from "@/src/config/blog-ui";
 
 interface FeaturedPostCardProps {
 	title: string;
@@ -32,7 +32,7 @@ export const FeaturedPostCard = ({
 					<div className="flex-1 p-6">
 						<div className="flex flex-wrap gap-2 mb-3">
 							<Badge variant="default" className="text-xs">
-								{BLOG_LABELS.featured.badge}
+								{BLOG_UI.featured.badge}
 							</Badge>
 							{tags?.slice(0, 3).map((tag) => (
 								<Badge key={tag} variant="secondary" className="text-xs">
