@@ -66,6 +66,7 @@ npm run dev                    # Start development server (generates search inde
 npm run build                  # Build for production (generates search index first)
 npm start                      # Run production build
 npm run generate-search-index  # Generate search index from blog posts
+npm run lqip                   # Generate LQIP images for blog post images
 npm run lint                   # Run Biome linting with auto-fix
 npm run format                 # Run Biome formatting
 npm run check                  # Run Biome linting and formatting with auto-fix
@@ -117,11 +118,11 @@ src/
 │   │   ├── organisms/          # Complex components (NavigationBar, Footer, ContentCard)
 │   │   ├── layouts/            # Layout components (StandardLayout)
 │   │   └── ui/                 # shadcn/ui components (button, card, dialog, etc.)
-│   ├── about/                  # About page components (Timeline, TimelineItem)
-│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, etc.)
+│   ├── about/                  # About page components (Timeline, TimelineItem, TimelineItemRenderer)
+│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, FilterPanel, FeaturedPostCard, etc.)
 │   ├── home/                   # Home page sections (IntroSection, ProjectsSection, LatestPostsSection, AboutMeSection)
 │   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents, MDXImage)
-│   ├── post/                   # Blog post display components (PostCard, PostHeader, PostContent, etc.)
+│   ├── post/                   # Blog post display components (PostCard, PostHeader, PostImage, etc.)
 │   ├── project/                # Project components (ProjectCard, ProjectGrid)
 │   ├── search/                 # Search components (SearchDialog, SearchTrigger)
 │   ├── seo/                    # SEO components (JsonLd)
@@ -131,11 +132,13 @@ src/
 ├── lib/
 │   ├── blog.ts                 # Blog utility functions (pagination, categories, years)
 │   ├── animation.ts            # Animation helpers (stagger delays)
+│   ├── lqip.ts                 # Low-quality image placeholders (LQIP) for blog post images
+│   ├── text.tsx                # Text rendering utilities for MDX content
 │   └── utils.ts                # General utilities (cn helper, image placeholders)
 ├── config/
-│   └── blog.ts                 # Blog configuration (categories, posts per page)
-├── content/
-│   └── schema.ts               # Content schema definitions
+│   ├── blog.ts                 # Blog configuration (categories, posts per page)
+│   ├── blog-ui.ts              # Blog UI labels (loaded from blog-ui.json)
+│   └── site.ts                 # Site metadata (URL, author, navigation, social links, ad slots)
 └── types/
     ├── blog.ts                 # TypeScript types for blog
     └── search.ts               # TypeScript types for search
@@ -145,14 +148,16 @@ content/
 ├── authors/
 │   └── yongchenglow.json       # Author metadata
 ├── about.json                  # About page content (experience, education, military service)
-└── home.json                   # Home page content (intro, projects, about section)
+├── home.json                   # Home page content (intro, projects, about section)
+└── blog-ui.json                # Blog UI labels (used by blog components)
 
 public/
 ├── img/                        # Images
 └── search-index.json           # Auto-generated search index (do not edit)
 
 scripts/
-└── generate-search-index.mjs   # Search index generator (runs before dev/build)
+├── generate-search-index.mjs   # Search index generator (runs before dev/build)
+└── generate-lqip.ts            # LQIP generator for blog post images
 
 test/
 ├── setup.ts                    # Vitest test setup file
