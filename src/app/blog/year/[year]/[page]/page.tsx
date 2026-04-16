@@ -9,6 +9,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_LABELS } from "@/src/config/blog-ui";
 import {
 	getAllPostYears,
 	getBlogPostsByYear,
@@ -113,8 +114,10 @@ export const YearPageWithPagination = async ({ params }: YearPageProps) => {
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} posts published in {year}
+						{BLOG_LABELS.pagination.showingText
+							.replace("{current}", String(paginationResult.items.length))
+							.replace("{total}", String(paginationResult.totalItems))}{" "}
+						published in {year}
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>

@@ -2,6 +2,7 @@ import { Folder } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Badge } from "@/src/components/shared/ui/badge";
+import { BLOG_LABELS } from "@/src/config/blog-ui";
 import { getAllCategories, getCategoryPostCounts } from "@/src/lib/blog";
 
 export const CategoryNavigation = () => {
@@ -13,7 +14,7 @@ export const CategoryNavigation = () => {
 			<div className="my-6 bg-muted/50 rounded-lg p-4">
 				<h3 className="text-sm font-semibold mb-3 text-left flex items-center gap-2">
 					<Folder className="h-4 w-4" />
-					Browse by Category
+					{BLOG_LABELS.categoryNavigation.heading}
 				</h3>
 				<div className="flex gap-2 overflow-x-auto py-1">
 					{categories.map((category) => (

@@ -2,6 +2,7 @@ import { CalendarDays } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Badge } from "@/src/components/shared/ui/badge";
+import { BLOG_LABELS } from "@/src/config/blog-ui";
 import { getAllPostYears, getYearPostCounts } from "@/src/lib/blog";
 
 export const YearFilter = () => {
@@ -15,7 +16,7 @@ export const YearFilter = () => {
 			<div className="my-6 bg-muted/50 rounded-lg p-4">
 				<h3 className="text-sm font-semibold mb-3 text-left flex items-center gap-2">
 					<CalendarDays className="h-4 w-4" />
-					Browse by Year
+					{BLOG_LABELS.yearFilter.heading}
 				</h3>
 				<div className="flex gap-2 overflow-x-auto py-1">
 					{years.map((year) => (

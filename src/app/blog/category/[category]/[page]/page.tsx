@@ -9,6 +9,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_LABELS } from "@/src/config/blog-ui";
 import {
 	getAllCategories,
 	getBlogPostsByCategory,
@@ -125,8 +126,9 @@ export const CategoryPageWithPagination = async ({
 					<PageSubtitle>
 						{categoryMetadata.description}
 						<br />
-						Showing {paginationResult.items.length} of{" "}
-						{paginationResult.totalItems} posts
+						{BLOG_LABELS.pagination.showingText
+							.replace("{current}", String(paginationResult.items.length))
+							.replace("{total}", String(paginationResult.totalItems))}
 						{paginationResult.totalPages > 1 &&
 							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
 					</PageSubtitle>

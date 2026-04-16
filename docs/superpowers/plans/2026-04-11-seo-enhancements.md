@@ -13,12 +13,14 @@
 ## File Map
 
 **Create:**
+
 - `src/app/sitemap.ts` — generates full sitemap
 - `src/app/robots.ts` — robots.txt rules
 - `src/components/seo/JsonLd.tsx` — shared `<script type="application/ld+json">` component
 - `src/app/og/route.tsx` — dynamic OG image route handler
 
 **Modify:**
+
 - `src/app/layout.tsx` — add canonical for home
 - `src/app/about/page.tsx` — add canonical + Person JSON-LD
 - `src/app/blog/page.tsx` — add canonical
@@ -33,6 +35,7 @@
 ## Task 1: Sitemap + Robots.txt
 
 **Files:**
+
 - Create: `src/app/sitemap.ts`
 - Create: `src/app/robots.ts`
 
@@ -264,6 +267,7 @@ git commit -m "feat: add sitemap and robots.txt"
 ## Task 2: Canonical URLs
 
 **Files:**
+
 - Modify: `src/app/layout.tsx`
 - Modify: `src/app/about/page.tsx`
 - Modify: `src/app/blog/page.tsx`
@@ -448,7 +452,7 @@ Update the existing `generateMetadata`:
 export const generateMetadata = async ({ params }: LatestPageProps) => {
   const { page } = await params;
   return {
-    title: `Latest Posts - Page ${page}`,
+    title: `Featured Posts - Page ${page}`,
     alternates: {
       canonical: `/blog/latest/${page}`,
     },
@@ -480,6 +484,7 @@ git commit -m "feat: add canonical URLs to all pages"
 ## Task 3: JsonLd Component
 
 **Files:**
+
 - Create: `src/components/seo/JsonLd.tsx`
 
 - [ ] **Step 1: Write the failing test**
@@ -563,6 +568,7 @@ git commit -m "feat: add JsonLd component for structured data"
 ## Task 4: JSON-LD — Article + BreadcrumbList on Blog Post Pages
 
 **Files:**
+
 - Modify: `src/app/blog/[slug]/page.tsx`
 
 The `JsonLd` component must be rendered inside the page's JSX. The `BlogPostLayout` component wraps children, so place `JsonLd` tags alongside the `MDXRemote` inside `BlogPostLayout`.
@@ -726,6 +732,7 @@ git commit -m "feat: add Article and BreadcrumbList JSON-LD to blog posts"
 ## Task 5: JSON-LD — Person Schema on About Page
 
 **Files:**
+
 - Modify: `src/app/about/page.tsx`
 
 - [ ] **Step 1: Update `src/app/about/page.tsx`**
@@ -733,6 +740,7 @@ git commit -m "feat: add Article and BreadcrumbList JSON-LD to blog posts"
 Add the `JsonLd` import and render a Person schema at the end of the `AboutPage` component's JSX (after the `GoogleAds` call). The `about.json` hero section provides all required fields.
 
 Add this import alongside the existing imports:
+
 ```tsx
 import { JsonLd } from "@/src/components/seo/JsonLd";
 ```
@@ -773,6 +781,7 @@ git commit -m "feat: add Person JSON-LD to about page"
 ## Task 6: JSON-LD — BreadcrumbList on Listing Pages
 
 **Files:**
+
 - Modify: `src/app/blog/tag/[tag]/page.tsx`
 - Modify: `src/app/blog/category/[category]/[page]/page.tsx`
 - Modify: `src/app/blog/year/[year]/[page]/page.tsx`
@@ -783,6 +792,7 @@ Each page gets a `BreadcrumbList` JSON-LD rendered at the top of its JSX return.
 - [ ] **Step 1: Update `src/app/blog/tag/[tag]/page.tsx`**
 
 Add import:
+
 ```tsx
 import { JsonLd } from "@/src/components/seo/JsonLd";
 ```
@@ -806,6 +816,7 @@ Inside `TagPage`, add before the first `<FadeIn>`:
 - [ ] **Step 2: Update `src/app/blog/category/[category]/[page]/page.tsx`**
 
 Add import:
+
 ```tsx
 import { JsonLd } from "@/src/components/seo/JsonLd";
 ```
@@ -832,6 +843,7 @@ Inside `CategoryPageWithPagination`, add before the first `<FadeIn>` (after the 
 - [ ] **Step 3: Update `src/app/blog/year/[year]/[page]/page.tsx`**
 
 Add import:
+
 ```tsx
 import { JsonLd } from "@/src/components/seo/JsonLd";
 ```
@@ -858,6 +870,7 @@ Inside `YearPageWithPagination`, add before the first `<FadeIn>`:
 - [ ] **Step 4: Update `src/app/blog/latest/[page]/page.tsx`**
 
 Add import:
+
 ```tsx
 import { JsonLd } from "@/src/components/seo/JsonLd";
 ```
@@ -872,7 +885,7 @@ Inside `LatestPage`, add before the first `<FadeIn>`:
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.yongchenglow.com" },
       { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.yongchenglow.com/blog" },
-      { "@type": "ListItem", position: 3, name: "Latest Posts", item: "https://www.yongchenglow.com/blog/latest/1" },
+      { "@type": "ListItem", position: 3, name: "Featured Posts", item: "https://www.yongchenglow.com/blog/latest/1" },
       ...(pageNumber > 1
         ? [{ "@type": "ListItem", position: 4, name: `Page ${pageNumber}`, item: `https://www.yongchenglow.com/blog/latest/${pageNumber}` }]
         : []),
@@ -904,6 +917,7 @@ git commit -m "feat: add BreadcrumbList JSON-LD to listing pages"
 ## Task 7: Dynamic OG Image Route
 
 **Files:**
+
 - Create: `src/app/og/route.tsx`
 
 This uses `next/og`'s `ImageResponse` to generate a 1200×630 PNG. The route reads `title` and `tags` query params and renders a branded card.

@@ -225,6 +225,36 @@ Custom components available in MDX content (defined in `src/components/mdx/MDXCo
 
 Blog categories are defined in `src/config/blog.ts`:
 
+### Blog UI Labels
+
+All blog-related UI text labels are centralized in `content/blog-ui.json` (single source of truth):
+
+```json
+{
+  "blogTitle": "Blog",
+  "featured": {
+    "sectionHeading": "Featured Post",
+    "pageHeading": "Featured Posts",
+    "badge": "Featured"
+  },
+  "previousPosts": {
+    "sectionHeading": "Previous Posts",
+    "viewAllLink": "View All Posts →"
+  },
+  "categoryNavigation": {
+    "heading": "Browse by Category"
+  },
+  "yearFilter": {
+    "heading": "Browse by Year"
+  },
+  "pagination": {
+    "showingText": "Showing {current} of {total} posts"
+  }
+}
+```
+
+To change any blog UI text, edit this file only. The config is loaded via `src/config/blog-ui.ts` and used across all blog components.
+
 | Category       | Slug        | Tags                                                                 |
 |----------------|-------------|----------------------------------------------------------------------|
 | Development    | development | web-development, database, sql, postgresql, setup, ide, vscode       |
@@ -391,6 +421,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) en
 **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, `revert`
 
 **Rules:**
+
 - Subject must not be empty
 - Type must not be empty
 - Type can be lowercase or uppercase
@@ -398,6 +429,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) en
 - Header maximum 72 characters
 
 **Examples:**
+
 ```
 feat: add infinite scroll to blog listing
 fix: resolve hydration mismatch in theme toggle
@@ -416,6 +448,7 @@ Automated releases via `semantic-release` with GitLab integration. Run `npm run 
 Install the recommended extensions inside the `.vscode/extensions.json` folder. The workspace settings are pre-configured in `.vscode/settings.json` and will be applied automatically.
 
 Recommended extensions:
+
 - ESLint (for Biome support)
 - Tailwind CSS IntelliSense
 - TypeScript Hero Import
