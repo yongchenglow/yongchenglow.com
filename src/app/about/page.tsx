@@ -1,11 +1,9 @@
-import { Briefcase, GraduationCap, Shield } from "lucide-react";
 import type { Metadata } from "next";
 import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
-import { TimelineItem as TimelineItemComponent } from "@/src/components/about/TimelineItem";
+import TimelineItemRenderer from "@/src/components/about/TimelineItemRenderer";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { JsonLd } from "@/src/components/seo/JsonLd";
-import { BulletList } from "@/src/components/shared/atoms/BulletList";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -16,7 +14,7 @@ import {
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
 import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
-import type { AboutData, TimelineItem } from "@/src/content/schema";
+import type { AboutData } from "@/src/content/schema";
 
 export const metadata: Metadata = {
 	title: "About",
@@ -27,83 +25,6 @@ export const metadata: Metadata = {
 
 // Type assertion - validated at runtime by tests
 const about = aboutData as AboutData;
-
-const renderTimelineItem = (item: TimelineItem) => {
-	switch (item.type) {
-		case "work":
-			return (
-				<TimelineItemComponent
-					key={item.title}
-					title={item.title}
-					icon={<Briefcase className="h-4 w-4" />}
-					category="work"
-					years={item.years}
-					location={item.location}
-				>
-					<BulletList bullets={item.bullets} />
-					<p className="mt-3 text-xs font-medium text-muted-foreground">
-						<strong>Skills:</strong> {item.skills.join(", ")}
-					</p>
-				</TimelineItemComponent>
-			);
-		case "education":
-			return (
-				<TimelineItemComponent
-					key={item.title}
-					title={item.title}
-					icon={<GraduationCap className="h-4 w-4" />}
-					category="school"
-					years={item.years}
-					location={item.location}
-				>
-					{item.link ? (
-						<>
-							{item.description.split(item.link.label)[0]}
-							<ExternalLink href={item.link.url}>
-								{item.link.label}
-							</ExternalLink>
-							{item.description.split(item.link.label)[1]}
-						</>
-					) : item.links ? (
-						<>
-							{item.description.split(item.links[0].label)[0]}
-							<ExternalLink href={item.links[0].url}>
-								{item.links[0].label}
-							</ExternalLink>
-							{
-								item.description
-									.split(item.links[0].label)[1]
-									.split(item.links[1].label)[0]
-							}
-							<ExternalLink href={item.links[1].url}>
-								{item.links[1].label}
-							</ExternalLink>
-							{item.description.split(item.links[1].label)[1]}
-						</>
-					) : (
-						<p>{item.description}</p>
-					)}
-					<BulletList bullets={item.bullets} className="mt-2" />
-				</TimelineItemComponent>
-			);
-		case "military":
-			return (
-				<TimelineItemComponent
-					key={item.title}
-					title={item.title}
-					icon={<Shield className="h-4 w-4" />}
-					category="military"
-					years={item.years}
-					location={item.location}
-				>
-					{item.description.split("Guards unit")[0]}
-					<ExternalLink href={item.link.url}>Guards unit</ExternalLink>
-					{item.description.split("Guards unit")[1]}
-					<BulletList bullets={item.bullets} className="mt-2" />
-				</TimelineItemComponent>
-			);
-	}
-};
 
 export const AboutPage = () => {
 	return (
@@ -133,7 +54,11 @@ export const AboutPage = () => {
 				</div>
 
 				{/* Timeline */}
-				<Timeline>{about.timeline.map(renderTimelineItem)}</Timeline>
+				<Timeline>
+					{about.timeline.map((item) => (
+						<TimelineItemRenderer key={item.title} item={item} />
+					))}
+				</Timeline>
 
 				<GoogleAds slotId="7158598508" />
 				<JsonLd
