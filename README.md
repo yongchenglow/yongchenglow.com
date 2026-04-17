@@ -147,9 +147,10 @@ content/
 ├── blog/                       # MDX blog post files
 ├── authors/
 │   └── yongchenglow.json       # Author metadata
-├── about.json                  # About page content (experience, education, military service)
+├── about.json                  # About page content (timeline-based structure)
 ├── home.json                   # Home page content (intro, projects, about section)
-└── blog-ui.json                # Blog UI labels (used by blog components)
+├── blog-ui.json                # Blog UI labels (used by blog components)
+└── schema.ts                   # Zod schemas for content validation
 
 public/
 ├── img/                        # Images
@@ -381,31 +382,32 @@ Structure of `about.json`:
       { "label": "GitHub", "url": "https://github.com/yourusername" }
     ]
   },
-  "work_experience": [
+  "timeline": [
     {
+      "type": "work",
       "title": "Job Title at Company",
       "location": "City, Country",
       "years": "2023-Present",
       "bullets": ["Achievement 1", "Achievement 2"],
       "skills": ["Skill 1", "Skill 2"]
-    }
-  ],
-  "education": [
+    },
     {
+      "type": "education",
       "title": "Degree/Program",
       "location": "City, Country",
       "years": "2015-2019",
       "description": "Description of your studies",
       "link": { "label": "University Name", "url": "https://university.edu" }
+    },
+    {
+      "type": "military",
+      "title": "Service Branch",
+      "years": "2012-2014",
+      "location": "Country",
+      "description": "Description of service",
+      "link": { "label": "Unit Name", "url": "https://..." }
     }
-  ],
-  "military_service": {
-    "title": "Service Branch",
-    "years": "2012-2014",
-    "location": "Country",
-    "description": "Description of service",
-    "link": { "label": "Unit Name", "url": "https://..." }
-  }
+  ]
 }
 ```
 
