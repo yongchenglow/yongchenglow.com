@@ -42,14 +42,23 @@ export const MdxImage = ({ src, alt, title }: MdxImageProps) => {
  * Does NOT render an anchor tag - images with links show the source as reference in modal.
  * Uses span instead of div to avoid hydration error when inside <p> tags.
  */
-export const MdxLink = ({ href, children }: MdxLinkProps) => {
-	// Always provide context for child images
-	// Add data attribute for the href which will be picked up by images
+export const MdxLink = ({ href, children, ...props }: MdxLinkProps) => {
+	const isExternal = href?.startsWith("http");
 	return (
 		<ParentLinkContext.Provider value={href}>
-			<span className="contents" data-image-source={href}>
+			<a
+				href={href}
+				target={isExternal ? "_blank" : undefined}
+				rel={isExternal ? "noopener noreferrer" : undefined}
+				className={
+					isExternal
+						? "text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200"
+						: "text-primary hover:underline"
+				}
+				{...props}
+			>
 				{children}
-			</span>
+			</a>
 		</ParentLinkContext.Provider>
 	);
 };

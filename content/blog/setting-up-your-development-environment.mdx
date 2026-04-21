@@ -1,0 +1,150 @@
+---
+title: "Setting up your development environment"
+subtitle: "(A Practical Guide)"
+description: "Learn how to properly set up your developer environment with the right tools, IDE configuration, shell setup, and coding standards to ensure long-term maintainability."
+date: "2022-03-16"
+lastUpdated: "2026-04-21"
+author: "yongchenglow"
+tags: ["setup", "ide", "vscode", "best-practices"]
+image: "/img/gaming-computer-gbe40f244a_1280.jpg"
+draft: false
+featured: false
+adsSlotId: "4080993110"
+---
+
+![computer setup](/img/gaming-computer-gbe40f244a_1280.jpg)
+
+Setting up your machine for development matters. A consistent environment impresses technical assessors during a job application, increases your productivity and keeps the codebase [clean](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29) over the long run. These principles echoed throughout Robert C. Martin's [Clean Code](https://www.oreilly.com/library/view/clean-code-a/9780136083238/) which is a book all developers should read.
+
+As more people or agents contribute to a project, divergent coding styles makes code harder to read or review. An [Integrated Development Environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) with smart suggestions becomes genuinely helpful when new members join or when someone is new to the language.
+
+To make things simple I will cover four often-overlooked parts of developer setup:
+1. **[VS Code](https://code.visualstudio.com/) configuration** — extensions, settings, and format-on-save
+2. **Shell environment** ([`.zshrc`](https://zsh.sourceforge.io/Intro/intro_3.html)) — Oh My Zsh plugins, version managers, and aliases
+3. **Project templates** — starting from a well-configured foundation instead of scaffolding manually
+4. **AI coding tools** — tools that are essential in 2026 for developer productivity
+
+These apply regardless of language or framework.
+
+## Preparation
+
+![studying](/img/studying-g69d74ed4b_1280.jpg)
+
+If you have time, you should also take a look at the setup guide I have written for [NUH Clinical Innovation Office setup guide](https://github.com/NUH-Clinical-Innovation-Office/setup), a macOS-focused guide covering [Homebrew](https://brew.sh/), VS Code or [Cursor](https://cursor.com), [Oh My Zsh](https://ohmyz.sh/), version managers ([nvm](https://github.com/nvm-sh/nvm), [pyenv](https://github.com/pyenv/pyenv), [goenv](https://github.com/syndbg/goenv)), container support via [OrbStack](https://orbstack.dev/), and AI tool configuration with privacy considerations. This guide is macOS-focused given our team's use of Macs. While it does not cover Linux or Windows, the principles transfer across operating systems. I highly recommend that organizations set these standards to make onboarding easier for new employees or agents.
+
+## VS Code Extensions
+
+![laptop](/img/laptop-gf9883978d_1280.jpg)
+
+VS Code (and Cursor) lets you recommend extensions via [`.vscode/extensions.json`](https://code.visualstudio.com/docs/configure/workspace-recommended-extensions) and configure the editor through [`settings.json`](https://code.visualstudio.com/docs/configure/settings). Adding these files to your repositories keeps the IDE environment consistent across the team. The right extensions make things easier to diagnose when you need to debug manually.
+
+Regardless of language, five extension types matter:
+
+1. **Code Formatter** (e.g. [Prettier](https://prettier.io/), [Biome](https://biomejs.dev/)) — standardizes indentation, bracket placement, trailing commas. Makes code read as if one person wrote it. Enable "format on save" so you never manually adjust code to match a style guide.
+2. **Language Beautifier** — syntax highlighting for keywords and reserved words. Reduces accidental naming errors and makes code easier to scan.
+3. **Language-Specific Suggester** (e.g. [IntelliSense](https://code.visualstudio.com/docs/editing/intellisense)) — context-aware suggestions as you type. Boosts productivity in any language.
+4. **Collaboration Tool** (e.g. [Live Share](https://visualstudio.microsoft.com/services/live-share/)) — real-time collaboration for pair programming and remote debugging.
+5. **Version Control Tool** (e.g. [GitLens](https://www.gitkraken.com/gitlens)) — shows who wrote a line and when, making it easy to reach out for context.
+
+While these extensions are becoming less critical as AI coding tools handle more of the codebase, they remain essential when something goes wrong. Assuming that your workflow is agentic, when a customer reports a bug, AI will automatically diagnose and create a merge request. If the AI reports that the diagnosis fails, you will have no choice but to do so manually. If you editor is not setup properly and you just vibe code the entire application without knowing how things work, if it was my boss at Glints, I would be shown the door the next day.
+
+### Adding Extensions to a Project
+
+In the root of your project, run:
+
+```bash
+mkdir -p .vscode
+touch .vscode/extensions.json
+```
+
+Add recommended extensions for example:
+
+```json
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "ms-vsliveshare.vsliveshare",
+    "streetsidesoftware.code-spell-checker",
+		"mikestead.dotenv",
+		"usernamehw.errorl",
+		"mhutchie.git-graph",
+		"wix.vscode-import-cost"
+  ],
+  "unwantedRecommendations": []
+}
+```
+
+Depending on the language or framework you are using, add language-specific extensions (Ruby, Python, Go, Next.js, etc.). Search for your stack's recommended extensions and include them alongside the generic ones.
+
+VS Code prompts others to install any missing extensions when opening the project. Include only generic extensions useful to all contributors. Personal preference extensions like material icon themes do not belong in the recommended list unless enforced by your company.
+
+### Format on Save
+
+Add this to your `.vscode/settings.json`:
+
+```json
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Adjust with the default formatter that you use
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
+}
+```
+
+If a yellow squiggly line appears, you likely have duplicate keys, you need to either combine or remove redundant entries.
+
+## Shell Configuration
+
+A consistent shell setup across machines prevents ["works on my machine"](https://www.jeffatwood.com/archive/2007/03/the-works-on-my-machine-certification-program.html) issues. The [NUH CI setup guide](https://github.com/NUH-Clinical-Innovation-Office/setup) covers Oh My Zsh installation and recommended plugins.
+
+Key plugins worth enabling:
+
+- **[git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)** — branch indicators and aliases in your prompt
+- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** — completes commands from your history as you type
+- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** — highlights valid commands in green, invalid in red
+
+Version managers also belong here. They automatically switch to the correct language version when you enter a project directory:
+
+- [nvm](https://github.com/nvm-sh/nvm) for Node.js (reads `.nvmrc`)
+- [pyenv](https://github.com/pyenv/pyenv) for Python (reads `.python-version`)
+- [goenv](https://github.com/syndbg/goenv) for Go (reads `.go-version`)
+
+Version managers solve a real problem. A direct install is like having only one pair of shoes, while a version manager is like having a shoe rack. Depending on the project, you may need different Node or Python versions. Installing language versions directly means you can only have one active at a time. Version managers allow you to switch automatically per project without conflicts.
+
+## Starting a New Project
+
+If you are starting from scratch, consider using a well-configured template instead of scaffolding manually. Two examples from the [NUH Clinical Innovation Office](https://github.com/NUH-Clinical-Innovation-Office/setup):
+
+- **[Next.js Frontend Template](https://github.com/NUH-Clinical-Innovation-Office/nextjs-frontend-template)** — TypeScript, Tailwind CSS, shadcn/ui, Biome for linting/formatting, Vitest, Husky git hooks, Knip for dependency management, and CI/CD via GitHub Actions with Docker and Kubernetes support.
+- **[Go Backend Template](https://github.com/NUH-Clinical-Innovation-Office/go-backend-template)** — Chi router, PostgreSQL with sqlc code generation, JWT auth, OpenTelemetry tracing, Zap structured logging, Docker multi-stage builds, and integration tests with testcontainers-go.
+
+Both templates include the VS Code configuration and shell setup principles covered in this article, format on save, consistent tooling, and project-specific version files. Note that the Go Backend Template is still in development, so it might not work for everyone.
+
+## AI Coding Tools
+
+In 2026, AI coding tools are essential for developer productivity. Tools like [Claude Code](https://claude.com/code), [Cursor](https://cursor.com), and [GitHub Copilot](https://github.com/features/copilot) integrate directly into your IDE and handle boilerplate generation, bug diagnosis, test creation, and code review.
+
+These tools significantly boost productivity, they handle repetitive tasks, suggest implementations based on project context, and can run diagnostics when something breaks. Most offer free tiers with generous limits, making them accessible for personal projects.
+
+For private repositories, I highly recommend paid plans. While there are free plans or plans that have free quotas, paying will in most cases gives you data privacy and prevent model providers from training on your data. However, do take note that you might still need to opt out. For example, [Anthropic uses consumer account data for training unless you opt out](https://www.anthropic.com/news/base-training-2025). I highly recommend to always opt out of training data collection for personal and commercial work to protect your intellectual property.
+
+Disable telemetry in your IDE settings:
+
+```json
+{
+  "telemetry.telemetryLevel": "off",
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false
+}
+```
+
+Review extension privacy policies and consider self-hosted solutions for sensitive codebases. Treat AI coding assistants as tools and please do not let them generate code you do not understand. In my opinion, you remain responsible for what ships not the LLM.
+
+## Conclusion
+
+Setting up your development environment correctly requires effort upfront, but it pays dividends. Consistent IDE and shell configuration makes onboarding smoother, code easier to maintain, and debugging tractable when AI tools hit their limits.
+
+If you are a developer, consider covering the four areas in this article, VS Code configuration, shell environment, project templates, and AI coding tools and you will have a setup that scales across your team and holds up when something goes wrong. Store your `.vscode` and shell configuration in [dotfiles](https://dotfiles.github.io/) or a shared repository so the team can sync them easily.
