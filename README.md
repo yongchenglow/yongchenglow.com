@@ -23,7 +23,8 @@ Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com
 6. [VSCode Setup](#vscode-setup)
 7. [Testing](#testing)
 8. [Configuration Files](#configuration-files)
-9. [License](#license)
+9. [Documentation](#documentation)
+10. [License](#license)
 
 ## Tech Stack
 
@@ -483,6 +484,12 @@ Test files are located alongside source files with `.test.tsx` or `.test.ts` ext
 | `tailwind.config.ts` | Tailwind CSS configuration |
 | `vitest.config.ts` | Vitest test configuration |
 | `.vscode/settings.json` | VSCode workspace settings |
+
+## Documentation
+
+- [Features](./docs/features.md) — Complete feature inventory with implementation status
+- [API Reference](./docs/api.md) — Blog API endpoints documentation
+- [Backend Integration](./docs/backend-integration.md) — Frontend-backend integration details
 
 ## License
 
