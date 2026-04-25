@@ -55,15 +55,15 @@ export const ImageModal = ({
 						className,
 					)}
 				>
-					<div className="relative aspect-[4/3]">
-						{/* Skeleton loader */}
+					<div className="w-full">
 						{isLoading && (
 							<div
 								className={cn(
-									"absolute inset-0 rounded-lg",
+									"w-full rounded-lg",
 									"bg-gradient-to-r from-muted via-muted-foreground/10 to-muted",
 									"animate-shimmer",
 								)}
+								style={{ aspectRatio: "800/600" }}
 							/>
 						)}
 						<Image
@@ -71,10 +71,8 @@ export const ImageModal = ({
 							alt={alt}
 							width={800}
 							height={600}
-							className={cn(
-								"w-full h-auto",
-								isLoading ? "opacity-0" : "opacity-100",
-							)}
+							style={{ width: "100%", height: "auto" }}
+							className={cn(isLoading ? "opacity-0" : "opacity-100")}
 							unoptimized={!src.startsWith("/")}
 							placeholder="blur"
 							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
@@ -114,25 +112,6 @@ export const ImageModal = ({
 						{alt}
 					</DialogPrimitive.Title>
 
-					{/* Close button */}
-					<DialogPrimitive.Close
-						className={cn(
-							"absolute -top-12 right-0 z-10",
-							"flex items-center gap-2",
-							"px-3 py-1.5 rounded-full",
-							"bg-white/10 hover:bg-white/20",
-							"text-white text-sm font-medium",
-							"border border-white/20 hover:border-white/40",
-							"transition-all duration-150",
-							"focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50",
-							"cursor-pointer",
-						)}
-						aria-label="Close image"
-					>
-						<X className="h-3.5 w-3.5" strokeWidth={2.5} />
-						<span>Close</span>
-					</DialogPrimitive.Close>
-
 					{/* Image container */}
 					<div className="relative w-full">
 						<Image
@@ -140,12 +119,31 @@ export const ImageModal = ({
 							alt={alt}
 							width={1200}
 							height={900}
-							className="max-h-[80vh] w-auto mx-auto object-contain rounded-sm"
+							className="max-h-[80vh] w-full object-contain rounded-sm"
 							unoptimized={!src.startsWith("/")}
 							placeholder="blur"
 							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
 							quality={85}
 						/>
+
+						{/* Close button */}
+						<DialogPrimitive.Close
+							className={cn(
+								"absolute -top-12 right-0 z-10",
+								"flex items-center gap-2",
+								"px-3 py-1.5 rounded-full",
+								"bg-black/40 hover:bg-black/60",
+								"text-white text-sm font-medium",
+								"border border-white/20 hover:border-white/40",
+								"transition-all duration-150",
+								"focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50",
+								"cursor-pointer",
+							)}
+							aria-label="Close image"
+						>
+							<X className="h-3.5 w-3.5" strokeWidth={2.5} />
+							<span>Close</span>
+						</DialogPrimitive.Close>
 					</div>
 
 					{/* Alt text / caption */}
