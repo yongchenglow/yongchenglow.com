@@ -20,7 +20,6 @@ export const ImageModal = ({
 	className,
 }: ImageModalProps) => {
 	const [open, setOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
 	const [parentSource, setParentSource] = useState<string | undefined>(source);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -56,29 +55,17 @@ export const ImageModal = ({
 					)}
 				>
 					<div className="w-full">
-						{isLoading && (
-							<div
-								className={cn(
-									"w-full rounded-lg",
-									"bg-gradient-to-r from-muted via-muted-foreground/10 to-muted",
-									"animate-shimmer",
-								)}
-								style={{ aspectRatio: "800/600" }}
-							/>
-						)}
 						<Image
 							src={src}
 							alt={alt}
 							width={800}
 							height={600}
 							style={{ width: "100%", height: "auto" }}
-							className={cn(isLoading ? "opacity-0" : "opacity-100")}
 							unoptimized={!src.startsWith("/")}
 							placeholder="blur"
 							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
 							quality={85}
 							loading="lazy"
-							onLoad={() => setIsLoading(false)}
 						/>
 					</div>
 				</button>
