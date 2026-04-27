@@ -5,7 +5,9 @@ import TimelineItemRenderer from "@/src/components/about/TimelineItemRenderer";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
+import { GitHubIcon } from "@/src/components/shared/atoms/GitHubIcon";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
+import { LinkedInIcon } from "@/src/components/shared/atoms/LinkedInIcon";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import {
@@ -47,7 +49,21 @@ export const AboutPage = () => {
 					<div className="flex flex-wrap gap-4 justify-center mt-4 text-sm">
 						{about.hero.links.map((link) => (
 							<div key={link.label} className="flex items-center gap-2">
-								<ExternalLink href={link.url}>{link.label}</ExternalLink>
+								<ExternalLink href={link.url} aria-label={link.label}>
+									{link.label === "LinkedIn" ? (
+										<>
+											<LinkedInIcon size={16} />
+											<span>LinkedIn</span>
+										</>
+									) : link.label === "GitHub" ? (
+										<>
+											<GitHubIcon size={16} />
+											<span>GitHub</span>
+										</>
+									) : (
+										link.label
+									)}
+								</ExternalLink>
 							</div>
 						))}
 					</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { Children, createContext, isValidElement, useContext } from "react";
 import { ImageModal } from "./ImageModal";
 
 // Context to track if image is inside a link
@@ -38,18 +38,40 @@ export const MdxImage = ({ src, alt, title }: MdxImageProps) => {
 
 /**
  * Custom link component for MDX content.
- * Provides context to child images for attribution.
- * Does NOT render an anchor tag - images with links show the source as reference in modal.
+ * When wrapping an image, suppresses the anchor (image opens modal; source shown in modal footer).
+ * When wrapping text, renders a normal anchor tag.
  * Uses span instead of div to avoid hydration error when inside <p> tags.
  */
-export const MdxLink = ({ href, children }: MdxLinkProps) => {
-	// Always provide context for child images
-	// Add data attribute for the href which will be picked up by images
+export const MdxLink = ({ href, children, ...props }: MdxLinkProps) => {
+	const isExternal = href?.startsWith("http");
+
+	const hasImage = Children.toArray(children).some((child) =>
+		isValidElement(child),
+	);
+
+	if (hasImage) {
+		return (
+			<ParentLinkContext.Provider value={href}>
+				<span>{children}</span>
+			</ParentLinkContext.Provider>
+		);
+	}
+
 	return (
 		<ParentLinkContext.Provider value={href}>
-			<span className="contents" data-image-source={href}>
+			<a
+				href={href}
+				target={isExternal ? "_blank" : undefined}
+				rel={isExternal ? "noopener noreferrer" : undefined}
+				className={
+					isExternal
+						? "text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200"
+						: "text-primary hover:underline"
+				}
+				{...props}
+			>
 				{children}
-			</span>
+			</a>
 		</ParentLinkContext.Provider>
 	);
 };
