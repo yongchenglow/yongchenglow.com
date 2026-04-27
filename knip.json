@@ -9,10 +9,8 @@
 		"globals",
 		"shadcn",
 		"tailwindcss-animate",
-		"conventional-changelog-conventionalcommits",
-		"tsx"
+		"conventional-changelog-conventionalcommits"
 	],
-	"ignoreBinaries": ["tsx"],
 	"next": {
 		"entry": ["src/app/**/*.{ts,tsx}", "src/middleware.{ts,tsx}"]
 	},

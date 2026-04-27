@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { siGithub } from "simple-icons";
 import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import TimelineItemRenderer from "@/src/components/about/TimelineItemRenderer";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
-import { GitHubIcon } from "@/src/components/shared/atoms/GitHubIcon";
 import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { LinkedInIcon } from "@/src/components/shared/atoms/LinkedInIcon";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
+import { SimpleIconSvg } from "@/src/components/shared/atoms/SimpleIconSvg";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import {
 	Avatar,
@@ -57,7 +58,7 @@ export const AboutPage = () => {
 										</>
 									) : link.label === "GitHub" ? (
 										<>
-											<GitHubIcon size={16} />
+											<SimpleIconSvg icon={siGithub} size={16} />
 											<span>GitHub</span>
 										</>
 									) : (
