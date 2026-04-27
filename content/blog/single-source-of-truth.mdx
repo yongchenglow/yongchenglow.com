@@ -281,6 +281,21 @@ alembic upgrade head
 
 This should be the default for any engineering team. Direct SQL on production is a break-glass action, not a workflow. If a change is worth making, it is worth a migration file, a code review, and a deploy pipeline that runs it the same way in every environment.
 
+## AI and the Database
+
+AI hasn't changed the fundamentals of database design. Constraints, normalization, and migrations all predate the current wave of LLM tooling and still apply unchanged. What has changed is how easy it is to point an agent at a database and let it run queries on your behalf and that convenience deserves a careful look at access rights.
+
+Treat database credentials handed to an AI agent like credentials handed to an unknown intern with no on-call experience. **Read-only access is generally fine** for exploration, debugging, and analytics, the worst case is a slow query. **Read-write access is dangerous** and should be avoided outside of isolated development environments. An LLM that hallucinates a column name in a `SELECT` returns an error, the same hallucination in an `UPDATE` or `DELETE` mutates production data with no easy way to undo it.
+
+A few practical guardrails:
+
+- Give the agent its own database role with the minimum privileges it needs, never a shared application or admin user.
+- Default to a read-only role. If writes are genuinely required, scope them to a non-production database or a sandbox schema.
+- Never let an agent run migrations directly against production. Migrations go through the same review and deploy pipeline as any other code change, regardless of who wrote them.
+- Log queries issued by the agent so there is an audit trail when something looks wrong.
+
+The discipline is the same one that applies to any other system credential — the AI just makes it easier to forget.
+
 ## Conclusion
 
 The database is the single source of truth for your users' data. Constraints keep individual values valid, normalization keeps the structure consistent, and migrations keep every environment aligned with the schema in version control. The three work together, strong constraints in a drifted schema are worthless, and a perfectly normalized design that only lives on one engineer's laptop helps no one.
