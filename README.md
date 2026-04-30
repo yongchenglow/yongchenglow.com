@@ -448,7 +448,7 @@ chore: update dependencies
 
 ### Releases
 
-Automated releases via `semantic-release` with GitLab integration. Run `npm run release` to publish.
+Automated releases via `semantic-release` with GitHub integration. Run `npm run release` to publish.
 
 ## VSCode Setup
 
