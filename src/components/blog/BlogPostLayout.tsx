@@ -67,9 +67,9 @@ export const BlogPostLayout = ({
 				</div>
 
 				{/* Two-column layout on large screens */}
-				<div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12 lg:items-start">
+				<div className="lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-12 lg:items-start">
 					{/* Main Content */}
-					<div>
+					<div className="min-w-0">
 						<article className="prose dark:prose-invert">{children}</article>
 
 						{/* Blog Navigation */}
@@ -82,7 +82,7 @@ export const BlogPostLayout = ({
 					</div>
 
 					{/* Sidebar TOC (desktop only) */}
-					<aside className="hidden lg:block sticky top-24">
+					<aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
 						<TableOfContents variant="sidebar" />
 					</aside>
 				</div>
