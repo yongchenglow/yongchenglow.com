@@ -1,6 +1,8 @@
 # Yong Cheng Low's Website
 
-Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
+Personal website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
+
+> Documentation last reviewed: 2026-05-10
 
 ## Table of Contents
 
@@ -36,12 +38,13 @@ Visit the website at [https://www.yongchenglow.com](https://www.yongchenglow.com
 | Animations         | [Framer Motion](https://www.framer.com/motion/)                    |
 | Content            | [MDX](https://mdxjs.com/) via `@next/mdx`                          |
 | Search             | [FlexSearch](https://github.com/nextapps-de/flexsearch)            |
-| Linting/Formatting | [Biome 2](https://biomejs.dev/)                                    |
+| Linting/Formatting | [Biome](https://biomejs.dev/)                                      |
 | Testing            | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) |
 | Dead Code          | [Knip](https://knip.dev/)                                          |
 | Git Hooks          | [Husky](https://typicode.github.io/husky/) + [commitlint](https://commitlint.js.org/) |
 | Analytics          | Google Analytics, Google AdSense                                   |
 | Icons              | [Lucide React](https://lucide.dev/)                                |
+| Image Processing   | [sharp](https://sharp.pixelunion.net/)                              |
 
 ## Running the Application
 
