@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { Admonition } from "@/src/components/mdx/Admonition";
+import { MermaidDiagram } from "@/src/components/mdx/MermaidDiagram";
 import { PostCodeBlock } from "@/src/components/post/PostCodeBlock";
 import { PostDefinition } from "@/src/components/post/PostDefinition";
 import { PostImage } from "@/src/components/post/PostImage";
@@ -21,7 +22,15 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 		ul: (props) => <PostList type="unordered" {...props} />,
 		ol: (props) => <PostList type="ordered" {...props} />,
 		img: PostImage,
-		code: PostCodeBlock,
+		code: (props) => {
+			if (
+				props?.className?.includes("language-mermaid") ||
+				props?.className?.includes("mermaid")
+			) {
+				return <MermaidDiagram>{props.children}</MermaidDiagram>;
+			}
+			return <PostCodeBlock {...props} />;
+		},
 
 		// Table components
 		table: Table,
@@ -35,6 +44,10 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 		PostDefinition,
 		PostCodeBlock,
 		Admonition,
+		MermaidDiagram,
+
+		// Pre blocks - delegate to code handler (which detects mermaid)
+		pre: (props) => <>{props.children}</>,
 
 		// Allow overrides
 		...components,
