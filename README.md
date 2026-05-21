@@ -2,14 +2,15 @@
 
 Personal website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
 
-> Documentation last reviewed: 2026-05-10
+> Documentation last reviewed: 2026-05-22
 
 ## Table of Contents
 
 1. [Tech Stack](#tech-stack)
-2. [Running the Application](#running-the-application)
-3. [Application Commands](#application-commands)
-4. [Architecture](#architecture)
+2. [Prerequisites](#prerequisites)
+3. [Running the Application](#running-the-application)
+4. [Application Commands](#application-commands)
+5. [Architecture](#architecture)
    1. [Directory Structure](#directory-structure)
    2. [Component Structure](#component-structure)
    3. [Blog Posts](#blog-posts)
@@ -18,14 +19,14 @@ Personal website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
    6. [Blog Features](#blog-features)
    7. [Home Page](#home-page)
    8. [About Page](#about-page)
-5. [Git Conventions](#git-conventions)
+6. [Git Conventions](#git-conventions)
    1. [Branching](#branching)
    2. [Commits](#commits)
    3. [Releases](#releases)
-6. [VSCode Setup](#vscode-setup)
-7. [Testing](#testing)
-8. [Configuration Files](#configuration-files)
-9. [License](#license)
+7. [VSCode Setup](#vscode-setup)
+8. [Testing](#testing)
+9. [Configuration Files](#configuration-files)
+10. [License](#license)
 
 ## Tech Stack
 
@@ -45,6 +46,11 @@ Personal website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
 | Analytics          | Google Analytics, Google AdSense                                   |
 | Icons              | [Lucide React](https://lucide.dev/)                                |
 | Image Processing   | [sharp](https://sharp.pixelunion.net/)                              |
+
+## Prerequisites
+
+- **Node.js**: 24.14.1 (specified in `package.json` engines)
+- **npm**: Comes bundled with Node.js
 
 ## Running the Application
 

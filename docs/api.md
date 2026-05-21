@@ -65,7 +65,7 @@ Query parameters:
 
 | Parameter | Type   | Default | Description              |
 | --------- | ------ | ------- | ------------------------ |
-| `category` | string | (required) | Category slug (e.g., `ai`, `coding`, `life`) |
+| `category` | string | (required) | Category slug (e.g., `development`, `process`, `design`, `career`) |
 | `page`    | number | `1`     | Page number (1-indexed)  |
 
 **Response**
