@@ -2,7 +2,7 @@
 
 Personal website at [https://www.yongchenglow.com](https://www.yongchenglow.com)
 
-> Documentation last reviewed: 2026-05-10
+> Documentation last reviewed: 2026-06-12
 
 ## Table of Contents
 
@@ -118,15 +118,15 @@ src/
 │   ├── shared/
 │   │   ├── atoms/              # Smallest building blocks (Container, FadeIn, ExternalLink, ImageSkeleton, etc.)
 │   │   ├── molecules/          # Combinations of atoms (Section)
-│   │   ├── organisms/          # Complex components (NavigationBar, Footer, ContentCard)
+│   │   ├── organisms/          # Complex components (Navigationbar, Footer, ContentCard)
 │   │   ├── layouts/            # Layout components (StandardLayout)
 │   │   └── ui/                 # shadcn/ui components (button, card, dialog, etc.)
 │   ├── about/                  # About page components (Timeline, TimelineItem, TimelineItemRenderer)
-│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, FilterPanel, FeaturedPostCard, etc.)
+│   ├── blog/                   # Blog components (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, FilterPanel, FeaturedPostCard, MdxImage, ImageModal, LatestPostsView, etc.)
 │   ├── home/                   # Home page sections (IntroSection, ProjectsSection, LatestPostsSection, AboutMeSection)
-│   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents, MDXImage)
+│   ├── mdx/                    # MDX component mappings (Admonition, MDXComponents)
 │   ├── post/                   # Blog post display components (PostCard, PostHeader, PostImage, etc.)
-│   ├── project/                # Project components (ProjectCard, ProjectGrid)
+│   ├── project/                # Project components (ProjectButton, ProjectCard, ProjectGrid)
 │   ├── search/                 # Search components (SearchDialog, SearchTrigger)
 │   ├── seo/                    # SEO components (JsonLd)
 │   └── theme/                  # Theme provider, toggle, and font configuration
@@ -142,9 +142,11 @@ src/
 │   ├── blog.ts                 # Blog configuration (categories, posts per page)
 │   ├── blog-ui.ts              # Blog UI labels (loaded from blog-ui.json)
 │   └── site.ts                 # Site metadata (URL, author, navigation, social links, ad slots)
-└── types/
-    ├── blog.ts                 # TypeScript types for blog
-    └── search.ts               # TypeScript types for search
+├── types/
+│   ├── blog.ts                 # TypeScript types for blog
+│   └── search.ts               # TypeScript types for search
+└── content/
+    └── schema.ts               # Zod schemas for content validation
 
 content/
 ├── blog/                       # MDX blog post files
@@ -152,8 +154,7 @@ content/
 │   └── yongchenglow.json       # Author metadata
 ├── about.json                  # About page content (timeline-based structure)
 ├── home.json                   # Home page content (intro, projects, about section)
-├── blog-ui.json                # Blog UI labels (used by blog components)
-└── schema.ts                   # Zod schemas for content validation
+└── blog-ui.json                # Blog UI labels (used by blog components)
 
 public/
 ├── img/                        # Images
@@ -165,7 +166,15 @@ scripts/
 
 test/
 ├── setup.ts                    # Vitest test setup file
-└── *.test.{ts,tsx}             # Test files
+├── content.test.ts             # Content schema validation tests
+├── index.test.tsx              # Home page tests
+├── sitemap.test.ts             # Sitemap tests
+├── components/
+│   ├── blog/                   # Blog component tests (Pagination, CategoryNavigation, InfiniteScroll, ReadingProgress, YearFilter, BlogNavigation)
+│   ├── seo/                    # SEO component tests (JsonLd)
+│   └── shared/                 # Shared component tests (StandardLayout)
+└── lib/
+    └── blog.test.ts            # Blog library tests
 ```
 
 **Note:** Test files are located both in the `test/` directory and alongside source files (e.g., `src/components/shared/atoms/ImageSkeleton.test.tsx`, `src/lib/utils.test.ts`).
@@ -174,9 +183,9 @@ test/
 
 Components follow the [Atomic Design](https://atomicdesign.bradfrost.com/) pattern:
 
-- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`, `ImageSkeleton`
+- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`, `ImageSkeleton`, `BulletList`, `GitHubIcon`, `LinkedInIcon`
 - **Molecules** — combinations of atoms: `Section`
-- **Organisms** — complex, self-contained components: `NavigationBar`, `Footer`, `ContentCard`
+- **Organisms** — complex, self-contained components: `Navigationbar`, `Footer`, `ContentCard`
 - **Layouts** — page layout wrappers: `StandardLayout`
 - **UI** — shadcn/ui components (Radix UI primitives with Tailwind styling): `Button`, `Card`, `Dialog`, `Command`, `Avatar`, `Badge`, `Skeleton`, `Switch`, `Tooltip`, `Table`, `Sheet`, `NavigationMenu`, `ScrollArea`, `Separator`, `Input`, `Breadcrumb`, `Alert`
 
@@ -219,7 +228,7 @@ The post is automatically added to:
 
 Custom components available in MDX content (defined in `src/components/mdx/MDXComponents.tsx`):
 
-- Standard HTML elements (`p`, `ul`, `ol`, `img`, `code`, `h1`-`h6`) are mapped to styled components
+- Standard HTML elements (`p`, `ul`, `ol`, `img`, `code`) are mapped to styled components
 - `<Admonition>` — callout/notice block for important information
 - `<PostDefinition>` — definition block for term explanations
 - `<PostImage>` — enhanced image component for blog posts with modal support
