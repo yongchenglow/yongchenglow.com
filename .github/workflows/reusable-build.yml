@@ -4,114 +4,125 @@ on:
   workflow_call:
     inputs:
       node_version:
-        description: "Node.js version to use (defaults to package.json engines.node)"
+        description: "Node.js version to use (extracted from package.json by caller)"
         required: false
         type: string
     outputs:
       cache_hit:
         description: "Whether build cache was hit"
-        value: ${{ jobs.build.outputs.cache_hit }}
+        value: ${{ jobs.setup.outputs.cache_hit }}
 
 jobs:
   setup:
     name: Setup & Cache Dependencies
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
       cache_hit: ${{ steps.cache-node-modules.outputs.cache-hit }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node_version }}
-          cache: "npm"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+        run: bun install --frozen-lockfile
 
   lint:
     name: Lint
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: setup
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node_version }}
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Restore node_modules cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Run lint
-        run: npm run lint
+        run: bun run lint
 
   test:
     name: Test
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: setup
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node_version }}
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Restore node_modules cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Run tests
-        run: npm run test
+        run: bun run test
 
   knip:
     name: Dependency Check
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: setup
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node_version }}
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Restore node_modules cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Run knip
-        run: npm run knip
+        run: bun run knip
 
   security-scan:
     name: Security Scan
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: setup
     permissions:
@@ -119,27 +130,26 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Trivy
-        uses: aquasecurity/setup-trivy@v0.2.6
-        with:
-          trivy-version: 0.56.1
+        uses: actions/checkout@v6
 
       - name: Run Trivy scanner (vulnerabilities & misconfigurations)
-        run: |
-          trivy fs . \
-            --format sarif \
-            --output trivy-results.sarif \
-            --severity CRITICAL \
-            --scanners vuln,misconfig \
-            --skip-dirs docs
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL"
+          scanners: "vuln,misconfig"
+          skip-dirs: "docs"
 
-      - name: Run Trivy scan with table output
-        run: |
-          trivy fs . \
-            --format table \
-            --exit-code 1 \
-            --severity CRITICAL \
-            --scanners vuln,misconfig \
-            --skip-dirs docs
+      - name: Run Trivy scanner with table output
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL"
+          scanners: "vuln,misconfig"
+          skip-dirs: "docs"

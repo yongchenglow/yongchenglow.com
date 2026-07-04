@@ -7,16 +7,21 @@ on:
         description: "Docker image tag to deploy"
         required: true
         type: string
+      node_version:
+        description: "Node.js version to use"
+        required: false
+        type: string
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  NAMESPACE: personal-site
   PRODUCTION_PORT: 30000
 
 jobs:
   deploy:
     name: Deploy to Production
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
       name: production
@@ -29,14 +34,17 @@ jobs:
       deployment_url: https://${{ vars.CLOUDFLARE_DOMAIN }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Validate required secrets
         run: |
           MISSING_SECRETS=()
 
-          if [ -z "${{ secrets.KUBECONFIG_PROD }}" ]; then
-            MISSING_SECRETS+=("KUBECONFIG_PROD")
+          if [ -z "${{ secrets.KUBECONFIG_SERVER }}" ]; then
+            MISSING_SECRETS+=("KUBECONFIG_SERVER")
+          fi
+          if [ -z "${{ secrets.KUBECONFIG_TOKEN }}" ]; then
+            MISSING_SECRETS+=("KUBECONFIG_TOKEN")
           fi
           if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
             MISSING_SECRETS+=("CLOUDFLARE_API_TOKEN")
@@ -68,33 +76,31 @@ jobs:
 
       - name: Setup Kubernetes config
         env:
-          KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_PROD }}
+          KUBE_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
+          KUBE_TOKEN: ${{ secrets.KUBECONFIG_TOKEN }}
         run: |
           mkdir -p ~/.kube
-          echo "$KUBECONFIG_CONTENT" | base64 -d > ~/.kube/config
+          touch ~/.kube/config
           chmod 600 ~/.kube/config
+          # Cluster API is fronted by a proxied Cloudflare tunnel hostname,
+          # so the client sees Cloudflare's trusted cert (normal TLS verify).
+          kubectl config set-cluster prod --server="$KUBE_SERVER"
+          kubectl config set-credentials deployer --token="$KUBE_TOKEN"
+          kubectl config set-context prod --cluster=prod --user=deployer
+          kubectl config use-context prod
 
-      - name: Copy GHCR secret to production namespace
+      - name: Ensure namespace exists
         run: |
-          # Create namespace if it doesn't exist
-          kubectl create namespace production --dry-run=client -o yaml | kubectl apply -f -
-
-          # Copy ghcr-secret from main namespace to production namespace only if it doesn't exist
-          if ! kubectl get secret ghcr-secret -n production &>/dev/null; then
-            kubectl get secret ghcr-secret -n nextjs-frontend-template -o yaml | \
-              sed "s/namespace: nextjs-frontend-template/namespace: production/" | \
-              kubectl apply -f -
-            echo "✓ Copied ghcr-secret to production"
-          else
-            echo "✓ Secret ghcr-secret already exists in production"
-          fi
+          # Create namespace only if it doesn't exist (avoids patching pre-existing ns)
+          kubectl get namespace ${{ env.NAMESPACE }} &>/dev/null || \
+            kubectl create namespace ${{ env.NAMESPACE }}
 
       - name: Deploy with Helm
         run: |
           IMAGE_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
 
           helm upgrade --install nextjs-app ./helm/nextjs-app \
-            -n production \
+            -n ${{ env.NAMESPACE }} \
             --create-namespace \
             -f ./helm/nextjs-app/values-production.yaml \
             --set image.tag=${{ inputs.image_tag }} \
@@ -105,7 +111,7 @@ jobs:
 
       - name: Verify deployment
         run: |
-          kubectl rollout status deployment/nextjs-app -n production --timeout=1m
+          kubectl rollout status deployment/nextjs-app -n ${{ env.NAMESPACE }} --timeout=1m
 
       - name: Create Cloudflare Tunnel route
         env:
@@ -178,7 +184,7 @@ jobs:
         run: |
           FULL_HOSTNAME="${CLOUDFLARE_DOMAIN}"
 
-          echo "Creating DNS A/CNAME record for: $FULL_HOSTNAME"
+          echo "Creating DNS CNAME record for: $FULL_HOSTNAME"
 
           # Get Zone ID for the domain
           ZONE_RESPONSE=$(curl -s -X GET \

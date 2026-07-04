@@ -3,12 +3,19 @@ name: Production Rollback
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      node_version:
+        description: "Node.js version to use"
+        required: false
+        type: string
 
+env:
+  NAMESPACE: personal-site
 
 jobs:
   rollback:
     name: Rollback Production
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
       name: production
@@ -17,7 +24,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Validate last deployment was successful
         env:
@@ -59,8 +66,11 @@ jobs:
         run: |
           MISSING_SECRETS=()
 
-          if [ -z "${{ secrets.KUBECONFIG_PROD }}" ]; then
-            MISSING_SECRETS+=("KUBECONFIG_PROD")
+          if [ -z "${{ secrets.KUBECONFIG_SERVER }}" ]; then
+            MISSING_SECRETS+=("KUBECONFIG_SERVER")
+          fi
+          if [ -z "${{ secrets.KUBECONFIG_TOKEN }}" ]; then
+            MISSING_SECRETS+=("KUBECONFIG_TOKEN")
           fi
 
           if [ ${#MISSING_SECRETS[@]} -gt 0 ]; then
@@ -80,26 +90,32 @@ jobs:
 
       - name: Setup Kubernetes config
         env:
-          KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_PROD }}
+          KUBE_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
+          KUBE_TOKEN: ${{ secrets.KUBECONFIG_TOKEN }}
         run: |
           mkdir -p ~/.kube
-          echo "$KUBECONFIG_CONTENT" | base64 -d > ~/.kube/config
+          touch ~/.kube/config
           chmod 600 ~/.kube/config
+          # Cluster API is fronted by a proxied Cloudflare tunnel hostname,
+          # so the client sees Cloudflare's trusted cert (normal TLS verify).
+          kubectl config set-cluster prod --server="$KUBE_SERVER"
+          kubectl config set-credentials deployer --token="$KUBE_TOKEN"
+          kubectl config set-context prod --cluster=prod --user=deployer
+          kubectl config use-context prod
 
       - name: Validate release exists and can be rolled back
         run: |
-          NAMESPACE="production"
           RELEASE_NAME="nextjs-app"
 
           # Check if release exists
-          if ! helm list -n "$NAMESPACE" | grep -q "$RELEASE_NAME"; then
-            echo "✗ ERROR: No Helm release found for $RELEASE_NAME in namespace $NAMESPACE"
+          if ! helm list -n "${{ env.NAMESPACE }}" | grep -q "$RELEASE_NAME"; then
+            echo "✗ ERROR: No Helm release found for $RELEASE_NAME in namespace ${{ env.NAMESPACE }}"
             echo "Cannot rollback a release that doesn't exist."
             exit 1
           fi
 
           # Get current revision
-          CURRENT_REVISION=$(helm list -n "$NAMESPACE" -o json | jq -r '.[] | select(.name=="'$RELEASE_NAME'") | .revision')
+          CURRENT_REVISION=$(helm list -n "${{ env.NAMESPACE }}" -o json | jq -r '.[] | select(.name=="'$RELEASE_NAME'") | .revision')
 
           echo "Current revision: $CURRENT_REVISION"
 
@@ -115,21 +131,20 @@ jobs:
       - name: Show deployment history
         run: |
           echo "Current deployment history:"
-          helm history nextjs-app -n production --max 10
+          helm history nextjs-app -n ${{ env.NAMESPACE }} --max 10
 
       - name: Rollback Helm release
         run: |
-          NAMESPACE="production"
           RELEASE_NAME="nextjs-app"
 
           echo "Rolling back to previous revision"
-          helm rollback "$RELEASE_NAME" -n "$NAMESPACE" --wait --timeout 10m
+          helm rollback "$RELEASE_NAME" -n "${{ env.NAMESPACE }}" --wait --timeout 10m
 
       - name: Verify rollback
         run: |
-          kubectl rollout status deployment/nextjs-app -n production --timeout=1m
+          kubectl rollout status deployment/nextjs-app -n ${{ env.NAMESPACE }} --timeout=1m
 
           echo ""
           echo "Rollback completed successfully!"
           echo "Current revision:"
-          helm list -n production
+          helm list -n ${{ env.NAMESPACE }}
