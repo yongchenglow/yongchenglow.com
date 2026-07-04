@@ -79,10 +79,10 @@ export const getBlogPostNavigation = (
 	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
 
 	// Posts sorted newest-first. Lower index = newer, higher index = older.
-	// next = newer post, previous = older post.
+	// previous = newer post, next = older post.
 	return {
-		next: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
-		previous:
+		previous: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
+		next:
 			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
 	};
 };
