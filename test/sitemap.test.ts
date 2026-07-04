@@ -35,6 +35,7 @@ describe("sitemap", () => {
 		const posts = entries.filter(
 			(e) =>
 				e.url.startsWith("https://www.yongchenglow.com/blog/") &&
+				e.url !== "https://www.yongchenglow.com/blog/all" &&
 				!e.url.includes("/latest/") &&
 				!e.url.includes("/category/") &&
 				!e.url.includes("/tag/") &&

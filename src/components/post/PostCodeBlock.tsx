@@ -29,8 +29,8 @@ export const PostCodeBlock = ({
 
 	if (!mounted) {
 		return (
-			<div className={cn("text-center mb-7 ", className)}>
-				<div className="inline-block bg-muted p-8 text-left">
+			<div className={cn("mb-7 w-full overflow-x-auto", className)}>
+				<div className="bg-muted p-8 text-left">
 					<pre>{children.trim()}</pre>
 				</div>
 			</div>
@@ -38,14 +38,14 @@ export const PostCodeBlock = ({
 	}
 
 	return (
-		<div className={cn("text-center mb-7 ", className)}>
+		<div className={cn("mb-7 w-full overflow-x-auto", className)}>
 			<SyntaxHighlighter
 				language={language}
 				style={theme === "dark" ? atomOneDark : atomOneLight}
 				customStyle={{
 					textAlign: "left",
-					display: "inline-block",
-					padding: "0 2rem",
+					padding: "1rem 2rem",
+					margin: 0,
 				}}
 			>
 				{children.trim()}

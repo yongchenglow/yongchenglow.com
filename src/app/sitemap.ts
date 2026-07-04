@@ -47,11 +47,10 @@ const sitemap = (): MetadataRoute.Sitemap => {
 		});
 	}
 
-	// Latest paginated pages
-	const totalLatestPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
-	for (let i = 1; i <= totalLatestPages; i++) {
+	// All posts archive (timeline)
+	if (posts.length > 0) {
 		entries.push({
-			url: `${SITE_URL}/blog/latest/${i}`,
+			url: `${SITE_URL}/blog/all`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,

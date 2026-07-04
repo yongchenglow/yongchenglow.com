@@ -2,45 +2,45 @@ name: CI/CD
 
 on:
   push:
-    branches: [main]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  get-node-version:
-    name: Get Node Version
-    runs-on: ubuntu-24.04-arm
+  extract-node-version:
+    name: Extract Node Version from package.json
+    runs-on: ubuntu-latest
     outputs:
-      node_version: ${{ steps.get-version.outputs.version }}
+      node_version: ${{ steps.get-node-version.outputs.node_version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get Node version from package.json
-        id: get-version
-        run: echo "version=$(node -p "require('./package.json').engines.node")" >> $GITHUB_OUTPUT
+        id: get-node-version
+        run: echo "node_version=$(node -p "require('./package.json').engines.node")" >> $GITHUB_OUTPUT
 
   build:
-    name: Build & Test
+    name: Quality Checks
     permissions:
       contents: read
       security-events: write
-    needs: get-node-version
+    needs: extract-node-version
     uses: ./.github/workflows/reusable-build.yml
     with:
-      node_version: ${{ needs.get-node-version.outputs.node_version }}
+      node_version: ${{ needs.extract-node-version.outputs.node_version }}
 
   docker:
     name: Build & Push Docker Image
-    needs: build
+    needs: [build, extract-node-version]
     permissions:
       contents: read
       packages: write
     uses: ./.github/workflows/reusable-docker.yml
     with:
-      platforms: linux/arm64
+      node_version: ${{ needs.extract-node-version.outputs.node_version }}
+      platforms: linux/amd64
     secrets: inherit
 
   security-scan:
@@ -57,7 +57,8 @@ jobs:
 
   deploy-production:
     name: Deploy to Production
-    needs: [docker, security-scan]
+    if: github.ref == 'refs/heads/main'
+    needs: [docker, security-scan, extract-node-version]
     permissions:
       contents: read
       packages: read
@@ -65,4 +66,5 @@ jobs:
     uses: ./.github/workflows/production-deploy.yml
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
+      node_version: ${{ needs.extract-node-version.outputs.node_version }}
     secrets: inherit

@@ -1,4 +1,4 @@
-export interface SearchablePost {
+interface SearchablePost {
 	id: string;
 	title: string;
 	subtitle?: string;

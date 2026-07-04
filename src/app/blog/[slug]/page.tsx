@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
+import { useMDXComponents } from "@/src/components/mdx/MDXComponents";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import {
@@ -138,10 +139,10 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 			<JsonLd data={breadcrumbSchema} />
 			<MDXRemote
 				source={post.content}
-				components={{
+				components={useMDXComponents({
 					img: MdxImage,
 					a: MdxLink,
-				}}
+				})}
 				options={{
 					mdxOptions: {
 						remarkPlugins: [remarkGfm],

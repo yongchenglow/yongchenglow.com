@@ -18,8 +18,8 @@ export const LatestPostsSection = ({ post }: LatestPostsSectionProps) => {
 	return (
 		<div className="py-12 text-center">
 			<Section title="Latest Tech Posts">
-				<div className="flex justify-center">
-					<FadeIn>
+				<div className="grid grid-cols-12">
+					<FadeIn className="col-span-12 sm:col-span-8 sm:col-start-3 lg:col-span-6 lg:col-start-4 w-full">
 						<PostCard
 							title={post.frontmatter.title}
 							description={post.frontmatter.description}

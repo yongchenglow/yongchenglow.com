@@ -45,7 +45,7 @@ const MilitaryTimelineItemSchema = z.object({
 });
 
 // Unified timeline schema using discriminated union
-export const TimelineItemSchema = z.discriminatedUnion("type", [
+const TimelineItemSchema = z.discriminatedUnion("type", [
 	WorkTimelineItemSchema,
 	EducationTimelineItemSchema,
 	MilitaryTimelineItemSchema,

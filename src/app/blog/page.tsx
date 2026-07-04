@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export const BlogPage = () => {
 	const featuredPost = getFeaturedPost();
 	const allPosts = getAllBlogPosts();
-	const previousPosts = allPosts.slice(1);
+	const previousPosts = allPosts.slice(1, 5);
 
 	return (
 		<StandardLayout>
@@ -89,9 +89,7 @@ export const BlogPage = () => {
 
 					<div className="flex justify-center mt-8">
 						<Button variant="ghost" size="lg" asChild className="gap-2">
-							<Link href="/blog/latest/1">
-								{BLOG_UI.previousPosts.viewAllLink}
-							</Link>
+							<Link href="/blog/all">{BLOG_UI.previousPosts.viewAllLink}</Link>
 						</Button>
 					</div>
 				</section>
