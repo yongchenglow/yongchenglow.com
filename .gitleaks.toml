@@ -1,0 +1,13 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Build artifacts and lockfiles: minified vendor bundles trip entropy heuristics"
+paths = [
+  '''^\.next/''',
+  '''^node_modules/''',
+  '''^out/''',
+  '''^coverage/''',
+  '''^public/search-index\.json$''',
+  '''^bun\.lock$''',
+]
