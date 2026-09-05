@@ -1,6 +1,7 @@
+import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import { render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ReadingProgress } from "@/src/components/blog/ReadingProgress";
+import { vi } from "../../bun-test-utils";
 
 describe("ReadingProgress", () => {
 	const pageTitle = "Test Blog Post";

@@ -1,7 +1,7 @@
+import { describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import matter from "gray-matter";
-import { describe, expect, it } from "vitest";
 import {
 	AboutSchema,
 	AuthorSchema,

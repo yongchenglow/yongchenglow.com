@@ -1,13 +1,12 @@
 # Build arguments for versioning and metadata
-# NODE_VERSION is passed from CI (reads from package.json engines.node)
-ARG NODE_VERSION
+# BUN_VERSION is passed from CI (reads from package.json packageManager).
+# The default keeps `docker build` working without --build-arg; keep it in sync
+# with the `packageManager` field in package.json.
+ARG BUN_VERSION=1.4.2
 
 # Stage 1: Builder
-FROM node:${NODE_VERSION}-alpine AS builder
+FROM oven/bun:${BUN_VERSION}-alpine AS builder
 WORKDIR /app
-
-# Install bun
-RUN npm install -g bun@latest
 
 # Install all dependencies including dev dependencies for build
 COPY package.json bun.lock ./
@@ -20,9 +19,10 @@ COPY . .
 RUN bun run build
 
 # Stage 2: Runner
-FROM node:${NODE_VERSION}-alpine AS runner
+FROM oven/bun:${BUN_VERSION}-alpine AS runner
 
 # Metadata arguments
+ARG BUN_VERSION
 ARG BUILD_DATE
 ARG REVISION
 ARG VERSION
@@ -35,28 +35,26 @@ LABEL org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.revision="${REVISION}" \
       org.opencontainers.image.title="Yong Cheng Low" \
       org.opencontainers.image.description="Personal website built with Next.js" \
-      org.opencontainers.image.base.name="node:${NODE_VERSION}-alpine"
+      org.opencontainers.image.base.name="oven/bun:${BUN_VERSION}-alpine"
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Create a non-root user
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+# The oven/bun image already provides a non-root `bun` user (uid/gid 1000)
 
 # Copy necessary files from builder
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=bun:bun /app/.next/standalone ./
+COPY --from=builder --chown=bun:bun /app/.next/static ./.next/static
 
-USER nextjs
+USER bun
 
 EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Start the application
-CMD ["node", "server.js"]
+# Start the application on the Bun runtime
+CMD ["bun", "server.js"]
