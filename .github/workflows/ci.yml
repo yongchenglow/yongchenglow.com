@@ -21,6 +21,14 @@ jobs:
         id: get-node-version
         run: echo "node_version=$(node -p "require('./package.json').engines.node")" >> $GITHUB_OUTPUT
 
+  secret-scan:
+    name: Secret Scan
+    permissions:
+      contents: read
+      security-events: write
+    uses: ./.github/workflows/reusable-secret-scan.yml
+    secrets: inherit
+
   build:
     name: Quality Checks
     permissions:
@@ -33,7 +41,7 @@ jobs:
 
   docker:
     name: Build & Push Docker Image
-    needs: [build, extract-node-version]
+    needs: [build, secret-scan, extract-node-version]
     permissions:
       contents: read
       packages: write
