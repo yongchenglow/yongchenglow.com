@@ -8,18 +8,24 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  extract-node-version:
-    name: Extract Node Version from package.json
+  extract-bun-version:
+    name: Extract Bun Version from package.json
     runs-on: ubuntu-latest
     outputs:
-      node_version: ${{ steps.get-node-version.outputs.node_version }}
+      bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Get Node version from package.json
-        id: get-node-version
-        run: echo "node_version=$(node -p "require('./package.json').engines.node")" >> $GITHUB_OUTPUT
+      - name: Get Bun version from package.json
+        id: get-bun-version
+        run: |
+          BUN_VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
+          if [ -z "$BUN_VERSION" ] || [ "$BUN_VERSION" = "null" ]; then
+            echo "✗ ERROR: Could not read bun version from package.json packageManager field"
+            exit 1
+          fi
+          echo "bun_version=$BUN_VERSION" >> $GITHUB_OUTPUT
 
   secret-scan:
     name: Secret Scan
@@ -34,20 +40,20 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    needs: extract-node-version
+    needs: extract-bun-version
     uses: ./.github/workflows/reusable-build.yml
     with:
-      node_version: ${{ needs.extract-node-version.outputs.node_version }}
+      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
 
   docker:
     name: Build & Push Docker Image
-    needs: [build, secret-scan, extract-node-version]
+    needs: [build, secret-scan, extract-bun-version]
     permissions:
       contents: read
       packages: write
     uses: ./.github/workflows/reusable-docker.yml
     with:
-      node_version: ${{ needs.extract-node-version.outputs.node_version }}
+      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
       platforms: linux/amd64
     secrets: inherit
 
@@ -66,7 +72,7 @@ jobs:
   deploy-production:
     name: Deploy to Production
     if: github.ref == 'refs/heads/main'
-    needs: [docker, security-scan, extract-node-version]
+    needs: [docker, security-scan, extract-bun-version]
     permissions:
       contents: read
       packages: read
@@ -74,5 +80,5 @@ jobs:
     uses: ./.github/workflows/production-deploy.yml
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
-      node_version: ${{ needs.extract-node-version.outputs.node_version }}
+      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
     secrets: inherit

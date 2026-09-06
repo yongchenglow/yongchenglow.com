@@ -6,15 +6,12 @@
 	"ignoreDependencies": [
 		"@swc/core",
 		"autoprefixer",
+		"conventional-changelog-conventionalcommits",
 		"globals",
 		"shadcn",
-		"tailwindcss-animate",
-		"conventional-changelog-conventionalcommits"
+		"tailwindcss-animate"
 	],
 	"next": {
 		"entry": ["src/app/**/*.{ts,tsx}", "src/middleware.{ts,tsx}"]
-	},
-	"vitest": {
-		"config": ["vitest.config.ts"]
 	}
 }

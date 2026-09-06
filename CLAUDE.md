@@ -10,23 +10,23 @@ This is Yong Cheng Low's personal website (<https://www.yongchenglow.com>), buil
 
 **Development:**
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Run production build
-- `npm run prepare` - Setup development environment (run once after clone)
+- `bun run dev` - Start development server
+- `bun run build` - Build for production
+- `bun start` - Run production build
+- `bun run prepare` - Setup development environment (run once after clone)
 
 **Code Quality (always run after changes):**
 
-- `npm run check` - Run Biome linting and formatting with auto-fix
-- `npm test` - Run Vitest tests
-- `npm run lint` - Run Biome linter only
-- `npm run format` - Format code only
-- `npm run knip` - Find unused files, dependencies, and exports
-- `npm run knip:production` - Check production dependencies only
+- `bun run check` - Run Biome linting and formatting with auto-fix
+- `bun test` - Run tests with the Bun test runner
+- `bun run lint` - Run Biome linter only
+- `bun run format` - Format code only
+- `bun run knip` - Find unused files, dependencies, and exports
+- `bun run knip:production` - Check production dependencies only
 
 **Tools:**
 
-- `npm run analyze` - Bundle analysis with webpack-bundle-analyzer
+- `bun run analyze` - Bundle analysis with webpack-bundle-analyzer
 
 ## Architecture
 
@@ -48,7 +48,7 @@ This is Yong Cheng Low's personal website (<https://www.yongchenglow.com>), buil
 
 ## Package Manager
 
-Uses `npm` - do not use pnpm or yarn commands.
+Uses `bun` (v1.4.2) as both package manager and runtime - do not use npm, pnpm, or yarn commands.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

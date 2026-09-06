@@ -1,9 +1,21 @@
+import { beforeEach, describe, expect, it, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-import { YearFilter } from "@/src/components/blog/YearFilter";
-import * as blogLib from "@/src/lib/blog";
+import { vi } from "../../bun-test-utils";
 
-vi.mock("@/src/lib/blog");
+// Bun has no bare auto-mock, so the mocked surface is declared explicitly.
+const blogLib = {
+	getAllPostYears: vi.fn(),
+	getYearPostCounts: vi.fn(),
+};
+
+mock.module("@/src/lib/blog", () => blogLib);
+
+const { YearFilter } = await import("@/src/components/blog/YearFilter");
+
+beforeEach(() => {
+	blogLib.getAllPostYears.mockReset();
+	blogLib.getYearPostCounts.mockReset();
+});
 
 describe("YearFilter", () => {
 	it("renders a badge for each year", () => {

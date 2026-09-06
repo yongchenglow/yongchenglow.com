@@ -1,16 +1,16 @@
+import { describe, expect, it, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 
-vi.mock("@/src/components/shared/organisms/Navigationbar", () => ({
+mock.module("@/src/components/shared/organisms/Navigationbar", () => ({
 	default: () => <nav data-testid="navigation-bar">NavBar</nav>,
 }));
 
-vi.mock("@/src/components/shared/organisms/Footer", () => ({
+mock.module("@/src/components/shared/organisms/Footer", () => ({
 	default: () => <footer data-testid="footer">Footer</footer>,
 }));
 
-vi.mock("@/src/components/shared/atoms/Container", () => ({
+mock.module("@/src/components/shared/atoms/Container", () => ({
 	default: ({ children }: { children: React.ReactNode }) => (
 		<div data-testid="container">{children}</div>
 	),

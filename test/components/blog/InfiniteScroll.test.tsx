@@ -1,7 +1,8 @@
+import { describe, expect, it } from "bun:test";
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import { InfiniteScroll } from "@/src/components/blog/InfiniteScroll";
 import type { BlogPost } from "@/src/types/blog";
+import { vi } from "../../bun-test-utils";
 
 // Helper function to create test posts
 function makePost(slug: string, title: string = "Test Post"): BlogPost {

@@ -1,8 +1,8 @@
+import { describe, expect, it, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
 
-vi.mock("@/src/lib/blog", () => ({
+mock.module("@/src/lib/blog", () => ({
 	getAllCategories: () => [
 		{ slug: "development", label: "Development", tags: [], description: "" },
 		{ slug: "design", label: "Design", tags: [], description: "" },

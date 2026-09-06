@@ -1,30 +1,28 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, mock } from "bun:test";
+import { vi } from "../bun-test-utils";
 
 // Must mock before importing the module under test
-vi.mock("node:fs", async (importOriginal) => {
-	const actual = await importOriginal<typeof import("node:fs")>();
-	const mocked = {
-		...actual,
-		readdirSync: vi.fn(),
-		existsSync: vi.fn(),
-		readFileSync: vi.fn(),
-	};
-	return {
-		...mocked,
-		default: mocked,
-	};
-});
+const actualFs = await import("node:fs");
+const actualPath = await import("node:path");
 
-vi.mock("node:path", async () => {
-	const actual = await vi.importActual<typeof import("node:path")>("node:path");
-	return {
-		...actual,
+const fs = {
+	...actualFs.default,
+	readdirSync: vi.fn(),
+	existsSync: vi.fn(),
+	readFileSync: vi.fn(),
+};
+
+mock.module("node:fs", () => ({ ...fs, default: fs }));
+
+mock.module("node:path", () => {
+	const mocked = {
+		...actualPath.default,
 		join: (...args: string[]) => args.join("/"),
 	};
+	return { ...mocked, default: mocked };
 });
 
-import fs from "node:fs";
-import {
+const {
 	getAllBlogPosts,
 	getAllBlogSlugs,
 	getAllPostYears,
@@ -40,7 +38,7 @@ import {
 	getPaginatedPostsByCategory,
 	getPaginatedPostsByYear,
 	getYearPostCounts,
-} from "@/src/lib/blog";
+} = await import("@/src/lib/blog");
 
 const mockPost = (
 	slug: string,
@@ -57,7 +55,9 @@ tags: [${overrides.tags ?? ""}]
 Content for ${slug}`;
 
 beforeEach(() => {
-	vi.resetAllMocks();
+	fs.readdirSync.mockReset();
+	fs.existsSync.mockReset();
+	fs.readFileSync.mockReset();
 });
 
 describe("getAllBlogSlugs", () => {

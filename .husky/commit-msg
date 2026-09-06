@@ -1,2 +1,1 @@
-. ~/.nvm/nvm.sh
-npx commitlint --edit $1
+bunx --bun commitlint --edit $1
