@@ -38,6 +38,7 @@ const {
 	getPaginatedPostsByCategory,
 	getPaginatedPostsByYear,
 	getYearPostCounts,
+	resetBlogCache,
 } = await import("@/src/lib/blog");
 
 const mockPost = (
@@ -58,6 +59,9 @@ beforeEach(() => {
 	fs.readdirSync.mockReset();
 	fs.existsSync.mockReset();
 	fs.readFileSync.mockReset();
+	// Blog data is memoized at module scope; clear it so each test's fs
+	// fixtures are actually read rather than served from a previous test.
+	resetBlogCache();
 });
 
 describe("getAllBlogSlugs", () => {
@@ -162,7 +166,8 @@ describe("getBlogPostsByTag", () => {
 		vi.mocked(fs.readdirSync).mockReturnValue(["a.mdx", "b.mdx"] as never);
 		vi.mocked(fs.existsSync).mockReturnValue(false);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("/a"))
+			// Match on the filename only: the repo path itself may contain "/a".
+			if (String(filePath).endsWith("/a.md"))
 				return mockPost("a", { date: "2024-01-01", tags: "react, typescript" });
 			return mockPost("b", { date: "2023-01-01", tags: "vue" });
 		});
@@ -221,9 +226,10 @@ describe("getAllPostYears", () => {
 		] as never);
 		vi.mocked(fs.existsSync).mockReturnValue(false);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("/a"))
+			// Match on the filename only: the repo path itself may contain "/a".
+			if (String(filePath).endsWith("/a.md"))
 				return mockPost("a", { date: "2024-05-01" });
-			if (String(filePath).includes("/b"))
+			if (String(filePath).endsWith("/b.md"))
 				return mockPost("b", { date: "2023-05-01" });
 			return mockPost("c", { date: "2024-11-01" });
 		});
