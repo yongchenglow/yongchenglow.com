@@ -63,18 +63,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      # Single scan writes SARIF; the upload and the pass/fail gate below reuse
-      # that result rather than re-downloading the vulnerability database.
+      # Scan once into Trivy's own JSON, then derive both the SARIF upload and
+      # the pass/fail gate from that file. `convert` reads the saved results, so
+      # neither step re-downloads the vulnerability database.
       - name: Run Trivy scanner (vulnerabilities & misconfigurations)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: "fs"
           scan-ref: "."
-          format: "sarif"
-          output: "trivy-results.sarif"
+          format: "json"
+          output: "trivy-results.json"
           severity: "CRITICAL"
           scanners: "vuln,misconfig"
           skip-dirs: "docs"
+
+      - name: Convert results to SARIF
+        run: trivy convert --format sarif --output trivy-results.sarif trivy-results.json
 
       - name: Upload Trivy results to code scanning
         uses: github/codeql-action/upload-sarif@v4
@@ -83,20 +87,27 @@ jobs:
 
       - name: Fail on critical findings
         run: |
-          # Trivy's SARIF output carries misconfiguration findings of every
-          # severity, not just the `severity:` filter above, so counting raw
-          # results mislabels a LOW finding as CRITICAL. SARIF level "error"
-          # is the CRITICAL marker; match the image scan gate.
-          CRITICAL=$(jq '[.runs[].results[]
-            | select(.level == "error")] | length' trivy-results.sarif)
-          TOTAL=$(jq '[.runs[].results[]] | length' trivy-results.sarif)
+          # Gate on Trivy's own Severity field rather than the SARIF level:
+          # Trivy maps both CRITICAL and HIGH to SARIF level "error", so
+          # matching on that would block HIGH findings too. Misconfigurations
+          # live under .Misconfigurations, vulnerabilities under
+          # .Vulnerabilities; both are filtered to CRITICAL above, but this
+          # re-checks Severity so the gate does not depend on that filter.
+          VULNS=$(jq '[.Results[]?.Vulnerabilities[]?
+            | select(.Severity == "CRITICAL")] | length' trivy-results.json)
+          MISCONF=$(jq '[.Results[]?.Misconfigurations[]?
+            | select(.Severity == "CRITICAL")] | length' trivy-results.json)
+          CRITICAL=$((VULNS + MISCONF))
 
-          echo "Findings: $TOTAL total, $CRITICAL critical"
+          echo "Critical findings: $VULNS vulnerabilities, $MISCONF misconfigurations"
 
           if [ "$CRITICAL" -gt 0 ]; then
             echo "✗ Trivy found $CRITICAL CRITICAL finding(s):"
-            jq -r '.runs[].results[] | select(.level == "error") |
-              "  - \(.ruleId): \(.message.text)"' trivy-results.sarif
+            jq -r '.Results[]? | .Target as $t
+              | (.Vulnerabilities[]? | select(.Severity == "CRITICAL")
+                  | "  - [\($t)] \(.VulnerabilityID) \(.PkgName) \(.InstalledVersion) -> \(.FixedVersion // "no fix")"),
+                (.Misconfigurations[]? | select(.Severity == "CRITICAL")
+                  | "  - [\($t)] \(.ID): \(.Title)")' trivy-results.json
             exit 1
           fi
           echo "✓ No CRITICAL findings"

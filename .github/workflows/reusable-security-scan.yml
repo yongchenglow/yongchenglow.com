@@ -50,15 +50,20 @@ jobs:
           echo "IMAGE_NAME_LOWER=$IMAGE_NAME_LOWER" >> $GITHUB_OUTPUT
 
       # Trivy pulls the image itself; no separate `docker pull` step needed.
-      # One scan produces the SARIF that both the upload and the gate consume.
+      # Scan once into Trivy's own JSON, then derive both the SARIF upload and
+      # the pass/fail gate from that file. `convert` reads the saved results, so
+      # neither step re-downloads the vulnerability database.
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ inputs.registry }}/${{ steps.image-name.outputs.IMAGE_NAME_LOWER }}:${{ inputs.image_tag }}
-          format: "sarif"
-          output: "trivy-image-results.sarif"
+          format: "json"
+          output: "trivy-image-results.json"
           severity: "CRITICAL,HIGH"
           scan-type: "image"
+
+      - name: Convert results to SARIF
+        run: trivy convert --format sarif --output trivy-image-results.sarif trivy-image-results.json
 
       - name: Upload Trivy results to code scanning
         uses: github/codeql-action/upload-sarif@v4
@@ -67,18 +72,29 @@ jobs:
 
       - name: Fail on critical vulnerabilities
         run: |
-          # HIGH findings are reported to code scanning but do not block;
-          # only CRITICAL fails the build, matching the previous behaviour.
-          CRITICAL=$(jq '[.runs[].results[]
-            | select(.level == "error")] | length' trivy-image-results.sarif)
-          TOTAL=$(jq '[.runs[].results[]] | length' trivy-image-results.sarif)
+          # Gate on Trivy's own Severity field, not the SARIF level: Trivy maps
+          # both CRITICAL and HIGH to SARIF level "error", so matching on that
+          # would block HIGH findings too. HIGH is reported to code scanning but
+          # does not fail the build, matching the pre-existing behaviour.
+          CRITICAL=$(jq '[.Results[]?.Vulnerabilities[]?
+            | select(.Severity == "CRITICAL")] | length' trivy-image-results.json)
+          HIGH=$(jq '[.Results[]?.Vulnerabilities[]?
+            | select(.Severity == "HIGH")] | length' trivy-image-results.json)
 
-          echo "Findings: $TOTAL total, $CRITICAL critical"
+          echo "Findings: $CRITICAL critical, $HIGH high"
+
+          if [ "$HIGH" -gt 0 ]; then
+            echo "HIGH severity (reported, not blocking):"
+            jq -r '.Results[]?.Vulnerabilities[]? | select(.Severity == "HIGH") |
+              "  - \(.VulnerabilityID) \(.PkgName) \(.InstalledVersion) -> \(.FixedVersion // "no fix")"' \
+              trivy-image-results.json
+          fi
 
           if [ "$CRITICAL" -gt 0 ]; then
             echo "✗ CRITICAL vulnerabilities found:"
-            jq -r '.runs[].results[] | select(.level == "error") |
-              "  - \(.ruleId): \(.message.text)"' trivy-image-results.sarif
+            jq -r '.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL") |
+              "  - \(.VulnerabilityID) \(.PkgName) \(.InstalledVersion) -> \(.FixedVersion // "no fix")"' \
+              trivy-image-results.json
             exit 1
           fi
           echo "✓ No CRITICAL vulnerabilities"
