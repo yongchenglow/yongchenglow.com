@@ -1,32 +1,90 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { cache } from "react";
 import readingTime from "reading-time";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
-import type {
-	BlogFrontmatter,
-	BlogPost,
-	Category,
-	PaginationResult,
-} from "@/src/types/blog";
+import { BlogFrontmatterSchema } from "@/src/content/schema";
+import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
 
 const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
 
-export const getAllBlogSlugs = (): string[] => {
-	const files = fs.readdirSync(BLOG_CONTENT_PATH);
-	return files
-		.filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
-		.map((file) => file.replace(/\.mdx?$/, ""));
+/**
+ * Slugs map directly onto filenames under `content/blog`, so anything outside
+ * this alphabet (path separators, `..`, URL escapes) must never reach
+ * `path.join`.
+ */
+const SLUG_PATTERN = /^[a-z0-9-]+$/;
+
+/** Thrown when a slug is well-formed but no matching content file exists. */
+export class BlogPostNotFoundError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string) {
+		super(`Blog post not found: "${slug}"`);
+		this.name = "BlogPostNotFoundError";
+		this.slug = slug;
+	}
+}
+
+/** Thrown when a slug could not safely be turned into a content file path. */
+export class InvalidBlogSlugError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string) {
+		super(
+			`Invalid blog slug: "${slug}". Slugs must match ${SLUG_PATTERN.source}.`,
+		);
+		this.name = "InvalidBlogSlugError";
+		this.slug = slug;
+	}
+}
+
+/**
+ * Thrown when a post's frontmatter does not satisfy `BlogFrontmatterSchema`.
+ * Content errors must fail loudly at build time rather than surfacing as a
+ * confusing render crash deep in a component.
+ */
+export class BlogFrontmatterError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string, file: string, issues: string) {
+		super(`Invalid frontmatter in ${file}:\n${issues}`);
+		this.name = "BlogFrontmatterError";
+		this.slug = slug;
+	}
+}
+
+const assertValidSlug = (slug: string): void => {
+	if (!SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
 };
 
-export const getBlogPost = (slug: string): BlogPost => {
+const parsePost = (slug: string): BlogPost => {
+	assertValidSlug(slug);
+
 	const mdxPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
 	const mdPath = path.join(BLOG_CONTENT_PATH, `${slug}.md`);
-	const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath;
+
+	let fullPath: string;
+	if (fs.existsSync(mdxPath)) fullPath = mdxPath;
+	else if (fs.existsSync(mdPath)) fullPath = mdPath;
+	else throw new BlogPostNotFoundError(slug);
+
 	const fileContents = fs.readFileSync(fullPath, "utf8");
 
 	const { data, content } = matter(fileContents);
-	const frontmatter = data as BlogFrontmatter;
+
+	const parsed = BlogFrontmatterSchema.safeParse(data);
+	if (!parsed.success) {
+		const issues = parsed.error.issues
+			.map((issue) => {
+				const at = issue.path.length > 0 ? issue.path.join(".") : "(root)";
+				return `  - ${at}: ${issue.message}`;
+			})
+			.join("\n");
+		throw new BlogFrontmatterError(slug, fullPath, issues);
+	}
+	const frontmatter = parsed.data;
 
 	// Calculate reading time
 	const { text: readingTimeText } = readingTime(content);
@@ -43,10 +101,56 @@ export const getBlogPost = (slug: string): BlogPost => {
 	};
 };
 
-export const getAllBlogPosts = (includesDrafts = false): BlogPost[] => {
-	const slugs = getAllBlogSlugs();
-	const posts = slugs
-		.map((slug) => getBlogPost(slug))
+/**
+ * Memoized scan of the content directory.
+ *
+ * Blog content is static: files are fixed at build time and never mutated at
+ * runtime, so results are memoized at module scope for the lifetime of the
+ * process. `cache()` alone is not sufficient here — it only dedupes within a
+ * single React render pass, and the hottest callers (route handlers, `sitemap.ts`)
+ * run outside one, where it is a no-op.
+ */
+let slugCache: string[] | undefined;
+let postCache: Map<string, BlogPost> | undefined;
+
+const loadAllSlugs = (): string[] => {
+	if (slugCache === undefined) {
+		slugCache = fs
+			.readdirSync(BLOG_CONTENT_PATH)
+			.filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
+			.map((file) => file.replace(/\.mdx?$/, ""));
+	}
+
+	return slugCache;
+};
+
+const loadPost = (slug: string): BlogPost => {
+	if (postCache === undefined) postCache = new Map();
+
+	const cached = postCache.get(slug);
+	if (cached !== undefined) return cached;
+
+	const post = parsePost(slug);
+	postCache.set(slug, post);
+	return post;
+};
+
+/**
+ * Clears the module-scope caches. Exists so tests can swap `fs` fixtures between
+ * cases; production code never needs it, since content cannot change at runtime.
+ */
+export const resetBlogCache = (): void => {
+	slugCache = undefined;
+	postCache = undefined;
+};
+
+export const getAllBlogSlugs = cache((): string[] => loadAllSlugs());
+
+export const getBlogPost = cache((slug: string): BlogPost => loadPost(slug));
+
+export const getAllBlogPosts = cache((includesDrafts = false): BlogPost[] =>
+	loadAllSlugs()
+		.map((slug) => loadPost(slug))
 		.filter((post) => includesDrafts || !post.frontmatter.draft)
 		.sort((a, b) => {
 			// Sort by date descending (newest first)
@@ -54,10 +158,8 @@ export const getAllBlogPosts = (includesDrafts = false): BlogPost[] => {
 				new Date(b.frontmatter.date).getTime() -
 				new Date(a.frontmatter.date).getTime()
 			);
-		});
-
-	return posts;
-};
+		}),
+);
 
 export const getFeaturedPost = (): BlogPost | null => {
 	const posts = getAllBlogPosts();

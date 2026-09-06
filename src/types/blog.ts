@@ -1,16 +1,11 @@
-export interface BlogFrontmatter {
-	title: string;
-	subtitle?: string;
-	description: string;
-	date: string; // ISO 8601 format
-	lastUpdated?: string;
-	author: string;
-	tags?: string[];
-	image?: string;
-	draft?: boolean;
-	featured?: boolean;
-	adsSlotId?: string;
-}
+import type { z } from "zod";
+import type { BlogFrontmatterSchema } from "@/src/content/schema";
+
+/**
+ * Derived from `BlogFrontmatterSchema` so the runtime validation and the
+ * compile-time type cannot drift apart.
+ */
+type BlogFrontmatter = z.infer<typeof BlogFrontmatterSchema>;
 
 export interface BlogPost {
 	slug: string;
