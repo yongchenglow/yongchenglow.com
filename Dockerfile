@@ -37,6 +37,11 @@ LABEL org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.description="Personal website built with Next.js" \
       org.opencontainers.image.base.name="oven/bun:${BUN_VERSION}-alpine"
 
+# Patch openssl ahead of the upstream base image. oven/bun:${BUN_VERSION}-alpine
+# currently ships libcrypto3/libssl3 3.5.7-r0, which Trivy flags as HIGH under
+# CVE-2026-14456; 3.5.8-r0 carries the fix. Drop this once upstream rebuilds.
+RUN apk upgrade --no-cache libcrypto3 libssl3
+
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -55,6 +60,11 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Probe with the Bun runtime that is already in the image, so the runner stage
+# stays free of curl/wget. A non-2xx response exits non-zero and marks unhealthy.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD bun -e 'fetch("http://127.0.0.1:"+(process.env.PORT??3000)+"/").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))'
 
 # Start the application on the Bun runtime
 CMD ["bun", "server.js"]
