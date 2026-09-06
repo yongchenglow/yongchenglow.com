@@ -56,5 +56,10 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Probe with the Bun runtime that is already in the image, so the runner stage
+# stays free of curl/wget. A non-2xx response exits non-zero and marks unhealthy.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD bun -e 'fetch("http://127.0.0.1:"+(process.env.PORT??3000)+"/").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))'
+
 # Start the application on the Bun runtime
 CMD ["bun", "server.js"]

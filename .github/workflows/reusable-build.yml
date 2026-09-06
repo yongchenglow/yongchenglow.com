@@ -83,10 +83,19 @@ jobs:
 
       - name: Fail on critical findings
         run: |
-          COUNT=$(jq '[.runs[].results[]] | length' trivy-results.sarif)
-          if [ "$COUNT" -gt 0 ]; then
-            echo "✗ Trivy found $COUNT CRITICAL finding(s):"
-            jq -r '.runs[].results[] |
+          # Trivy's SARIF output carries misconfiguration findings of every
+          # severity, not just the `severity:` filter above, so counting raw
+          # results mislabels a LOW finding as CRITICAL. SARIF level "error"
+          # is the CRITICAL marker; match the image scan gate.
+          CRITICAL=$(jq '[.runs[].results[]
+            | select(.level == "error")] | length' trivy-results.sarif)
+          TOTAL=$(jq '[.runs[].results[]] | length' trivy-results.sarif)
+
+          echo "Findings: $TOTAL total, $CRITICAL critical"
+
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "✗ Trivy found $CRITICAL CRITICAL finding(s):"
+            jq -r '.runs[].results[] | select(.level == "error") |
               "  - \(.ruleId): \(.message.text)"' trivy-results.sarif
             exit 1
           fi
