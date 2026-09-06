@@ -2,7 +2,7 @@
 
 Routes here render posts that live in `content/blog/`, one post per file. Prefer `.mdx`; `.md` is also read.
 
-Keep this file and every other non-post document out of `content/blog/` — that directory is globbed by extension, so any `.md` placed there is parsed as a post and fails the build on missing frontmatter.
+`content/blog/` holds posts and nothing else — it is globbed by extension, so every `.md` and `.mdx` there is parsed as a post and fails the build on missing frontmatter. Documentation about posts belongs here, beside the route.
 
 ## Slug
 

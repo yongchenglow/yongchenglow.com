@@ -6,7 +6,7 @@ Personal website at <https://www.yongchenglow.com>. Next.js App Router, React 19
 
 Before calling work done, run `bun run check:all` (tsc, then Biome check, then Knip) and `bun test`. Both must pass.
 
-Dev server: `bun run dev`. Production build: `bun run build`. Every other script is in `package.json`.
+Scripts live in `package.json`; `bun run dev` and `bun run build` both regenerate the search index first.
 
 ## Layout
 
@@ -21,7 +21,7 @@ Dev server: `bun run dev`. Production build: `bun run build`. Every other script
 
 - Import named bindings from React: `import { useState } from "react"`.
 - Import across directories with the `@/*` alias, which resolves from the repo root.
-- TypeScript targets es2024 with `strictNullChecks` and `noUnusedLocals` on, and `strict` off. An unused local is a build failure.
+- TypeScript targets es2024. `strict` is off but `strictNullChecks` is on — null and undefined are tracked, while implicit `any` passes. `noUnusedLocals` is on, so a stray import or variable fails the build.
 - Biome owns formatting and lint rules; run `bun run check` and take its output as authoritative rather than hand-formatting.
 - Conventional commits, enforced by commitlint on every commit. Branches: `feature/<name>` or `hotfix/<name>`.
 
@@ -31,7 +31,7 @@ Everything under `content/` is parsed through a Zod schema in `src/content/schem
 
 Editing or adding a blog post: read `src/app/blog/CLAUDE.md` for the frontmatter contract, the slug rule, and how tags reach category pages.
 
-Writing or fixing a test: read `test/CLAUDE.md` — the runner is `bun:test` behind a Vitest-shaped shim, and the mocking API differs from what its call sites look like.
+Writing a test, or diagnosing one that fails or leaks state between cases: read `test/CLAUDE.md` — the runner is `bun:test` behind a Vitest-shaped shim, and the mocking API differs from what its call sites look like.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

@@ -20,7 +20,14 @@ mock.module("@/src/lib/blog", () => ({ getAllBlogPosts: () => [] }));
 
 ## Setup runs automatically
 
-`bunfig.toml` preloads `test/setup.ts` before every file, which registers a happy-dom DOM at `http://localhost:3000`, loads jest-dom's matchers through their `/vitest` entry, mocks `next/navigation` and `IntersectionObserver`, and calls `afterEach(cleanup)` — Bun does not unmount rendered trees on its own. Add a globally-needed mock there; keep a single test's mock in that test.
+`bunfig.toml` preloads `test/setup.ts` before every file. It provides:
+
+- A happy-dom DOM at an explicit `http://localhost:3000`. The URL is not incidental: `next/image` resolves relative `src` values against `document.location` and throws `Invalid URL` on an `about:blank` base.
+- jest-dom's matchers, loaded through their `/vitest` entry.
+- Mocks for `next/navigation` and `IntersectionObserver`.
+- `afterEach(cleanup)` — Bun does not unmount rendered trees on its own.
+
+Add a globally-needed mock there; keep a single test's mock in that test.
 
 Type declarations for the jest-dom matchers live in `test/matchers.d.ts`, which augments `bun:test` directly.
 
