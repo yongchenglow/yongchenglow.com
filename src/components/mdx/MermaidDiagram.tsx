@@ -28,7 +28,7 @@ export const MermaidDiagram = ({
 				mermaid.initialize({
 					startOnLoad: false,
 					theme: resolvedTheme === "dark" ? "dark" : "default",
-					securityLevel: "loose",
+					securityLevel: "strict",
 					fontFamily: "inherit",
 				});
 
@@ -42,7 +42,10 @@ export const MermaidDiagram = ({
 			} catch (err) {
 				if (mounted && containerRef.current) {
 					const message = err instanceof Error ? err.message : String(err);
-					containerRef.current.innerHTML = `<pre class="text-destructive whitespace-pre-wrap">${message}</pre>`;
+					const pre = document.createElement("pre");
+					pre.className = "text-destructive whitespace-pre-wrap";
+					pre.textContent = message;
+					containerRef.current.replaceChildren(pre);
 					setIsLoading(false);
 				}
 			}
