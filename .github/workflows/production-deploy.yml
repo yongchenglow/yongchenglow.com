@@ -7,10 +7,6 @@ on:
         description: "Docker image tag to deploy"
         required: true
         type: string
-      bun_version:
-        description: "Bun version to use"
-        required: false
-        type: string
 
 env:
   REGISTRY: ghcr.io

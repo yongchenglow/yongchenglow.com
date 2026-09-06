@@ -121,8 +121,12 @@ jobs:
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
             REVISION=${{ github.sha }}
             VERSION=${{ steps.package-version.outputs.VERSION }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Scope the layer cache per branch so feature branches cannot evict
+          # main's cache, but still seed from main on the first build of a branch.
+          cache-from: |
+            type=gha,scope=${{ steps.branch-name.outputs.SANITIZED }}
+            type=gha,scope=main
+          cache-to: type=gha,mode=max,scope=${{ steps.branch-name.outputs.SANITIZED }}
           platforms: ${{ inputs.platforms }}
 
       - name: Output image details

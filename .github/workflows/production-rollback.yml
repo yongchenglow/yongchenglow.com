@@ -3,11 +3,6 @@ name: Production Rollback
 on:
   workflow_dispatch:
   workflow_call:
-    inputs:
-      bun_version:
-        description: "Bun version to use"
-        required: false
-        type: string
 
 env:
   NAMESPACE: personal-site

@@ -49,10 +49,9 @@ jobs:
           IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
           echo "IMAGE_NAME_LOWER=$IMAGE_NAME_LOWER" >> $GITHUB_OUTPUT
 
-      - name: Pull Docker image for scanning
-        run: docker pull ${{ inputs.registry }}/${{ steps.image-name.outputs.IMAGE_NAME_LOWER }}:${{ inputs.image_tag }}
-
-      - name: Run Trivy vulnerability scanner (SARIF)
+      # Trivy pulls the image itself; no separate `docker pull` step needed.
+      # One scan produces the SARIF that both the upload and the gate consume.
+      - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ inputs.registry }}/${{ steps.image-name.outputs.IMAGE_NAME_LOWER }}:${{ inputs.image_tag }}
@@ -61,19 +60,25 @@ jobs:
           severity: "CRITICAL,HIGH"
           scan-type: "image"
 
-      - name: Run Trivy vulnerability scanner (Table output)
-        uses: aquasecurity/trivy-action@v0.36.0
+      - name: Upload Trivy results to code scanning
+        uses: github/codeql-action/upload-sarif@v4
         with:
-          image-ref: ${{ inputs.registry }}/${{ steps.image-name.outputs.IMAGE_NAME_LOWER }}:${{ inputs.image_tag }}
-          format: "table"
-          severity: "CRITICAL,HIGH"
-          scan-type: "image"
+          sarif_file: "trivy-image-results.sarif"
 
-      - name: Check for vulnerabilities
+      - name: Fail on critical vulnerabilities
         run: |
-          # Fail the workflow if CRITICAL vulnerabilities were found
-          trivy image \
-            --severity CRITICAL \
-            --exit-code 1 \
-            --quiet \
-            ${{ inputs.registry }}/${{ steps.image-name.outputs.IMAGE_NAME_LOWER }}:${{ inputs.image_tag }}
+          # HIGH findings are reported to code scanning but do not block;
+          # only CRITICAL fails the build, matching the previous behaviour.
+          CRITICAL=$(jq '[.runs[].results[]
+            | select(.level == "error")] | length' trivy-image-results.sarif)
+          TOTAL=$(jq '[.runs[].results[]] | length' trivy-image-results.sarif)
+
+          echo "Findings: $TOTAL total, $CRITICAL critical"
+
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "✗ CRITICAL vulnerabilities found:"
+            jq -r '.runs[].results[] | select(.level == "error") |
+              "  - \(.ruleId): \(.message.text)"' trivy-image-results.sarif
+            exit 1
+          fi
+          echo "✓ No CRITICAL vulnerabilities"

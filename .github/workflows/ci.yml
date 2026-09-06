@@ -2,20 +2,32 @@ name: CI/CD
 
 on:
   push:
+    # Documentation-only pushes should not build and publish a container image.
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "LICENSE"
+      - ".gitignore"
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  # Reusable workflows take bun_version as an input, and `with:` cannot run a
+  # script, so this stays a job. Sparse checkout keeps it to a few seconds.
   extract-bun-version:
     name: Extract Bun Version from package.json
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
     steps:
-      - name: Checkout code
+      - name: Checkout package.json
         uses: actions/checkout@v6
+        with:
+          sparse-checkout: package.json
+          sparse-checkout-cone-mode: false
 
       - name: Get Bun version from package.json
         id: get-bun-version
@@ -72,7 +84,7 @@ jobs:
   deploy-production:
     name: Deploy to Production
     if: github.ref == 'refs/heads/main'
-    needs: [docker, security-scan, extract-bun-version]
+    needs: [docker, security-scan]
     permissions:
       contents: read
       packages: read
@@ -80,5 +92,4 @@ jobs:
     uses: ./.github/workflows/production-deploy.yml
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
-      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
     secrets: inherit
