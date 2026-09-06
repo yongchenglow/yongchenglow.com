@@ -4,23 +4,87 @@ import matter from "gray-matter";
 import { cache } from "react";
 import readingTime from "reading-time";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
-import type {
-	BlogFrontmatter,
-	BlogPost,
-	Category,
-	PaginationResult,
-} from "@/src/types/blog";
+import { BlogFrontmatterSchema } from "@/src/content/schema";
+import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
 
 const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
 
+/**
+ * Slugs map directly onto filenames under `content/blog`, so anything outside
+ * this alphabet (path separators, `..`, URL escapes) must never reach
+ * `path.join`.
+ */
+const SLUG_PATTERN = /^[a-z0-9-]+$/;
+
+/** Thrown when a slug is well-formed but no matching content file exists. */
+export class BlogPostNotFoundError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string) {
+		super(`Blog post not found: "${slug}"`);
+		this.name = "BlogPostNotFoundError";
+		this.slug = slug;
+	}
+}
+
+/** Thrown when a slug could not safely be turned into a content file path. */
+export class InvalidBlogSlugError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string) {
+		super(
+			`Invalid blog slug: "${slug}". Slugs must match ${SLUG_PATTERN.source}.`,
+		);
+		this.name = "InvalidBlogSlugError";
+		this.slug = slug;
+	}
+}
+
+/**
+ * Thrown when a post's frontmatter does not satisfy `BlogFrontmatterSchema`.
+ * Content errors must fail loudly at build time rather than surfacing as a
+ * confusing render crash deep in a component.
+ */
+export class BlogFrontmatterError extends Error {
+	readonly slug: string;
+
+	constructor(slug: string, file: string, issues: string) {
+		super(`Invalid frontmatter in ${file}:\n${issues}`);
+		this.name = "BlogFrontmatterError";
+		this.slug = slug;
+	}
+}
+
+const assertValidSlug = (slug: string): void => {
+	if (!SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
+};
+
 const parsePost = (slug: string): BlogPost => {
+	assertValidSlug(slug);
+
 	const mdxPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
 	const mdPath = path.join(BLOG_CONTENT_PATH, `${slug}.md`);
-	const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath;
+
+	let fullPath: string;
+	if (fs.existsSync(mdxPath)) fullPath = mdxPath;
+	else if (fs.existsSync(mdPath)) fullPath = mdPath;
+	else throw new BlogPostNotFoundError(slug);
+
 	const fileContents = fs.readFileSync(fullPath, "utf8");
 
 	const { data, content } = matter(fileContents);
-	const frontmatter = data as BlogFrontmatter;
+
+	const parsed = BlogFrontmatterSchema.safeParse(data);
+	if (!parsed.success) {
+		const issues = parsed.error.issues
+			.map((issue) => {
+				const at = issue.path.length > 0 ? issue.path.join(".") : "(root)";
+				return `  - ${at}: ${issue.message}`;
+			})
+			.join("\n");
+		throw new BlogFrontmatterError(slug, fullPath, issues);
+	}
+	const frontmatter = parsed.data;
 
 	// Calculate reading time
 	const { text: readingTimeText } = readingTime(content);
