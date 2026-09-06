@@ -1,54 +1,37 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Personal website at <https://www.yongchenglow.com>. Next.js App Router, React 19, TypeScript, Tailwind v4 with shadcn/ui, MDX blog. Bun is both the package manager and the runtime — use `bun` and `bunx` for every install, script, and one-off command.
 
-## Project Overview
+## Gates
 
-This is Yong Cheng Low's personal website (<https://www.yongchenglow.com>), built with Next.js, React, TypeScript, and shadcn/ui with Tailwind CSS. The site features a blog with individual page-based routing and follows atomic design patterns for components.
+Before calling work done, run `bun run check:all` (tsc, then Biome check, then Knip) and `bun test`. Both must pass.
 
-## Essential Commands
+Dev server: `bun run dev`. Production build: `bun run build`. Every other script is in `package.json`.
 
-**Development:**
+## Layout
 
-- `bun run dev` - Start development server
-- `bun run build` - Build for production
-- `bun start` - Run production build
-- `bun run prepare` - Setup development environment (run once after clone)
+- `src/app/` — routes. `src/app/api/` — route handlers.
+- `src/components/shared/{atoms,molecules,organisms}/` — atomic design; place a new shared component by how many other components it composes.
+- `src/components/shared/ui/` — shadcn/ui primitives. Add these with the shadcn CLI rather than by hand.
+- `src/components/blog/` — blog-specific components, outside the atomic tiers.
+- `src/lib/` — data access and helpers. `src/config/` — tunable constants. `src/types/` — shared types.
+- `content/` — all copy and posts as JSON and MDX. `test/` — tests, mirroring the `src/` path.
 
-**Code Quality (always run after changes):**
+## Conventions
 
-- `bun run check` - Run Biome linting and formatting with auto-fix
-- `bun test` - Run tests with the Bun test runner
-- `bun run lint` - Run Biome linter only
-- `bun run format` - Format code only
-- `bun run knip` - Find unused files, dependencies, and exports
-- `bun run knip:production` - Check production dependencies only
+- Import named bindings from React: `import { useState } from "react"`.
+- Import across directories with the `@/*` alias, which resolves from the repo root.
+- TypeScript targets es2024 with `strictNullChecks` and `noUnusedLocals` on, and `strict` off. An unused local is a build failure.
+- Biome owns formatting and lint rules; run `bun run check` and take its output as authoritative rather than hand-formatting.
+- Conventional commits, enforced by commitlint on every commit. Branches: `feature/<name>` or `hotfix/<name>`.
 
-**Tools:**
+## Content is schema-validated
 
-- `bun run analyze` - Bundle analysis with webpack-bundle-analyzer
+Everything under `content/` is parsed through a Zod schema in `src/content/schema.ts`. A missing or misshapen field is a loud build-time failure, by design — so when a build breaks on content, fix the content or the schema, never the component that consumed it.
 
-## Architecture
+Editing or adding a blog post: read `src/app/blog/CLAUDE.md` for the frontmatter contract, the slug rule, and how tags reach category pages.
 
-- **Pages:** `src/app/` - Next.js App Router with file-based routing, individual blog posts as separate files
-- **Components:** `src/components/shared/atoms/`, `src/components/shared/molecules/`, and `src/components/shared/organisms/` - Atomic design pattern
-- **UI Components:** `src/components/shared/ui/` - shadcn/ui components
-- **Styling:** Tailwind CSS with shadcn/ui, custom theme via CSS variables in `globals.css`
-- **Fonts:** Custom font configuration in `src/components/theme/font.ts`
-
-## Code Standards
-
-- **Linting/Formatting:** Biome (replaced ESLint/Prettier) - config in `biome.json`
-- **Dead Code Detection:** Knip - config in `knip.json` - finds unused files, dependencies, and exports
-- **Style:** Tab indentation, double quotes, organized imports
-- **TypeScript:** ES2020 target, path mapping `@/*` to project root
-- **Git:** Conventional commits, branch naming: `feature/<name>` or `hotfix/<name>`
-- **Commit types:** feat, fix, docs, style, refactor, test, chore, build, ci, perf, revert
-- **Imports:** do not use import * as React from react instead import the variables separately.
-
-## Package Manager
-
-Uses `bun` (v1.4.2) as both package manager and runtime - do not use npm, pnpm, or yarn commands.
+Writing or fixing a test: read `test/CLAUDE.md` — the runner is `bun:test` behind a Vitest-shaped shim, and the mocking API differs from what its call sites look like.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
