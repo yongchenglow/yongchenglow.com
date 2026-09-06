@@ -122,13 +122,27 @@ export const AuthorSchema = z.object({
 	image: z.string(),
 });
 
+/**
+ * A YAML date field, normalized to an ISO 8601 date string (`YYYY-MM-DD`).
+ *
+ * YAML parses an unquoted `date: 2024-01-01` into a JS `Date` but a quoted
+ * `date: "2024-01-01"` into a string. Both are legitimate frontmatter, so the
+ * `Date` form is coerced here rather than rejected — otherwise authors get a
+ * build failure for forgetting quotes.
+ */
+const FrontmatterDateSchema = z
+	.union([z.string(), z.date()])
+	.transform((value) =>
+		value instanceof Date ? value.toISOString().slice(0, 10) : value,
+	);
+
 // Blog post frontmatter schema
 export const BlogFrontmatterSchema = z.object({
 	title: z.string(),
 	subtitle: z.string().optional(),
 	description: z.string(),
-	date: z.string(), // ISO 8601 format
-	lastUpdated: z.string().optional(),
+	date: FrontmatterDateSchema, // ISO 8601 format
+	lastUpdated: FrontmatterDateSchema.optional(),
 	author: z.string(),
 	tags: z.array(z.string()).optional(),
 	image: z.string().optional(),

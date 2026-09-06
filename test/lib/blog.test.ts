@@ -23,6 +23,9 @@ mock.module("node:path", () => {
 });
 
 const {
+	BlogFrontmatterError,
+	BlogPostNotFoundError,
+	InvalidBlogSlugError,
 	getAllBlogPosts,
 	getAllBlogSlugs,
 	getAllPostYears,
@@ -90,7 +93,7 @@ describe("getAllBlogSlugs", () => {
 describe("getAllBlogPosts", () => {
 	beforeEach(() => {
 		vi.mocked(fs.readdirSync).mockReturnValue(["old.mdx", "new.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("new"))
 				return mockPost("new", { date: "2024-06-01" });
@@ -135,7 +138,7 @@ describe("getFeaturedPost", () => {
 			"a.mdx",
 			"featured.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("featured"))
 				return mockPost("featured", { date: "2024-01-01", featured: true });
@@ -146,7 +149,7 @@ describe("getFeaturedPost", () => {
 
 	it("falls back to the first (most recent) post when no featured post exists", () => {
 		vi.mocked(fs.readdirSync).mockReturnValue(["old.mdx", "new.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("new"))
 				return mockPost("new", { date: "2024-06-01" });
@@ -164,10 +167,10 @@ describe("getFeaturedPost", () => {
 describe("getBlogPostsByTag", () => {
 	beforeEach(() => {
 		vi.mocked(fs.readdirSync).mockReturnValue(["a.mdx", "b.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			// Match on the filename only: the repo path itself may contain "/a".
-			if (String(filePath).endsWith("/a.md"))
+			if (String(filePath).endsWith("/a.mdx"))
 				return mockPost("a", { date: "2024-01-01", tags: "react, typescript" });
 			return mockPost("b", { date: "2023-01-01", tags: "vue" });
 		});
@@ -190,7 +193,7 @@ describe("getBlogPostNavigation", () => {
 			"middle.mdx",
 			"oldest.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("newest"))
 				return mockPost("newest", { date: "2024-03-01" });
@@ -224,12 +227,12 @@ describe("getAllPostYears", () => {
 			"b.mdx",
 			"c.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			// Match on the filename only: the repo path itself may contain "/a".
-			if (String(filePath).endsWith("/a.md"))
+			if (String(filePath).endsWith("/a.mdx"))
 				return mockPost("a", { date: "2024-05-01" });
-			if (String(filePath).endsWith("/b.md"))
+			if (String(filePath).endsWith("/b.mdx"))
 				return mockPost("b", { date: "2023-05-01" });
 			return mockPost("c", { date: "2024-11-01" });
 		});
@@ -243,7 +246,7 @@ describe("getBlogPostsByYear", () => {
 			"y2024.mdx",
 			"y2023.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("y2024"))
 				return mockPost("y2024", { date: "2024-06-01" });
@@ -262,7 +265,7 @@ describe("getBlogPostsByYear", () => {
 
 describe("getBlogPost", () => {
 	it("returns a BlogPost with the correct slug", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockReturnValue(
 			mockPost("test-slug", { date: "2024-01-01" }),
 		);
@@ -281,17 +284,22 @@ describe("getBlogPost", () => {
 	});
 
 	it("falls back to .md file when .mdx does not exist", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockImplementation((filePath: unknown) =>
+			String(filePath).endsWith(".md"),
+		);
 		vi.mocked(fs.readFileSync).mockReturnValue(
 			mockPost("md-post", { date: "2024-01-01" }),
 		);
 		const post = getBlogPost("md-post");
 		expect(post.slug).toBe("md-post");
+		expect(vi.mocked(fs.readFileSync).mock.calls.at(-1)?.[0]).toStrictEqual(
+			expect.stringContaining("md-post.md"),
+		);
 	});
 
 	it("truncates excerpt to 200 characters", () => {
 		const longContent = "A".repeat(300);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockReturnValue(
 			`---\ntitle: test\ndescription: desc\ndate: 2024-01-01\nauthor: Test\ntags: []\n---\n${longContent}`,
 		);
@@ -300,13 +308,91 @@ describe("getBlogPost", () => {
 	});
 
 	it("sets readingTime as non-empty string", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockReturnValue(
 			mockPost("reading-test", { date: "2024-01-01" }),
 		);
 		const post = getBlogPost("reading-test");
 		expect(typeof post.readingTime).toBe("string");
 		expect(post.readingTime.length).toBeGreaterThan(0);
+	});
+});
+
+describe("getBlogPost validation", () => {
+	it("throws BlogPostNotFoundError when no content file exists", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		expect(() => getBlogPost("no-such-post")).toThrow(BlogPostNotFoundError);
+		expect(() => getBlogPost("no-such-post")).toThrow(
+			'Blog post not found: "no-such-post"',
+		);
+	});
+
+	it("does not touch the filesystem when the post is missing", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(false);
+		expect(() => getBlogPost("no-such-post")).toThrow(BlogPostNotFoundError);
+		expect(vi.mocked(fs.readFileSync)).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		["../../etc/passwd", "path traversal"],
+		["nested/slug", "path separator"],
+		["Upper-Case", "uppercase letters"],
+		["has_underscore", "underscore"],
+		["", "empty string"],
+	])("rejects %s (%s) with InvalidBlogSlugError", (slug) => {
+		expect(() => getBlogPost(slug)).toThrow(InvalidBlogSlugError);
+	});
+
+	it("rejects an invalid slug before building a path", () => {
+		expect(() => getBlogPost("../../etc/passwd")).toThrow(InvalidBlogSlugError);
+		expect(vi.mocked(fs.existsSync)).not.toHaveBeenCalled();
+		expect(vi.mocked(fs.readFileSync)).not.toHaveBeenCalled();
+	});
+
+	it("throws BlogFrontmatterError naming the file and the missing field", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(true);
+		// `description` and `author` are required by BlogFrontmatterSchema.
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			'---\ntitle: "Only a title"\ndate: "2024-01-01"\n---\nBody',
+		);
+
+		expect(() => getBlogPost("bad-frontmatter")).toThrow(BlogFrontmatterError);
+
+		let message = "";
+		try {
+			getBlogPost("bad-frontmatter");
+		} catch (error) {
+			message = (error as Error).message;
+		}
+
+		expect(message).toContain("bad-frontmatter.mdx");
+		expect(message).toContain("description");
+		expect(message).toContain("author");
+	});
+
+	it("reports the offending field for a wrong-typed value", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(true);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			'---\ntitle: "T"\ndescription: "D"\ndate: "2024-01-01"\nauthor: "A"\ntags: "not-an-array"\n---\nBody',
+		);
+
+		let message = "";
+		try {
+			getBlogPost("bad-tags");
+		} catch (error) {
+			message = (error as Error).message;
+		}
+
+		expect(message).toContain("bad-tags.mdx");
+		expect(message).toContain("tags");
+	});
+
+	it("accepts frontmatter that satisfies the schema", () => {
+		vi.mocked(fs.existsSync).mockReturnValue(true);
+		vi.mocked(fs.readFileSync).mockReturnValue(
+			mockPost("good-post", { date: "2024-01-01" }),
+		);
+		expect(getBlogPost("good-post").frontmatter.title).toBe("good-post");
 	});
 });
 
@@ -331,7 +417,7 @@ describe("getBlogPostsByCategory", () => {
 			"process-post.mdx",
 			"other-post.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("dev-post"))
 				return mockPost("dev-post", {
@@ -373,7 +459,7 @@ describe("getCategoryPostCounts", () => {
 			"dev-post.mdx",
 			"process-post.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("dev-post"))
 				return mockPost("dev-post", {
@@ -409,7 +495,7 @@ describe("getYearPostCounts", () => {
 			"y2024-b.mdx",
 			"y2023.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("y2024"))
 				return mockPost(`${String(filePath).match(/y\d+-?\w*/)?.[0]}`, {
@@ -427,7 +513,7 @@ describe("getYearPostCounts", () => {
 const setupNPosts = (n: number) => {
 	const files = Array.from({ length: n }, (_, i) => `post-${i}.mdx`);
 	vi.mocked(fs.readdirSync).mockReturnValue(files as never);
-	vi.mocked(fs.existsSync).mockReturnValue(false);
+	vi.mocked(fs.existsSync).mockReturnValue(true);
 	vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 		const match = String(filePath).match(/post-(\d+)/);
 		const idx = match ? Number(match[1]) : 0;
@@ -488,7 +574,7 @@ describe("getPaginatedPostsByCategory", () => {
 			"dev.mdx",
 			"other.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("dev"))
 				return mockPost("dev", { date: "2024-01-01", tags: "web-development" });
@@ -513,7 +599,7 @@ describe("getPaginatedPostsByYear", () => {
 			"y2024.mdx",
 			"y2023.mdx",
 		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(false);
+		vi.mocked(fs.existsSync).mockReturnValue(true);
 		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
 			if (String(filePath).includes("y2024"))
 				return mockPost("y2024", { date: "2024-06-01" });
