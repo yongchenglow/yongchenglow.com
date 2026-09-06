@@ -17,6 +17,8 @@
 			"*.tsx",
 			"*.jsx",
 			"*.json",
+			"!.claude/worktrees",
+			"!.worktrees",
 			"!node_modules",
 			"!.next",
 			"!dist",
