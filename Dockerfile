@@ -37,6 +37,11 @@ LABEL org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.description="Personal website built with Next.js" \
       org.opencontainers.image.base.name="oven/bun:${BUN_VERSION}-alpine"
 
+# Patch openssl ahead of the upstream base image. oven/bun:${BUN_VERSION}-alpine
+# currently ships libcrypto3/libssl3 3.5.7-r0, which Trivy flags as HIGH under
+# CVE-2026-14456; 3.5.8-r0 carries the fix. Drop this once upstream rebuilds.
+RUN apk upgrade --no-cache libcrypto3 libssl3
+
 WORKDIR /app
 
 ENV NODE_ENV=production
