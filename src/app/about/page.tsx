@@ -3,6 +3,7 @@ import { siGithub } from "simple-icons";
 import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import TimelineItemRenderer from "@/src/components/about/TimelineItemRenderer";
+import { AdSlot } from "@/src/components/ads/AdSlot";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
@@ -75,6 +76,8 @@ export const AboutPage = () => {
 						<TimelineItemRenderer key={item.title} item={item} />
 					))}
 				</Timeline>
+
+				<AdSlot placement="about-end" />
 
 				<JsonLd
 					data={{

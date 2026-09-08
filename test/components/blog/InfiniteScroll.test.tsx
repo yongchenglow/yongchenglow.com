@@ -17,6 +17,7 @@ function makePost(slug: string, title: string = "Test Post"): BlogPost {
 		},
 		content: "Test content",
 		readingTime: "5 min read",
+		wordCount: 500,
 	};
 }
 

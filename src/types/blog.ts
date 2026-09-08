@@ -12,6 +12,7 @@ export interface BlogPost {
 	frontmatter: BlogFrontmatter;
 	content: string;
 	readingTime: string;
+	wordCount: number;
 	excerpt?: string;
 }
 

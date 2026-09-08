@@ -14,8 +14,8 @@ export const HomePage = () => {
 			<IntroSection />
 			<LatestPostsSection post={featuredPost} />
 			<ProjectsSection />
-			<AdSlot placement="home-after-projects" />
 			<AboutMeSection />
+			<AdSlot placement="home-end" />
 		</StandardLayout>
 	);
 };
