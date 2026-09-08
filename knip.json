@@ -6,7 +6,6 @@
 	"ignoreDependencies": [
 		"@swc/core",
 		"autoprefixer",
-		"conventional-changelog-conventionalcommits",
 		"globals",
 		"shadcn",
 		"tailwindcss-animate"

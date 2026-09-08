@@ -82,7 +82,6 @@ bun run knip                   # Find unused files, dependencies, and exports
 bun run knip:production        # Check production dependencies only
 bun run analyze                # Analyze bundles with @next/bundle-analyzer (set ANALYZE=true)
 bun run prepare                # Install Husky hooks
-bun run release                # Run semantic-release for versioning and publishing
 ```
 
 ## Architecture
@@ -448,10 +447,6 @@ refactor: extract pagination logic to utility
 test: add unit tests for blog functions
 chore: update dependencies
 ```
-
-### Releases
-
-Automated releases via `semantic-release` with GitLab integration. Run `bun run release` to publish.
 
 ## VSCode Setup
 
