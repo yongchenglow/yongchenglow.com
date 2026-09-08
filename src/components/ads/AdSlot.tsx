@@ -1,8 +1,11 @@
 "use client";
 
-import Script from "next/script";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { AD_PLACEMENTS, type AdPlacement } from "@/src/config/ads";
+import { useEffect, useRef, useState } from "react";
+import {
+	AD_FILL_TIMEOUT_MS,
+	AD_PLACEMENTS,
+	type AdPlacement,
+} from "@/src/config/ads";
 import { cn } from "@/src/lib/utils";
 
 declare global {
@@ -24,7 +27,10 @@ export const AdSlot = ({ placement }: AdSlotProps) => {
 	const initializedRef = useRef(false);
 	const [adState, setAdState] = useState<AdState>("loading");
 
-	const initializeAd = useCallback(() => {
+	// The adsbygoogle queue is a plain array until the loader script replaces it,
+	// so pushing here works whether or not the script has arrived yet. The loader
+	// itself lives in the root layout, shared by every placement.
+	useEffect(() => {
 		if (initializedRef.current || !adElementRef.current) return;
 
 		try {
@@ -53,47 +59,45 @@ export const AdSlot = ({ placement }: AdSlotProps) => {
 		});
 		updateAvailability();
 
-		return () => observer.disconnect();
+		// A blocked or failed loader never writes data-ad-status at all, so fall
+		// back to collapsing rather than reserving space indefinitely.
+		const timeout = setTimeout(() => {
+			setAdState((current) =>
+				current === "loading" ? "unavailable" : current,
+			);
+		}, AD_FILL_TIMEOUT_MS);
+
+		return () => {
+			observer.disconnect();
+			clearTimeout(timeout);
+		};
 	}, []);
 
 	if (!clientId) return null;
 
 	return (
-		<>
-			<Script
-				id="google-adsense"
-				strategy="lazyOnload"
-				src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${clientId}`}
-				crossOrigin="anonymous"
-				onReady={initializeAd}
-				onError={() => setAdState("unavailable")}
+		<aside
+			aria-label="Advertisement"
+			data-ad-placement={placement}
+			data-ad-state={adState}
+			className={cn(
+				"mx-auto my-8 border-t border-border/50 pt-2",
+				config.containerClassName,
+				adState === "unavailable" && "hidden",
+			)}
+		>
+			<p className="mb-2 text-[0.6rem] font-medium uppercase tracking-[0.16em] text-muted-foreground/70">
+				Sponsored &middot; Advertisement
+			</p>
+			<ins
+				ref={adElementRef}
+				className={cn("adsbygoogle w-full", config.reservedSpaceClassName)}
+				style={{ display: "block", textAlign: "center" }}
+				data-ad-layout={config.layout}
+				data-ad-format={config.format}
+				data-ad-client={clientId}
+				data-ad-slot={config.slotId}
 			/>
-			<aside
-				aria-label="Advertisement"
-				data-ad-placement={placement}
-				data-ad-state={adState}
-				className={cn(
-					"mx-auto my-12 overflow-hidden rounded-2xl border border-border/60 bg-muted/20 px-4 py-5 sm:px-6",
-					config.containerClassName,
-					adState === "unavailable" && "hidden",
-				)}
-			>
-				<p className="mb-3 text-center text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-					Advertisement
-				</p>
-				<ins
-					ref={adElementRef}
-					className={cn("adsbygoogle w-full", config.reservedSpaceClassName)}
-					style={{ display: "block", textAlign: "center" }}
-					data-ad-layout={config.layout}
-					data-ad-format={config.format}
-					data-full-width-responsive={
-						config.format === "auto" ? "true" : undefined
-					}
-					data-ad-client={clientId}
-					data-ad-slot={config.slotId}
-				/>
-			</aside>
-		</>
+		</aside>
 	);
 };
