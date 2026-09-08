@@ -16,6 +16,7 @@ const makePost = (overrides: Partial<BlogPost> = {}): BlogPost => ({
 	},
 	content: "Test content",
 	readingTime: "1 min read",
+	wordCount: 200,
 	excerpt: "Test excerpt",
 	...overrides,
 });

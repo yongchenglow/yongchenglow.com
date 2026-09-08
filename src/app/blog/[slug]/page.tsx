@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { AdSlot } from "@/src/components/ads/AdSlot";
 import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import { useMDXComponents } from "@/src/components/mdx/MDXComponents";
@@ -12,6 +13,7 @@ import {
 	getAllBlogSlugs,
 	getBlogPost,
 	getBlogPostNavigation,
+	splitContentForMidAd,
 } from "@/src/lib/blog";
 import type { BlogPost } from "@/src/types/blog";
 
@@ -133,16 +135,20 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 		],
 	};
 
+	const mdxComponents = useMDXComponents({
+		img: MdxImage,
+		a: MdxLink,
+	});
+
+	const { before, after } = splitContentForMidAd(post.content, post.wordCount);
+
 	return (
 		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
 			<JsonLd data={articleSchema} />
 			<JsonLd data={breadcrumbSchema} />
 			<MDXRemote
-				source={post.content}
-				components={useMDXComponents({
-					img: MdxImage,
-					a: MdxLink,
-				})}
+				source={before}
+				components={mdxComponents}
 				options={{
 					mdxOptions: {
 						remarkPlugins: [remarkGfm],
@@ -153,6 +159,24 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 					},
 				}}
 			/>
+			{after && (
+				<>
+					<AdSlot placement="article-mid" />
+					<MDXRemote
+						source={after}
+						components={mdxComponents}
+						options={{
+							mdxOptions: {
+								remarkPlugins: [remarkGfm],
+								rehypePlugins: [
+									rehypeSlug,
+									[rehypeAutolinkHeadings, { behavior: "wrap" }],
+								],
+							},
+						}}
+					/>
+				</>
+			)}
 		</BlogPostLayout>
 	);
 };

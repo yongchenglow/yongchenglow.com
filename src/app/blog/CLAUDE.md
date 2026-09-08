@@ -14,7 +14,7 @@ Validated by `BlogFrontmatterSchema` in `src/content/schema.ts`. A violation fai
 
 Required: `title`, `description`, `date`, `author`.
 
-Optional: `subtitle`, `lastUpdated`, `tags`, `image`, `draft`, `featured`, `adsSlotId`.
+Optional: `subtitle`, `lastUpdated`, `tags`, `image`, `draft`, `featured`.
 
 - `date` and `lastUpdated` are `YYYY-MM-DD`. Quote them — YAML parses a bare date into a `Date`, which the schema then coerces back to a string, so the quoted form is the one that round-trips predictably.
 - `author` is a filename stem under `content/authors/`.

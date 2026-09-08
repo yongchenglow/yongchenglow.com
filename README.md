@@ -173,7 +173,8 @@ test/
 
 Components follow the [Atomic Design](https://atomicdesign.bradfrost.com/) pattern:
 
-- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `GoogleAds`, `InternalLink`, `ImageSkeleton`
+- **Atoms** — single-purpose building blocks: `Container`, `FadeIn`, `ExternalLink`, `PageTitle`, `PageSubtitle`, `InternalLink`, `ImageSkeleton`
+- **Ads** — placement-based advertising module that owns formats, sizing, disclosure, and lazy AdSense loading
 - **Molecules** — combinations of atoms: `Section`
 - **Organisms** — complex, self-contained components: `NavigationBar`, `Footer`, `ContentCard`
 - **Layouts** — page layout wrappers: `StandardLayout`
@@ -306,7 +307,7 @@ The home page is composed of section components rendered in order within a `Stan
 1. **IntroSection** — hero with greeting, name, title, photo, and CTA buttons (Blog, About)
 2. **LatestPostsSection** — displays the featured post (or most recent post if none featured)
 3. **ProjectsSection** — projects showcase with grid layout
-4. **GoogleAds** — ad placements for monetization
+4. **AdSlot** — one restrained ad placement after the projects section
 5. **AboutMeSection** — brief about snippet with link to full about page
 
 Content is stored in `content/home.json` with the following structure:

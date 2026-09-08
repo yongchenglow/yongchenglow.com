@@ -3,10 +3,10 @@ import { siGithub } from "simple-icons";
 import aboutData from "@/content/about.json";
 import { Timeline } from "@/src/components/about/Timeline";
 import TimelineItemRenderer from "@/src/components/about/TimelineItemRenderer";
+import { AdSlot } from "@/src/components/ads/AdSlot";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { ExternalLink } from "@/src/components/shared/atoms/ExternalLink";
-import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { LinkedInIcon } from "@/src/components/shared/atoms/LinkedInIcon";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import { SimpleIconSvg } from "@/src/components/shared/atoms/SimpleIconSvg";
@@ -16,7 +16,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/src/components/shared/ui/avatar";
-import { AD_SLOTS, SITE_AUTHOR, SITE_URL } from "@/src/config/site";
+import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import type { AboutData } from "@/src/content/schema";
 
 export const metadata: Metadata = {
@@ -77,7 +77,8 @@ export const AboutPage = () => {
 					))}
 				</Timeline>
 
-				<GoogleAds slotId={AD_SLOTS.about} />
+				<AdSlot placement="about-end" />
+
 				<JsonLd
 					data={{
 						"@context": "https://schema.org",

@@ -139,9 +139,8 @@ interface BlogFrontmatter {
   lastUpdated?: string;
   author: string;
   tags?: string[];
-  image?: string;
-  draft?: boolean;
-  featured?: boolean;
-  adsSlotId?: string;
+	image?: string;
+	draft?: boolean;
+	featured?: boolean;
 }
 ```

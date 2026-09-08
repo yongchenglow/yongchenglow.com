@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
 import readingTime from "reading-time";
+import { AD_MID_ARTICLE_MIN_WORDS } from "@/src/config/ads";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
 import { BlogFrontmatterSchema } from "@/src/content/schema";
 import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
@@ -87,7 +88,7 @@ const parsePost = (slug: string): BlogPost => {
 	const frontmatter = parsed.data;
 
 	// Calculate reading time
-	const { text: readingTimeText } = readingTime(content);
+	const { text: readingTimeText, words: wordCount } = readingTime(content);
 
 	// Extract excerpt (first paragraph)
 	const excerpt = content.split("\n\n")[0].substring(0, 200);
@@ -97,6 +98,7 @@ const parsePost = (slug: string): BlogPost => {
 		frontmatter,
 		content,
 		readingTime: readingTimeText,
+		wordCount,
 		excerpt,
 	};
 };
@@ -331,5 +333,49 @@ export const getPaginatedPostsByYear = (
 		totalItems,
 		hasNextPage: currentPage < totalPages,
 		hasPreviousPage: currentPage > 1,
+	};
+};
+
+/**
+ * Splits post content at the first top-level section break past the midpoint,
+ * so a mid-article ad lands between sections rather than inside a thought.
+ *
+ * Headings inside fenced code blocks are ignored — a `#` comment in a shell
+ * snippet is not a section break. Returns a single part when the post is too
+ * short to warrant the break, or when it has no usable heading.
+ */
+export const splitContentForMidAd = (
+	content: string,
+	wordCount: number,
+): { before: string; after: string | null } => {
+	if (wordCount < AD_MID_ARTICLE_MIN_WORDS) {
+		return { before: content, after: null };
+	}
+
+	const lines = content.split("\n");
+	const midpoint = Math.floor(lines.length / 2);
+
+	let inCodeFence = false;
+	let splitIndex = -1;
+
+	for (let index = 0; index < lines.length; index++) {
+		if (lines[index].startsWith("```")) {
+			inCodeFence = !inCodeFence;
+			continue;
+		}
+		if (inCodeFence) continue;
+		if (index >= midpoint && /^##\s/.test(lines[index])) {
+			splitIndex = index;
+			break;
+		}
+	}
+
+	if (splitIndex === -1) {
+		return { before: content, after: null };
+	}
+
+	return {
+		before: lines.slice(0, splitIndex).join("\n"),
+		after: lines.slice(splitIndex).join("\n"),
 	};
 };

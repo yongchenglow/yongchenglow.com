@@ -148,5 +148,4 @@ export const BlogFrontmatterSchema = z.object({
 	image: z.string().optional(),
 	draft: z.boolean().optional(),
 	featured: z.boolean().optional(),
-	adsSlotId: z.string().optional(),
 });

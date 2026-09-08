@@ -32,12 +32,12 @@ export const LatestPostsSection = ({ post }: LatestPostsSectionProps) => {
 				</div>
 				<FadeIn delay={0.2}>
 					<div className="mt-6 flex justify-center">
-						<InternalLink href="/blog">
-							<Button variant="ghost" size="sm" className="gap-2">
+						<Button variant="ghost" size="sm" className="gap-2" asChild>
+							<InternalLink href="/blog">
 								View all posts
 								<ArrowRight className="h-4 w-4" />
-							</Button>
-						</InternalLink>
+							</InternalLink>
+						</Button>
 					</div>
 				</FadeIn>
 			</Section>
