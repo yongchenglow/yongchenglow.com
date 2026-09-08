@@ -1,26 +1,21 @@
-name: CI/CD
+name: Review App
 
+# Build and deploy the pull request merge commit, then remove every resource
+# when the pull request closes. Forks still receive quality checks, but never
+# receive access to deployment credentials.
 on:
-  push:
+  pull_request:
     branches: [main]
-    # Documentation-only pushes should not build and publish a container image.
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - "LICENSE"
-      - ".gitignore"
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
-  # Reusable workflows take bun_version as an input, and `with:` cannot run a
-  # script, so this stays a job. Sparse checkout keeps it to a few seconds.
   extract-bun-version:
     name: Extract Bun Version from package.json
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     outputs:
       bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
     steps:
@@ -35,32 +30,35 @@ jobs:
         run: |
           BUN_VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
           if [ -z "$BUN_VERSION" ] || [ "$BUN_VERSION" = "null" ]; then
-            echo "✗ ERROR: Could not read bun version from package.json packageManager field"
+            echo "Could not read the Bun version from package.json"
             exit 1
           fi
-          echo "bun_version=$BUN_VERSION" >> $GITHUB_OUTPUT
+          echo "bun_version=$BUN_VERSION" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Quality Checks
+    if: github.event.action != 'closed'
+    needs: extract-bun-version
+    permissions:
+      contents: read
+      security-events: write
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
 
   secret-scan:
     name: Secret Scan
+    if: github.event.action != 'closed'
     permissions:
       contents: read
       security-events: write
     uses: ./.github/workflows/reusable-secret-scan.yml
     secrets: inherit
 
-  build:
-    name: Quality Checks
-    permissions:
-      contents: read
-      security-events: write
-    needs: extract-bun-version
-    uses: ./.github/workflows/reusable-build.yml
-    with:
-      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
-
   docker:
-    name: Build & Push Docker Image
-    needs: [build, secret-scan, extract-bun-version]
+    name: Build & Push Review Image
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
+    needs: [extract-bun-version, build, secret-scan]
     permissions:
       contents: read
       packages: write
@@ -68,10 +66,12 @@ jobs:
     with:
       bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
       platforms: linux/amd64
+      tag_prefix: pr-${{ github.event.number }}
     secrets: inherit
 
   security-scan:
     name: Security Scan
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
     needs: docker
     permissions:
       contents: read
@@ -82,15 +82,27 @@ jobs:
       image_tag: ${{ needs.docker.outputs.image_tag }}
     secrets: inherit
 
-  deploy-production:
-    name: Deploy to Production
-    if: github.ref == 'refs/heads/main'
+  deploy:
+    name: Deploy Review App
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
     needs: [docker, security-scan]
     permissions:
       contents: read
       packages: read
       deployments: write
-    uses: ./.github/workflows/production-deploy.yml
+    uses: ./.github/workflows/review-deploy.yml
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
+      review_id: pr-${{ github.event.number }}
+    secrets: inherit
+
+  cleanup:
+    name: Tear Down Review App
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.fork == false
+    permissions:
+      contents: read
+      deployments: write
+    uses: ./.github/workflows/review-cleanup.yml
+    with:
+      review_id: pr-${{ github.event.number }}
     secrets: inherit
