@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdSlot } from "@/src/components/ads/AdSlot";
 import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
 import { FeaturedPostCard } from "@/src/components/blog/FeaturedPostCard";
 import { YearFilter } from "@/src/components/blog/YearFilter";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
-import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { AD_SLOTS } from "@/src/config/site";
 import { getStaggerDelay } from "@/src/lib/animation";
 import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
 
@@ -94,7 +93,7 @@ export const BlogPage = () => {
 					</div>
 				</section>
 
-				<GoogleAds slotId={AD_SLOTS.blog} />
+				<AdSlot placement="blog-index" />
 			</div>
 		</StandardLayout>
 	);

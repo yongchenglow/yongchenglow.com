@@ -1,5 +1,6 @@
 "use client";
 
+import { AdSlot } from "@/src/components/ads/AdSlot";
 import { BlogBackButton } from "@/src/components/blog/BlogBackButton";
 import { BlogNavigation } from "@/src/components/blog/BlogNavigation";
 import { ReadingProgress } from "@/src/components/blog/ReadingProgress";
@@ -7,7 +8,6 @@ import { TableOfContents } from "@/src/components/blog/TableOfContents";
 import { PostContainer } from "@/src/components/post/PostContainer";
 import { PostHeader } from "@/src/components/post/PostHeader";
 import { PostMetadata } from "@/src/components/post/PostMetadata";
-import GoogleAds from "@/src/components/shared/atoms/GoogleAds";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Badge } from "@/src/components/shared/ui/badge";
@@ -72,13 +72,11 @@ export const BlogPostLayout = ({
 					<div className="min-w-0">
 						<article className="prose dark:prose-invert">{children}</article>
 
+						{/* Advertisement */}
+						<AdSlot placement="article-end" />
+
 						{/* Blog Navigation */}
 						<BlogNavigation previousPost={previousPost} nextPost={nextPost} />
-
-						{/* Google Ads */}
-						{frontmatter.adsSlotId && (
-							<GoogleAds slotId={frontmatter.adsSlotId} />
-						)}
 					</div>
 
 					{/* Sidebar TOC (desktop only) */}
