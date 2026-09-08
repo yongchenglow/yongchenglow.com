@@ -13,12 +13,18 @@ This Helm chart deploys the Next.js application to Kubernetes.
 ### 1. Build and Push Docker Image
 
 ```bash
+# Authenticate before pulling the Docker Hardened Images base images
+docker login dhi.io
+
 # Build the image
 docker build -t your-registry/nextjs-frontend-template:latest .
 
 # Push to your registry
 docker push your-registry/nextjs-frontend-template:latest
 ```
+
+The reusable Docker workflow requires `DHI_REGISTRY_USERNAME` and
+`DHI_REGISTRY_PASSWORD` repository or organization secrets.
 
 ### 2. Install the Chart
 
@@ -162,7 +168,7 @@ All probes are configured to check the root path (`/`) on port 3000.
 
 The chart follows security best practices:
 
-- Runs as non-root user (uid: 1001)
+- Runs as Docker Hardened Images' non-root user (uid: 65532)
 - Drops all capabilities
 - Disables privilege escalation
 - Creates dedicated service account
