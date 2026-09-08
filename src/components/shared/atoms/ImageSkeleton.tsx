@@ -24,9 +24,9 @@ export const ImageSkeleton = ({
 					: aspectRatio;
 
 	return (
-		<div
+		<span
 			className={cn(
-				"relative overflow-hidden rounded-lg",
+				"relative block overflow-hidden rounded-lg",
 				"bg-gradient-to-r from-muted via-muted-foreground/10 to-muted",
 				"animate-shimmer",
 				aspectClass,
