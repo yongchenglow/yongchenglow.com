@@ -30,17 +30,17 @@ The reusable Docker workflow requires `DHI_REGISTRY_USERNAME` and
 
 ```bash
 # Install with default values
-helm install nextjs-app ./helm/nextjs-app
+helm install web ./helm/web
 
 # Install with custom values
-helm install nextjs-app ./helm/nextjs-app \
+helm install web ./helm/web \
   --set image.repository=your-registry/nextjs-frontend-template \
   --set image.tag=v1.0.0 \
   --set ingress.enabled=true \
   --set ingress.hosts[0].host=example.com
 
 # Install with custom values file
-helm install nextjs-app ./helm/nextjs-app -f custom-values.yaml
+helm install web ./helm/web -f custom-values.yaml
 ```
 
 ### 3. Verify Installation
@@ -52,7 +52,7 @@ kubectl get pods
 kubectl get services
 
 # Get application URL
-kubectl port-forward svc/nextjs-app 8080:80
+kubectl port-forward svc/web 8080:80
 # Visit http://localhost:8080
 ```
 
@@ -99,7 +99,7 @@ ingress:
 ```
 
 ```bash
-helm upgrade nextjs-app ./helm/nextjs-app -f values-production.yaml
+helm upgrade web ./helm/web -f values-production.yaml
 ```
 
 ### Enable Autoscaling
@@ -142,16 +142,16 @@ env:
 
 ```bash
 # Upgrade with new image version
-helm upgrade nextjs-app ./helm/nextjs-app --set image.tag=v1.1.0
+helm upgrade web ./helm/web --set image.tag=v1.1.0
 
 # Upgrade with new values file
-helm upgrade nextjs-app ./helm/nextjs-app -f new-values.yaml
+helm upgrade web ./helm/web -f new-values.yaml
 ```
 
 ## Uninstalling
 
 ```bash
-helm uninstall nextjs-app
+helm uninstall web
 ```
 
 ## Health Checks
@@ -177,15 +177,15 @@ The chart follows security best practices:
 
 ```bash
 # View logs
-kubectl logs -l app.kubernetes.io/name=nextjs-app
+kubectl logs -l app.kubernetes.io/name=web
 
 # Describe pod for events
-kubectl describe pod -l app.kubernetes.io/name=nextjs-app
+kubectl describe pod -l app.kubernetes.io/name=web
 
 # Execute shell in pod
-kubectl exec -it deployment/nextjs-app -- sh
+kubectl exec -it deployment/web -- sh
 
 # Check horizontal pod autoscaler
 kubectl get hpa
-kubectl describe hpa nextjs-app
+kubectl describe hpa web
 ```

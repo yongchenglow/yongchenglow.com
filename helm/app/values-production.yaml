@@ -21,7 +21,7 @@ service:
 serviceAccount:
   create: true
   annotations: {}
-  name: "yongchenglow"
+  name: ""
 
 # Environment variables injected at deploy time by GitHub Actions
 podAnnotations: {}
@@ -35,7 +35,7 @@ env:
 resources:
   limits:
     cpu: 250m
-    memory: 256Mi
+    memory: 512Mi
   requests:
     cpu: 150m
     memory: 256Mi
@@ -45,7 +45,7 @@ ingress:
 
 autoscaling:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 5
   targetCPUUtilizationPercentage: 70
   targetMemoryUtilizationPercentage: 80

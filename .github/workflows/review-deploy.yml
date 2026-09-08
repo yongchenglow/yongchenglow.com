@@ -152,7 +152,7 @@ jobs:
         env:
           REVIEW_ID: ${{ inputs.review_id }}
         run: |
-          namespace="yongchenglow-review-$REVIEW_ID"
+          namespace="personal-site-$REVIEW_ID"
           kubectl get namespace "$namespace" >/dev/null 2>&1 || kubectl create namespace "$namespace"
 
           kubectl get secret ghcr-secret -n "$SOURCE_NAMESPACE" -o json |
@@ -169,11 +169,11 @@ jobs:
           NODE_PORT: ${{ steps.port.outputs.port }}
         run: |
           image_name=$(tr '[:upper:]' '[:lower:]' <<< "${{ github.repository }}")
-          namespace="yongchenglow-review-$REVIEW_ID"
+          namespace="personal-site-$REVIEW_ID"
 
-          helm upgrade --install nextjs-app ./helm/nextjs-app \
+          helm upgrade --install web ./helm/app \
             --namespace "$namespace" \
-            --values ./helm/nextjs-app/values-review.yaml \
+            --values ./helm/app/values-review.yaml \
             --set-string image.repository="$REGISTRY/$image_name" \
             --set-string image.tag="$IMAGE_TAG" \
             --set service.nodePort="$NODE_PORT" \

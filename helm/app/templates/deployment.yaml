@@ -1,17 +1,17 @@
-{{- include "nextjs-app.validateImageTag" . -}}
+{{- include "web.validateImageTag" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nextjs-app.fullname" . }}
+  name: {{ include "web.fullname" . }}
   labels:
-    {{- include "nextjs-app.labels" . | nindent 4 }}
+    {{- include "web.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "nextjs-app.selectorLabels" . | nindent 6 }}
+      {{- include "web.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "nextjs-app.selectorLabels" . | nindent 8 }}
+        {{- include "web.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "nextjs-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "web.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

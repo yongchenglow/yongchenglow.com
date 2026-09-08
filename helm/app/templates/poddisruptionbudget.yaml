@@ -2,9 +2,9 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "nextjs-app.fullname" . }}
+  name: {{ include "web.fullname" . }}
   labels:
-    {{- include "nextjs-app.labels" . | nindent 4 }}
+    {{- include "web.labels" . | nindent 4 }}
 spec:
   {{- if .Values.podDisruptionBudget.minAvailable }}
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
@@ -14,5 +14,5 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "nextjs-app.selectorLabels" . | nindent 6 }}
+      {{- include "web.selectorLabels" . | nindent 6 }}
 {{- end }}

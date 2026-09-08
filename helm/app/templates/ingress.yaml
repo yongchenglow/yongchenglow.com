@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "nextjs-app.fullname" . }}
+  name: {{ include "web.fullname" . }}
   labels:
-    {{- include "nextjs-app.labels" . | nindent 4 }}
+    {{- include "web.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -33,7 +33,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "nextjs-app.fullname" $ }}
+                name: {{ include "web.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}

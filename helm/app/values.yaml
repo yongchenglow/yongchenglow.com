@@ -1,4 +1,4 @@
-# Default values for nextjs-app
+# Default values for web
 replicaCount: 2
 
 image:
@@ -55,7 +55,7 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: nextjs-app-tls
+    - secretName: web-tls
       hosts:
         - chart-example.local
 

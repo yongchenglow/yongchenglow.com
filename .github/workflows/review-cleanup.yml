@@ -74,10 +74,10 @@ jobs:
         env:
           REVIEW_ID: ${{ inputs.review_id }}
         run: |
-          namespace="yongchenglow-review-$REVIEW_ID"
+          namespace="personal-site-$REVIEW_ID"
           if kubectl get namespace "$namespace" >/dev/null 2>&1; then
-            if helm status nextjs-app -n "$namespace" >/dev/null 2>&1; then
-              helm uninstall nextjs-app -n "$namespace" --wait --timeout 5m
+            if helm status web -n "$namespace" >/dev/null 2>&1; then
+              helm uninstall web -n "$namespace" --wait --timeout 5m
             fi
             kubectl delete namespace "$namespace" --wait=true --timeout=5m
           fi
