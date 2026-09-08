@@ -100,8 +100,9 @@ The following environment variables are used for external services (see `.env.pr
 | `NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID` | Google Analytics 4 measurement ID |
 
 These are client-side variables exposed via `NEXT_PUBLIC_` prefix and used in:
-- `src/app/layout.tsx` — Google AdSense and Analytics scripts
-- `src/components/shared/atoms/GoogleAds.tsx` — Ad slot configuration
+- `src/app/layout.tsx` — Google Analytics scripts
+- `src/components/ads/AdSlot.tsx` — lazy Google AdSense loading and rendering
+- `src/config/ads.ts` — controlled ad placement configuration
 
 ## Internal Routes
 

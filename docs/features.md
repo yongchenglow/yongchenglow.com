@@ -6,7 +6,7 @@ This document lists all features available on the website, with their current im
 
 | Feature | Status | Description |
 |---------|--------|-------------|
-| Blog Posts | Stable | MDX-based blog posts with frontmatter (title, subtitle, description, date, lastUpdated, author, tags, image, draft, featured, adsSlotId) |
+| Blog Posts | Stable | MDX-based blog posts with frontmatter (title, subtitle, description, date, lastUpdated, author, tags, image, draft, featured) |
 | Pagination | Stable | Numbered pages with ellipsis, previous/next buttons. Configurable posts per page (default: 12) |
 | Infinite Scroll | Stable | Toggleable alternative to pagination for loading more posts dynamically |
 | Search | Stable | Full-text search using FlexSearch, triggered via Cmd/Ctrl+K keyboard shortcut, searches title/subtitle/description/content/tags |
