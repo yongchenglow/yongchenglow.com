@@ -7,4 +7,9 @@ describe("Index", () => {
 		const { container } = render(<Index />);
 		expect(container).toBeInTheDocument();
 	});
+
+	it("does not nest interactive controls inside links", () => {
+		const { container } = render(<Index />);
+		expect(container.querySelector("a button")).toBeNull();
+	});
 });

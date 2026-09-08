@@ -35,14 +35,16 @@ export const IntroSection = () => {
 						<FadeIn delay={0.3}>
 							<div className="flex gap-3 justify-center sm:justify-start flex-wrap">
 								{intro.ctaButtons.map((button) => (
-									<InternalLink key={button.label} href={button.href}>
-										<Button
-											variant={button.variant as "default" | "outline"}
-											size="lg"
-										>
+									<Button
+										key={button.label}
+										variant={button.variant as "default" | "outline"}
+										size="lg"
+										asChild
+									>
+										<InternalLink href={button.href}>
 											{button.label}
-										</Button>
-									</InternalLink>
+										</InternalLink>
+									</Button>
 								))}
 							</div>
 						</FadeIn>

@@ -1,7 +1,7 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
-import { Button } from "@/src/components/shared/ui/button";
+import { buttonVariants } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
 import { formatDate } from "@/src/lib/utils";
 
@@ -65,10 +65,16 @@ export const FeaturedPostCard = ({
 								)}
 							</div>
 
-							<Button variant="ghost" size="sm" className="gap-1">
+							<span
+								className={buttonVariants({
+									variant: "ghost",
+									size: "sm",
+									className: "gap-1",
+								})}
+							>
 								Read post
 								<ArrowRight className="h-4 w-4" />
-							</Button>
+							</span>
 						</div>
 					</div>
 				</div>
