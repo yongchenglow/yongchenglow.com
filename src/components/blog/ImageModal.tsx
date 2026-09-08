@@ -54,7 +54,7 @@ export const ImageModal = ({
 						className,
 					)}
 				>
-					<div className="w-full">
+					<span className="block w-full">
 						<Image
 							src={src}
 							alt={alt}
@@ -67,7 +67,7 @@ export const ImageModal = ({
 							quality={85}
 							loading="lazy"
 						/>
-					</div>
+					</span>
 				</button>
 			</DialogPrimitive.Trigger>
 

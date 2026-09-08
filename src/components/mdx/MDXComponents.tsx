@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { Children, isValidElement, type ReactNode } from "react";
 import { Admonition } from "@/src/components/mdx/Admonition";
 import { MermaidDiagram } from "@/src/components/mdx/MermaidDiagram";
 import { PostCodeBlock } from "@/src/components/post/PostCodeBlock";
@@ -15,6 +16,11 @@ import {
 	TableRow,
 } from "@/src/components/shared/ui/table";
 
+interface CodeElementProps {
+	children?: ReactNode;
+	className?: string;
+}
+
 export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 	return {
 		// Map HTML elements to custom components
@@ -22,15 +28,7 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 		ul: (props) => <PostList type="unordered" {...props} />,
 		ol: (props) => <PostList type="ordered" {...props} />,
 		img: PostImage,
-		code: (props) => {
-			if (
-				props?.className?.includes("language-mermaid") ||
-				props?.className?.includes("mermaid")
-			) {
-				return <MermaidDiagram>{props.children}</MermaidDiagram>;
-			}
-			return <PostCodeBlock {...props} />;
-		},
+		code: (props) => <code {...props} />,
 
 		// Table components
 		table: Table,
@@ -46,8 +44,33 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
 		Admonition,
 		MermaidDiagram,
 
-		// Pre blocks - delegate to code handler (which detects mermaid)
-		pre: (props) => <>{props.children}</>,
+		// MDX wraps fenced code in pre > code. Handle the block at the pre level so
+		// inline code remains phrasing content and can safely appear in paragraphs.
+		pre: ({ children, ...props }) => {
+			const child =
+				Children.count(children) === 1 ? Children.only(children) : null;
+
+			if (isValidElement<CodeElementProps>(child)) {
+				const { children: code, className = "" } = child.props;
+
+				if (
+					className.includes("language-mermaid") ||
+					className.includes("mermaid")
+				) {
+					return <MermaidDiagram>{String(code ?? "")}</MermaidDiagram>;
+				}
+
+				return (
+					<PostCodeBlock
+						language={className.replace(/^language-/, "") || "text"}
+					>
+						{String(code ?? "")}
+					</PostCodeBlock>
+				);
+			}
+
+			return <pre {...props}>{children}</pre>;
+		},
 
 		// Allow overrides
 		...components,

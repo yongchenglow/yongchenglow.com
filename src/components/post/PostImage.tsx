@@ -27,7 +27,7 @@ export const PostImage = ({
 	const aspectRatio = `${(width / height) * 100}%`;
 
 	return (
-		<div className={cn("w-full mb-4", className)}>
+		<span className={cn("block w-full mb-4", className)}>
 			{isLoading && (
 				<ImageSkeleton className="w-full" aspectRatio={aspectRatio} />
 			)}
@@ -50,6 +50,6 @@ export const PostImage = ({
 				onLoad={() => setIsLoading(false)}
 				{...props}
 			/>
-		</div>
+		</span>
 	);
 };
