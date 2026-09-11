@@ -1,119 +1,109 @@
-# Backend Integration
+# Backend integration
 
-## Framework
+This application uses Next.js App Router for pages and server endpoints. Blog content comes from files in the repository. There is no database, external content API, authentication service, proxy, or rewrite.
 
-- **Next.js 16** with App Router
-- Standalone output mode (`next.config.js`)
-- TypeScript throughout
+## Content flow
 
-## API Base URL
-
-No proxy or rewrites are configured in `next.config.js`. The frontend calls its own internal API endpoints directly via relative URLs (e.g., `/api/blog/latest`).
-
-## API Endpoints
-
-### GET /api/blog/latest
-
-**Purpose:** Fetch paginated list of latest blog posts.
-
-**Query Parameters:**
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | number | `1` | Page number (1-indexed) |
-
-**Response:** `PaginationResult<BlogPost>`
-```json
-{
-  "items": [...],
-  "currentPage": 1,
-  "totalPages": 5,
-  "totalItems": 48
-}
+```mermaid
+flowchart TD
+    Request[Page or API request] --> Route[Next.js route]
+    Route --> BlogLibrary[src/lib/blog.ts]
+    BlogLibrary --> Files[content/blog files]
+    BlogLibrary --> Schema[src/content/schema.ts]
+    Schema --> Result[Validated blog post]
+    Result --> Route
+    Route --> Page[React page]
+    Route --> JSON[JSON response]
 ```
 
-**Called from:** `src/components/blog/LatestPostsView.tsx` via `loadMorePosts()`
+`src/lib/blog.ts` owns the blog data operations. It performs the following work.
 
----
+- Accepts slugs made from lowercase letters, numbers, and hyphens.
+- Reads `.mdx` and `.md` files from `content/blog/`.
+- Parses YAML frontmatter with Gray Matter.
+- Validates frontmatter with `BlogFrontmatterSchema`.
+- Calculates reading time, word count, and a short excerpt.
+- Excludes drafts from public lists.
+- Sorts posts from newest to oldest.
+- Filters posts by tag, category, or year.
+- Paginates lists with the page size from `src/config/blog.ts`.
 
-### GET /api/blog/category
+File and post caches live at module scope for the lifetime of the server process. Content is expected to stay unchanged after the application is built. Restart or rebuild the application after changing content.
 
-**Purpose:** Fetch paginated blog posts filtered by category.
+## Server pages
 
-**Query Parameters:**
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `category` | string | Yes | Category slug (e.g., `development`, `process`, `design`, `career`) |
-| `page` | number | No | Page number, defaults to `1` |
+Server components call the blog library directly. They do not call the HTTP API from the server.
 
-**Response:** `PaginationResult<BlogPost>`
+| Route | Data source |
+| --- | --- |
+| `/blog` | Featured post and four recent posts |
+| `/blog/all` | All published posts grouped in a timeline |
+| `/blog/[slug]` | One post and its adjacent posts |
+| `/blog/category/[category]/[page]` | Posts mapped to a configured category |
+| `/blog/year/[year]/[page]` | Posts from one publication year |
+| `/blog/tag/[tag]` | Posts with one exact tag |
 
----
+`/blog/category/[category]` and `/blog/year/[year]` redirect to page 1. Unknown categories and invalid page values return the Next.js not-found page.
 
-### GET /api/blog/year
+The dynamic post page renders MDX on the server with `next-mdx-remote`. It also builds article metadata, Open Graph metadata, breadcrumb structured data, reading navigation, and advertising placement.
 
-**Purpose:** Fetch paginated blog posts filtered by publication year.
+## API routes
 
-**Query Parameters:**
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `year` | number | Yes | 4-digit year (e.g., `2024`) |
-| `page` | number | No | Page number, defaults to `1` |
+The route handlers under `src/app/api/blog/` expose read-only pagination for latest, category, and year queries. They call the same blog library as the server pages.
 
-**Response:** `PaginationResult<BlogPost>`
+Use relative URLs such as `/api/blog/latest?page=2` from browser code. `next.config.js` does not define a separate API host or proxy.
 
----
+See [Blog API](api.md) for the complete request and response contract.
 
-## Client-Side Fetch Pattern
+## Search flow
 
-All API calls use the native `fetch` API. Example from `LatestPostsView.tsx`:
+Search uses a generated file instead of an API route.
 
-```typescript
-const response = await fetch(`${baseUrl}${page}`);
-if (!response.ok) {
-  throw new Error("Failed to fetch posts");
-}
-const data: PaginationResult<BlogPost> = await response.json();
-return data.items;
+```mermaid
+sequenceDiagram
+    participant Build as Build command
+    participant Script as Search script
+    participant File as search-index.json
+    participant Browser as Search dialog
+
+    Build->>Script: Run before dev or build
+    Script->>File: Write non-draft post data
+    Browser->>File: Fetch when search first opens
+    Browser->>Browser: Build FlexSearch index
+    Browser->>Browser: Return up to 10 unique posts
 ```
 
-## Search Implementation
+The generator in `scripts/generate-search-index.mjs` strips common Markdown syntax and writes title, subtitle, description, content, tags, date, and URL data. `src/hooks/useSearch.ts` downloads the file and indexes those fields in the browser.
 
-Search is handled client-side via `src/hooks/useSearch.ts` using **FlexSearch**. It fetches a static JSON file rather than a runtime API endpoint:
+## Other server routes
 
-```typescript
-const response = await fetch("/search-index.json");
-```
+| Route | Purpose |
+| --- | --- |
+| `/og` | Generate an Open Graph image from `title` and comma-separated `tags` query values |
+| `/robots.txt` | Serve crawler rules generated by `src/app/robots.ts` |
+| `/sitemap.xml` | Serve static and blog URLs generated by `src/app/sitemap.ts` |
 
-The search index (`/search-index.json`) is a pre-built static asset, not dynamically generated by the server.
+The Open Graph route downloads the configured author image from the current request origin. If that request fails, it renders the image without the avatar.
 
-## Authentication
+## Environment configuration
 
-None. This is a public blog with no authentication required for any endpoint.
+The app has no required runtime environment variables.
 
-## Environment Variables
+| Variable | Effect when set |
+| --- | --- |
+| `NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID` | Loads AdSense and enables configured ad placements |
+| `NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID` | Sets the Google Analytics script and tag ID |
+| `ANALYZE=true` | Enables the bundle analyzer during a build |
 
-The following environment variables are used for external services (see `.env.production`):
+Variables prefixed with `NEXT_PUBLIC_` are exposed to browser code. Never store secrets in them.
 
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID` | Google AdSense publisher ID |
-| `NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID` | Google Analytics 4 measurement ID |
+## Add a backend capability
 
-These are client-side variables exposed via `NEXT_PUBLIC_` prefix and used in:
-- `src/app/layout.tsx` — Google Analytics scripts
-- `src/components/ads/AdSlot.tsx` — lazy Google AdSense loading and rendering
-- `src/config/ads.ts` — controlled ad placement configuration
+1. Put shared content logic in `src/lib/` and define its types in `src/types/` when they are reused.
+2. Validate file or request input before using it.
+3. Add a route handler under `src/app/api/` only when browser or external HTTP access is needed.
+4. Return a consistent JSON error and an appropriate HTTP status.
+5. Add tests for valid input, invalid input, empty results, and failures.
+6. Update [Blog API](api.md) when the public contract changes.
 
-## Internal Routes
-
-### GET /og
-
-**Purpose:** Dynamic Open Graph image generation for blog posts.
-
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `title` | string | Post title |
-| `tags` | string | Comma-separated post tags |
-
-Used internally for generating OG images when blog posts are shared on social platforms.
+Keep server pages connected to shared library functions. This avoids an unnecessary internal HTTP request and keeps one source of truth for content behavior.

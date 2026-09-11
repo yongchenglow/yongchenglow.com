@@ -1,57 +1,83 @@
 # Features
 
-This document lists all features available on the website, with their current implementation status.
+This guide connects the main user features to the files that implement them. Start with the listed source file when changing a feature.
 
-## Feature Inventory
+## Pages
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| Blog Posts | Stable | MDX-based blog posts with frontmatter (title, subtitle, description, date, lastUpdated, author, tags, image, draft, featured) |
-| Pagination | Stable | Numbered pages with ellipsis, previous/next buttons. Configurable posts per page (default: 12) |
-| Infinite Scroll | Stable | Toggleable alternative to pagination for loading more posts dynamically |
-| Search | Stable | Full-text search using FlexSearch, triggered via Cmd/Ctrl+K keyboard shortcut, searches title/subtitle/description/content/tags |
-| Category Filtering | Stable | Filter posts by categories: Development, Process & Agile, Design, Career & Learning |
-| Year Filtering | Stable | Filter posts by publication year (descending order) |
-| Tag Pages | Stable | Dedicated pages for each tag showing all posts with that tag |
-| Theme Toggle | Stable | Dark/light mode switch with next-themes, persisted to localStorage |
-| Reading Progress | Stable | Progress bar on blog posts with emoji status updates that change as user reads |
-| Table of Contents | Stable | Auto-generated from h2/h3 headings, shown inline on mobile, sidebar on desktop with active heading tracking |
-| Blog Post Navigation | Stable | Previous/next post links at bottom of blog posts |
-| Featured Post | Stable | Highlighted featured post on blog homepage, auto-selected from frontmatter or newest |
-| OG Image Generation | Stable | Dynamic OG images (1200x630) for blog posts with title, tags, and author avatar |
-| SEO Metadata | Stable | Per-page metadata, OpenGraph, Twitter cards support |
-| JSON-LD Structured Data | Stable | Article and BreadcrumbList schemas for blog posts, Person schema for about page |
-| Sitemap | Stable | Auto-generated XML sitemap including all posts, paginated pages, categories, years, and tags |
-| Robots.txt | Stable | SEO robots file allowing all except /api/ |
-| About Page | Stable | Timeline-based about page with career history, education, skills, and social links |
-| Home Page | Stable | Landing page with intro, latest posts section, projects section, and about section |
-| Projects Section | Stable | Project highlights with title, description, and external links |
-| Image Modal | Stable | Click-to-zoom image viewer with blur placeholder and image credit support |
-| MDX Components | Stable | Custom MDX rendering: Admonitions (note/tip/warning/danger), Code blocks with syntax highlighting, Definitions, custom Paragraph/Image/List components |
-| Google Ads | Stable | Ad integration via Radix UI Dialog with configurable slot IDs per page |
-| Responsive Design | Stable | Mobile-first responsive layouts using Tailwind CSS |
-| Fade-in Animations | Stable | Staggered fade-in animations using Framer Motion for content sections |
-| Breadcrumbs | Stable | Navigation breadcrumbs on blog, category, year, and tag pages |
-| Reading Time | Stable | Estimated reading time calculated from post content |
-| Syntax Highlighting | Stable | Code blocks with syntax highlighting using react-syntax-highlighter |
-| Back Navigation | Stable | Back button on blog posts to return to previous page |
-| Post Grid Layout | Stable | Responsive grid layout for blog post cards (1/2/4 columns on mobile/tablet/desktop) |
-| LQIP (Low Quality Image Placeholder) | Stable | Blur placeholder images while loading using blurhash-style technique |
-| Static Generation | Stable | Static site generation for all blog posts and paginated pages |
+| Feature | Behavior | Main source |
+| --- | --- | --- |
+| Home | Shows the introduction, featured or latest post, projects, an ad placement, and an about summary | `src/app/page.tsx` and `content/home.json` |
+| About | Shows profile details and a work, education, and military timeline | `src/app/about/page.tsx` and `content/about.json` |
+| Blog landing | Shows category and year navigation, one featured post, four recent posts, and a link to all posts | `src/app/blog/page.tsx` |
+| All posts | Shows every published post in a timeline | `src/app/blog/all/page.tsx` |
+| Blog post | Renders MDX, metadata, structured data, reading tools, images, code, diagrams, navigation, and ads | `src/app/blog/[slug]/page.tsx` |
+| Category pages | Groups posts when any post tag matches a category tag | `src/app/blog/category/[category]/[page]/page.tsx` |
+| Year pages | Groups posts by the year in `frontmatter.date` | `src/app/blog/year/[year]/[page]/page.tsx` |
+| Tag pages | Shows posts with one exact tag | `src/app/blog/tag/[tag]/page.tsx` |
 
-## Configuration
+## Blog reading
 
-- **Posts per page**: 12 (configurable in `src/config/blog.ts`)
-- **Categories**: Development, Process & Agile, Design, Career & Learning
-- **Ad slots**: homeTop, homeBottom, about, blog
+| Feature | Behavior | Main source |
+| --- | --- | --- |
+| Reading time | Calculates an estimate and word count when a post is loaded | `src/lib/blog.ts` |
+| Table of contents | Builds navigation from post headings and tracks the visible section | `src/components/blog/TableOfContents.tsx` |
+| Reading progress | Shows progress through the article | `src/components/blog/ReadingProgress.tsx` |
+| Previous and next posts | Links to the newer and older post in date order | `src/lib/blog.ts` and `src/components/blog/BlogNavigation.tsx` |
+| Code highlighting | Renders fenced code with Prism themes and line numbers | `src/components/post/PostCodeBlock.tsx` |
+| Mermaid diagrams | Renders `mermaid` fenced blocks on the client | `src/components/mdx/MermaidDiagram.tsx` |
+| Image modal | Opens post images in a larger dialog | `src/components/blog/ImageModal.tsx` |
+| Markdown extensions | Supports tables, task lists, strikethrough, and linked headings | `src/app/blog/[slug]/page.tsx` |
 
-## Dependencies Used
+## Discovery
 
-- **Framework**: Next.js 16 with App Router
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **MDX**: @next/mdx, next-mdx-remote, remark-gfm, rehype-slug, rehype-autolink-headings
-- **Search**: FlexSearch for full-text search
-- **Animations**: Framer Motion
-- **Theme**: next-themes
-- **Icons**: lucide-react
-- **Content**: gray-matter for frontmatter, reading-time for reading estimation
+| Feature | Behavior | Main source |
+| --- | --- | --- |
+| Search | Lazily loads generated post data and searches five fields with FlexSearch | `src/hooks/useSearch.ts` |
+| Search dialog | Opens from the navigation or keyboard shortcut and displays results | `src/components/search/SearchDialog.tsx` |
+| Categories | Maps configured groups of tags to category pages | `src/config/blog.ts` |
+| Years | Derives available years from published posts | `src/lib/blog.ts` |
+| Tags | Derives tag routes from published post frontmatter | `src/app/blog/tag/[tag]/page.tsx` |
+
+Search data is generated by `scripts/generate-search-index.mjs`. It excludes drafts and is refreshed before `bun run dev` and `bun run build`.
+
+## Interface
+
+| Feature | Behavior | Main source |
+| --- | --- | --- |
+| Responsive navigation | Provides desktop navigation, mobile navigation, search, and theme controls | `src/components/shared/organisms/Navigationbar.tsx` |
+| Theme | Supports light, dark, and system themes | `src/components/theme/ThemeProvider.tsx` and `src/components/theme/ThemeToggle.tsx` |
+| Motion | Applies reusable fade and stagger effects | `src/components/shared/atoms/FadeIn.tsx` and `src/lib/animation.ts` |
+| Loading placeholders | Reserves image and card space while content loads | `src/components/shared/atoms/ImageSkeleton.tsx` and `src/components/post/PostCardSkeleton.tsx` |
+| Image blur data | Uses generated base64 placeholders for known local images | `scripts/generate-lqip.ts` and `src/lib/lqip.ts` |
+| Shared UI | Provides reusable controls built on Radix UI and Tailwind CSS | `src/components/shared/ui/` |
+
+## Metadata and discovery files
+
+| Feature | Behavior | Main source |
+| --- | --- | --- |
+| Page metadata | Defines titles, descriptions, canonical links, and social images | Page files under `src/app/` |
+| Structured data | Adds article and breadcrumb JSON-LD | `src/components/seo/JsonLd.tsx` |
+| Open Graph images | Creates a dynamic social image with a title, tags, and optional avatar | `src/app/og/route.tsx` |
+| Sitemap | Lists core pages, blog posts, categories, years, and tags | `src/app/sitemap.ts` |
+| Robots rules | Allows normal crawling, blocks API paths, and links the sitemap | `src/app/robots.ts` |
+
+## Advertising
+
+Advertising only renders when `NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID` is set. Placement IDs and layout settings live in `src/config/ads.ts`.
+
+The home, about, blog index, article midpoint, and article end positions have separate placements. Articles shorter than 1,000 words only use the end placement. A midpoint placement is inserted before the first level-two heading after the middle of a long article. The slot collapses if AdSense does not report a fill state within three seconds.
+
+## Content configuration
+
+| Change | Source of truth |
+| --- | --- |
+| Home copy and projects | `content/home.json` |
+| About profile and timeline | `content/about.json` |
+| Blog labels | `content/blog-ui.json` |
+| Blog posts | `content/blog/` |
+| Categories and page size | `src/config/blog.ts` |
+| Site URL, author, navigation, and social links | `src/config/site.ts` |
+| Ad placements | `src/config/ads.ts` |
+| Content validation | `src/content/schema.ts` |
+
+Prefer changing these files over copying their values into a component. Shared configuration keeps labels and behavior consistent.
