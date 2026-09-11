@@ -1,146 +1,148 @@
 # Blog API
 
-Base path: `/api/blog`
+The blog API provides paginated access to published posts. All endpoints use `GET`, return JSON, and require no authentication.
 
-All endpoints return JSON and do not require authentication.
+The base path is `/api/blog`.
 
-## Endpoints
+## Response behavior
 
-### GET /api/blog/latest
+- Posts are sorted from newest to oldest.
+- Draft posts are excluded.
+- Each page contains up to 12 posts, as set by `BLOG_CONFIG.postsPerPage` in `src/config/blog.ts`.
+- A page above the available range is clamped to the last page.
+- An empty result uses `currentPage: 1` and `totalPages: 0`.
+- A valid category with no matching posts and an unknown category both return an empty result.
 
-Retrieves a paginated list of all blog posts, sorted by date (newest first).
+## Get the latest posts
 
-**Request**
+```http
+GET /api/blog/latest?page=1
+```
 
-Query parameters:
+| Parameter | Required | Default | Meaning |
+| --- | --- | --- | --- |
+| `page` | No | `1` | A positive page number |
 
-| Parameter | Type   | Default | Description              |
-| --------- | ------ | ------- | ------------------------ |
-| `page`    | number | `1`     | Page number (1-indexed)  |
+Example request
 
-**Response**
+```bash
+curl "http://localhost:3000/api/blog/latest?page=1"
+```
+
+## Get posts in a category
+
+```http
+GET /api/blog/category?category=development&page=1
+```
+
+| Parameter | Required | Default | Meaning |
+| --- | --- | --- | --- |
+| `category` | Yes | None | A category slug from `src/config/blog.ts` |
+| `page` | No | `1` | A positive page number |
+
+Current category slugs are `development`, `process`, `design`, and `career`.
+
+Example request
+
+```bash
+curl "http://localhost:3000/api/blog/category?category=development&page=1"
+```
+
+## Get posts from a year
+
+```http
+GET /api/blog/year?year=2026&page=1
+```
+
+| Parameter | Required | Default | Meaning |
+| --- | --- | --- | --- |
+| `year` | Yes | None | The publication year |
+| `page` | No | `1` | A positive page number |
+
+Example request
+
+```bash
+curl "http://localhost:3000/api/blog/year?year=2026&page=1"
+```
+
+## Successful response
+
+All three endpoints return the same structure.
 
 ```json
 {
   "items": [
     {
-      "slug": "my-blog-post",
+      "slug": "example-post",
       "frontmatter": {
-        "title": "My Blog Post",
-        "subtitle": "A subtitle",
-        "description": "Post description",
-        "date": "2024-01-15T00:00:00.000Z",
-        "author": "Yong Cheng Low",
-        "tags": ["nextjs", "typescript"],
-        "image": "/images/posts/my-blog-post.jpg",
+        "title": "Example post",
+        "subtitle": "Optional subtitle",
+        "description": "A short summary",
+        "date": "2026-09-12",
+        "lastUpdated": "2026-09-13",
+        "author": "yongchenglow",
+        "tags": ["web-development"],
+        "image": "/img/example.jpg",
         "draft": false,
         "featured": true
       },
-      "content": "# My Blog Post\n\nFull MDX content...",
-      "readingTime": "5 min read",
-      "excerpt": "First paragraph of the post..."
+      "content": "## Introduction\n\nThe complete MDX source.",
+      "readingTime": "1 min read",
+      "wordCount": 120,
+      "excerpt": "## Introduction"
     }
   ],
   "currentPage": 1,
-  "totalPages": 5,
-  "totalItems": 42,
-  "hasNextPage": true,
+  "totalPages": 1,
+  "totalItems": 1,
+  "hasNextPage": false,
   "hasPreviousPage": false
 }
 ```
 
-**Errors**
+Optional frontmatter fields are omitted when a post does not define them.
 
-- `400 Bad Request` - Invalid page number
+### Pagination fields
 
----
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `items` | `BlogPost[]` | Posts on the selected page |
+| `currentPage` | `number` | Page returned after range clamping |
+| `totalPages` | `number` | Number of available pages |
+| `totalItems` | `number` | Number of matching posts |
+| `hasNextPage` | `boolean` | Whether a later page exists |
+| `hasPreviousPage` | `boolean` | Whether an earlier page exists |
 
-### GET /api/blog/category
+### Blog post fields
 
-Retrieves a paginated list of blog posts filtered by category.
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `slug` | `string` | Filename without `.md` or `.mdx` |
+| `frontmatter` | `object` | Validated metadata from the post |
+| `content` | `string` | Complete MDX body |
+| `readingTime` | `string` | Human-readable reading estimate |
+| `wordCount` | `number` | Word count calculated from the body |
+| `excerpt` | `string` | First content block, limited to 200 characters |
 
-**Request**
+The TypeScript definitions are in `src/types/blog.ts`. The runtime frontmatter rules are in `src/content/schema.ts`.
 
-Query parameters:
+## Errors
 
-| Parameter | Type   | Default | Description              |
-| --------- | ------ | ------- | ------------------------ |
-| `category` | string | (required) | Category slug (e.g., `ai`, `coding`, `life`) |
-| `page`    | number | `1`     | Page number (1-indexed)  |
+Invalid requests return status `400`.
 
-**Response**
+| Condition | Response |
+| --- | --- |
+| Missing `category` | `{ "error": "Category parameter required" }` |
+| Missing `year` | `{ "error": "Year parameter required" }` |
+| Invalid `page` | `{ "error": "Invalid page number" }` |
+| Invalid `year` or `page` on the year endpoint | `{ "error": "Invalid year or page number" }` |
 
-Same shape as `/api/blog/latest`.
+An unexpected content or server error returns status `500` with this body.
 
-**Errors**
-
-- `400 Bad Request` - Missing `category` parameter or invalid page number
-
----
-
-### GET /api/blog/year
-
-Retrieves a paginated list of blog posts filtered by year.
-
-**Request**
-
-Query parameters:
-
-| Parameter | Type    | Default | Description              |
-| --------- | ------- | ------- | ------------------------ |
-| `year`    | number  | (required) | Year (e.g., `2024`)     |
-| `page`    | number  | `1`     | Page number (1-indexed)  |
-
-**Response**
-
-Same shape as `/api/blog/latest`.
-
-**Errors**
-
-- `400 Bad Request` - Missing `year` parameter or invalid year/page number
-
----
-
-## Shared Types
-
-### PaginationResult
-
-```typescript
-interface PaginationResult<T> {
-  items: T[];
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
+```json
+{
+  "error": "Failed to fetch posts"
 }
 ```
 
-### BlogPost
-
-```typescript
-interface BlogPost {
-  slug: string;
-  frontmatter: BlogFrontmatter;
-  content: string;
-  readingTime: string;
-  excerpt?: string;
-}
-```
-
-### BlogFrontmatter
-
-```typescript
-interface BlogFrontmatter {
-  title: string;
-  subtitle?: string;
-  description: string;
-  date: string;        // ISO 8601 format
-  lastUpdated?: string;
-  author: string;
-  tags?: string[];
-	image?: string;
-	draft?: boolean;
-	featured?: boolean;
-}
-```
+Server logs contain the original error. The response does not expose internal details.
