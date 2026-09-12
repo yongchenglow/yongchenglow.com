@@ -53,7 +53,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.22.0
+          version: v4.3.0
 
       - name: Configure Kubernetes
         env:
