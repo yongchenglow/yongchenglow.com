@@ -100,7 +100,7 @@ jobs:
 
       - name: Validate release exists and can be rolled back
         run: |
-          RELEASE_NAME="nextjs-app"
+          RELEASE_NAME="web"
 
           # Check if release exists
           if ! helm list -n "${{ env.NAMESPACE }}" | grep -q "$RELEASE_NAME"; then
@@ -126,18 +126,18 @@ jobs:
       - name: Show deployment history
         run: |
           echo "Current deployment history:"
-          helm history nextjs-app -n ${{ env.NAMESPACE }} --max 10
+          helm history web -n ${{ env.NAMESPACE }} --max 10
 
       - name: Rollback Helm release
         run: |
-          RELEASE_NAME="nextjs-app"
+          RELEASE_NAME="web"
 
           echo "Rolling back to previous revision"
           helm rollback "$RELEASE_NAME" -n "${{ env.NAMESPACE }}" --wait --timeout 10m
 
       - name: Verify rollback
         run: |
-          kubectl rollout status deployment/nextjs-app -n ${{ env.NAMESPACE }} --timeout=1m
+          kubectl rollout status deployment/web -n ${{ env.NAMESPACE }} --timeout=1m
 
           echo ""
           echo "Rollback completed successfully!"
