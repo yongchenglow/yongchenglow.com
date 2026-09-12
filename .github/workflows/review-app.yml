@@ -20,7 +20,7 @@ jobs:
       bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
     steps:
       - name: Checkout package.json
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           sparse-checkout: package.json
           sparse-checkout-cone-mode: false
