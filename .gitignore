@@ -49,3 +49,6 @@ yarn-error.log*
 
 # worktrees
 .worktrees/
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

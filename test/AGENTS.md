@@ -37,4 +37,4 @@ Type declarations for the jest-dom matchers live in `test/matchers.d.ts`, which 
 
 ## Finish a test change
 
-Run the narrowest affected test while iterating, then satisfy the repository-wide `bun test` and `bun run check:all` gates before completion. Confirm tests pass both individually and as part of the full suite when shared mocks or module state are involved.
+Run the narrowest affected test while iterating. When shared mocks or module state are involved, verify the affected test passes both alone and within the full suite. Finish with the root `AGENTS.md` completion gates.
