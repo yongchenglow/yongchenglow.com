@@ -8,5 +8,11 @@ jobs:
     name: Rollback Production
     permissions:
       contents: read
-    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v1
+      deployments: read
+    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2
+    with:
+      application_name: yongchenglow
+      namespace: personal-site
+      release_name: web
+      production_hostname: ${{ vars.CLOUDFLARE_DOMAIN }}
     secrets: inherit
