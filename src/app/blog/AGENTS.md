@@ -32,6 +32,6 @@ Do not add excerpt or reading-time fields. Both are derived from the body. The f
 
 ## Finish a content change
 
-After adding, renaming, or removing a post, run `bun run generate-search-index` and include the resulting `public/search-index.json` change. `bun run dev` and `bun run build` perform the same regeneration automatically.
+After adding, editing, renaming, or removing a post, run `bun run generate-search-index` and include the resulting `public/search-index.json` change. `bun run dev` and `bun run build` perform the same regeneration automatically.
 
 Keep headings, badges, pagination labels, and other blog UI copy in `content/blog-ui.json`.
