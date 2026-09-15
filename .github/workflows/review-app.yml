@@ -20,7 +20,7 @@ jobs:
       bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
     steps:
       - name: Checkout package.json
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           sparse-checkout: package.json
           sparse-checkout-cone-mode: false
@@ -42,7 +42,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: ./.github/workflows/reusable-build.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v1
     with:
       bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
 
@@ -52,7 +52,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: ./.github/workflows/reusable-secret-scan.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@v1
     secrets: inherit
 
   docker:
@@ -62,7 +62,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/reusable-docker.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-docker.yml@v1
     with:
       bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
       platforms: linux/amd64
@@ -77,7 +77,7 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: ./.github/workflows/reusable-security-scan.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-security-scan.yml@v1
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
     secrets: inherit
@@ -90,7 +90,7 @@ jobs:
       contents: read
       packages: read
       deployments: write
-    uses: ./.github/workflows/review-deploy.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/review-deploy.yml@v1
     with:
       image_tag: ${{ needs.docker.outputs.image_tag }}
       review_id: pr-${{ github.event.number }}
@@ -102,7 +102,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
-    uses: ./.github/workflows/review-cleanup.yml
+    uses: yongchenglow/ci-workflows/.github/workflows/review-cleanup.yml@v1
     with:
       review_id: pr-${{ github.event.number }}
     secrets: inherit
