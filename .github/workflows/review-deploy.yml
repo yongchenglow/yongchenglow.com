@@ -18,8 +18,9 @@ env:
   PORT_MAPPING_NAMESPACE: default
   PORT_MAPPING_CONFIGMAP: yongchenglow-review-ports
   INFRA_LOCK_CONFIGMAP: yongchenglow-review-infra-lock
-  PORT_RANGE_START: 31000
-  PORT_RANGE_END: 31999
+  # Stay within Kubernetes' default 30000-32767 NodePort range.
+  PORT_RANGE_START: 32000
+  PORT_RANGE_END: 32767
 
 jobs:
   deploy:
@@ -127,26 +128,27 @@ jobs:
           fi
 
           mappings=$(kubectl get configmap "$PORT_MAPPING_CONFIGMAP" -n "$PORT_MAPPING_NAMESPACE" -o json)
-          port=$(jq -r --arg key "$REVIEW_ID" '.data[$key] // empty' <<< "$mappings")
+          mapped_ports=$(jq -r '.data // {} | .[]' <<< "$mappings")
+          service_ports=$(kubectl get services --all-namespaces -o json | \
+            jq -r '.items[].spec.ports[]?.nodePort // empty')
+          used_ports=$(printf '%s\n%s\n' "$mapped_ports" "$service_ports" | sed '/^$/d' | sort -u)
+          mapfile -t available_ports < <(
+            comm -23 <(seq "$PORT_RANGE_START" "$PORT_RANGE_END") <(printf '%s\n' "$used_ports")
+          )
 
-          if [ -z "$port" ]; then
-            allocated=$(jq -r '.data // {} | .[]' <<< "$mappings")
-            for candidate in $(seq "$PORT_RANGE_START" "$PORT_RANGE_END"); do
-              if ! grep -qx "$candidate" <<< "$allocated"; then
-                port=$candidate
-                break
-              fi
-            done
-            if [ -z "$port" ]; then
-              echo "No free NodePort in $PORT_RANGE_START-$PORT_RANGE_END"
-              exit 1
-            fi
-            kubectl patch configmap "$PORT_MAPPING_CONFIGMAP" -n "$PORT_MAPPING_NAMESPACE" \
-              --type merge --patch "$(jq -cn --arg key "$REVIEW_ID" --arg port "$port" '{data:{($key):$port}}')"
+          if [ ${#available_ports[@]} -eq 0 ]; then
+            echo "No free NodePort in $PORT_RANGE_START-$PORT_RANGE_END"
+            exit 1
           fi
 
+          available_list=$(IFS=,; echo "${available_ports[*]}")
+          echo "Available NodePorts (${#available_ports[@]}): $available_list"
+          port=$(printf '%s\n' "${available_ports[@]}" | shuf -n 1)
+          kubectl patch configmap "$PORT_MAPPING_CONFIGMAP" -n "$PORT_MAPPING_NAMESPACE" \
+            --type merge --patch "$(jq -cn --arg key "$REVIEW_ID" --arg port "$port" '{data:{($key):$port}}')"
+
           echo "port=$port" >> "$GITHUB_OUTPUT"
-          echo "Using NodePort $port for $REVIEW_ID"
+          echo "Randomly selected NodePort $port for $REVIEW_ID"
 
       - name: Prepare review namespace
         env:
