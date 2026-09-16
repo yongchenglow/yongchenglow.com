@@ -3,16 +3,30 @@ name: Production Rollback
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+# Serialise with the deploy pipeline. A rollback that runs beside an in-flight
+# `helm upgrade` would leave the release at whichever finished last.
+concurrency:
+  group: ci-refs/heads/main
+  cancel-in-progress: false
+
 jobs:
   rollback:
     name: Rollback Production
     permissions:
       contents: read
       deployments: read
+    # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2
     with:
       application_name: yongchenglow
       namespace: personal-site
       release_name: web
       production_hostname: ${{ vars.CLOUDFLARE_DOMAIN }}
-    secrets: inherit
+    # Rollback changes the Helm release only. It needs no Cloudflare access:
+    # the route already points at the release and does not move.
+    secrets:
+      KUBECONFIG_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
+      KUBECONFIG_TOKEN: ${{ secrets.KUBECONFIG_TOKEN }}
