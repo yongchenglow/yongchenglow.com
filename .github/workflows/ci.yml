@@ -9,20 +9,29 @@ on:
       - "docs/**"
       - "LICENSE"
       - ".gitignore"
+  # Allows re-running a deploy without an empty commit.
+  workflow_dispatch:
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+# Least privilege by default. Jobs that need more request it explicitly, and a
+# job added later cannot silently inherit a broader repository default.
+permissions:
+  contents: read
+
+# Never cancel a run that may already be deploying. Queueing instead keeps two
+# pushes from racing into `helm upgrade` and landing out of order.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  # Reusable workflows take bun_version as an input, and `with:` cannot run a
-  # script, so this stays a job. Sparse checkout keeps it to a few seconds.
-  extract-bun-version:
-    name: Extract Bun Version from package.json
+  bun-version:
+    name: Extract Bun Version
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     outputs:
-      bun_version: ${{ steps.get-bun-version.outputs.bun_version }}
+      bun_version: ${{ steps.bun.outputs.bun_version }}
     steps:
       - name: Checkout package.json
         uses: actions/checkout@v7
@@ -31,73 +40,133 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Get Bun version from package.json
-        id: get-bun-version
-        run: |
-          BUN_VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
-          if [ -z "$BUN_VERSION" ] || [ "$BUN_VERSION" = "null" ]; then
-            echo "✗ ERROR: Could not read bun version from package.json packageManager field"
-            exit 1
-          fi
-          echo "bun_version=$BUN_VERSION" >> "$GITHUB_OUTPUT"
+        id: bun
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2
+
+  actionlint:
+    name: Lint Workflows
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run actionlint
+        uses: raven-actions/actionlint@v2
+
+  build:
+    name: Quality Checks
+    needs: bun-version
+    permissions:
+      contents: read
+      security-events: write
+    # v2.0.3 resolved on 2026-09-16.
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v2
+    with:
+      bun_version: ${{ needs.bun-version.outputs.bun_version }}
 
   secret-scan:
     name: Secret Scan
     permissions:
       contents: read
       security-events: write
+    # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@v2
-    secrets: inherit
 
-  build:
-    name: Quality Checks
+  helm-validate:
+    name: Helm Lint & Render
     permissions:
       contents: read
-      security-events: write
-    needs: extract-bun-version
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v2
+    # v2.0.3 resolved on 2026-09-16.
+    uses: yongchenglow/ci-workflows/.github/workflows/helm-lint.yml@v2
     with:
-      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
+      chart_path: helm/app
+      # The chart requires a {branch}-{40-char-sha} tag, which the committed
+      # placeholder does not satisfy. Render with a representative tag so
+      # linting exercises the same substitution the deploy performs.
+      image_tag: main-0000000000000000000000000000000000000000
+      image_repository: ghcr.io/${{ github.repository }}
+      # release|values_file|namespace. Kept identical to review-app.yml so main
+      # and pull requests cannot validate different charts.
+      profiles: |
+        web|helm/app/values-production.yaml|personal-site
+        web|helm/app/values-review.yaml|personal-site-review
 
+  # Builds without publishing so the image is ready the moment the gates pass.
+  # The layer cache is written regardless of `push`, so `docker-push` restores
+  # these layers instead of rebuilding them.
   docker:
-    name: Build & Push Docker Image
-    needs: [build, secret-scan, extract-bun-version]
+    name: Build Docker Image
+    needs: bun-version
     permissions:
       contents: read
       packages: write
+    # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/reusable-docker.yml@v2
     with:
-      bun_version: ${{ needs.extract-bun-version.outputs.bun_version }}
+      bun_version: ${{ needs.bun-version.outputs.bun_version }}
       dhi_login: true
       platforms: linux/amd64
-    secrets: inherit
+      push: false
+    secrets:
+      DHI_REGISTRY_USERNAME: ${{ secrets.DHI_REGISTRY_USERNAME }}
+      DHI_REGISTRY_PASSWORD: ${{ secrets.DHI_REGISTRY_PASSWORD }}
+
+  # The publishing gate. Every quality and security check converges here, so no
+  # image reaches the registry unless all of them passed. Inputs must stay
+  # identical to `docker` above: a different build argument misses the cache,
+  # and a different tag publishes something the gates never covered.
+  docker-push:
+    name: Publish Docker Image
+    needs: [bun-version, docker, build, secret-scan, helm-validate, actionlint]
+    permissions:
+      contents: read
+      packages: write
+    # v2.0.3 resolved on 2026-09-16.
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-docker.yml@v2
+    with:
+      bun_version: ${{ needs.bun-version.outputs.bun_version }}
+      dhi_login: true
+      platforms: linux/amd64
+      push: true
+    secrets:
+      DHI_REGISTRY_USERNAME: ${{ secrets.DHI_REGISTRY_USERNAME }}
+      DHI_REGISTRY_PASSWORD: ${{ secrets.DHI_REGISTRY_PASSWORD }}
 
   security-scan:
     name: Security Scan
-    needs: docker
+    needs: docker-push
     permissions:
       contents: read
       packages: read
       security-events: write
+    # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/reusable-security-scan.yml@v2
     with:
-      image_tag: ${{ needs.docker.outputs.image_tag }}
-    secrets: inherit
+      image_tag: ${{ needs.docker-push.outputs.image_tag }}
 
   deploy-production:
     name: Deploy to Production
-    if: github.ref == 'refs/heads/main'
-    needs: [docker, security-scan]
+    needs: [docker-push, security-scan]
     permissions:
       contents: read
       packages: read
       deployments: write
+    # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/production-deploy.yml@v2
     with:
-      image_tag: ${{ needs.docker.outputs.image_tag }}
+      image_tag: ${{ needs.docker-push.outputs.image_tag }}
       application_name: yongchenglow
       namespace: personal-site
       release_name: web
       production_hostname: ${{ vars.CLOUDFLARE_DOMAIN }}
       cloudflare_zone: ${{ vars.CLOUDFLARE_DOMAIN }}
       production_node_port: 30000
-    secrets: inherit
+    secrets:
+      KUBECONFIG_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
+      KUBECONFIG_TOKEN: ${{ secrets.KUBECONFIG_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
