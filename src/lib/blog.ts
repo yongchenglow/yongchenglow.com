@@ -5,6 +5,10 @@ import { cache } from "react";
 import readingTime from "reading-time";
 import { AD_MID_ARTICLE_MIN_WORDS } from "@/src/config/ads";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
+import {
+	BLOG_POST_FILENAME_PATTERN,
+	BLOG_SLUG_PATTERN,
+} from "@/src/config/blog-content";
 import { BlogFrontmatterSchema } from "@/src/content/schema";
 import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
 
@@ -15,8 +19,6 @@ const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
  * this alphabet (path separators, `..`, URL escapes) must never reach
  * `path.join`.
  */
-const SLUG_PATTERN = /^[a-z0-9-]+$/;
-
 /** Thrown when a slug is well-formed but no matching content file exists. */
 export class BlogPostNotFoundError extends Error {
 	readonly slug: string;
@@ -34,7 +36,7 @@ export class InvalidBlogSlugError extends Error {
 
 	constructor(slug: string) {
 		super(
-			`Invalid blog slug: "${slug}". Slugs must match ${SLUG_PATTERN.source}.`,
+			`Invalid blog slug: "${slug}". Slugs must match ${BLOG_SLUG_PATTERN.source}.`,
 		);
 		this.name = "InvalidBlogSlugError";
 		this.slug = slug;
@@ -57,7 +59,7 @@ export class BlogFrontmatterError extends Error {
 }
 
 const assertValidSlug = (slug: string): void => {
-	if (!SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
+	if (!BLOG_SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
 };
 
 const parsePost = (slug: string): BlogPost => {
@@ -119,7 +121,7 @@ const loadAllSlugs = (): string[] => {
 	if (slugCache === undefined) {
 		slugCache = fs
 			.readdirSync(BLOG_CONTENT_PATH)
-			.filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
+			.filter((file) => BLOG_POST_FILENAME_PATTERN.test(file))
 			.map((file) => file.replace(/\.mdx?$/, ""));
 	}
 

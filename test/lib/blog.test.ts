@@ -88,6 +88,15 @@ describe("getAllBlogSlugs", () => {
 		] as never);
 		expect(getAllBlogSlugs()).toEqual(["post-a"]);
 	});
+
+	it("ignores blog instruction files", () => {
+		vi.mocked(fs.readdirSync).mockReturnValue([
+			"AGENTS.md",
+			"CLAUDE.md",
+			"post-a.mdx",
+		] as never);
+		expect(getAllBlogSlugs()).toEqual(["post-a"]);
+	});
 });
 
 describe("getAllBlogPosts", () => {

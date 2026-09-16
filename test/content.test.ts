@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import matter from "gray-matter";
+import { BLOG_POST_FILENAME_PATTERN } from "@/src/config/blog-content";
 import {
 	AboutSchema,
 	AuthorSchema,
@@ -102,8 +103,8 @@ describe("Content JSON Validation", () => {
 
 	it("blog posts frontmatter should match BlogFrontmatterSchema", () => {
 		const blogDir = join(contentDir, "blog");
-		const files = readdirSync(blogDir).filter(
-			(f) => f.endsWith(".mdx") || f.endsWith(".md"),
+		const files = readdirSync(blogDir).filter((file) =>
+			BLOG_POST_FILENAME_PATTERN.test(file),
 		);
 
 		for (const file of files) {
