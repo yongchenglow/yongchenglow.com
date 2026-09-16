@@ -96,69 +96,30 @@ jobs:
         web|helm/app/values-production.yaml|personal-site
         web|helm/app/values-review.yaml|personal-site-review
 
-  # Builds without publishing so the image is ready the moment the gates pass.
-  # The layer cache is written regardless of `push`, so `docker-push` restores
-  # these layers instead of rebuilding them. Forks reach this job: it publishes
-  # nothing and needs no deployment credentials.
-  docker:
-    name: Build Review Image
-    if: github.event.action != 'closed'
-    needs: bun-version
+  # Every quality and security check converges here. The image is built once,
+  # scanned locally, and only the exact image that passed is then published.
+  container:
+    name: Build, Scan & Push Review Image
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
+    needs: [bun-version, build, secret-scan, helm-validate, actionlint]
     permissions:
       contents: read
       packages: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-docker.yml@v2
-    with:
-      bun_version: ${{ needs.bun-version.outputs.bun_version }}
-      dhi_login: true
-      platforms: linux/amd64
-      tag_prefix: pr-${{ github.event.number }}
-      push: false
-    secrets:
-      DHI_REGISTRY_USERNAME: ${{ secrets.DHI_REGISTRY_USERNAME }}
-      DHI_REGISTRY_PASSWORD: ${{ secrets.DHI_REGISTRY_PASSWORD }}
-
-  # The publishing gate. Every quality and security check converges here, so no
-  # image reaches the registry unless all of them passed. Inputs must stay
-  # identical to `docker` above: a different build argument misses the cache,
-  # and a different tag publishes something the gates never covered.
-  docker-push:
-    name: Publish Review Image
-    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
-    needs: [bun-version, docker, build, secret-scan, helm-validate, actionlint]
-    permissions:
-      contents: read
-      packages: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-docker.yml@v2
-    with:
-      bun_version: ${{ needs.bun-version.outputs.bun_version }}
-      dhi_login: true
-      platforms: linux/amd64
-      tag_prefix: pr-${{ github.event.number }}
-      push: true
-    secrets:
-      DHI_REGISTRY_USERNAME: ${{ secrets.DHI_REGISTRY_USERNAME }}
-      DHI_REGISTRY_PASSWORD: ${{ secrets.DHI_REGISTRY_PASSWORD }}
-
-  security-scan:
-    name: Security Scan
-    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
-    needs: docker-push
-    permissions:
-      contents: read
-      packages: read
       security-events: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-security-scan.yml@v2
+    uses: ./.github/workflows/docker-build-scan-push.yml
     with:
-      image_tag: ${{ needs.docker-push.outputs.image_tag }}
+      bun_version: ${{ needs.bun-version.outputs.bun_version }}
+      dhi_login: true
+      platform: linux/amd64
+      tag_prefix: pr-${{ github.event.number }}
+    secrets:
+      DHI_REGISTRY_USERNAME: ${{ secrets.DHI_REGISTRY_USERNAME }}
+      DHI_REGISTRY_PASSWORD: ${{ secrets.DHI_REGISTRY_PASSWORD }}
 
   deploy:
     name: Deploy Review App
     if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
-    needs: [docker-push, security-scan]
+    needs: container
     permissions:
       contents: read
       packages: read
@@ -166,7 +127,7 @@ jobs:
     # v2.0.3 resolved on 2026-09-16.
     uses: yongchenglow/ci-workflows/.github/workflows/review-deploy.yml@v2
     with:
-      image_tag: ${{ needs.docker-push.outputs.image_tag }}
+      image_tag: ${{ needs.container.outputs.image_tag }}
       review_id: pr-${{ github.event.number }}
       application_name: yongchenglow
       production_namespace: personal-site
