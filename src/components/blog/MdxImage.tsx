@@ -65,7 +65,7 @@ export const MdxLink = ({ href, children, ...props }: MdxLinkProps) => {
 				rel={isExternal ? "noopener noreferrer" : undefined}
 				className={
 					isExternal
-						? "text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200"
+						? "text-[#178fd7] hover:text-[#178fd7]/80 dark:text-blue-400/90 dark:hover:text-blue-300/90 transition-colors duration-200"
 						: "text-primary hover:underline"
 				}
 				{...props}
