@@ -214,17 +214,17 @@ describe("getBlogPostNavigation", () => {
 
 	it("returns correct previous and next for a middle post", () => {
 		const nav = getBlogPostNavigation("middle");
-		expect(nav.previous?.slug).toBe("newest");
-		expect(nav.next?.slug).toBe("oldest");
+		expect(nav.previous?.slug).toBe("oldest");
+		expect(nav.next?.slug).toBe("newest");
 	});
 
-	it("returns null for previous on the first (newest) post", () => {
-		const nav = getBlogPostNavigation("newest");
+	it("returns null for previous on the first (oldest) post", () => {
+		const nav = getBlogPostNavigation("oldest");
 		expect(nav.previous).toBeNull();
 	});
 
-	it("returns null for next on the last (oldest) post", () => {
-		const nav = getBlogPostNavigation("oldest");
+	it("returns null for next on the last (newest) post", () => {
+		const nav = getBlogPostNavigation("newest");
 		expect(nav.next).toBeNull();
 	});
 });

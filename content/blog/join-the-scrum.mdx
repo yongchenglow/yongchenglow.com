@@ -1,169 +1,120 @@
 ---
 title: "Join the Scrum"
-subtitle: "How do development teams work?"
-description: "Understanding how development teams work using the Scrum framework, including team structure, rituals, and best practices for agile development."
+subtitle: "How modern development teams plan, build, and learn with AI"
+description: "A practical guide to how Scrum teams understand problems, shape solutions, deliver in small increments, and use AI without surrendering human judgment."
 date: "2022-02-14"
-lastUpdated: "2026-04-21"
+lastUpdated: "2026-09-17"
 author: "yongchenglow"
-tags: ["agile", "scrum", "project-management", "teamwork", "ai", "mlops"]
+tags: ["agile", "scrum", "project-management", "teamwork", "ai"]
 image: "/img/team-ga2cffa5b1_1920.jpg"
 draft: false
 featured: false
 ---
 
-![team collaboration](/img/team-ga2cffa5b1_1920.jpg)
+![A development team collaborating](/img/team-ga2cffa5b1_1920.jpg)
 
-When a development team starts building a web application, what is the first thing they do? Start writing code? Not quite. So how does a typical development team actually work, and what rituals help them deliver high-quality software in record time?
+Imagine that a stakeholder asks your team to make user onboarding faster. The tempting response is to open a ticket and start coding. A more effective team pauses first. Where are users getting stuck? What outcome would count as an improvement? What is the smallest change that could test the team's assumptions?
 
-Most development teams operate using some form of [Agile methodology](https://www.wrike.com/project-management-guide/faq/what-is-agile-methodology-in-project-management/). One of the most common frameworks in the industry is [Scrum](https://www.scrum.org/resources/what-is-scrum). By adhering to Scrum, a team delivers software incrementally. This gives stakeholders the flexibility to review each increment periodically and make adjustments as needed.
+Only then does implementation begin.
 
-*An **increment** is a working, production-ready piece of software.*
+That sequence matters even more now that AI can generate plans, interfaces, code, tests, and documentation in minutes. Faster production is useful only when the team understands the problem. Otherwise, AI simply helps it build the wrong thing sooner.
 
-Before going further, I want to manage your expectations. What I am about to describe is my own interpretation, based on what has worked best for the teams I have been part of. Do not quote me to your employers. Instead, use this article to understand the concepts and how they fit together. Every team works slightly differently, and each should adapt their workflows to leverage the strengths of its members.
+This is where Scrum remains valuable. Its fundamentals do not change because the tools become faster. Make the work visible, deliver in small increments, inspect the result, and adapt. AI can support every step, but a person must remain accountable for every product, technical, and release decision. That boundary reflects the [NIST AI Risk Management Framework](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/), which emphasizes defined human roles, oversight, and responsibility for AI risks.
 
-For the full details, read the [Scrum Guide](https://scrumguides.org). What follows is my own brief overview for a working understanding.
+What follows is my interpretation of how Scrum works best in software teams. The framework is deliberately lightweight, so each team must complement it with the engineering and product practices its context requires. For the formal definition, read the [Scrum Guide](https://scrumguides.org/scrum-guide.html).
 
-## What is Scrum?
+## Scrum in Brief
 
-![scrum team](/img/what-is-scrum-team.png)
+![The accountabilities within a Scrum team](/img/what-is-scrum-team.png)
 
-A [Scrum team](https://scrumguides.org/scrum-guide.html#scrum-team) consists of up to 10 people:
+[Scrum](https://scrumguides.org/scrum-guide.html#scrum-definition) is a framework for solving complex problems through short learning loops. Work happens in fixed-length **Sprints** of one month or less. During each Sprint, the team creates at least one usable **Increment**. This is a concrete step towards the Product Goal that meets an agreed Definition of Done.
 
-- 1 Product Owner
-- 1 Scrum Master
-- The Development Team
+Scrum is built on three ideas.
 
-The **[Product Owner](https://scrumguides.org/scrum-guide.html#product-owner)** owns the [product backlog](https://scrumguides.org/scrum-guide.html#product-backlog) — a prioritized to-do list — and makes executive product decisions based on client and business needs.
+- **Transparency** makes the goals, work, and quality of the product visible.
+- **Inspection** asks the team and its stakeholders to examine progress and results frequently.
+- **Adaptation** means changing the plan when the evidence shows a better path.
 
-The **[Scrum Master](https://scrumguides.org/scrum-guide.html#scrum-master)** facilitates, advocates for, and coaches the team to ensure Scrum rules are followed and that the team works at a sustainable pace.
+A Scrum Team typically has 10 or fewer people. It is cross-functional, which means it collectively has the skills needed to create value, and self-managing, which means its members decide how to perform the work. Scrum defines three accountabilities.
 
-The **Development Team** a self-organized team, consisting of many cross-functional members responsible for the development of the product. It is important to note that the development team does not only contain software engineers, but whoever is needed to complete the task at hand. Although this means that members can easily come and go, it is important to consider the loss in working velocity when onboarding a new member, or when losing someone with experience.
+- The **Product Owner** is accountable for maximizing product value and managing the Product Backlog effectively.
+- The **Scrum Master** establishes Scrum and helps the team improve its effectiveness.
+- The **Developers** create the usable Increment and adapt their plan towards the Sprint Goal.
 
-Some of the more common roles that you may see in a Development Team includes:
+In Scrum, "Developers" does not mean software engineers alone. It includes everyone needed to produce the Increment, which might include designers, researchers, quality engineers, security specialists, data scientists, or operations engineers.
 
-- Project Manager
-- Designers
-- UI/UX Researcher
-- Backend Engineer
-- Frontend Engineer
-- Security Engineer
-- Devops Engineer
-- Quality Assurance Engineer
-- Hardware Engineer
-- Data Scientist
-- Business Analyst
-- Database Admin
-- Tech Lead
-- Tech Anchor
-- Architect
+Larger products can be served by several cohesive Scrum Teams sharing the same Product Goal, Product Backlog, and Product Owner. Scaling frameworks exist, but the principle is more important than the framework. Add teams without fragmenting the product's direction.
 
-Each team member has a slightly different role, and do not be surprised if someone wears several hats. A team also does not need to include every role listed above. If you want to dive deeper into any of these roles and the skills they require, I recommend [roadmap.sh](https://roadmap.sh/) — an excellent resource maintained by the open source community.
+Scrum intentionally does not prescribe how to conduct product discovery, design an API, test software, or deploy it. The workflow below combines formal Scrum events with complementary practices I have found useful. I will make the distinction clear as we go.
 
-## Scaling Up
+## 1. Understand the Problem
 
-![scrum of scrums](/img/scrum-of-scrums-01.png.webp)
+Before planning a Sprint, understand the outcome the product should create. Speak to users and stakeholders. Examine existing data. Record the constraints, open questions, and evidence that would change your mind.
 
-You may be wondering: if a Scrum team is capped at 10 people, how are tech companies so large? The answer is **[Scaled Scrum](https://www.scrum.org/resources/scaling-scrum)** — frameworks such as [Nexus](https://www.scrum.org/resources/nexus-guide), [LeSS](https://less.works/), or [SAFe](https://framework.scaledagile.com/) coordinate many Scrum teams. A Product Owner and Scrum Master can oversee one or several teams. Using [Airbnb](https://www.airbnb.com.sg) and its hosting, experience, and online experience products as an example, Scaled Scrum would split the work by product line:
+AI is useful here as a research assistant. It can summarize interview notes, group recurring complaints, compare findings across sources, and suggest questions the team has not asked. This can reduce the time spent sorting information, but it does not turn weak evidence into strong evidence. The [DORA AI Capabilities Model](https://cloud.google.com/blog/products/ai-machine-learning/introducing-doras-inaugural-ai-capabilities-model) likewise identifies user focus as a condition that improves the effect of AI adoption on team performance.
 
-1. Traveler
-2. Host
-3. Experience customers
-4. Experience teachers
-5. Online experience customer
-6. Online experience host
-7. Online experience livestream service
+Always return to the source material. A summary can omit an inconvenient detail or flatten a minority view into the dominant theme. Sensitive customer or company data should only be used with tools your organization has approved. The [NIST Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) recommends verifying sources and citations in generated outputs. That is good everyday advice for product work too.
 
-As Airbnb grows further, they may split these teams into smaller teams, each with a Product Owner managing a specific service. The following is an example of the services within the Traveler Product that each Scrum team might work on:
+The Product Owner remains accountable for the Product Goal and the ordering of the Product Backlog. AI can help organize the evidence, but it cannot decide what customers value or which trade-off the business should make.
 
-1. Payment Gateway
-2. Booking
-3. Search
-4. Automations e.g. reminders and emails
-5. Authentication
+## 2. Shape a Rough Solution
 
-## Scrum Rituals
+Once the problem is understood, shape enough of a solution to expose its difficult parts. This might mean sketching a user journey, mapping a data flow, defining an API contract, or building a disposable prototype.
 
-A Scrum team produces a working increment over a period of 1-4 weeks, known as a **[Sprint](https://scrumguides.org/scrum-guide.html#the-sprint)**. Sprint length is usually kept consistent to establish rhythm and a predictable release cadence. The core Sprint rituals:
+Design reviews, technical planning sessions, and technical spikes can help with this work, but they are complementary practices rather than formal Scrum events. Their purpose is not to produce a perfect specification. It is to discover expensive assumptions before the team commits to implementation.
 
-| Event | Max Duration | Frequency | Compulsory Attendees |
-|-------|--------------|-----------|----------------------|
-| Sprint Planning | 2 hours per week | Once per sprint | All |
-| Daily Scrum | 15 mins per day | Daily | Development Team |
-| Sprint Review | 1 hour per week | Once per sprint | All |
-| Sprint Retrospective | 45 mins per week | Once per sprint | All |
+AI can propose alternative designs, generate a prototype, identify edge cases, or challenge an architecture. Ask it to explain the trade-offs between options rather than simply requesting the "best" answer. Its recommendations are only as reliable as the context it receives, and it will not understand undocumented constraints.
 
-*E.g. A 4-week sprint should have a maximum of 2 × 4 = 8 hours of Sprint Planning.*
+A human should choose the design, record the important trade-offs, and decide when the team knows enough to proceed. The goal is a shared direction, not false certainty.
 
-**[Sprint Planning](https://scrumguides.org/scrum-guide.html#sprint-planning)** happens before the sprint begins. The team re-prioritizes the Product Backlog and selects items for the [Sprint Goal](https://scrumguides.org/scrum-guide.html#sprint-goal) they commit to completing. The development team also drafts a plan for how to achieve that goal.
+## 3. Plan the Sprint
 
-The **[Daily Scrum](https://scrumguides.org/scrum-guide.html#daily-scrum)** is a short standup to monitor progress and surface blockers. Each person answers three questions:
+[Sprint Planning](https://scrumguides.org/scrum-guide.html#sprint-planning) answers three questions.
 
-1. What did you do yesterday?
-2. What will you be doing today?
-3. Are there any impediments in the way?
+1. Why is this Sprint valuable?
+2. What can be completed during it?
+3. How will the selected work get done?
 
-The **[Sprint Review](https://scrumguides.org/scrum-guide.html#sprint-review)** is where the increment is showcased to stakeholders. Stakeholders inspect the work, raise questions or concerns, and suggest adjustments.
+The whole Scrum Team defines the Sprint Goal. The Developers select the Product Backlog items and create the delivery plan. This matters because the people doing the work have the clearest view of its complexity, their capacity, and the Definition of Done.
 
-The **[Sprint Retrospective](https://scrumguides.org/scrum-guide.html#sprint-retrospective)** is a reflection on how the team worked during the sprint. Three questions:
+AI can flag vague backlog items, missing acceptance criteria, hidden dependencies, or work that may be too large for one Sprint. It can suggest a first decomposition, but it should not make commitments on the team's behalf. A plausible estimate from a model is not evidence that the team can deliver it.
 
-1. What went well?
-2. What did not go so well?
-3. What can we do differently to improve our velocity in the next sprint?
+Before introducing AI, automate the predictable coordination. At Glints, I connected GitLab, Jira, and Lark so that creating a branch moved its Jira card to implementation. Assigning a reviewer moved the card to review and sent that person the relevant links. This follows the familiar trigger-and-action model documented by [Jira automation](https://www.atlassian.com/software/jira/guides/automation/overview) and [GitLab webhooks](https://docs.gitlab.com/user/project/integrations/webhook_events/).
 
-## Additional Rituals
+That workflow was not AI, and that is the point. A deterministic rule is cheaper, easier to audit, and more reliable when the same input should always produce the same result. Start there. Add AI when the task requires interpretation, such as finding ambiguity in a story or summarizing a long discussion.
 
-![bonus](/img/bonus-gf0956773a_1280.png)
+## 4. Build and Coordinate
 
-Some companies add extra rituals to help the team maintain a stable velocity. These include:
+During the Sprint, the [Daily Scrum](https://scrumguides.org/scrum-guide.html#daily-scrum) gives the Developers 15 minutes to inspect progress towards the Sprint Goal and adapt their plan. It is not a status report to a manager, and Scrum does not require everyone to answer three fixed questions. The team can use any format that produces an actionable plan.
 
-A **Mid-Sprint Review** (also called a [Sprint Checkpoint](https://www.scrum.org/resources/sprint-review)) is usually held halfway through the sprint. It checks whether there is a risk of missing the sprint goal and, if so, allows the team to make adjustments.
+AI can prepare a digest of changes, blockers, failed builds, and open reviews before the Daily Scrum. That saves gathering time, but the digest should not replace the conversation. A blocker that never appeared in a tool will never appear in its summary.
 
-A **Tech Bounce** (also called a [Design Review](https://www.agilealliance.org/glossary/design-review/) or [Technical Planning](https://www.scaledagileframework.com/technical-planning/)) may be useful if the development team is mixed with non-technical members. This session is carved out of Sprint Planning to align on technical specifications such as database design, API request and response shapes, and frontend/backend validations. The goal is to get engineers on the same page so that frontend and backend work can proceed concurrently. Those not involved in the Tech Bounce run their own variants — for example, designers and UX researchers align on discovery tasks and hypotheses, while QA plans out their automation testing strategy.
+During implementation, AI can help draft code, tests, documentation, migration plans, and review comments. The leverage is real, but so is the verification cost. [DORA's 2025 research](https://dora.dev/research/2025/dora-report/) describes AI as an amplifier of an organization's existing strengths and weaknesses. Teams with clear workflows, fast feedback, and strong testing can benefit. Teams with fragile practices can create technical debt faster.
 
-A **Tech Spike** (a term from [Extreme Programming](https://martinfowler.com/bliki/TechnicalSpike.html)) may be done before the Tech Bounce to make sure the technical design for the current or next sprint is efficient and scalable. Examples include database design work, performance optimization, and vulnerability research.
+Keep changes small enough to understand, test, and review. DORA identifies [working in small batches](https://dora.dev/capabilities/working-in-small-batches/) as a way to shorten feedback loops and reduce the instability associated with AI-assisted delivery. Generated code must meet the same Definition of Done as human-written code. Quality engineers remain essential. AI can help execute checks, while people decide what risks matter and whether the evidence is sufficient.
 
-## AI and Scrum
+## 5. Review and Release
 
-AI is reshaping how software teams operate, from the roles people play to the tools they use and the products they ship.
+The [Sprint Review](https://scrumguides.org/scrum-guide.html#sprint-review) is a working session with stakeholders. The team inspects the outcome, discusses what has changed, and adapts the Product Backlog. It should not be reduced to a polished demonstration in which feedback arrives too late to matter.
 
-### AI's Impact on Dev Team Roles
+AI can draft release notes from verified changes, prepare a first summary of the Increment, and organize stakeholder feedback after the session. A person should confirm every claim against what actually shipped. The team should also read the original feedback. Clustering comments is convenient, but an unusual observation may contain the most important insight.
 
-AI coding assistants like [GitHub Copilot](https://github.com/features/copilot) and [Cursor](https://cursor.com) have shifted what developers spend their time on. Writing boilerplate, debugging common errors, and querying APIs are now partially handled by AI. Developers increasingly focus on system design, architecture decisions, and reviewing AI-generated code.
+An Increment may be released before the Sprint Review. The review is a feedback opportunity, not a release gate. Release decisions still belong to the people accountable for product value, engineering quality, security, and operations.
 
-For me, documentation is fully handled by my ZeroClaw agent. A few days ago, an AWS representative asked how I start my day. My answer seemed to stun them, I begin my day by reviewing merge requests from my agents that worked throughout the night.
+## 6. Reflect and Improve
 
-Quality Assurance engineers have seen the biggest disruption from AI powered tools. Ironically, when the AI boom started, some companies cut their QA teams. I suspect those companies are now regretting that decision. With software shipping faster than ever, [QA became the guardian preventing AI slop](https://www.theverge.com/2023/3/15/23638180/ai-generated-content-quality-problems-chatgpt) from reaching production.
+The [Sprint Retrospective](https://scrumguides.org/scrum-guide.html#sprint-retrospective) closes the Sprint by examining how the team worked and planning ways to improve quality and effectiveness. A useful retrospective moves beyond listing what went well and badly. It identifies a change the team can try, an owner, and a way to tell whether the change helped.
 
-While AI powered tools can generate test cases, automate regression testing, and detect anomalies in production, QA engineers are evolving into test strategists, deciding *what* to test and *when*, while AI handles the *how*. On the *how* I still believe in code. AI can control a mouse and use screenshots to identify what to click, but writing code to do the same thing is far more cost effective than LLMs interpreting screenshots and moving a cursor.
+AI can group anonymous notes, compare themes across several Sprints, and draft possible actions. It must not become an authority on team dynamics. Summaries can erase disagreement, and sensitive reflections should not be sent to an external model without the team's knowledge and consent.
 
-With the help of AI, a two person team can now ship products that previously required ten people. AI fills gaps in frontend, backend, DevOps, and even light data work. I believe the leverage is asymmetric, smaller teams gain more from AI than large, well-resourced ones. My reasoning is that smaller teams need less coordination. Splitting frontend and backend across two engineers eventually requires integration work. It makes more sense for one developer to build an entire feature so that the planning of the frontend and backend application is cohesive. If it was split amongst two engineers there is a risk that different people may have built two systems that do not integrate well with each other, slowing the process down.
+The team chooses the improvement and follows through. An AI-generated action list with no owner is merely faster paperwork.
 
-### AI Tools in Scrum Rituals
+## AI Does Not Change the Point of Scrum
 
-Scrum rituals are getting AI assistance too. Tools like [Geekbot](https://geekbot.com) run asynchronous standups, compiling answers into a digest without requiring everyone online at the same time. Sprint planning gains AI-assisted backlog refinement, surfacing dependencies, estimating effort, and flagging ambiguous user stories.
+The aim is not to make every activity faster. It is to shorten the path to reliable feedback.
 
-Retrospectives get AI analysis. Tools like [Parabol](https://www.parabol.co) use AI to cluster feedback, identify recurring themes, and suggest action items from open-ended team comments.
+Scrum gives a team a goal, a small batch of work, a usable result, and regular opportunities to inspect and adapt. Product discovery and rough design help the team start in a sensible direction. Engineering practices make the Increment safe to release. Deterministic automation removes routine coordination, while AI assists with work that benefits from synthesis, critique, or generation.
 
-Sprint reviews benefit from AI-generated release notes. Instead of manually documenting what shipped, AI diffs the increment against the previous version and drafts the summary.
+None of these tools removes accountability. AI may research, draft, summarize, challenge, and check. People still decide what matters, what is true, what is safe, and what ships.
 
-These tools do not replace human judgment, they reduce administrative overhead so the team spends more time on delivering work. After all, most of he time, management requires a write up on progress updates on where the product is going. Having these AI tool automate some of the processes gives everybody in the scrum team more time to make an impact than doing mundane paperwork.
-
-In my previous company Glints, I managed to implement a workflow using [Lark Anycross](https://www.larksuite.com/document/home) to sync Gitlab, Lark and Jira together. For example, opening a branch will move the Jira card to implementing, assigning a reviewer in Gitlab will move the Jira card to review and send a message to the reviewer with the necessary links such as Jira Card, merge request and the review application.
-
-### Building AI-Powered Products
-
-Building AI-powered products is challenging. Evaluation speed and update frequency are constant concerns. Every model behaves differently, the same system prompt that yields 95% accuracy on [GPT-3](https://openai.com/index/gpt-3-5-and-gpt-4-launch/) may produce worse results on [GPT-4](https://openai.com/index/gpt-4/). Upgrading to a newer model does not guarantee improvement. Therefore it is very important to have automated testing, this ensures that your tests are replicable so that when newer models ship, you can run evaluations and make necessary tweaks quickly.
-
-A new model launch also disrupts product workflow. Since nobody knows exactly when a model will release, the traditional backlog-driven approach often fails. Users expect new models like Opus 4.6 to appear in their application within days of launch if not hours. Missing a major release window risks losing users to competitors. To ensure product competitiveness, teams will sometimes need to break the traditional development cycle, and management needs to understand that timelines will need to be prolonged when new model integrations land unexpectedly.
-
-## Conclusion
-
-Scrum is not a perfect framework, it is one of many tools available to teams. Its strength lies in structure and predictability, making it ideal for teams that need clear accountability, regular stakeholder checkpoints, and measurable sprint outcomes. However, structure can become bureaucracy if the team does not actively reflect and adapt.
-
-In my experience, Scrum rituals are far more effective when working remotely. In a remote setup, everyone works at their own pace, these rituals create shared checkpoints for the team to sync up. In a physical workplace where teammates sit side by side and talk constantly, rituals like the Daily Scrum can lose their value.
-
-While Scrum is one of the most popular delivery frameworks, other agile methods exist, [Kanban](https://www.atlassian.com/agile/kanban) for continuous flow, [Extreme Programming](http://www.extremeprogramming.org/) for engineering practices, and [Lean](https://www.atlassian.com/agile/project-management/lean-portfolio-management) for waste reduction. [Shape Up](https://basecamp.com/shapeup) from Basecamp takes a different angle entirely: 6-week "bake" cycles with fixed capacity, appetite-based scope-setting, and hill charts instead of burndown tracking. It works well for teams that want forward momentum without the overhead of sprint planning.
-
-Beyond agile, some companies skip it entirely and favour [the waterfall method](https://www.atlassian.com/agile/project-management/waterfall) for projects with rigid requirements and compliance needs.
-
-Ultimately, the best framework is the one your team will actually follow. Pick one, run with it, and course correct as you learn what works for your context.
+Scrum is not the right framework for every team, and following its events mechanically will not create agility. Its value lies in disciplined learning. Build something small, confront reality, and change course while change is still affordable. That principle becomes more important, not less, when software can be produced at unprecedented speed.
