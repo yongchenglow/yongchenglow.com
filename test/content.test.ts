@@ -1,7 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import matter from "gray-matter";
+import { BLOG_CATEGORIES } from "@/src/config/blog";
 import { BLOG_POST_FILENAME_PATTERN } from "@/src/config/blog-content";
 import {
 	AboutSchema,
@@ -13,6 +14,37 @@ import {
 const contentDir = join(process.cwd(), "content");
 
 describe("Content JSON Validation", () => {
+	it("rejects blog dates that are not real ISO calendar dates", () => {
+		const validFrontmatter = {
+			title: "Title",
+			description: "Description",
+			date: "2026-09-19",
+			author: "yongchenglow",
+		};
+
+		for (const date of ["September 19, 2026", "2026-9-19", "2026-02-30"]) {
+			expect(
+				BlogFrontmatterSchema.safeParse({ ...validFrontmatter, date }).success,
+				date,
+			).toBe(false);
+		}
+	});
+
+	it("rejects a last-updated date before the publication date", () => {
+		const result = BlogFrontmatterSchema.safeParse({
+			title: "Title",
+			description: "Description",
+			date: "2026-09-19",
+			lastUpdated: "2026-09-18",
+			author: "yongchenglow",
+		});
+
+		expect(result.success).toBe(false);
+		if (!result.success) {
+			expect(result.error.issues[0].path).toEqual(["lastUpdated"]);
+		}
+	});
+
 	it("about.json should match AboutSchema", () => {
 		const content = readFileSync(join(contentDir, "about.json"), "utf-8");
 		const data = JSON.parse(content);
@@ -121,6 +153,39 @@ describe("Content JSON Validation", () => {
 			}
 
 			expect(result.data).toBeDefined();
+		}
+	});
+
+	it("blog posts reference existing authors and local images", () => {
+		const blogDir = join(contentDir, "blog");
+		const files = readdirSync(blogDir).filter((file) =>
+			BLOG_POST_FILENAME_PATTERN.test(file),
+		);
+
+		for (const file of files) {
+			const source = readFileSync(join(blogDir, file), "utf8");
+			const frontmatter = BlogFrontmatterSchema.parse(matter(source).data);
+
+			expect(
+				existsSync(join(contentDir, "authors", `${frontmatter.author}.json`)),
+				`${file} author ${frontmatter.author}`,
+			).toBe(true);
+
+			if (frontmatter.image) {
+				expect(frontmatter.image.startsWith("/"), `${file} image path`).toBe(
+					true,
+				);
+				expect(
+					existsSync(join(process.cwd(), "public", frontmatter.image)),
+					`${file} image ${frontmatter.image}`,
+				).toBe(true);
+			}
+		}
+	});
+
+	it("category configuration keys match their public slugs", () => {
+		for (const [key, category] of Object.entries(BLOG_CATEGORIES)) {
+			expect(category.slug, key).toBe(key);
 		}
 	});
 });

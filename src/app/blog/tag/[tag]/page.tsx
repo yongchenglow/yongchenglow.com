@@ -14,7 +14,7 @@ export const generateMetadata = async ({ params }: TagPageProps) => {
 	return {
 		title: `Tag: ${tag}`,
 		alternates: {
-			canonical: `/blog/tag/${tag}`,
+			canonical: `/blog/tag/${encodeURIComponent(tag)}`,
 		},
 	};
 };

@@ -190,6 +190,7 @@ export const getBlogPostNavigation = (
 } => {
 	const allPosts = getAllBlogPosts();
 	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
+	if (currentIndex === -1) return { previous: null, next: null };
 
 	// Posts are sorted newest-first, while navigation follows publication order.
 	// The previous post is older (a higher index), and the next post is newer.

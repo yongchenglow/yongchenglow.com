@@ -41,5 +41,10 @@ export const getImagePlaceholder = (src: string): string => {
  * Format a date string to locale date format.
  */
 export const formatDate = (dateString: string): string => {
-	return new Date(dateString).toLocaleDateString();
+	return new Date(dateString).toLocaleDateString("en-SG", {
+		day: "numeric",
+		month: "short",
+		year: "numeric",
+		timeZone: "UTC",
+	});
 };

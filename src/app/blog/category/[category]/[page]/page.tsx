@@ -63,7 +63,7 @@ export const CategoryPageWithPagination = async ({
 	const pageNumber = Number.parseInt(page, 10);
 
 	// Validate page number
-	if (Number.isNaN(pageNumber) || pageNumber < 1) {
+	if (!/^[1-9]\d*$/.test(page) || Number.isNaN(pageNumber)) {
 		notFound();
 	}
 
@@ -75,8 +75,9 @@ export const CategoryPageWithPagination = async ({
 
 	const paginationResult = getPaginatedPostsByCategory(category, pageNumber);
 
-	// If page is out of bounds, throw error
-	if (paginationResult.items.length === 0 && pageNumber > 1) {
+	// The data helper clamps API consumers to the final page, but a page route
+	// outside the generated range is not a canonical URL.
+	if (pageNumber > Math.max(paginationResult.totalPages, 1)) {
 		notFound();
 	}
 

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { getBlurDataURL, getImagePlaceholder } from "@/src/lib/utils";
+import {
+	formatDate,
+	getBlurDataURL,
+	getImagePlaceholder,
+} from "@/src/lib/utils";
 
 /**
  * Tests for image rendering performance utilities.
@@ -82,5 +86,11 @@ describe("Image Placeholder Utilities", () => {
 			expect(decoded).toContain("<rect");
 			expect(decoded).toContain("fill=");
 		});
+	});
+});
+
+describe("formatDate", () => {
+	it("formats a calendar date deterministically for the site locale", () => {
+		expect(formatDate("2026-09-19")).toBe("19 Sep 2026");
 	});
 });

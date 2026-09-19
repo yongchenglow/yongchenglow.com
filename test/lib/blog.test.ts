@@ -1,9 +1,12 @@
-import { beforeEach, describe, expect, it, mock } from "bun:test";
+import { afterAll, beforeEach, describe, expect, it, mock } from "bun:test";
 import { vi } from "../bun-test-utils";
 
 // Must mock before importing the module under test
 const actualFs = await import("node:fs");
 const actualPath = await import("node:path");
+const realReaddirSync = actualFs.default.readdirSync.bind(actualFs.default);
+const realExistsSync = actualFs.default.existsSync.bind(actualFs.default);
+const realReadFileSync = actualFs.default.readFileSync.bind(actualFs.default);
 
 const fs = {
 	...actualFs.default,
@@ -60,6 +63,13 @@ beforeEach(() => {
 	fs.readFileSync.mockReset();
 	// Blog data is memoized at module scope; clear it so each test's fs
 	// fixtures are actually read rather than served from a previous test.
+	resetBlogCache();
+});
+
+afterAll(() => {
+	fs.readdirSync.mockImplementation(realReaddirSync);
+	fs.existsSync.mockImplementation(realExistsSync);
+	fs.readFileSync.mockImplementation(realReadFileSync);
 	resetBlogCache();
 });
 
@@ -240,6 +250,13 @@ describe("getBlogPostNavigation", () => {
 	it("returns null for next on the last (newest) post", () => {
 		const nav = getBlogPostNavigation("newest");
 		expect(nav.next).toBeNull();
+	});
+
+	it("returns no navigation for a slug outside the published collection", () => {
+		expect(getBlogPostNavigation("missing-post")).toEqual({
+			previous: null,
+			next: null,
+		});
 	});
 });
 
