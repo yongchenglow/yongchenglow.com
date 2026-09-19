@@ -4,11 +4,11 @@ import { Button } from "@/src/components/shared/ui/button";
 
 export const BlogBackButton = () => {
 	return (
-		<div className="flex justify-end mb-6">
-			<Button variant="ghost" size="sm" asChild>
+		<div className="mb-6 flex justify-start">
+			<Button variant="ghost" size="sm" className="min-h-11" asChild>
 				<InternalLink href="/blog">
-					<ArrowLeft className="mr-2 h-4 w-4" />
-					Back
+					<ArrowLeft aria-hidden="true" />
+					All articles
 				</InternalLink>
 			</Button>
 		</div>

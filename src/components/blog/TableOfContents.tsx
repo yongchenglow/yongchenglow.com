@@ -1,6 +1,8 @@
 "use client";
 
+import { ChevronRight, ListTree } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Button } from "@/src/components/shared/ui/button";
 import {
 	Card,
 	CardContent,
@@ -8,6 +10,13 @@ import {
 	CardTitle,
 } from "@/src/components/shared/ui/card";
 import { ScrollArea } from "@/src/components/shared/ui/scroll-area";
+import {
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/src/components/shared/ui/sheet";
 
 interface TocItem {
 	id: string;
@@ -16,7 +25,7 @@ interface TocItem {
 }
 
 interface TableOfContentsProps {
-	variant?: "inline" | "sidebar";
+	variant?: "drawer" | "inline" | "sidebar";
 }
 
 export const TableOfContents = ({
@@ -24,6 +33,7 @@ export const TableOfContents = ({
 }: TableOfContentsProps) => {
 	const [headings, setHeadings] = useState<TocItem[]>([]);
 	const [activeId, setActiveId] = useState<string>("");
+	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	useEffect(() => {
 		// Extract all h2 and h3 headings from the page
@@ -72,8 +82,11 @@ export const TableOfContents = ({
 					>
 						<a
 							href={`#${heading.id}`}
+							onClick={() => {
+								if (variant === "drawer") setDrawerOpen(false);
+							}}
 							className={
-								variant === "sidebar"
+								variant !== "inline"
 									? `block text-sm transition-colors border-l-2 pl-3 py-0.5 ${
 											activeId === heading.id
 												? "text-primary font-semibold pl-3"
@@ -102,6 +115,33 @@ export const TableOfContents = ({
 				</p>
 				{navContent}
 			</ScrollArea>
+		);
+	}
+
+	if (variant === "drawer") {
+		return (
+			<Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+				<SheetTrigger asChild>
+					<Button
+						variant="outline"
+						className="h-auto w-full justify-between px-4 py-3"
+					>
+						<span className="flex items-center gap-2">
+							<ListTree aria-hidden="true" />
+							On this page
+						</span>
+						<ChevronRight aria-hidden="true" />
+					</Button>
+				</SheetTrigger>
+				<SheetContent side="right" className="w-[min(24rem,90vw)]">
+					<SheetHeader>
+						<SheetTitle>On this page</SheetTitle>
+					</SheetHeader>
+					<ScrollArea className="mt-6 h-[calc(100vh-7rem)] pr-4">
+						{navContent}
+					</ScrollArea>
+				</SheetContent>
+			</Sheet>
 		);
 	}
 

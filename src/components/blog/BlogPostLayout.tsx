@@ -32,44 +32,50 @@ export const BlogPostLayout = ({
 	return (
 		<StandardLayout>
 			<ReadingProgress pageTitle={frontmatter.title} />
-			<PostContainer>
-				{/* Back Button */}
-				<BlogBackButton />
+			<PostContainer className="max-w-[88rem] md:max-w-[88rem] lg:max-w-[88rem]">
+				<div className="mx-auto max-w-3xl">
+					{/* Back Button */}
+					<BlogBackButton />
 
-				{/* Header Section */}
-				<PostHeader title={frontmatter.title} subtitle={frontmatter.subtitle} />
+					{/* Header Section */}
+					<PostHeader
+						title={frontmatter.title}
+						subtitle={frontmatter.subtitle}
+					/>
 
-				{/* Metadata Bar */}
-				<div className="flex flex-wrap gap-2 justify-center items-center mb-4">
-					<PostMetadata>Published: {formatDate(frontmatter.date)}</PostMetadata>
-					{frontmatter.lastUpdated && (
+					{/* Metadata Bar */}
+					<div className="flex flex-wrap gap-2 justify-center items-center mb-4">
 						<PostMetadata>
-							Updated: {formatDate(frontmatter.lastUpdated)}
+							Published: {formatDate(frontmatter.date)}
 						</PostMetadata>
-					)}
-					<PostMetadata>{readingTime}</PostMetadata>
-				</div>
-
-				{/* Tags */}
-				{frontmatter.tags && frontmatter.tags.length > 0 && (
-					<div className="flex flex-wrap gap-2 justify-center mb-6">
-						{frontmatter.tags.map((tag) => (
-							<InternalLink key={tag} href={`/blog/tag/${tag}`}>
-								<Badge variant="secondary">{tag}</Badge>
-							</InternalLink>
-						))}
+						{frontmatter.lastUpdated && (
+							<PostMetadata>
+								Updated: {formatDate(frontmatter.lastUpdated)}
+							</PostMetadata>
+						)}
+						<PostMetadata>{readingTime}</PostMetadata>
 					</div>
-				)}
 
-				{/* Mobile TOC */}
-				<div className="lg:hidden mb-6">
-					<TableOfContents variant="inline" />
+					{/* Tags */}
+					{frontmatter.tags && frontmatter.tags.length > 0 && (
+						<div className="flex flex-wrap gap-2 justify-center mb-6">
+							{frontmatter.tags.map((tag) => (
+								<InternalLink key={tag} href={`/blog/tag/${tag}`}>
+									<Badge variant="secondary">{tag}</Badge>
+								</InternalLink>
+							))}
+						</div>
+					)}
+
+					{/* Expandable TOC below wide desktop */}
+					<div className="xl:hidden mb-6">
+						<TableOfContents variant="drawer" />
+					</div>
 				</div>
 
-				{/* Two-column layout on large screens */}
-				<div className="lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-12 lg:items-start">
-					{/* Main Content */}
-					<div className="min-w-0">
+				{/* Symmetric rails keep the reading column centered in the viewport. */}
+				<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)] xl:gap-x-8 xl:items-start">
+					<div className="min-w-0 w-full max-w-3xl mx-auto xl:col-start-2">
 						<article className="prose dark:prose-invert">{children}</article>
 
 						{/* Advertisement */}
@@ -79,8 +85,8 @@ export const BlogPostLayout = ({
 						<BlogNavigation previousPost={previousPost} nextPost={nextPost} />
 					</div>
 
-					{/* Sidebar TOC (desktop only) */}
-					<aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
+					{/* Sidebar TOC (wide desktop only) */}
+					<aside className="hidden xl:block xl:col-start-3 xl:sticky xl:top-24 xl:self-start">
 						<TableOfContents variant="sidebar" />
 					</aside>
 				</div>

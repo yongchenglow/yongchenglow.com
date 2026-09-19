@@ -3,7 +3,7 @@ title: "Single Source of Truth"
 subtitle: "Creating a reliable Database"
 description: "Learn essential database design principles including constraints, normalization, and best practices for creating a reliable single source of truth for your web application."
 date: "2022-02-28"
-lastUpdated: "2026-04-27"
+lastUpdated: "2026-09-18"
 author: "yongchenglow"
 tags: ["database", "sql", "postgresql", "normalization", "best-practices"]
 image: "/img/database-schema-gf6a494e82_1280.png"
@@ -15,7 +15,7 @@ featured: false
 
 [Single source of truth](https://en.wikipedia.org/wiki/Single_source_of_truth) is one of the most important principles in software engineering. In web applications, that source of truth **is** the database and getting the design wrong is expensive to fix later.
 
-To keep things simple, I will mainly put my focus on SQL databases, using [PostgreSQL](https://www.postgresql.org/) for my examples. Other engines like [Oracle](https://docs.oracle.com/en/database/oracle/oracle-database/) have slightly different syntax, but the principles carry over. To keep the article short, we will only cover these 2 today:
+To keep things simple, I will mainly put my focus on SQL databases, using [PostgreSQL](https://www.postgresql.org/) for my examples. Other engines like [Oracle](https://docs.oracle.com/en/database/oracle/oracle-database/) have slightly different syntax, but the principles carry over. To keep the article short, we will only cover these two topics.
 1. constraints
 2. normalization
 
@@ -23,7 +23,7 @@ To keep things simple, I will mainly put my focus on SQL databases, using [Postg
 
 PostgreSQL is [open source](https://www.postgresql.org/about/licence/) and free to use, with no licensing costs or vendor lock-in. It is battle-tested in production at companies like [Apple](https://www.apple.com/), [Instagram](https://instagram-engineering.com/), and [Reddit](https://www.redditinc.com/), and consistently ranks among the [most loved databases](https://survey.stackoverflow.co/2024/technology#1-databases) in developer surveys.
 
-Performance is excellent out of the box, the query planner is mature, indexing options are rich (B-Tree, GIN, GiST, BRIN), and features like [parallel query execution](https://www.postgresql.org/docs/current/parallel-query.html) and [JIT compilation](https://www.postgresql.org/docs/current/jit.html) keep it competitive with commercial offerings. It also handles workloads beyond plain relational data: [JSONB](https://www.postgresql.org/docs/current/datatype-json.html) for document storage, [full-text search](https://www.postgresql.org/docs/current/textsearch.html), and [extensions](https://www.postgresql.org/docs/current/external-extensions.html) like PostGIS for geospatial queries.
+Performance is excellent out of the box, the query planner is mature, indexing options are rich (B-Tree, GIN, GiST, BRIN), and features like [parallel query execution](https://www.postgresql.org/docs/current/parallel-query.html) and [JIT compilation](https://www.postgresql.org/docs/current/jit.html) keep it competitive with commercial offerings. It also handles workloads beyond plain relational data, including [JSONB](https://www.postgresql.org/docs/current/datatype-json.html) for document storage, [full-text search](https://www.postgresql.org/docs/current/textsearch.html), and [extensions](https://www.postgresql.org/docs/current/external-extensions.html) like PostGIS for geospatial queries.
 
 For most web applications, PostgreSQL is a safe default and the principles in the rest of this article apply regardless of which engine you pick.
 
@@ -43,7 +43,7 @@ Cleaning and structuring happens downstream, in a [data warehouse](https://aws.a
 
 ### Application
 
-Choosing the right data type is the first line of defence. Before writing a single constraint, ask yourself:
+Choosing the right data type is the first line of defence. Before writing a single constraint, ask yourself the following questions.
 
 - **What values are valid?** A price can't be negative. An age can't be 10,000. A status field probably has a fixed set of options.
 - **How unique does this need to be?** A username should be unique across all users. An order line item should be unique per order.
@@ -51,17 +51,20 @@ Choosing the right data type is the first line of defence. Before writing a sing
 - **What is the maximum length?** Unbounded text columns invite abuse. Cap strings at a sensible limit.
 - **Is there a better type than a string?** Storing a boolean as `"true"`/`"false"`, a date as `"2024-01-01"`, or a currency as a float are all common mistakes that constraints cannot fully compensate for. Use the right type from the start.
 
-For example, a username should use a character-varying type capped at a sensible length, since it is never null and must be unique:
+For example, a username should use a character-varying type capped at a sensible length because it is never null and must be unique. The table could look like this.
 
 ```sql
-CREATE TABLE users(id serial primary key, username varchar(50) not null unique);
+CREATE TABLE users (
+  id serial PRIMARY KEY,
+  username varchar(50) NOT NULL UNIQUE
+);
 ```
 
 These decisions compound. A well-typed schema catches invalid data before it reaches any constraint, and makes the constraints you do write simpler and more reliable.
 
 ### Checks
 
-Beyond built-in data types, you can attach custom constraints. To store a product price — which must be non-negative with two decimal places — combine the `numeric` type with a `CHECK`:
+Beyond built-in data types, you can attach custom constraints. To store a product price that must be non-negative with two decimal places, combine the `numeric` type with a `CHECK` as shown below.
 
 ```sql
 CREATE TABLE products (
@@ -79,26 +82,34 @@ CREATE TABLE products (
 
 ### Foreign Keys
 
-**[Foreign keys](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK)** reference a primary key in another table. You control what happens when that referenced row is deleted:
+**[Foreign keys](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK)** reference a primary key or another unique key. PostgreSQL already indexes that referenced key, but it does not automatically index the foreign-key columns in the referencing table. Those indexes are often worthwhile because they speed up joins and equality lookups, and help PostgreSQL find referencing rows when a referenced value is updated or deleted.
+
+The following example controls what happens when a referenced product or order is deleted.
 
 ```sql
 CREATE TABLE order_items (
-    product_id integer REFERENCES products ON DELETE RESTRICT,
-    order_id integer REFERENCES orders ON DELETE CASCADE,
-    quantity integer,
-    PRIMARY KEY (product_id, order_id)
+  product_id integer REFERENCES products ON DELETE RESTRICT,
+  order_id integer REFERENCES orders ON DELETE CASCADE,
+  quantity integer,
+  PRIMARY KEY (product_id, order_id)
 );
+
+CREATE INDEX order_items_order_id_idx ON order_items (order_id);
 ```
+
+The primary key automatically creates a unique B-tree index on `(product_id, order_id)`. That index supports lookups by both columns and by its leading `product_id` column, but it is generally not efficient for `order_id` alone. The separate index on `order_id` prevents order-based joins and `ON DELETE CASCADE` from having to scan a growing `order_items` table.
+
+[B-tree indexes](https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES-BTREE) are the usual default even when queries only use `=`. Hash indexes support equality comparisons, but their narrower feature set does not make them automatically faster. Consider a [hash index](https://www.postgresql.org/docs/current/hash-index.html) only after measuring a specialized equality-only workload with real data.
 
 | Action | Behavior |
 |--------|----------|
-| NO ACTION (default) | Prevents deletion of the referenced row |
-| RESTRICT | Same as NO ACTION, checked immediately |
+| NO ACTION (default) | Rejects the deletion if the constraint is still violated when checked; the check can be deferred |
+| RESTRICT | Rejects the deletion immediately and cannot be deferred |
 | CASCADE | Deletes all referencing rows automatically |
 
 ### Not Null
 
-The **[NOT NULL](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-NOT-NULL)** constraint rejects null values. Note that [null is not the same as an empty string](https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NULL_and_empty_string_interchangeably). To reject both, pair `NOT NULL` with a length check:
+The **[NOT NULL](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-NOT-NULL)** constraint rejects null values. Note that [null is not the same as an empty string](https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NULL_and_empty_string_interchangeably). To reject both, pair `NOT NULL` with a length check as shown below.
 
 ```sql
 CREATE TABLE users (
@@ -109,20 +120,19 @@ CREATE TABLE users (
 
 ### Unique
 
-The **[UNIQUE](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS)** constraint ensures every value in a column is distinct. It can also span multiple columns. Consider a favorites table where users save listings — a composite unique constraint on `user_id` and `flat_id` prevents duplicate saves:
+The **[UNIQUE](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS)** constraint ensures every value in a column is distinct. It can also span multiple columns. Consider a favorites table where users save listings. A composite unique constraint on `user_id` and `flat_id` prevents duplicate saves, as shown below.
 
-```ruby
-class CreateFavorites < ActiveRecord::Migration[6.1]
-  def change
-    create_table :favorites do |t|
-      t.references :user, null: false, foreign_key: true, index: true
-      t.references :flat, null: false, foreign_key: true, index: true
-      t.timestamps
-    end
-    add_index :favorites, [:user_id, :flat_id], unique: true
-  end
-end
+```sql
+CREATE TABLE favorites (
+  user_id integer NOT NULL REFERENCES users (id),
+  flat_id integer NOT NULL REFERENCES flats (id),
+  CONSTRAINT favorites_user_flat_unique UNIQUE (user_id, flat_id)
+);
+
+CREATE INDEX favorites_flat_id_idx ON favorites (flat_id);
 ```
+
+The unique constraint creates a B-tree index on `(user_id, flat_id)`, so another index on `user_id` would be redundant. The separate `flat_id` index supports lookups and foreign-key checks that filter by `flat_id` alone.
 
 ## Database Normalization
 
@@ -130,7 +140,7 @@ end
 
 **[Normalization](https://opentextbc.ca/dbdesign01/chapter/chapter-12-normalization/)** is a design technique that eliminates redundancy and prevents data anomalies.
 
-With column-level constraints covered, we turn to table structure. We'll work through the first three normal forms plus [Boyce-Codd Normal Form (BCNF)](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form) — typically enough depth for most production schemas and technical assessments. [Higher normal forms](https://www.guru99.com/database-normalization.html) exist but are beyond our scope here.
+With column-level constraints covered, we turn to table structure. We'll work through the first three normal forms plus [Boyce-Codd Normal Form (BCNF)](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form). This is typically enough depth for most production schemas and technical assessments. [Higher normal forms](https://www.guru99.com/database-normalization.html) exist but are beyond our scope here.
 
 For simplicity, assume columns without the word ID carry all information for that domain. For example a `Student` column represents the student's full profile (name, age, etc.).
 
@@ -141,20 +151,20 @@ For simplicity, assume columns without the word ID carry all information for tha
 - Every column and table has a unique name.
 - Row order carries no meaning.
 
-Consider a student grade report stored in one table:
+Consider the following student grade report stored in one table.
 
 ```sql
 Student_Grade_Report (StudentId, Student, Major, Advisor, [Course, Grade])
 ```
 
-One student takes many courses — so the `[Course, Grade]` pair violates the single-value rule. Split the table:
+One student takes many courses, so the `[Course, Grade]` pair violates the single-value rule. Split the table as follows.
 
 ```sql
 Student (StudentId, Student, Major, Advisor)
 StudentCourse (StudentId, Course, Grade)
 ```
 
-This isn't just tidiness. With the original design, two concurrent read-then-write operations can produce a [lost update](https://www.postgresql.org/docs/current/transaction-iso.html):
+This isn't just tidiness. With the original design, two concurrent read-then-write operations can produce the following [lost update](https://www.postgresql.org/docs/current/transaction-iso.html).
 
 ```bash
 Row1 = student, [course1, course2]
@@ -169,9 +179,9 @@ After splitting, updates to each table happen independently and safely.
 ## 2nd Normal Form
 
 - Must satisfy 1st Normal Form.
-- No partial dependencies — every non-key column depends on the entire primary key.
+- No partial dependencies. Every non-key column depends on the entire primary key.
 
-Two domains exist here: students and courses. Their relationship — which student takes which course, and the resulting grade — belongs in its own table:
+Two domains exist here, students and courses. Their relationship records which student takes each course and the resulting grade. It belongs in its own table, as shown below.
 
 ```sql
 Student (StudentId, Student, Major, Advisor)
@@ -186,7 +196,7 @@ Without this split, the same course name repeats across every student record tha
 - Must satisfy 2nd Normal Form.
 - No transitive dependencies, meaning a non-key columns must depend only on the primary key, not on other non-key columns.
 
-Examine the `Student` table from 2nd Normal Form. It holds two distinct concerns, the student profile, and their major with its advisor. Since a student can declare multiple majors, one student could appear in multiple rows. Separate them:
+Examine the `Student` table from 2nd Normal Form. It holds two distinct concerns, the student profile, and their major with its advisor. Since a student can declare multiple majors, one student could appear in multiple rows. Separate them as follows.
 
 ```sql
 Student (StudentId, Student)
@@ -197,7 +207,7 @@ Course (CourseId, Course)
 
 ### Boyce-Codd Normal Form
 
-BCNF is a stricter variant of 3rd Normal Form, and its application depends on business rules. Given these rules for the `StudentMajor` table:
+BCNF is a stricter variant of 3rd Normal Form, and its application depends on business rules. Consider the following rules for the `StudentMajor` table.
 
 1. A student can have multiple majors.
 2. For each major, a student has exactly one advisor.
@@ -209,7 +219,7 @@ BCNF is a stricter variant of 3rd Normal Form, and its application depends on bu
 StudentMajor (StudentId, Advisor, Major)
 ```
 
-This schema cannot enforce rule 4. There is nothing stopping an advisor from being associated with multiple majors. To make the rule enforceable, decompose further:
+This schema cannot enforce rule 4. There is nothing stopping an advisor from being associated with multiple majors. To make the rule enforceable, decompose it further as shown below.
 
 ```sql
 StudentAdvisor (StudentId, AdvisorId)
@@ -217,7 +227,7 @@ AdvisorMajor (AdvisorId, Advisor, MajorId)
 Major (MajorId, Major)
 ```
 
-Now a student has an advisor, an advisor belongs to exactly one major, and a major can have many advisors. The constraint is structural — the database enforces it automatically.
+Now a student has an advisor, an advisor belongs to exactly one major, and a major can have many advisors. The constraint is structural, so the database enforces it automatically.
 
 ## Migrations
 
@@ -225,57 +235,23 @@ Constraints and normalization only matter if they actually reach the database, a
 
 Running ad-hoc SQL against a shared database is how environments drift. Staging stops matching production, a column exists on one replica but not another, and nobody can reproduce the bug. A migration framework solves this by tracking which changes have been applied and replaying any that haven't, in order, on every environment.
 
-The tool varies by stack, the discipline does not:
+The tool varies by stack, but the discipline does not. In modern JavaScript, a [Knex migration](https://knexjs.org/guide/migrations) exports `up` and `down` functions. The `up` function applies the schema change, while `down` reverses it.
 
-**Go** — [golang-migrate](https://github.com/golang-migrate/migrate) uses paired up/down SQL files:
+```js
+export const up = (knex) =>
+  knex.schema.createTable("users", (table) => {
+    table.increments("id");
+    table.string("username", 50).notNullable().unique();
+  });
 
-```sql
--- 000001_create_users.up.sql
-CREATE TABLE users (
-  id serial PRIMARY KEY,
-  username varchar(50) NOT NULL UNIQUE
-);
-
--- 000001_create_users.down.sql
-DROP TABLE users;
+export const down = (knex) => knex.schema.dropTable("users");
 ```
+
+Create and apply the migration with the Knex CLI.
 
 ```bash
-migrate -path ./migrations -database "$DATABASE_URL" up
-```
-
-**TypeScript** — [Prisma Migrate](https://www.prisma.io/docs/orm/prisma-migrate) generates SQL from a schema file:
-
-```prisma
-model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique @db.VarChar(50)
-}
-```
-
-```bash
-npx prisma migrate dev --name create_users
-npx prisma migrate deploy
-```
-
-[Knex](https://knexjs.org/guide/migrations.html) and [TypeORM](https://typeorm.io/migrations) are common alternatives if you prefer writing migrations directly.
-
-**Python** — [Alembic](https://alembic.sqlalchemy.org/) (paired with SQLAlchemy) generates revisions from model changes:
-
-```python
-def upgrade():
-    op.create_table(
-        "users",
-        sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("username", sa.String(50), nullable=False, unique=True),
-    )
-
-def downgrade():
-    op.drop_table("users")
-```
-
-```bash
-alembic upgrade head
+bunx knex migrate:make create_users
+bunx knex migrate:latest
 ```
 
 This should be the default for any engineering team. Direct SQL on production is a break-glass action, not a workflow. If a change is worth making, it is worth a migration file, a code review, and a deploy pipeline that runs it the same way in every environment.
@@ -286,14 +262,14 @@ AI hasn't changed the fundamentals of database design. Constraints, normalizatio
 
 Treat database credentials handed to an AI agent like credentials handed to an unknown intern with no on-call experience. **Read-only access is generally fine** for exploration, debugging, and analytics, the worst case is a slow query. **Read-write access is dangerous** and should be avoided outside of isolated development environments. An LLM that hallucinates a column name in a `SELECT` returns an error, the same hallucination in an `UPDATE` or `DELETE` mutates production data with no easy way to undo it.
 
-A few practical guardrails:
+The following practical guardrails reduce the risk.
 
 - Give the agent its own database role with the minimum privileges it needs, never a shared application or admin user.
 - Default to a read-only role. If writes are genuinely required, scope them to a non-production database or a sandbox schema.
 - Never let an agent run migrations directly against production. Migrations go through the same review and deploy pipeline as any other code change, regardless of who wrote them.
 - Log queries issued by the agent so there is an audit trail when something looks wrong.
 
-The discipline is the same one that applies to any other system credential — the AI just makes it easier to forget.
+The discipline is the same one that applies to any other system credential. AI just makes it easier to forget.
 
 ## Conclusion
 
