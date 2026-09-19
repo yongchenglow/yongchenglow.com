@@ -1,7 +1,7 @@
 "use client";
 
 import { AdSlot } from "@/src/components/ads/AdSlot";
-import { BlogBackButton } from "@/src/components/blog/BlogBackButton";
+import { BlogBreadcrumb } from "@/src/components/blog/BlogBreadcrumb";
 import { BlogNavigation } from "@/src/components/blog/BlogNavigation";
 import { ReadingProgress } from "@/src/components/blog/ReadingProgress";
 import { TableOfContents } from "@/src/components/blog/TableOfContents";
@@ -34,8 +34,13 @@ export const BlogPostLayout = ({
 			<ReadingProgress pageTitle={frontmatter.title} />
 			<PostContainer className="max-w-[88rem] md:max-w-[88rem] lg:max-w-[88rem]">
 				<div className="mx-auto max-w-3xl">
-					{/* Back Button */}
-					<BlogBackButton />
+					<BlogBreadcrumb
+						current={{
+							label: frontmatter.title,
+							href: `/blog/${post.slug}`,
+						}}
+						compactOnMobile
+					/>
 
 					{/* Header Section */}
 					<PostHeader

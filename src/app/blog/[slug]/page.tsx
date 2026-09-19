@@ -110,31 +110,6 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 		},
 	};
 
-	const breadcrumbSchema = {
-		"@context": "https://schema.org",
-		"@type": "BreadcrumbList",
-		itemListElement: [
-			{
-				"@type": "ListItem",
-				position: 1,
-				name: "Home",
-				item: SITE_URL,
-			},
-			{
-				"@type": "ListItem",
-				position: 2,
-				name: "Blog",
-				item: `${SITE_URL}/blog`,
-			},
-			{
-				"@type": "ListItem",
-				position: 3,
-				name: post.frontmatter.title,
-				item: `${SITE_URL}/blog/${slug}`,
-			},
-		],
-	};
-
 	const mdxComponents = useMDXComponents({
 		img: MdxImage,
 		a: MdxLink,
@@ -145,7 +120,6 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 	return (
 		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
 			<JsonLd data={articleSchema} />
-			<JsonLd data={breadcrumbSchema} />
 			<MDXRemote
 				source={before}
 				components={mdxComponents}

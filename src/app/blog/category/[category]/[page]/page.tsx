@@ -1,16 +1,15 @@
 import { notFound } from "next/navigation";
 import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
+import { BlogBreadcrumb } from "@/src/components/blog/BlogBreadcrumb";
 import { Pagination } from "@/src/components/blog/Pagination";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
-import { JsonLd } from "@/src/components/seo/JsonLd";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { SITE_URL } from "@/src/config/site";
 import {
 	getAllCategories,
 	getBlogPostsByCategory,
@@ -84,40 +83,10 @@ export const CategoryPageWithPagination = async ({
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
-				<JsonLd
-					data={{
-						"@context": "https://schema.org",
-						"@type": "BreadcrumbList",
-						itemListElement: [
-							{
-								"@type": "ListItem",
-								position: 1,
-								name: "Home",
-								item: SITE_URL,
-							},
-							{
-								"@type": "ListItem",
-								position: 2,
-								name: "Blog",
-								item: `${SITE_URL}/blog`,
-							},
-							{
-								"@type": "ListItem",
-								position: 3,
-								name: categoryMetadata.label,
-								item: `${SITE_URL}/blog/category/${category}/1`,
-							},
-							...(pageNumber > 1
-								? [
-										{
-											"@type": "ListItem",
-											position: 4,
-											name: `Page ${pageNumber}`,
-											item: `${SITE_URL}/blog/category/${category}/${pageNumber}`,
-										},
-									]
-								: []),
-						],
+				<BlogBreadcrumb
+					current={{
+						label: categoryMetadata.label,
+						href: `/blog/category/${category}/1`,
 					}}
 				/>
 				<FadeIn>
