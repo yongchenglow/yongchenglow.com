@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import { InfiniteScroll } from "@/src/components/blog/InfiniteScroll";
 import type { BlogPost } from "@/src/types/blog";
 import { vi } from "../../bun-test-utils";
@@ -152,15 +152,14 @@ describe("InfiniteScroll", () => {
 			expect(capturedCallback).not.toBeNull();
 		});
 
-		// Allow effects to run (sync refs)
-		await new Promise((resolve) => setTimeout(resolve, 10));
-
 		// Fire the observer callback with isIntersecting: true
-		(
-			capturedCallback as unknown as (
-				entries: IntersectionObserverEntry[],
-			) => void
-		)([{ isIntersecting: true } as IntersectionObserverEntry]);
+		await act(async () => {
+			(
+				capturedCallback as unknown as (
+					entries: IntersectionObserverEntry[],
+				) => void
+			)([{ isIntersecting: true } as IntersectionObserverEntry]);
+		});
 
 		// Wait for loadMorePosts to be called and new posts to render
 		await waitFor(() => {
