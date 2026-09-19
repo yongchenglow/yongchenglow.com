@@ -38,8 +38,7 @@ describe("sitemap", () => {
 				e.url !== "https://www.yongchenglow.com/blog/all" &&
 				!e.url.includes("/latest/") &&
 				!e.url.includes("/category/") &&
-				!e.url.includes("/tag/") &&
-				!e.url.includes("/year/"),
+				!e.url.includes("/tag/"),
 		);
 		expect(posts.length).toBeGreaterThan(0);
 		for (const post of posts) {
@@ -55,13 +54,19 @@ describe("sitemap", () => {
 			(e) =>
 				e.url.includes("/latest/") ||
 				e.url.includes("/category/") ||
-				e.url.includes("/tag/") ||
-				e.url.includes("/year/"),
+				e.url.includes("/tag/"),
 		);
 		expect(listingPages.length).toBeGreaterThan(0);
 		for (const page of listingPages) {
 			expect(page.priority).toBe(0.5);
 		}
+	});
+
+	it("does not include year archive pages", async () => {
+		const entries = await sitemap();
+		expect(entries.some((entry) => entry.url.includes("/blog/year/"))).toBe(
+			false,
+		);
 	});
 
 	it("percent-encodes tag URLs so they are valid URIs", async () => {

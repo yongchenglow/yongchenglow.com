@@ -3,10 +3,19 @@
 	"title": "Blog UI Labels",
 	"description": "Single source of truth for all blog-related UI text labels",
 	"blogTitle": "Blog",
+	"breadcrumbs": {
+		"ariaLabel": "Breadcrumb",
+		"home": "Home",
+		"blog": "Blog",
+		"tagPrefix": "Tag:"
+	},
 	"featured": {
 		"sectionHeading": "Featured Post",
 		"pageHeading": "Featured Posts",
 		"badge": "Featured"
+	},
+	"allPosts": {
+		"pageHeading": "All Posts"
 	},
 	"previousPosts": {
 		"sectionHeading": "Previous Posts",
@@ -14,9 +23,6 @@
 	},
 	"categoryNavigation": {
 		"heading": "Browse by Category"
-	},
-	"yearFilter": {
-		"heading": "Browse by Year"
 	},
 	"pagination": {
 		"showingText": "Showing {current} of {total} posts"

@@ -117,18 +117,25 @@ const parsePost = (slug: string): BlogPost => {
 let slugCache: string[] | undefined;
 let postCache: Map<string, BlogPost> | undefined;
 
+const readAllSlugs = (): string[] =>
+	fs
+		.readdirSync(BLOG_CONTENT_PATH)
+		.filter((file) => BLOG_POST_FILENAME_PATTERN.test(file))
+		.map((file) => file.replace(/\.mdx?$/, ""));
+
 const loadAllSlugs = (): string[] => {
+	if (process.env.NODE_ENV === "development") return readAllSlugs();
+
 	if (slugCache === undefined) {
-		slugCache = fs
-			.readdirSync(BLOG_CONTENT_PATH)
-			.filter((file) => BLOG_POST_FILENAME_PATTERN.test(file))
-			.map((file) => file.replace(/\.mdx?$/, ""));
+		slugCache = readAllSlugs();
 	}
 
 	return slugCache;
 };
 
 const loadPost = (slug: string): BlogPost => {
+	if (process.env.NODE_ENV === "development") return parsePost(slug);
+
 	if (postCache === undefined) postCache = new Map();
 
 	const cached = postCache.get(slug);
@@ -226,42 +233,6 @@ export const getCategoryPostCounts = (): Record<string, number> => {
 	return counts;
 };
 
-// Year Functions
-export const getAllPostYears = (): number[] => {
-	const posts = getAllBlogPosts();
-	const years = new Set<number>();
-
-	for (const post of posts) {
-		const year = new Date(post.frontmatter.date).getFullYear();
-		years.add(year);
-	}
-
-	return Array.from(years).sort((a, b) => b - a); // Descending order
-};
-
-export const getBlogPostsByYear = (year: number): BlogPost[] => {
-	const posts = getAllBlogPosts();
-	return posts.filter((post) => {
-		const postYear = new Date(post.frontmatter.date).getFullYear();
-		return postYear === year;
-	});
-};
-
-export const getYearPostCounts = (): Record<number, number> => {
-	const counts: Record<number, number> = {};
-	const years = getAllPostYears();
-	const allPosts = getAllBlogPosts();
-
-	for (const year of years) {
-		counts[year] = allPosts.filter((post) => {
-			const postYear = new Date(post.frontmatter.date).getFullYear();
-			return postYear === year;
-		}).length;
-	}
-
-	return counts;
-};
-
 // Pagination Functions
 export const getPaginatedPosts = (
 	page: number,
@@ -294,31 +265,6 @@ export const getPaginatedPostsByCategory = (
 	postsPerPage: number = BLOG_CONFIG.postsPerPage,
 ): PaginationResult<BlogPost> => {
 	const allPosts = getBlogPostsByCategory(categorySlug);
-	const totalItems = allPosts.length;
-	const totalPages = Math.ceil(totalItems / postsPerPage);
-
-	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-
-	const startIndex = (currentPage - 1) * postsPerPage;
-	const endIndex = startIndex + postsPerPage;
-	const items = allPosts.slice(startIndex, endIndex);
-
-	return {
-		items,
-		currentPage,
-		totalPages,
-		totalItems,
-		hasNextPage: currentPage < totalPages,
-		hasPreviousPage: currentPage > 1,
-	};
-};
-
-export const getPaginatedPostsByYear = (
-	year: number,
-	page: number,
-	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> => {
-	const allPosts = getBlogPostsByYear(year);
 	const totalItems = allPosts.length;
 	const totalPages = Math.ceil(totalItems / postsPerPage);
 
