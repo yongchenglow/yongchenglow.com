@@ -30,6 +30,12 @@ export const MermaidDiagram = ({
 					theme: resolvedTheme === "dark" ? "dark" : "default",
 					securityLevel: "strict",
 					fontFamily: "inherit",
+					// mermaid 12 changed three defaults: the layout engine moved from
+					// dagre to ELK, and `look` and the palette moved to neo and
+					// redux-color. All three are set explicitly so diagrams render as
+					// they did under 11 and a future default change stays inert.
+					layout: "dagre",
+					look: "classic",
 				});
 
 				const id = `mermaid-${Math.round(Math.random() * 1e7)}`;

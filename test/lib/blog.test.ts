@@ -1,9 +1,12 @@
-import { beforeEach, describe, expect, it, mock } from "bun:test";
+import { afterAll, beforeEach, describe, expect, it, mock } from "bun:test";
 import { vi } from "../bun-test-utils";
 
 // Must mock before importing the module under test
 const actualFs = await import("node:fs");
 const actualPath = await import("node:path");
+const realReaddirSync = actualFs.default.readdirSync.bind(actualFs.default);
+const realExistsSync = actualFs.default.existsSync.bind(actualFs.default);
+const realReadFileSync = actualFs.default.readFileSync.bind(actualFs.default);
 
 const fs = {
 	...actualFs.default,
@@ -28,19 +31,15 @@ const {
 	InvalidBlogSlugError,
 	getAllBlogPosts,
 	getAllBlogSlugs,
-	getAllPostYears,
 	getBlogPost,
 	getBlogPostNavigation,
 	getBlogPostsByCategory,
 	getBlogPostsByTag,
-	getBlogPostsByYear,
 	getCategoryMetadata,
 	getCategoryPostCounts,
 	getFeaturedPost,
 	getPaginatedPosts,
 	getPaginatedPostsByCategory,
-	getPaginatedPostsByYear,
-	getYearPostCounts,
 	resetBlogCache,
 } = await import("@/src/lib/blog");
 
@@ -67,6 +66,13 @@ beforeEach(() => {
 	resetBlogCache();
 });
 
+afterAll(() => {
+	fs.readdirSync.mockImplementation(realReaddirSync);
+	fs.existsSync.mockImplementation(realExistsSync);
+	fs.readFileSync.mockImplementation(realReadFileSync);
+	resetBlogCache();
+});
+
 describe("getAllBlogSlugs", () => {
 	it("returns slugs for .mdx files", () => {
 		vi.mocked(fs.readdirSync).mockReturnValue([
@@ -84,6 +90,15 @@ describe("getAllBlogSlugs", () => {
 	it("ignores files without .mdx or .md extension", () => {
 		vi.mocked(fs.readdirSync).mockReturnValue([
 			"image.png",
+			"post-a.mdx",
+		] as never);
+		expect(getAllBlogSlugs()).toEqual(["post-a"]);
+	});
+
+	it("ignores blog instruction files", () => {
+		vi.mocked(fs.readdirSync).mockReturnValue([
+			"AGENTS.md",
+			"CLAUDE.md",
 			"post-a.mdx",
 		] as never);
 		expect(getAllBlogSlugs()).toEqual(["post-a"]);
@@ -129,6 +144,24 @@ describe("getAllBlogPosts", () => {
 		);
 		const posts = getAllBlogPosts(true);
 		expect(posts.map((p) => p.slug)).toContain("draft");
+	});
+
+	it("reflects frontmatter changes immediately during development", () => {
+		const mutableEnv = process.env as { NODE_ENV?: string };
+		const originalNodeEnv = mutableEnv.NODE_ENV;
+		mutableEnv.NODE_ENV = "development";
+
+		try {
+			vi.mocked(fs.readdirSync).mockReturnValue(["changing.mdx"] as never);
+			vi.mocked(fs.readFileSync)
+				.mockReturnValueOnce(mockPost("changing", { draft: true }))
+				.mockReturnValue(mockPost("changing"));
+
+			expect(getAllBlogPosts()).toHaveLength(0);
+			expect(getAllBlogPosts().map((post) => post.slug)).toEqual(["changing"]);
+		} finally {
+			mutableEnv.NODE_ENV = originalNodeEnv;
+		}
 	});
 });
 
@@ -205,61 +238,25 @@ describe("getBlogPostNavigation", () => {
 
 	it("returns correct previous and next for a middle post", () => {
 		const nav = getBlogPostNavigation("middle");
-		expect(nav.previous?.slug).toBe("newest");
-		expect(nav.next?.slug).toBe("oldest");
+		expect(nav.previous?.slug).toBe("oldest");
+		expect(nav.next?.slug).toBe("newest");
 	});
 
-	it("returns null for previous on the first (newest) post", () => {
-		const nav = getBlogPostNavigation("newest");
+	it("returns null for previous on the first (oldest) post", () => {
+		const nav = getBlogPostNavigation("oldest");
 		expect(nav.previous).toBeNull();
 	});
 
-	it("returns null for next on the last (oldest) post", () => {
-		const nav = getBlogPostNavigation("oldest");
+	it("returns null for next on the last (newest) post", () => {
+		const nav = getBlogPostNavigation("newest");
 		expect(nav.next).toBeNull();
 	});
-});
 
-describe("getAllPostYears", () => {
-	it("returns unique years in descending order", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"a.mdx",
-			"b.mdx",
-			"c.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			// Match on the filename only: the repo path itself may contain "/a".
-			if (String(filePath).endsWith("/a.mdx"))
-				return mockPost("a", { date: "2024-05-01" });
-			if (String(filePath).endsWith("/b.mdx"))
-				return mockPost("b", { date: "2023-05-01" });
-			return mockPost("c", { date: "2024-11-01" });
+	it("returns no navigation for a slug outside the published collection", () => {
+		expect(getBlogPostNavigation("missing-post")).toEqual({
+			previous: null,
+			next: null,
 		});
-		expect(getAllPostYears()).toEqual([2024, 2023]);
-	});
-});
-
-describe("getBlogPostsByYear", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"y2024.mdx",
-			"y2023.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("y2024"))
-				return mockPost("y2024", { date: "2024-06-01" });
-			return mockPost("y2023", { date: "2023-06-01" });
-		});
-	});
-
-	it("returns only posts from the given year", () => {
-		expect(getBlogPostsByYear(2024).map((p) => p.slug)).toEqual(["y2024"]);
-	});
-
-	it("returns empty array for a year with no posts", () => {
-		expect(getBlogPostsByYear(2020)).toHaveLength(0);
 	});
 });
 
@@ -488,27 +485,6 @@ describe("getCategoryPostCounts", () => {
 	});
 });
 
-describe("getYearPostCounts", () => {
-	it("returns correct count per year", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"y2024-a.mdx",
-			"y2024-b.mdx",
-			"y2023.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("y2024"))
-				return mockPost(`${String(filePath).match(/y\d+-?\w*/)?.[0]}`, {
-					date: "2024-06-01",
-				});
-			return mockPost("y2023", { date: "2023-06-01" });
-		});
-		const counts = getYearPostCounts();
-		expect(counts[2024]).toBe(2);
-		expect(counts[2023]).toBe(1);
-	});
-});
-
 // Helper: generate N mock slugs with descending dates
 const setupNPosts = (n: number) => {
 	const files = Array.from({ length: n }, (_, i) => `post-${i}.mdx`);
@@ -590,22 +566,5 @@ describe("getPaginatedPostsByCategory", () => {
 		const result = getPaginatedPostsByCategory("nonexistent", 1, 12);
 		expect(result.items).toHaveLength(0);
 		expect(result.totalItems).toBe(0);
-	});
-});
-
-describe("getPaginatedPostsByYear", () => {
-	it("filters posts by year before paginating", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"y2024.mdx",
-			"y2023.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("y2024"))
-				return mockPost("y2024", { date: "2024-06-01" });
-			return mockPost("y2023", { date: "2023-06-01" });
-		});
-		const result = getPaginatedPostsByYear(2024, 1, 12);
-		expect(result.items.map((p) => p.slug)).toEqual(["y2024"]);
 	});
 });

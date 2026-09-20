@@ -29,6 +29,15 @@ export const generateStaticParams = async () => {
 	return slugs.map((slug) => ({ slug }));
 };
 
+/**
+ * Posts are files on disk, fixed at build time, so `generateStaticParams`
+ * already enumerates every valid slug. Rendering unlisted slugs on demand only
+ * produces 404s by a slower path, and each attempt makes the server write a
+ * prerender entry to `.next/server/app`, which fails under a read-only root
+ * filesystem in production.
+ */
+export const dynamicParams = false;
+
 // Generate metadata for SEO
 export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
@@ -110,31 +119,6 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 		},
 	};
 
-	const breadcrumbSchema = {
-		"@context": "https://schema.org",
-		"@type": "BreadcrumbList",
-		itemListElement: [
-			{
-				"@type": "ListItem",
-				position: 1,
-				name: "Home",
-				item: SITE_URL,
-			},
-			{
-				"@type": "ListItem",
-				position: 2,
-				name: "Blog",
-				item: `${SITE_URL}/blog`,
-			},
-			{
-				"@type": "ListItem",
-				position: 3,
-				name: post.frontmatter.title,
-				item: `${SITE_URL}/blog/${slug}`,
-			},
-		],
-	};
-
 	const mdxComponents = useMDXComponents({
 		img: MdxImage,
 		a: MdxLink,
@@ -145,7 +129,6 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 	return (
 		<BlogPostLayout post={post} previousPost={previous} nextPost={next}>
 			<JsonLd data={articleSchema} />
-			<JsonLd data={breadcrumbSchema} />
 			<MDXRemote
 				source={before}
 				components={mdxComponents}

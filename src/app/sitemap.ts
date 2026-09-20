@@ -4,9 +4,7 @@ import { SITE_URL } from "@/src/config/site";
 import {
 	getAllBlogPosts,
 	getAllCategories,
-	getAllPostYears,
 	getBlogPostsByCategory,
-	getBlogPostsByYear,
 } from "@/src/lib/blog";
 
 const sitemap = (): MetadataRoute.Sitemap => {
@@ -88,23 +86,6 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			changeFrequency: "weekly",
 			priority: 0.5,
 		});
-	}
-
-	// Year paginated pages
-	const years = getAllPostYears();
-	for (const year of years) {
-		const yearPosts = getBlogPostsByYear(year);
-		const totalYearPages = Math.ceil(
-			yearPosts.length / BLOG_CONFIG.postsPerPage,
-		);
-		for (let i = 1; i <= totalYearPages; i++) {
-			entries.push({
-				url: `${SITE_URL}/blog/year/${year}/${i}`,
-				lastModified: new Date(),
-				changeFrequency: "weekly",
-				priority: 0.5,
-			});
-		}
 	}
 
 	return entries;

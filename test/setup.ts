@@ -7,6 +7,8 @@ GlobalRegistrator.register({ url: "http://localhost:3000" });
 
 const { afterEach, mock } = await import("bun:test");
 const { vi } = await import("./bun-test-utils");
+const { notFoundMock, redirectMock } = await import("./navigation-mocks");
+const { createElement, forwardRef } = await import("react");
 
 // Bun does not ship jest-dom's matchers; register the Vitest-compatible entry.
 await import("@testing-library/jest-dom/vitest");
@@ -18,6 +20,8 @@ afterEach(cleanup);
 
 // Mock Next.js navigation
 mock.module("next/navigation", () => ({
+	notFound: notFoundMock,
+	redirect: redirectMock,
 	useRouter: () => ({
 		push: vi.fn(),
 		replace: vi.fn(),
@@ -29,6 +33,26 @@ mock.module("next/navigation", () => ({
 	usePathname: () => "/",
 	useSearchParams: () => new URLSearchParams(),
 }));
+
+// next/image reads Next config through the framework runtime, which is absent in
+// component tests. Keep image semantics while removing optimizer-only behavior.
+const MockImage = forwardRef<HTMLImageElement, Record<string, unknown>>(
+	(
+		{
+			blurDataURL: _blurDataURL,
+			fill: _fill,
+			loader: _loader,
+			placeholder: _placeholder,
+			priority: _priority,
+			quality: _quality,
+			unoptimized: _unoptimized,
+			...props
+		},
+		ref,
+	) => createElement("img", { ...props, ref }),
+);
+
+mock.module("next/image", () => ({ default: MockImage }));
 
 // Mock IntersectionObserver for Framer Motion useInView
 class IntersectionObserverMock {

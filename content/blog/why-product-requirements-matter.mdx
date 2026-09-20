@@ -1,0 +1,193 @@
+---
+title: "Why Product Requirements Matter"
+subtitle: "Finding the right problem before building the solution"
+description: "Learn why strong product requirements begin with evidence, outcomes, measures, assumptions, and boundaries before a team commits to features or stories."
+date: "2026-09-18"
+author: "yongchenglow"
+tags: ["product-management", "user-research", "agile", "ai"]
+image: "/img/work.jpg"
+draft: false
+featured: false
+---
+
+![A desk where product requirements are being developed](/img/work.jpg)
+
+A stakeholder asks your team to show clinic opening hours so people know where they can receive non-emergency care. The request sounds clear. It could become a ticket before the meeting ends.
+
+But opening hours may not be the real requirement.
+
+A clinic can be open while registration has already stopped because of staffing, capacity, patient load, or an unexpected event. Singapore's Ministry of Health currently advises people to call ahead when there is uncertainty and encourages clinics to communicate registration cut-off times clearly ([MOH](https://www.moh.gov.sg/newsroom/clinics-encouraged-to-communicate-operating-hours-and-registration-cut-off-times-to-improve-patient-experience/)).
+
+If the team builds a polished directory of static opening hours, it may deliver exactly what was requested while failing to answer the user's question: **Can I still register before I travel there?**
+
+That is why product requirements matter. They help a team understand the outcome it needs to create before speed, technology, and stakeholder confidence turn the first proposed solution into an expensive commitment.
+
+This article uses a fictional clinic-availability service to make the process concrete. It is a composite informed by public evidence. It is not a product I built, a proposal endorsed by the cited authorities, or a claim about an undisclosed gap at any named institution.
+
+## Requirements are discovered, not received
+
+A request, feature idea, or executive instruction is an input. It is not automatically the product requirement.
+
+When someone asks for clinic opening hours, a product team should ask what decision the information helps a person make. Are people checking before leaving home? Are they comparing nearby clinics? Are caregivers planning transport for someone else? What happens today when registration is closed?
+
+The answers require evidence. Begin with what is already known, then state what remains uncertain.
+
+For this example, public evidence tells us that registration cut-offs vary and that calling ahead is an existing fallback. It does not prove that a live status service is the best solution. The team would still need to:
+
+- Count calls asking whether registration is open
+- Observe how clinics decide and communicate cut-offs
+- Understand how often people arrive after registration has stopped
+- Interview patients and caregivers about how they choose a clinic
+- Test whether staff can keep a status current during busy periods
+
+That distinction matters. Evidence describes what we know. A product idea is a hypothesis about what might improve it.
+
+## Understand users without inventing them
+
+Personas can help when different user groups make different decisions. They become dangerous when a team invents a name, photograph, and personality, then treats the result as research.
+
+The [GOV.UK Service Manual](https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs) recommends researching throughout development and treating opinions that do not come from users as assumptions to test. Personas or user profiles are optional ways to communicate groups with similar needs and behaviours. They are not the starting evidence.
+
+Our service has several affected groups:
+
+- People seeking non-emergency care
+- Caregivers helping someone plan a visit
+- Clinic staff who decide and communicate registration status
+- Operational teams responsible for accuracy, access, and support
+
+Their needs can conflict. A patient wants current information with little effort. Clinic staff need an update process that does not slow them down during the busiest period. Operations teams need a safe fallback when information becomes stale.
+
+Do not assign product discovery to one role and wait for a persona document. Researchers may lead the practice, but designers, engineers, product managers, operational staff, and subject-matter experts all need contact with the evidence. The whole team makes better decisions when it understands where requirements came from.
+
+## Define outcomes before features
+
+An outcome describes the change we want, not the thing we plan to build.
+
+For the clinic example:
+
+- **User outcome:** A person can make an informed plan before travelling for non-emergency care.
+- **Organizational outcome:** Clinics receive fewer status calls and unmanaged arrivals without adding unreasonable staff work or delaying urgent care.
+
+These statements give us more room to learn than "build a clinic status page." Interviews might reveal that a telephone service, search result integration, or improvement to an existing healthcare app would work better. The requirement should survive a change in solution.
+
+If the team uses Scrum, the [Product Goal](https://scrumguides.org/scrum-guide.html#product-backlog) can express the longer-term objective that guides the Product Backlog. A team using another delivery method still needs a durable outcome. Product thinking should not depend on one framework.
+
+## Use a North Star with inputs and guardrails
+
+A **North Star Metric** represents the value a product creates for customers and its relationship to sustainable organizational results. It can align decisions, but it is not a magic number that replaces judgment.
+
+For this product, a candidate outcome metric could be:
+
+> The percentage of finder-assisted intended visits that result in successful registration at the selected clinic.
+
+This is only a hypothesis. The team must define what counts as a finder-assisted visit, how long attribution lasts, how success is measured, and what baseline is realistic.
+
+The top-line metric is also not directly actionable. Amplitude's [North Star framework](https://amplitude.com/books/north-star/about-north-star-framework) recommends pairing it with inputs that teams can influence. For our service, those inputs might include:
+
+- The percentage of participating clinics with a status inside the freshness threshold
+- The percentage of users who view a status before starting their journey
+- Successful hand-offs to another appropriate option when registration is closed
+- The median time clinic staff need to update a status
+
+Then add **guardrails**, because improving one measure can harm something else:
+
+- Reports that a clinic appeared open when registration was closed
+- Urgent users who misunderstand the non-emergency guidance
+- Accessibility task success
+- Time added to clinic staff workflows
+- Availability across languages and non-smartphone channels
+- Differences in coverage across locations or user groups
+
+A team should not invent a baseline or target to make the document look complete. Record them as open questions, name how they will be measured, and update the requirements when evidence arrives.
+
+The North Star does not decide every priority. Security, accessibility, regulatory work, reliability, cost, and learning may protect the outcome without moving it immediately.
+
+## Write the minimum useful PRD
+
+A product requirements document should align decisions, not transfer a perfect specification from one department to another. I prefer a concise, living product brief with enough detail to expose uncertainty and boundaries.
+
+A useful PRD contains:
+
+1. **Problem and context:** What decision or difficulty are we trying to improve?
+2. **Evidence and affected users:** What do we know, where did it come from, and who experiences the problem?
+3. **Desired outcomes:** What should change for users and for the organization?
+4. **Success measures:** What outcome, input, and guardrail metrics will tell us whether the change helped?
+5. **Assumptions and risks:** What are we treating as true, and what would change the decision?
+6. **Scope and non-goals:** What is included now, and what is deliberately excluded?
+7. **Constraints and dependencies:** Which operational, legal, safety, accessibility, privacy, and technical conditions shape the solution?
+8. **Validation plan:** What is the smallest test that can reduce the most important uncertainty?
+9. **Open questions:** Who owns each unresolved decision, and when must it be answered?
+
+Atlassian's current [product requirements guidance](https://www.atlassian.com/agile/product-management/requirements) similarly includes purpose, assumptions, user needs, features, and success criteria. The precise template matters less than whether the document helps the team decide.
+
+Update the PRD when learning changes the decision. A document that records an obsolete agreement perfectly is not a source of truth.
+
+## Make operational behaviour part of the product
+
+Suppose the team chooses to test a live clinic status. The first requirements are not limited to the public screen.
+
+The team must decide:
+
+- Who is authorized to update a clinic's status
+- Which states staff and users can understand consistently
+- How long a status remains trustworthy
+- What happens when nobody updates it
+- What the service shows when a dependency fails
+- How users without a smartphone get the information
+- How changes are audited and operational problems are investigated
+
+These are product requirements because they determine whether the service creates value. They should not arrive later as technical edge cases.
+
+For a first pilot, an authorized staff member at a small clinic cohort could publish one of three states, **accepting walk-ins**, **call before visiting**, or **registration closed**. A public page would show the state, its last-updated time, the clinic telephone number, and emergency guidance. When the freshness threshold expires, the state would automatically become **call before visiting**.
+
+That safe fallback may matter more than the visual design. Incorrect confidence can be worse than no digital status at all.
+
+## State non-goals clearly
+
+Scope explains what the team intends to test. Non-goals prevent a focused product from quietly becoming a platform.
+
+The first clinic-availability pilot does not:
+
+- Diagnose symptoms or assess clinical urgency
+- Recommend treatment or a specific provider
+- Reserve an appointment or queue position
+- Guarantee that a clinician will see someone at a stated time
+- Predict future clinic capacity
+- Optimize demand across an entire region
+- Collect patient health records
+
+These boundaries reduce risk and make the first learning loop possible. They also tell designers and engineers what not to build.
+
+Some excluded capabilities may become worthwhile later. A non-goal is not a judgment that an idea is bad. It is a decision that the current product hypothesis does not require it.
+
+## Validate the riskiest assumption first
+
+The most technically impressive part of a solution is not always its biggest risk.
+
+For this service, the hardest assumption may be operational. Clinic staff must keep the status current during the exact periods when demand is highest. A small manual pilot could test that before the team invests in national integrations or capacity prediction.
+
+The team could measure update time, stale statuses, status-related calls, user comprehension, and reports of unsuccessful registration. Interviews would help explain the numbers. If staff cannot maintain the information, the product must change. More automation may help, or the entire solution may need reconsideration.
+
+This is why a PRD should contain a learning plan. Requirements are not only instructions for construction. They are a record of what the team believes and how it will discover whether those beliefs are true.
+
+## Let AI critique the brief, not invent the evidence
+
+AI can help organize interview notes, challenge assumptions, suggest missing user groups, identify failure states, and compare possible first slices. It can turn a clear brief into candidate acceptance examples and test cases.
+
+It can also make weak thinking look finished. A generated persona is not user research. A confident metric without a baseline is not a target. A detailed requirement based on an invented workflow is still invented.
+
+Use AI with sanitized information and approved tools. In healthcare work, do not paste patient records, support transcripts, or identifiable operational data into an unapproved model. The [World Health Organization](https://www.who.int/news/item/16-05-2023-who-calls-for-safe-and-ethical-ai-for-health) warns that health-related model output can sound plausible while being wrong and calls for transparency, expert supervision, and rigorous evaluation.
+
+People remain responsible for deciding what evidence is trustworthy, which risks are acceptable, and whether the requirement is ready to guide delivery.
+
+## Requirements create the next conversation
+
+A good PRD does not eliminate discussion. It makes the important discussion possible.
+
+For our example, the brief tells the team why live status might matter, what it must protect, what remains unknown, and what the first pilot should learn. It does not prescribe every component or task.
+
+The next step is to turn that intent into a thin, testable slice. One optional user story might begin the conversation:
+
+> As a person planning a non-emergency clinic visit, I want to see whether a nearby participating clinic is accepting walk-ins and when that status was updated, so that I can avoid an unnecessary journey.
+
+The story is useful, but incomplete. It needs acceptance criteria, a shared quality standard, and a delivery plan. [It's Story Time](/blog/its-story-time) continues from this exact example and shows how to turn product requirements into work a team can deliver and learn from.

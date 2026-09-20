@@ -5,6 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import type { SearchResult, SerializedSearchIndex } from "@/src/types/search";
 
 type FlexSearchDocument = InstanceType<typeof FlexSearch.Document>;
+const SEARCH_RESULT_LIMIT = 10;
 
 export const useSearch = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +62,7 @@ export const useSearch = () => {
 
 			try {
 				const searchResults = await indexRef.current.search(query, {
-					limit: 10,
+					limit: SEARCH_RESULT_LIMIT,
 					enrich: true,
 				});
 
@@ -71,6 +72,7 @@ export const useSearch = () => {
 				// When enrich: true with FlexSearch Document, result is the ID string
 				// biome-ignore lint/suspicious/noExplicitAny: FlexSearch search results type is complex
 				for (const fieldResults of searchResults as any[]) {
+					if (mergedResults.length >= SEARCH_RESULT_LIMIT) break;
 					if (!Array.isArray(fieldResults.result)) continue;
 
 					for (const postId of fieldResults.result as string[]) {
@@ -89,6 +91,7 @@ export const useSearch = () => {
 							tags: post.tags,
 							date: post.date,
 						});
+						if (mergedResults.length >= SEARCH_RESULT_LIMIT) break;
 					}
 				}
 

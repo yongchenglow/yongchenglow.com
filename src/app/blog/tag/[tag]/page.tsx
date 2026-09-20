@@ -1,12 +1,12 @@
 import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
+import { BlogBreadcrumb } from "@/src/components/blog/BlogBreadcrumb";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
-import { JsonLd } from "@/src/components/seo/JsonLd";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
-import { SITE_URL } from "@/src/config/site";
+import { BLOG_UI } from "@/src/config/blog-ui";
 import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
 
 export const generateMetadata = async ({ params }: TagPageProps) => {
@@ -14,7 +14,7 @@ export const generateMetadata = async ({ params }: TagPageProps) => {
 	return {
 		title: `Tag: ${tag}`,
 		alternates: {
-			canonical: `/blog/tag/${tag}`,
+			canonical: `/blog/tag/${encodeURIComponent(tag)}`,
 		},
 	};
 };
@@ -38,6 +38,14 @@ export const generateStaticParams = async () => {
 	return Array.from(tags).map((tag) => ({ tag }));
 };
 
+/**
+ * Tags come from post frontmatter, so the list above is exhaustive. Without
+ * this, any arbitrary tag renders a live "0 posts" page, which invites
+ * crawlers into unbounded thin pages and makes the server attempt a prerender
+ * write that a read-only root filesystem rejects. Unknown tags now 404.
+ */
+export const dynamicParams = false;
+
 export const TagPage = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
 	const posts = getBlogPostsByTag(tag);
@@ -45,30 +53,10 @@ export const TagPage = async ({ params }: TagPageProps) => {
 	return (
 		<StandardLayout>
 			<div className="py-3 text-center">
-				<JsonLd
-					data={{
-						"@context": "https://schema.org",
-						"@type": "BreadcrumbList",
-						itemListElement: [
-							{
-								"@type": "ListItem",
-								position: 1,
-								name: "Home",
-								item: SITE_URL,
-							},
-							{
-								"@type": "ListItem",
-								position: 2,
-								name: "Blog",
-								item: `${SITE_URL}/blog`,
-							},
-							{
-								"@type": "ListItem",
-								position: 3,
-								name: `Tag: ${tag}`,
-								item: `${SITE_URL}/blog/tag/${tag}`,
-							},
-						],
+				<BlogBreadcrumb
+					current={{
+						label: `${BLOG_UI.breadcrumbs.tagPrefix} ${tag}`,
+						href: `/blog/tag/${encodeURIComponent(tag)}`,
 					}}
 				/>
 				<FadeIn>

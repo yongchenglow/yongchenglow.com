@@ -131,21 +131,34 @@ export const AuthorSchema = z.object({
  * build failure for forgetting quotes.
  */
 const FrontmatterDateSchema = z
-	.union([z.string(), z.date()])
+	.union([z.iso.date(), z.date()])
 	.transform((value) =>
 		value instanceof Date ? value.toISOString().slice(0, 10) : value,
 	);
 
 // Blog post frontmatter schema
-export const BlogFrontmatterSchema = z.object({
-	title: z.string(),
-	subtitle: z.string().optional(),
-	description: z.string(),
-	date: FrontmatterDateSchema, // ISO 8601 format
-	lastUpdated: FrontmatterDateSchema.optional(),
-	author: z.string(),
-	tags: z.array(z.string()).optional(),
-	image: z.string().optional(),
-	draft: z.boolean().optional(),
-	featured: z.boolean().optional(),
-});
+export const BlogFrontmatterSchema = z
+	.object({
+		title: z.string(),
+		subtitle: z.string().optional(),
+		description: z.string(),
+		date: FrontmatterDateSchema, // ISO 8601 format
+		lastUpdated: FrontmatterDateSchema.optional(),
+		author: z.string(),
+		tags: z.array(z.string()).optional(),
+		image: z.string().optional(),
+		draft: z.boolean().optional(),
+		featured: z.boolean().optional(),
+	})
+	.superRefine((frontmatter, context) => {
+		if (
+			frontmatter.lastUpdated !== undefined &&
+			frontmatter.lastUpdated < frontmatter.date
+		) {
+			context.addIssue({
+				code: "custom",
+				path: ["lastUpdated"],
+				message: "Last updated date cannot be before publication date",
+			});
+		}
+	});

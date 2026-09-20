@@ -3,9 +3,10 @@ import { getPaginatedPosts } from "@/src/lib/blog";
 
 export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
-	const page = Number.parseInt(searchParams.get("page") || "1", 10);
+	const pageParam = searchParams.get("page") || "1";
+	const page = Number.parseInt(pageParam, 10);
 
-	if (Number.isNaN(page) || page < 1) {
+	if (!/^[1-9]\d*$/.test(pageParam) || Number.isNaN(page)) {
 		return NextResponse.json({ error: "Invalid page number" }, { status: 400 });
 	}
 

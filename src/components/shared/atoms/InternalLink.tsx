@@ -12,7 +12,7 @@ export const InternalLink = ({
 	return (
 		<Link
 			className={cn(
-				"cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200",
+				"cursor-pointer text-[#178fd7] hover:text-[#178fd7]/80 dark:text-blue-400/90 dark:hover:text-blue-300/90 transition-colors duration-200",
 				className,
 			)}
 			{...props}

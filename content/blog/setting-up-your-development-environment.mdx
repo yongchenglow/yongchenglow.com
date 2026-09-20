@@ -3,7 +3,7 @@ title: "Setting up your development environment"
 subtitle: "(A Practical Guide)"
 description: "Learn how to properly set up your developer environment with the right tools, IDE configuration, shell setup, and coding standards to ensure long-term maintainability."
 date: "2022-03-16"
-lastUpdated: "2026-04-21"
+lastUpdated: "2026-09-18"
 author: "yongchenglow"
 tags: ["setup", "ide", "vscode", "best-practices"]
 image: "/img/gaming-computer-gbe40f244a_1280.jpg"
@@ -17,11 +17,11 @@ Setting up your machine for development matters. A consistent environment impres
 
 As more people or agents contribute to a project, divergent coding styles makes code harder to read or review. An [Integrated Development Environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) with smart suggestions becomes genuinely helpful when new members join or when someone is new to the language.
 
-To make things simple I will cover four often-overlooked parts of developer setup:
-1. **[VS Code](https://code.visualstudio.com/) configuration** — extensions, settings, and format-on-save
-2. **Shell environment** ([`.zshrc`](https://zsh.sourceforge.io/Intro/intro_3.html)) — Oh My Zsh plugins, version managers, and aliases
-3. **Project templates** — starting from a well-configured foundation instead of scaffolding manually
-4. **AI coding tools** — tools that are essential in 2026 for developer productivity
+To keep things simple, I will cover four often-overlooked parts of developer setup.
+1. **[VS Code](https://code.visualstudio.com/) configuration.** Extensions, settings, and format-on-save.
+2. **Shell environment** ([`.zshrc`](https://zsh.sourceforge.io/Intro/intro_3.html)). Oh My Zsh plugins, version managers, and aliases.
+3. **Project templates.** Start from a well-configured foundation instead of scaffolding manually.
+4. **AI coding tools.** Use the tools that are essential for developer productivity in 2026.
 
 These apply regardless of language or framework.
 
@@ -37,26 +37,26 @@ If you have time, you should also take a look at the setup guide I have written 
 
 VS Code (and Cursor) lets you recommend extensions via [`.vscode/extensions.json`](https://code.visualstudio.com/docs/configure/workspace-recommended-extensions) and configure the editor through [`settings.json`](https://code.visualstudio.com/docs/configure/settings). Adding these files to your repositories keeps the IDE environment consistent across the team. The right extensions make things easier to diagnose when you need to debug manually.
 
-Regardless of language, five extension types matter:
+Regardless of language, five extension types matter.
 
-1. **Code Formatter** (e.g. [Prettier](https://prettier.io/), [Biome](https://biomejs.dev/)) — standardizes indentation, bracket placement, trailing commas. Makes code read as if one person wrote it. Enable "format on save" so you never manually adjust code to match a style guide.
-2. **Language Beautifier** — syntax highlighting for keywords and reserved words. Reduces accidental naming errors and makes code easier to scan.
-3. **Language-Specific Suggester** (e.g. [IntelliSense](https://code.visualstudio.com/docs/editing/intellisense)) — context-aware suggestions as you type. Boosts productivity in any language.
-4. **Collaboration Tool** (e.g. [Live Share](https://visualstudio.microsoft.com/services/live-share/)) — real-time collaboration for pair programming and remote debugging.
-5. **Version Control Tool** (e.g. [GitLens](https://www.gitkraken.com/gitlens)) — shows who wrote a line and when, making it easy to reach out for context.
+1. **Code Formatter** (e.g. [Prettier](https://prettier.io/), [Biome](https://biomejs.dev/)). It standardizes indentation, bracket placement, and trailing commas. This makes code read as if one person wrote it. Enable "format on save" so you never manually adjust code to match a style guide.
+2. **Language Beautifier.** Syntax highlighting for keywords and reserved words reduces accidental naming errors and makes code easier to scan.
+3. **Language-Specific Suggester** (e.g. [IntelliSense](https://code.visualstudio.com/docs/editing/intellisense)). Context-aware suggestions as you type can boost productivity in any language.
+4. **Collaboration Tool** (e.g. [Live Share](https://visualstudio.microsoft.com/services/live-share/)). This enables real-time collaboration for pair programming and remote debugging.
+5. **Version Control Tool** (e.g. [GitLens](https://www.gitkraken.com/gitlens)). It shows who wrote a line and when, making it easy to reach out for context.
 
 While these extensions are becoming less critical as AI coding tools handle more of the codebase, they remain essential when something goes wrong. Assuming that your workflow is agentic, when a customer reports a bug, AI will automatically diagnose and create a merge request. If the AI reports that the diagnosis fails, you will have no choice but to do so manually. If you editor is not setup properly and you just vibe code the entire application without knowing how things work, if it was my boss at Glints, I would be shown the door the next day.
 
 ### Adding Extensions to a Project
 
-In the root of your project, run:
+Start by running the following command in the root of your project.
 
 ```bash
 mkdir -p .vscode
 touch .vscode/extensions.json
 ```
 
-Add recommended extensions for example:
+Next, add a set of recommended extensions such as the following example.
 
 ```json
 {
@@ -80,7 +80,7 @@ VS Code prompts others to install any missing extensions when opening the projec
 
 ### Format on Save
 
-Add this to your `.vscode/settings.json`:
+Add the following configuration to your `.vscode/settings.json`.
 
 ```json
 {
@@ -99,13 +99,13 @@ If a yellow squiggly line appears, you likely have duplicate keys, you need to e
 
 A consistent shell setup across machines prevents ["works on my machine"](https://www.jeffatwood.com/archive/2007/03/the-works-on-my-machine-certification-program.html) issues. The [NUH CI setup guide](https://github.com/NUH-Clinical-Innovation-Office/setup) covers Oh My Zsh installation and recommended plugins.
 
-Key plugins worth enabling:
+The following plugins are worth enabling.
 
-- **[git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)** — branch indicators and aliases in your prompt
-- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** — completes commands from your history as you type
-- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** — highlights valid commands in green, invalid in red
+- **[git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git).** Adds branch indicators and aliases to your prompt.
+- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions).** Completes commands from your history as you type.
+- **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting).** Highlights valid commands in green and invalid commands in red.
 
-Version managers also belong here. They automatically switch to the correct language version when you enter a project directory:
+Version managers also belong here. They automatically switch to the correct language version when you enter a project directory. These are common options.
 
 - [nvm](https://github.com/nvm-sh/nvm) for Node.js (reads `.nvmrc`)
 - [pyenv](https://github.com/pyenv/pyenv) for Python (reads `.python-version`)
@@ -115,10 +115,10 @@ Version managers solve a real problem. A direct install is like having only one 
 
 ## Starting a New Project
 
-If you are starting from scratch, consider using a well-configured template instead of scaffolding manually. Two examples from the [NUH Clinical Innovation Office](https://github.com/NUH-Clinical-Innovation-Office/setup):
+If you are starting from scratch, consider using a well-configured template instead of scaffolding manually. The [NUH Clinical Innovation Office](https://github.com/NUH-Clinical-Innovation-Office/setup) provides two examples.
 
-- **[Next.js Frontend Template](https://github.com/NUH-Clinical-Innovation-Office/nextjs-frontend-template)** — TypeScript, Tailwind CSS, shadcn/ui, Biome for linting/formatting, Vitest, Husky git hooks, Knip for dependency management, and CI/CD via GitHub Actions with Docker and Kubernetes support.
-- **[Go Backend Template](https://github.com/NUH-Clinical-Innovation-Office/go-backend-template)** — Chi router, PostgreSQL with sqlc code generation, JWT auth, OpenTelemetry tracing, Zap structured logging, Docker multi-stage builds, and integration tests with testcontainers-go.
+- **[Next.js Frontend Template](https://github.com/NUH-Clinical-Innovation-Office/nextjs-frontend-template).** Includes TypeScript, Tailwind CSS, shadcn/ui, Biome for linting and formatting, Vitest, Husky git hooks, Knip for dependency management, and CI/CD via GitHub Actions with Docker and Kubernetes support.
+- **[Go Backend Template](https://github.com/NUH-Clinical-Innovation-Office/go-backend-template).** Includes a Chi router, PostgreSQL with sqlc code generation, JWT authentication, OpenTelemetry tracing, Zap structured logging, Docker multi-stage builds, and integration tests with testcontainers-go.
 
 Both templates include the VS Code configuration and shell setup principles covered in this article, format on save, consistent tooling, and project-specific version files. Note that the Go Backend Template is still in development, so it might not work for everyone.
 
@@ -130,7 +130,7 @@ These tools significantly boost productivity, they handle repetitive tasks, sugg
 
 For private repositories, I highly recommend paid plans. While there are free plans or plans that have free quotas, paying will in most cases gives you data privacy and prevent model providers from training on your data. However, do take note that you might still need to opt out. For example, [Anthropic uses consumer account data for training unless you opt out](https://www.anthropic.com/news/base-training-2025). I highly recommend to always opt out of training data collection for personal and commercial work to protect your intellectual property.
 
-Disable telemetry in your IDE settings:
+You can disable telemetry with the following IDE settings.
 
 ```json
 {

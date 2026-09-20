@@ -3,7 +3,6 @@ import Link from "next/link";
 import { AdSlot } from "@/src/components/ads/AdSlot";
 import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
 import { FeaturedPostCard } from "@/src/components/blog/FeaturedPostCard";
-import { YearFilter } from "@/src/components/blog/YearFilter";
 import { PostCard } from "@/src/components/post/PostCard";
 import { PostGrid } from "@/src/components/post/PostGrid";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
@@ -25,7 +24,9 @@ export const metadata: Metadata = {
 export const BlogPage = () => {
 	const featuredPost = getFeaturedPost();
 	const allPosts = getAllBlogPosts();
-	const previousPosts = allPosts.slice(1, 5);
+	const previousPosts = allPosts
+		.filter((post) => post.slug !== featuredPost?.slug)
+		.slice(0, 4);
 
 	return (
 		<StandardLayout>
@@ -41,7 +42,6 @@ export const BlogPage = () => {
 				</FadeIn>
 
 				<CategoryNavigation />
-				<YearFilter />
 
 				{/* Featured Post Section */}
 				{featuredPost && (

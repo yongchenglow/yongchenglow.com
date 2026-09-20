@@ -5,6 +5,10 @@ import { cache } from "react";
 import readingTime from "reading-time";
 import { AD_MID_ARTICLE_MIN_WORDS } from "@/src/config/ads";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
+import {
+	BLOG_POST_FILENAME_PATTERN,
+	BLOG_SLUG_PATTERN,
+} from "@/src/config/blog-content";
 import { BlogFrontmatterSchema } from "@/src/content/schema";
 import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
 
@@ -15,8 +19,6 @@ const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
  * this alphabet (path separators, `..`, URL escapes) must never reach
  * `path.join`.
  */
-const SLUG_PATTERN = /^[a-z0-9-]+$/;
-
 /** Thrown when a slug is well-formed but no matching content file exists. */
 export class BlogPostNotFoundError extends Error {
 	readonly slug: string;
@@ -34,7 +36,7 @@ export class InvalidBlogSlugError extends Error {
 
 	constructor(slug: string) {
 		super(
-			`Invalid blog slug: "${slug}". Slugs must match ${SLUG_PATTERN.source}.`,
+			`Invalid blog slug: "${slug}". Slugs must match ${BLOG_SLUG_PATTERN.source}.`,
 		);
 		this.name = "InvalidBlogSlugError";
 		this.slug = slug;
@@ -57,7 +59,7 @@ export class BlogFrontmatterError extends Error {
 }
 
 const assertValidSlug = (slug: string): void => {
-	if (!SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
+	if (!BLOG_SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
 };
 
 const parsePost = (slug: string): BlogPost => {
@@ -115,18 +117,25 @@ const parsePost = (slug: string): BlogPost => {
 let slugCache: string[] | undefined;
 let postCache: Map<string, BlogPost> | undefined;
 
+const readAllSlugs = (): string[] =>
+	fs
+		.readdirSync(BLOG_CONTENT_PATH)
+		.filter((file) => BLOG_POST_FILENAME_PATTERN.test(file))
+		.map((file) => file.replace(/\.mdx?$/, ""));
+
 const loadAllSlugs = (): string[] => {
+	if (process.env.NODE_ENV === "development") return readAllSlugs();
+
 	if (slugCache === undefined) {
-		slugCache = fs
-			.readdirSync(BLOG_CONTENT_PATH)
-			.filter((file) => file.endsWith(".mdx") || file.endsWith(".md"))
-			.map((file) => file.replace(/\.mdx?$/, ""));
+		slugCache = readAllSlugs();
 	}
 
 	return slugCache;
 };
 
 const loadPost = (slug: string): BlogPost => {
+	if (process.env.NODE_ENV === "development") return parsePost(slug);
+
 	if (postCache === undefined) postCache = new Map();
 
 	const cached = postCache.get(slug);
@@ -181,13 +190,14 @@ export const getBlogPostNavigation = (
 } => {
 	const allPosts = getAllBlogPosts();
 	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
+	if (currentIndex === -1) return { previous: null, next: null };
 
-	// Posts sorted newest-first. Lower index = newer, higher index = older.
-	// previous = newer post, next = older post.
+	// Posts are sorted newest-first, while navigation follows publication order.
+	// The previous post is older (a higher index), and the next post is newer.
 	return {
-		previous: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
-		next:
+		previous:
 			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
+		next: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
 	};
 };
 
@@ -219,42 +229,6 @@ export const getCategoryPostCounts = (): Record<string, number> => {
 		counts[category.slug] = allPosts.filter((post) =>
 			post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
 		).length;
-	}
-
-	return counts;
-};
-
-// Year Functions
-export const getAllPostYears = (): number[] => {
-	const posts = getAllBlogPosts();
-	const years = new Set<number>();
-
-	for (const post of posts) {
-		const year = new Date(post.frontmatter.date).getFullYear();
-		years.add(year);
-	}
-
-	return Array.from(years).sort((a, b) => b - a); // Descending order
-};
-
-export const getBlogPostsByYear = (year: number): BlogPost[] => {
-	const posts = getAllBlogPosts();
-	return posts.filter((post) => {
-		const postYear = new Date(post.frontmatter.date).getFullYear();
-		return postYear === year;
-	});
-};
-
-export const getYearPostCounts = (): Record<number, number> => {
-	const counts: Record<number, number> = {};
-	const years = getAllPostYears();
-	const allPosts = getAllBlogPosts();
-
-	for (const year of years) {
-		counts[year] = allPosts.filter((post) => {
-			const postYear = new Date(post.frontmatter.date).getFullYear();
-			return postYear === year;
-		}).length;
 	}
 
 	return counts;
@@ -292,31 +266,6 @@ export const getPaginatedPostsByCategory = (
 	postsPerPage: number = BLOG_CONFIG.postsPerPage,
 ): PaginationResult<BlogPost> => {
 	const allPosts = getBlogPostsByCategory(categorySlug);
-	const totalItems = allPosts.length;
-	const totalPages = Math.ceil(totalItems / postsPerPage);
-
-	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-
-	const startIndex = (currentPage - 1) * postsPerPage;
-	const endIndex = startIndex + postsPerPage;
-	const items = allPosts.slice(startIndex, endIndex);
-
-	return {
-		items,
-		currentPage,
-		totalPages,
-		totalItems,
-		hasNextPage: currentPage < totalPages,
-		hasPreviousPage: currentPage > 1,
-	};
-};
-
-export const getPaginatedPostsByYear = (
-	year: number,
-	page: number,
-	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> => {
-	const allPosts = getBlogPostsByYear(year);
 	const totalItems = allPosts.length;
 	const totalPages = Math.ceil(totalItems / postsPerPage);
 

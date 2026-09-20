@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
+import { BLOG_POST_FILENAME_PATTERN } from "../src/config/blog-content.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +38,7 @@ function getAllSearchablePosts() {
 	const posts = [];
 
 	for (const file of files) {
-		if (!file.endsWith(".mdx") && !file.endsWith(".md")) continue;
+		if (!BLOG_POST_FILENAME_PATTERN.test(file)) continue;
 
 		const slug = file.replace(/\.mdx?$/, "");
 		const fullPath = path.join(BLOG_CONTENT_PATH, file);

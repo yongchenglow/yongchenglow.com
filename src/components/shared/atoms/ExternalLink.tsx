@@ -21,7 +21,7 @@ export const ExternalLink = ({
 			className={
 				unstyled
 					? "cursor-pointer"
-					: "cursor-pointer text-blue-400/90 hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
+					: "cursor-pointer text-[#178fd7] hover:text-[#178fd7]/80 dark:text-blue-400/90 dark:hover:text-blue-300/90 transition-colors duration-200 inline-flex items-center gap-1"
 			}
 			{...props}
 		>

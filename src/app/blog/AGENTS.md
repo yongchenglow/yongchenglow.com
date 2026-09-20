@@ -1,8 +1,8 @@
 # Blog authoring guide
 
-Blog routes render one post per file from `content/blog/`. Prefer `.mdx`, the loader also accepts `.md`.
+Blog routes render one post per lowercase slug file from `content/blog/`. Prefer `.mdx`, the loader also accepts `.md`.
 
-Keep only posts in `content/blog/`. The loader treats every `.md` and `.mdx` file there as a post, so documentation in that directory is parsed as content and fails validation.
+Keep only posts and the conventional `AGENTS.md` and `CLAUDE.md` instruction files in `content/blog/`. The loader ignores those uppercase instruction files. Other Markdown documentation does not belong in that directory.
 
 ## Slug
 

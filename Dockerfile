@@ -1,8 +1,9 @@
-# BUN_VERSION is extracted from package.json (packageManager) by CI and remains
-# a supported build argument. DHI publishes Bun 1.4 under the series tag below
-# rather than the repository's exact package-manager patch version.
+# BUN_VERSION is extracted from package.json (packageManager) by CI. DHI
+# publishes an exact patch tag, so the base images below resolve to the same
+# Bun the lockfile and `engines` declare rather than drifting with the 1.4
+# series. DHI_BUN_TAG stays a separate argument because CI still passes it.
 ARG BUN_VERSION=1.4.2
-ARG DHI_BUN_TAG=1.4
+ARG DHI_BUN_TAG=1.4.2
 
 # Stage 1: Builder
 FROM dhi.io/bun:${DHI_BUN_TAG}-debian-dev AS builder

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { ReadingProgress } from "@/src/components/blog/ReadingProgress";
 import { vi } from "../../bun-test-utils";
 
@@ -53,8 +53,10 @@ describe("ReadingProgress", () => {
 		render(<ReadingProgress pageTitle={pageTitle} />);
 
 		// Simulate scrolling
-		window.scrollY = 250;
-		window.dispatchEvent(new Event("scroll"));
+		act(() => {
+			window.scrollY = 250;
+			window.dispatchEvent(new Event("scroll"));
+		});
 
 		expect(document.title).toMatch(/^\d+% • /);
 		expect(document.title).toContain(pageTitle);
