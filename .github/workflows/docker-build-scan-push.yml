@@ -120,11 +120,14 @@ jobs:
         id: build-date
         run: echo "value=$(git show -s --format=%cI HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Determine DHI Bun series tag
+      # DHI publishes an exact patch tag for Bun, so the base image is pinned to
+      # the same version package.json declares. Truncating to the 1.4 series
+      # here would let the runtime drift from the lockfile between builds.
+      - name: Determine DHI Bun tag
         id: dhi-bun-tag
         env:
           BUN_VERSION: ${{ inputs.bun_version }}
-        run: echo "value=$(echo "$BUN_VERSION" | cut -d. -f1,2)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$BUN_VERSION" >> "$GITHUB_OUTPUT"
 
       # Loading the image into the local Docker daemon lets Trivy inspect the
       # exact image that will be pushed. Nothing is published before the scan.
