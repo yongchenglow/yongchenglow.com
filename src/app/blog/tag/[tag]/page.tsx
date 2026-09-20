@@ -38,6 +38,14 @@ export const generateStaticParams = async () => {
 	return Array.from(tags).map((tag) => ({ tag }));
 };
 
+/**
+ * Tags come from post frontmatter, so the list above is exhaustive. Without
+ * this, any arbitrary tag renders a live "0 posts" page, which invites
+ * crawlers into unbounded thin pages and makes the server attempt a prerender
+ * write that a read-only root filesystem rejects. Unknown tags now 404.
+ */
+export const dynamicParams = false;
+
 export const TagPage = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
 	const posts = getBlogPostsByTag(tag);

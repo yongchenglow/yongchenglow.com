@@ -56,6 +56,10 @@ export const generateStaticParams = async () => {
 	return params;
 };
 
+// Page counts derive from the post files. See the note in
+// `src/app/blog/[slug]/page.tsx` for why unlisted params must not render.
+export const dynamicParams = false;
+
 export const CategoryPageWithPagination = async ({
 	params,
 }: CategoryPageProps) => {

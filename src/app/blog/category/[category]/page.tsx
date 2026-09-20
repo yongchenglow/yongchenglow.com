@@ -12,6 +12,10 @@ export const generateStaticParams = async () => {
 	return categories.map((category) => ({ category: category.slug }));
 };
 
+// The category taxonomy is a fixed config value. See the note in
+// `src/app/blog/[slug]/page.tsx` for why unlisted params must not render.
+export const dynamicParams = false;
+
 export const CategoryPage = async ({ params }: CategoryPageProps) => {
 	const { category } = await params;
 	const categoryMetadata = getCategoryMetadata(category);

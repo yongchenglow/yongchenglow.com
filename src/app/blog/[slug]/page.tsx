@@ -29,6 +29,15 @@ export const generateStaticParams = async () => {
 	return slugs.map((slug) => ({ slug }));
 };
 
+/**
+ * Posts are files on disk, fixed at build time, so `generateStaticParams`
+ * already enumerates every valid slug. Rendering unlisted slugs on demand only
+ * produces 404s by a slower path, and each attempt makes the server write a
+ * prerender entry to `.next/server/app`, which fails under a read-only root
+ * filesystem in production.
+ */
+export const dynamicParams = false;
+
 // Generate metadata for SEO
 export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
