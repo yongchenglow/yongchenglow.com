@@ -1,152 +1,169 @@
 ---
 title: "It's Story Time"
-subtitle: "Creating a Product Plan for success"
-description: "Learn how to create effective product plans using personas, user stories, and the initiative-epic-story breakdown approach for successful sprint planning."
-date: "2022-03-02"
-lastUpdated: "2026-09-18"
+subtitle: "Turning product requirements into deliverable work"
+description: "Learn how to turn product requirements into thin, testable slices using optional user stories, acceptance criteria, a shared Definition of Done, and focused Sprint Planning."
+date: "2026-09-19"
 author: "yongchenglow"
-tags: ["agile", "sprint-planning", "user-stories", "product-management"]
+tags: ["agile", "sprint-planning", "user-stories", "product-management", "ai"]
 image: "/img/meeting-gf7ea04404_1280.jpg"
 draft: false
 featured: false
 ---
 
-![meeting](/img/meeting-gf7ea04404_1280.jpg)
+![A product team planning work together](/img/meeting-gf7ea04404_1280.jpg)
 
-You have just learned about Scrum and feel ready to run your first Sprint Planning session. But what exactly does Sprint Planning involve? How do we decide which features get built in a given sprint? What are the outcomes of a Sprint Planning session?
+Imagine that your team has agreed on a product requirement. People seeking non-emergency care should be able to find out whether a participating clinic is still accepting walk-ins before travelling there.
 
-Before diving in, let us take a step back and look at the bigger picture. Instead of focusing on a single sprint, let us focus first on the product we are building, so we know what we are working toward across many sprints.
+That requirement gives us a direction, but it is not yet a delivery plan. Should the team begin with a national directory, predict waiting times, integrate every appointment system, or build a status page? None of those choices follows automatically from the requirement.
 
-Every product a company builds is ultimately paid for by its users. So before any planning begins, we need to revisit who those users are. If we drift from their needs and wants, they will eventually look for a close substitute.
+This article is about crossing that gap. We will take one fictional healthcare example from a desired outcome to a small, testable release. The example is informed by public evidence, but it is not a product I built and it does not describe an undisclosed gap at a named institution.
 
-## What are Personas?
+## Start with the outcome
 
-![Persona](/img/4317364.jpg)
+The tempting way to plan work is to begin with a feature list. A better starting point is the outcome the team wants to create.
 
-**[Personas](https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them)** are fictional characters that are created to represent the different user groups of your product.
+For our clinic example, static opening hours are not enough. Singapore's Ministry of Health explains that registration cut-off times can vary with staffing, capacity, patient load, and unexpected events. Its current advice is to call the clinic before visiting when there is uncertainty ([MOH](https://www.moh.gov.sg/newsroom/clinics-encouraged-to-communicate-operating-hours-and-registration-cut-off-times-to-improve-patient-experience/)).
 
-Personas help us understand users' needs, wants, and goals. Creating a persona clarifies who we are building the product for. Using a simplified Airbnb as an example, we can start with a homeowner and a traveler. The smaller the company, the more specific the personas tend to be. A product is usually niche at the start, but as it grows, its personas broaden to cover a wider audience. Some companies grow so large that they stop formally maintaining personas at all.
+Our desired outcome is not "publish clinic hours." It is this:
 
-In my opinion, it is always worth revisiting personas to understand your core audience. If you stay in the game long enough, a close substitute will eventually emerge. When it does, some users will drift toward your competitor. On the other hand, if you genuinely meet the needs and wants of your core user group, they will stick around.
+> A person can make an informed plan before travelling for non-emergency care.
 
-Take Instagram as an example. Instagram has historically targeted users under 35 who want to share photos or story moments with a specific network. When [TikTok emerged](https://en.wikipedia.org/wiki/TikTok) (global launch 2018, after merging with [musical.ly](https://en.wikipedia.org/wiki/Musical.ly)), creators who had been using Instagram for skits and short-form content flocked there because TikTok was built for them. Viewed that way, Instagram and TikTok are not direct competitors, they serve different user groups. Before then, those creators simply had no better option than Instagram.
+Every piece of delivery work should trace back to that outcome. If the connection is unclear, either the work needs a better explanation or it may not belong in the first release.
 
-You could argue Instagram should have identified these personas earlier and adapted. That is a debate for another day. The point is to conduct [user research](https://www.nngroup.com/articles/which-ux-research-methods/) continually to understand who your users are and why they use your product. UI/UX researchers typically own persona creation and refinement. Only after we understand our users can we plan out our initiatives.
+Traceability does not mean that every task must directly increase one headline metric. Reliability, accessibility, security, observability, and compliance work may protect the outcome rather than increase it. The point is to explain the relationship, not to force every concern into the same number.
 
-Now that we have understood who are our users, how do we measure that the users want? In most products there is something known as a North Star.
+## Use hierarchies as tools, not laws
 
-## The North Star
+Many teams organize work using initiatives, projects, epics, features, stories, issues, tasks, and sub-tasks. These labels can help people navigate a large body of work, but they are not universal stages of product development.
 
-![North Star](/img/angeleses-north-star-2869817_1280.jpg)
+[Scrum](https://scrumguides.org/scrum-guide.html#product-backlog) deliberately uses a smaller model. The Product Backlog is an ordered, evolving list of what is needed to improve the product. Refinement breaks Product Backlog Items into more precise items, but Scrum does not require epics, user stories, story points, or a particular ticket hierarchy.
 
-A **[North Star Metric](https://www.productplan.com/glossary/north-star-metric/)** is a single measure that best captures the core value your product delivers to users. Every team members such as designers, engineers, product managers, uses it to align decisions and prioritize work.
+A practical structure for our example could be:
 
-The North Star is not a vanity metric like total downloads or page views. It reflects genuine user value. For Airbnb, the North Star might be **nights booked**. For Spotify, it could be **time spent listening**. The metric moves when users are getting real value and it stalls when they are not.
+1. **Outcome:** People avoid unnecessary journeys caused by uncertain clinic registration status.
+2. **First product slice:** A small group of clinics can publish a live status that anyone can view.
+3. **Product Backlog Items:** Staff status update, public status display, automatic expiry, audit history, and measurement.
+4. **Implementation tasks:** Interface, API, persistence, authorization, monitoring, tests, and deployment work needed for the selected item.
 
-Why does this matter for planning? Because it gives every initiative a clear test *does this move the North Star?* If an epic does not contribute to it, either the epic is low priority or the North Star needs revisiting.
+Another organization might call the slice a project or epic and the Product Backlog Items features or issues. That is fine. Clear boundaries and shared understanding matter more than matching a diagram from a project-management tool.
 
-Setting a North Star is not a one-time exercise. As your product evolves and your personas shift, revisit it. A startup's North Star is often narrow and specific. A mature product may graduate to a broader metric as its audience grows.
+## Slice through the product
 
-Once the team aligns on a North Star, they can break down the work needed to move it starting with initiatives.
+A common breakdown separates work by technical layer:
 
-## Breaking down the Initiative
+1. Design the interface
+2. Build the database
+3. Create the API
+4. Build the frontend
+5. Add tests
 
-[![Agile Development Breakdown](/img/epics-vs-stories-agile-development.png)](https://www.atlassian.com/agile/project-management/epics-stories-themes)
+Those may be useful tasks, but none delivers value alone. Completing the database tells us very little about whether clinic staff can keep a status current or whether people trust it enough to change their travel plans.
 
-Whenever a team sets out to build something meaningful, they need a game plan. One popular structure is [initiatives, epics, stories, tasks, and sub-tasks](https://www.atlassian.com/agile/project-management/epics-stories-themes). A user-centric breakdown where each completed item delivers something a user can do.
+A **thin vertical slice** crosses the layers needed to create a small, usable behavior. Our first slice could be:
 
-An **Initiative** is a product goal. It can be broken down into multiple epics.
+> An authorized staff member at a participating clinic can publish whether it is accepting walk-ins, and anyone can see that status, when it was last updated, and how to call the clinic.
 
-An **[Epic](https://www.atlassian.com/agile/project-management/epics)** breaks an Initiative into smaller parts. It contains a collection of user stories, something a user can do with the product once the epic is complete.
+Keep the pilot deliberately narrow. Use three states, accepting walk-ins, call before visiting, and registration closed. If the status becomes stale, automatically fall back to call before visiting. Include clear emergency guidance, but do not collect symptoms, diagnose a condition, or recommend treatment.
 
-**[User Stories](https://www.atlassian.com/agile/project-management/user-stories)** are requirements written from the perspective of the end user.
+This slice gives us something real to test. Can staff update it during a busy period? Do people understand the states? How quickly does information become stale? Does it reduce avoidable calls or journeys? Those questions generate better evidence for the next slice than a large technical foundation with no user-facing behavior.
 
-A **Task** is a breakdown of a story into smaller pieces of work.
+## User stories are prompts, not requirements
 
-A **Sub-task** is a breakdown of a task.
+A user story can summarize the conversation we need to have:
 
-Popular project management tools include [Jira](https://www.atlassian.com/software/jira), [ClickUp](https://clickup.com/), [Notion](https://www.notion.com/), [Linear](https://linear.app/), [Asana](https://asana.com/), and [Monday](https://monday.com/). Each has strengths and limitations beyond our scope here. In my experience, a company is far better off standardising on one tool. Running Scaled Scrum where one team uses Notion and another uses Jira quickly becomes a nightmare to manage.
+> As a person planning a non-emergency clinic visit, I want to see whether a nearby participating clinic is accepting walk-ins and when that status was updated, so that I can avoid an unnecessary journey.
 
-Before planning begins, the team must align on development standards. In product-centric teams, this alignment is captured in the Definition of Done.
+The format is useful because it names a user, a need, and a reason. It is also incomplete. It says nothing about who updates the status, when it expires, what happens when the service fails, how urgent cases are handled, or how success will be measured.
 
-## Definition of Done
+That is why I do not treat a user story as the requirement itself. A good story invites discussion. It does not replace product evidence, operational rules, designs, examples, or engineering judgment.
 
-![definition of done](/img/definition-of-done-concept-with-random-parts-of-program-codedefinition-of-done-text-written-on-programming-code-abstract-technology-background-of-sof-2H2TGE8.jpg)
+The [GOV.UK Service Manual](https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs) makes a similar distinction. A user need describes the broad problem a service must solve, while stories can help organize work that addresses that need. Preserve the connection between them so a tidy backlog does not drift away from the original problem.
 
-**[Definition of Done](https://scrumguides.org/scrum-guide.html#definition-of-done)** is the acceptance criteria for a particular type of user story or epic.
+## Add item-specific acceptance criteria
 
-A caveat, according to the [Scrum Guide](https://scrumguides.org/scrum-guide.html#definition-of-done), the Definition of Done should apply uniformly to every increment. In practice, a Design task has very different acceptance criteria from a Developer task or a Quality Assurance (QA) task. Ultimately, the team must agree on what "done" means for each type of task, so that a Done label carries the same expectations for everyone.
+Acceptance criteria make the behavior and boundaries of a Product Backlog Item concrete. For the public clinic status, they might include:
 
-A Design task might be to run [A/B testing](https://www.nngroup.com/articles/ab-testing/) on two designs. Its Definition of Done could include the following requirements.
+1. When a clinic has a current status, its page shows the state and last-updated time without requiring a patient login.
+2. When the freshness threshold expires, the public state changes to **call before visiting**. It must not continue to show **accepting walk-ins**.
+3. When registration is closed, the page shows the clinic telephone number and approved non-emergency guidance. It does not make a clinical recommendation.
+4. Emergency guidance is present for every state and does not rely on colour alone.
+5. Only an authorized clinic operator can change the state. Each change records the actor, time, previous state, and new state.
+6. If the status service fails, the page shows **status unavailable, call before visiting** instead of silently displaying stale information.
 
-1. Create two variations of the target page, each following a different set of design principles
-2. Conduct user research with at least three users
-3. Draw a conclusion on which design to choose, supported by evidence
+These criteria do more than describe a happy path. They expose product decisions about trust, safety, accessibility, and failure. If the team cannot agree on them, the work is not ready merely because the story sounds clear.
 
-An example of a QA task might be to investigate a bug report filed by a user. Its Definition of Done could include the following requirements.
+## Apply one shared Definition of Done
 
-1. Replicate the bug in the staging environment
-2. Create a bug report
-3. Fix the bug
-4. Write a unit test that covers the bug
-5. Release the fix to staging
-6. Test the fix on staging
-7. Release the fix to production
-8. Inform affected users that the bug has been resolved
+Acceptance criteria and the **Definition of Done** solve different problems.
 
-An example of a Developer task might be to build a login page. Its Definition of Done could include the following requirements.
+Acceptance criteria describe the behavior or scope of one item. The [Scrum Guide](https://scrumguides.org/scrum-guide.html#definition-of-done) defines the Definition of Done as the formal description of the Increment's state when it meets the product's required quality measures. It is a shared product standard, not a separate checklist for designers, developers, and quality engineers.
 
-1. Approved wireframes for the task and all relevant user flows
-2. Frontend unit tests
-3. Backend unit tests
-4. Integration tests that verify the feature works end-to-end
-5. Passes [performance testing](https://web.dev/articles/lcp)
-6. Passes [penetration testing](https://owasp.org/www-project-web-security-testing-guide/)
-7. Passes QA
-8. Passes code review
-9. Documentation is written
-10. Released to staging
-11. Passes QA in staging
-12. Released to production
+For this product, the Definition of Done might require that:
 
-## Sprint Planning
+- code is reviewed and integrated
+- automated checks pass
+- agreed security and accessibility standards are met
+- audit events and operational monitoring are working
+- relevant documentation is updated
+- the Increment remains usable and can be evaluated with the pilot clinics
 
-![sprint planning](/img/meeting-g10f292b56_1280.png)
+A design review or deployment checklist may still be useful. Call it what it is. Creating several role-specific "Definitions of Done" weakens the shared responsibility for product quality and encourages work to move through silos.
 
-Now that we have covered the terminologies, let us talk about the Sprint Planning session itself.
+Production release also does not have to be a universal Definition of Done item. Scrum allows an Increment to be delivered before the Sprint ends, but an Increment may also be usable without being released immediately. The team should choose a release policy that fits its product and risk.
 
-At the start of the meeting, the team decides on **the what**. The Product Owner picks items from the backlog for the team to work on and sets the initial sprint goal. These items are usually chosen because they relate to initiatives or epics from the previous sprint, or because they kick off a new one.
+## Refine continuously
 
-The development team then plans out **the how**, the scoping and specifications needed to deliver the sprint goal. This must be a negotiation. If the work is too large, the "what" needs to be adjusted. Ultimately, the scope must be manageable, and the team must agree that the selected items can meet the Definition of Done by the end of the sprint.
+Refinement is not a meeting where someone writes every ticket before development begins. It is the ongoing work of making Product Backlog Items smaller and clearer as the team learns.
 
-Once the sprint goal is finalized and the scope is locked, the team decides **the who**, meaning who takes which task. This is done purely by the development team.
+Our first conversation might reveal that clinic staff cannot update another dashboard during peak periods. That changes the product design. The team might test an update link in an existing operational tool, assign status ownership to a specific role, or narrow the pilot to clinics that already maintain a similar signal.
 
-"The how" is where most disagreements emerge. Don't be alarmed when discussions turn into negotiations or tensions rise. Good teams harness that friction to build a better product. Everyone is pushing for the best outcome, and what seems like a straightforward task quickly grows complex when you factor in doing it right and planning for the future. My advice is to stay pragmatic. Hitting scaling issues is a good problem because it means users love what you built. That said, make sure the product can handle the load for at least the first 3 months after launch.
+Another conversation might reveal that "accepting walk-ins" sounds like a guarantee. The wording may need to communicate that registration can still change before arrival. That is a product requirement, not copy polish to leave until the end.
 
-Although it is standard practice for the Product Teams to decide on the timeline, some companies take a top-down approach where management effectively says, "I do not care how, just get it done by this date." You build products the fastest way possible, almost like bootcamp. For short-lived projects or products serving a small user base for a year or two, you will probably be fine. But when maintenance and enhancements arrive, reading the code can feel like pulling teeth, the hallmark of [technical debt](https://martinfowler.com/bliki/TechnicalDebt.html).
+Refine enough to make the next decision responsibly. Do not spend weeks specifying later slices whose assumptions the pilot is meant to test.
 
-In my opinion, the top-down approach is one of the drivers behind the [Great Resignation](https://en.wikipedia.org/wiki/Great_Resignation). Maintenance becomes so painful that the original developers leave, the company hires replacements, and the cycle repeats.
+## Plan the Sprint around a goal
 
-## Impact of AI
+If the team uses Scrum, [Sprint Planning](https://scrumguides.org/scrum-guide.html#sprint-planning) answers three questions.
 
-![Artificial Intelligence](/img/deltaworks-artificial-intelligence-7768524_1280.jpg)
+1. **Why is this Sprint valuable?** The whole Scrum Team collaborates to define the Sprint Goal.
+2. **What can be completed?** Through discussion with the Product Owner, the Developers select Product Backlog Items for the Sprint.
+3. **How will the work get done?** The Developers create the plan needed to produce an Increment that meets the Definition of Done.
 
-AI is reshaping the entire initiative-to-task pipeline, and teams that lean into it are moving significantly faster.
+A suitable Sprint Goal could be:
 
-Starting at the top, persona creation and user research, once a weeks-long exercise can now be bootstrapped in hours. Tools like [Miro's AI persona generator](https://miro.com/ai/persona/) synthesize analytics, support tickets, and survey data into structured personas. That said, the [Nielsen Norman Group](https://www.nngroup.com/articles/ai-personas/) cautions that synthetic personas cannot fully replace the empathy that comes from real user interviews. Use AI to accelerate the process, not to skip it. My recommendation is for AI to generate test personas but get people to validate.
+> Learn whether clinic staff can keep a live registration status current enough for patients to use safely.
 
-Further down the pipeline, AI is changing how teams write and manage stories. Jira's [Atlassian Intelligence](https://www.atlassian.com/software/jira/features/ai) can generate structured tickets from plain descriptions, auto-assign priority, and answer questions across Jira, Confluence, and connected tools. [ClickUp's Sprint Planning Agent](https://clickup.com/p/ai-agents/sprint-planning) scores backlog items against team capacity and proposes sprint scope, reportedly cutting planning time by 30 to 40 percent.
+The selected work might include the authorized update flow, public status page, automatic expiry, audit events, and pilot instrumentation. Developers decide how to organize and perform that work. Scrum does not require a fourth planning ceremony where a manager assigns every task to an individual.
 
-More notably, many teams are moving away from heavy project management tools entirely. [Linear](https://linear.app/) has gained significant adoption because it is fast, opinionated, and AI-native. Its triage and summarization features work without configuration. A growing number of teams now manage backlogs in plain markdown, either in GitHub Issues or purpose-built tools like [Backlog.md](https://github.com/MrLesk/Backlog.md). The reason is practical. LLMs parse markdown cleanly, tasks live in the same Git repository as the code, and the entire history is version controlled. GitHub has even published a guide on [spec-driven development](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-using-markdown-as-a-programming-language-when-building-with-ai/), where requirements are written in markdown for AI agents to execute.
+The Sprint Backlog is also not locked. As the team learns, Developers can negotiate scope with the Product Owner without endangering the Sprint Goal. If audit integration takes longer than expected, the team might reduce visual polish or pilot breadth. It should not quietly remove the safe stale-state fallback, because that would undermine the goal and product trust.
 
-On the development side, AI coding assistants like [GitHub Copilot](https://github.com/features/copilot), [Cursor](https://www.cursor.com/), and [Claude Code](https://claude.ai/claude-code) are compressing delivery timelines in ways that make traditional story point estimation feel outdated. Estimates that assumed three days of developer effort are being completed in one. Teams are starting to question whether velocity, as a concept, still means what it used to.
+Sprint Planning is useful when it creates a coherent goal and a realistic starting plan. It is not successful merely because every person leaves with a full task list.
 
-The net effect is that the overhead of planning is shrinking. Personas get drafted faster. Backlogs get groomed automatically. Stories get written from a prompt. What remains, and what AI cannot replace is judgment, knowing which initiative to pursue, what the North Star actually means for your users, and whether the sprint goal serves the product or just fills the calendar.
+## Use AI to challenge the breakdown
 
-## Conclusion
+AI can accelerate parts of this process. Given sanitized product context, it can propose alternative slices, identify missing states, draft acceptance examples, map dependencies, and generate a first test matrix.
 
-To wrap up, we have covered a lot about product planning. Personas help you understand who you are building for. The North Star keeps every initiative honest. The initiative-epic-story breakdown turns a product vision into actionable work. The Definition of Done ensures the team agrees on what finished actually mean and Sprint Planning is where all of it comes together into a shared commitment.
+For our clinic example, an AI assistant might ask useful questions:
 
-AI is accelerating every part of this process, from research to execution. The fundamentals, however, remain the same, understand your users, set a clear direction, break the work down, and ship incrementally. The teams that move fastest are not the ones who skip this process, they are the ones who have made it second nature.
+- What happens when two staff members update the state at the same time?
+- How does the status behave when the upstream service is unavailable?
+- What information could appear in a notification or audit log?
+- Which requirements need human review because they affect safety or policy?
 
-The next article focuses on the "the how" portion of Sprint Planning, and why a seemingly simple task is often more complex than it looks. This is always starts with the database.
+That is valuable assistance, but fluent output is not evidence. AI does not know how a clinic actually handles a queue unless the team gives it verified context. It cannot decide the acceptable freshness threshold, approve clinical wording, or make a Sprint commitment for the people doing the work.
+
+[DORA's 2025 research](https://dora.dev/research/2025/dora-report/) describes AI as an amplifier of an organization's existing strengths and weaknesses. Clear intent, small batches, automated checks, and fast feedback make generated work easier to verify. Weak requirements allow a team to create the wrong thing faster.
+
+In healthcare work, use only approved tools and sanitized inputs. Do not paste patient records, support conversations, or identifiable operational data into an unapproved model. AI may help structure the work. People remain accountable for the evidence, policy, privacy, quality, and release decision.
+
+## From delivery back to learning
+
+Finishing the slice is not the end of the story. The team must compare what happened with the outcome it intended to create.
+
+Did staff keep statuses current? Did users understand when to call? Were any clinics shown as accepting walk-ins after their information became stale? Did the service reduce avoidable journeys without delaying urgent care or creating unreasonable staff work?
+
+The answers should change the Product Backlog. The next slice might improve the staff workflow, add another access channel, or test alternative wording. It should not automatically be the largest feature from the original roadmap.
+
+User stories still have a place in modern product development. Their value is not the sentence template. Their value is the conversation they start and the traceability they preserve from a real need to a small piece of work.
+
+If you want to step back one level, [Why Product Requirements Matter](/blog/why-product-requirements-matter) examines how a team finds the right outcome before it creates the first story. For the wider Scrum lifecycle, including discovery, reviews, releases, and retrospectives, continue with [Join the Scrum](/blog/join-the-scrum).

@@ -2,6 +2,21 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { lqip } from "./lqip";
 
+const SHORT_MONTHS = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
+
 export const cn = (...inputs: ClassValue[]) => {
 	return twMerge(clsx(inputs));
 };
@@ -38,13 +53,10 @@ export const getImagePlaceholder = (src: string): string => {
 };
 
 /**
- * Format a date string to locale date format.
+ * Format an ISO calendar date identically on the server and client.
  */
 export const formatDate = (dateString: string): string => {
-	return new Date(dateString).toLocaleDateString("en-SG", {
-		day: "numeric",
-		month: "short",
-		year: "numeric",
-		timeZone: "UTC",
-	});
+	const date = new Date(dateString);
+
+	return `${date.getUTCDate()} ${SHORT_MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
 };

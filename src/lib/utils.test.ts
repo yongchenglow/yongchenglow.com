@@ -91,6 +91,13 @@ describe("Image Placeholder Utilities", () => {
 
 describe("formatDate", () => {
 	it("formats a calendar date deterministically for the site locale", () => {
-		expect(formatDate("2026-09-19")).toBe("19 Sep 2026");
+		const originalToLocaleDateString = Date.prototype.toLocaleDateString;
+		Date.prototype.toLocaleDateString = () => "19 Sept 2026";
+
+		try {
+			expect(formatDate("2026-09-19")).toBe("19 Sep 2026");
+		} finally {
+			Date.prototype.toLocaleDateString = originalToLocaleDateString;
+		}
 	});
 });
