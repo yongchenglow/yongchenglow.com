@@ -132,7 +132,7 @@ jobs:
       application_name: yongchenglow
       production_namespace: personal-site
       release_name: web
-      review_domain: review.${{ vars.CLOUDFLARE_DOMAIN }}
+      review_domain: ${{ vars.CLOUDFLARE_DOMAIN }}
       cloudflare_zone: ${{ vars.CLOUDFLARE_DOMAIN }}
     secrets:
       KUBECONFIG_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
@@ -153,7 +153,7 @@ jobs:
       review_id: pr-${{ github.event.number }}
       application_name: yongchenglow
       release_name: web
-      review_domain: review.${{ vars.CLOUDFLARE_DOMAIN }}
+      review_domain: ${{ vars.CLOUDFLARE_DOMAIN }}
       cloudflare_zone: ${{ vars.CLOUDFLARE_DOMAIN }}
     secrets:
       KUBECONFIG_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
