@@ -34,10 +34,10 @@ env:
 
 resources:
   limits:
-    cpu: 250m
-    memory: 512Mi
+    cpu: 200m
+    memory: 256Mi
   requests:
-    cpu: 150m
+    cpu: 50m
     memory: 256Mi
 
 ingress:
