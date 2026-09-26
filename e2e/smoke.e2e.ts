@@ -15,6 +15,15 @@ test.describe("smoke", { tag: "@smoke" }, () => {
 				const response = await page.goto(path);
 				expect.soft(response?.status(), path).toBe(200);
 				await expect.soft(page.locator("h1").first(), path).toBeVisible();
+
+				// Content wider than the viewport makes the page scroll sideways.
+				const { scrollWidth, clientWidth } = await page.evaluate(() => ({
+					scrollWidth: document.documentElement.scrollWidth,
+					clientWidth: document.documentElement.clientWidth,
+				}));
+				expect
+					.soft(scrollWidth, `${path} overflows horizontally`)
+					.toBe(clientWidth);
 			});
 		}
 	});
