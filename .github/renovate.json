@@ -38,6 +38,11 @@
       "groupName": "Testing"
     },
     {
+      "description": "Group Playwright packages; CI and e2e/docker.sh derive the browser image tag from @playwright/test",
+      "matchPackagePatterns": ["playwright"],
+      "groupName": "Playwright"
+    },
+    {
       "description": "Schedule dependencies updates weekly",
       "matchDepTypes": ["dependencies", "devDependencies"],
       "extends": ["schedule:weekly"]

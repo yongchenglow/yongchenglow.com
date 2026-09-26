@@ -27,9 +27,18 @@ export const PostCodeBlock = ({
 		setMounted(true);
 	}, []);
 
+	// The wrapper is the only scroll container, so keyboard users can focus it
+	// and scroll long lines with the arrow keys.
+	const scrollRegionProps = {
+		className: cn("mb-7 w-full overflow-x-auto", className),
+		role: "region",
+		"aria-label": `${language} code`,
+		tabIndex: 0,
+	};
+
 	if (!mounted) {
 		return (
-			<div className={cn("mb-7 w-full overflow-x-auto", className)}>
+			<div {...scrollRegionProps}>
 				<div className="bg-muted p-8 text-left">
 					<pre>{children.trim()}</pre>
 				</div>
@@ -38,7 +47,7 @@ export const PostCodeBlock = ({
 	}
 
 	return (
-		<div className={cn("mb-7 w-full overflow-x-auto", className)}>
+		<div {...scrollRegionProps}>
 			<SyntaxHighlighter
 				language={language}
 				style={theme === "dark" ? atomOneDark : atomOneLight}
@@ -46,6 +55,7 @@ export const PostCodeBlock = ({
 					textAlign: "left",
 					padding: "1rem 2rem",
 					margin: 0,
+					overflow: "visible",
 				}}
 			>
 				{children.trim()}

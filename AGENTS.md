@@ -41,6 +41,8 @@ Adding, editing, renaming, or removing a blog post: read `src/app/blog/AGENTS.md
 
 Writing or debugging a test, read `test/AGENTS.md` for Bun test setup, the Vitest-shaped compatibility shim, module mocking, and cache isolation.
 
+Writing or debugging an end-to-end test, or changing a page that visual snapshots capture: read `e2e/AGENTS.md` for the Playwright commands, fixtures, snapshot workflow, and accessibility gate.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
