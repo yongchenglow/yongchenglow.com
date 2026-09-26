@@ -38,9 +38,6 @@ export const metadata: Metadata = {
 		description: `${SITE_AUTHOR.name}'s personal website where he talks about tech, personal life, and his experiences`,
 		images: [SITE_AUTHOR.image],
 	},
-	icons: {
-		icon: "/img/YongCheng.jpg",
-	},
 };
 
 export const RootLayout = ({ children }: { children: ReactNode }) => {

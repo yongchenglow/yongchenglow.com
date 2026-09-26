@@ -10,13 +10,17 @@ Test files mirror the source path: `src/components/blog/Pagination.tsx` is teste
 
 For module mocking, import `mock` from `"bun:test"` and call `mock.module`:
 
-```ts
+```tsx
 import { mock } from "bun:test";
 
-mock.module("@/src/lib/blog", () => ({ getAllBlogPosts: () => [] }));
+mock.module("@/src/components/shared/organisms/Footer", () => ({
+	default: () => <footer data-testid="footer" />,
+}));
 ```
 
 `mock.module` does not hoist. Register it at module scope before invoking the code under test. Keep per-file module mocks out of `describe` and `it` blocks.
+
+`mock.module` is process-wide: the replacement persists into every test file that runs afterwards, and `mock.restore()` does not undo it. File order differs between macOS and CI, so a leak can pass locally and fail only in CI. Do not mock shared modules such as `@/src/lib/blog`; test against real content instead.
 
 ## Setup runs automatically
 

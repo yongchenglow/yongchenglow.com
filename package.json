@@ -23,7 +23,8 @@
 		"knip:production": "knip --production",
 		"update:packages": "bun update --latest",
 		"prepare": "husky",
-		"lqip": "bun scripts/generate-lqip.ts"
+		"lqip": "bun scripts/generate-lqip.ts",
+		"images": "bun scripts/optimize-images.ts && bun run lqip"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "^3.1.1",

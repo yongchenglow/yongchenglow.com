@@ -18,7 +18,7 @@ Optional: `subtitle`, `lastUpdated`, `tags`, `image`, `draft`, `featured`.
 
 - Write `date` and `lastUpdated` as quoted `YYYY-MM-DD` strings so YAML round-trips them predictably.
 - `author` is a filename stem under `content/authors/`.
-- `image` is a path under `public/`, served from the root: `/img/example.png`.
+- `image` is a path under `public/`, served from the root: `/img/example.png`. After adding a file to `public/img/`, run `bun run images` to shrink it to the size budget in `src/config/images.ts` and refresh its blur placeholder; `bun test` fails on any image over budget.
 - `draft: true` hides the post from every listing, sitemap, and search index while leaving its direct URL live.
 - `featured: true` promotes the newest featured post to the featured slot. When none is featured, the newest post fills the slot.
 
