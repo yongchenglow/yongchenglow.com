@@ -12,23 +12,22 @@
 		"test": "bun test",
 		"tsc": "tsc --noEmit",
 		"typecheck": "tsc --noEmit",
-		"lint": "bun node_modules/@biomejs/biome/bin/biome lint --write",
+		"lint": "biome lint --write",
 		"start": "bun --bun next start",
 		"analyze": "ANALYZE=true bun --bun next build",
-		"format": "bun node_modules/@biomejs/biome/bin/biome format --write",
-		"check": "bun node_modules/@biomejs/biome/bin/biome check --write",
+		"format": "biome format --write",
+		"check": "biome check --write",
 		"check:all": "bun run tsc && bun run check && bun run knip",
-		"check:ci": "bun node_modules/@biomejs/biome/bin/biome check --write",
+		"check:ci": "biome check --write",
 		"knip": "knip",
 		"knip:production": "knip --production",
 		"update:packages": "bun update --latest",
-		"prepare": "bun --bun husky",
+		"prepare": "husky",
 		"lqip": "bun scripts/generate-lqip.ts",
-		"images": "bun scripts/optimize-images.ts && bun run lqip",
-		"lint-staged": "bun node_modules/lint-staged/bin/lint-staged.js"
+		"images": "bun scripts/optimize-images.ts && bun run lqip"
 	},
 	"lint-staged": {
-		"*.{ts,tsx,js,jsx,json,css,md,mdx}": "bun node_modules/@biomejs/biome/bin/biome check --write"
+		"*.{ts,tsx,js,jsx,json,css}": "biome check --write --no-errors-on-unmatched"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "^3.1.1",

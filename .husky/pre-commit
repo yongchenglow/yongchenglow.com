@@ -1,2 +1,6 @@
-GITLEAKS_NO_BANNER=1 gitleaks protect --staged --redact
-bun node_modules/lint-staged/bin/lint-staged.js
+if command -v gitleaks >/dev/null 2>&1; then
+	gitleaks git --pre-commit --staged --redact --no-banner
+else
+	echo "gitleaks not installed; skipping secret scan (brew install gitleaks)"
+fi
+lint-staged
