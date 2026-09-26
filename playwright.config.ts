@@ -26,11 +26,21 @@ export default defineConfig({
 	// `bun test` collects every *.test.* and *.spec.* file in the repository.
 	// A distinct suffix keeps Playwright specs out of the unit test run.
 	testMatch: "**/*.e2e.ts",
+	// Chromium antialiases text differently on arm64 and x64, so each
+	// architecture keeps its own baselines: arm64 from Docker on Apple Silicon,
+	// x64 from the CI runners. See e2e/AGENTS.md for how each is updated.
+	snapshotPathTemplate: `{testDir}/{testFileName}-snapshots/{arg}{-projectName}{-platform}-${process.arch}{ext}`,
 	fullyParallel: true,
 	forbidOnly: isCI,
 	retries: isCI ? 2 : 0,
 	workers: isCI ? 2 : undefined,
 	reporter: isCI ? [["github"], ["html", { open: "never" }]] : "list",
+	expect: {
+		toHaveScreenshot: {
+			animations: "disabled",
+			maxDiffPixelRatio: 0.01,
+		},
+	},
 	use: {
 		baseURL,
 		extraHTTPHeaders: cloudflareAccessHeaders,
