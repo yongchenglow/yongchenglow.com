@@ -20,10 +20,20 @@ fi
 echo "Waiting for Review App run $RUN_ID to finish..."
 gh run watch "$RUN_ID" >/dev/null
 
-if ! gh run download "$RUN_ID" --name visual-snapshots-x64 --dir e2e/visual.e2e.ts-snapshots; then
+ARTIFACTS=$(gh api "repos/{owner}/{repo}/actions/runs/$RUN_ID/artifacts" \
+	--jq '[.artifacts[] | select(.name == "visual-snapshots-x64")] | length')
+
+if [ "$ARTIFACTS" = "0" ]; then
 	echo "Run $RUN_ID uploaded no changed baselines; the x64 snapshots already match." >&2
 	exit 1
 fi
+
+# The artifact holds every x64 baseline, and gh refuses to overwrite existing
+# files, so download elsewhere and copy over the committed set.
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
+gh run download "$RUN_ID" --name visual-snapshots-x64 --dir "$TMP"
+cp "$TMP"/*.png e2e/visual.e2e.ts-snapshots/
 
 echo "Review the changed PNGs, then commit and push them:"
 git status --short e2e/visual.e2e.ts-snapshots
