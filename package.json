@@ -12,19 +12,23 @@
 		"test": "bun test",
 		"tsc": "tsc --noEmit",
 		"typecheck": "tsc --noEmit",
-		"lint": "biome lint --write",
+		"lint": "bun node_modules/@biomejs/biome/bin/biome lint --write",
 		"start": "bun --bun next start",
 		"analyze": "ANALYZE=true bun --bun next build",
-		"format": "biome format --write",
-		"check": "biome check --write",
+		"format": "bun node_modules/@biomejs/biome/bin/biome format --write",
+		"check": "bun node_modules/@biomejs/biome/bin/biome check --write",
 		"check:all": "bun run tsc && bun run check && bun run knip",
-		"check:ci": "biome check --write",
+		"check:ci": "bun node_modules/@biomejs/biome/bin/biome check --write",
 		"knip": "knip",
 		"knip:production": "knip --production",
 		"update:packages": "bun update --latest",
-		"prepare": "husky",
+		"prepare": "bun --bun husky",
 		"lqip": "bun scripts/generate-lqip.ts",
-		"images": "bun scripts/optimize-images.ts && bun run lqip"
+		"images": "bun scripts/optimize-images.ts && bun run lqip",
+		"lint-staged": "bun node_modules/lint-staged/bin/lint-staged.js"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx,json,css,md,mdx}": "bun node_modules/@biomejs/biome/bin/biome check --write"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "^3.1.1",
@@ -81,6 +85,7 @@
 		"globals": "^17.12.0",
 		"husky": "^9.1.7",
 		"knip": "^6.38.0",
+		"lint-staged": "^17.6.0",
 		"postcss": "^8.5.28",
 		"shadcn": "^4.21.0",
 		"sharp": "^0.35.4",

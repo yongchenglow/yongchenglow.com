@@ -1,0 +1,2 @@
+GITLEAKS_NO_BANNER=1 gitleaks protect --staged --redact
+bun node_modules/lint-staged/bin/lint-staged.js

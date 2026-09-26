@@ -1,0 +1,2 @@
+bun run tsc
+bun test
