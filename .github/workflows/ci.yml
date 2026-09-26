@@ -94,11 +94,17 @@ jobs:
         web|helm/app/values-production.yaml|personal-site
         web|helm/app/values-review.yaml|personal-site-review
 
+  e2e:
+    name: E2E
+    permissions:
+      contents: read
+    uses: ./.github/workflows/e2e.yml
+
   # Every quality and security check converges here. The image is built once,
   # scanned locally, and only the exact image that passed is then published.
   container:
     name: Build, Scan & Push Docker Image
-    needs: [bun-version, build, secret-scan, helm-validate, actionlint]
+    needs: [bun-version, build, e2e, secret-scan, helm-validate, actionlint]
     permissions:
       contents: read
       packages: write
@@ -135,3 +141,14 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
+
+  # A failure here marks the run red and notifies, but does not roll back.
+  # Use the Production Rollback workflow if the deployment is at fault.
+  e2e-production-smoke:
+    name: E2E Production Smoke
+    needs: deploy-production
+    permissions:
+      contents: read
+    uses: ./.github/workflows/e2e.yml
+    with:
+      base_url: ${{ needs.deploy-production.outputs.deployment_url }}

@@ -1,0 +1,117 @@
+name: End-to-End Tests
+
+# Every CI end-to-end run goes through e2e/run-in-container.sh inside the same
+# Playwright image `bun run e2e:docker` uses locally.
+#
+# - Without inputs: the full suite against a production build on the runner.
+# - base_url: only the @smoke tests, against an already deployed site.
+on:
+  workflow_call:
+    inputs:
+      base_url:
+        description: "Deployed site to smoke test instead of a local build"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  versions:
+    name: Extract Playwright Version
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      playwright: ${{ steps.playwright.outputs.version }}
+    steps:
+      - name: Checkout package.json
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: package.json
+          sparse-checkout-cone-mode: false
+
+      # The image tag must match @playwright/test exactly so the bundled
+      # browsers and the test runner agree.
+      - name: Read @playwright/test version
+        id: playwright
+        run: echo "version=$(jq -r '.devDependencies["@playwright/test"]' package.json)" >> "$GITHUB_OUTPUT"
+
+  playwright:
+    name: Playwright
+    needs: versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.versions.outputs.playwright }}-noble
+      options: --ipc=host
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      # A fresh deployment can take a minute to become routable through the
+      # Cloudflare tunnel. Testing before then would report a false failure.
+      - name: Wait for deployment
+        if: inputs.base_url
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --output /dev/null "$BASE_URL"; then
+              echo "$BASE_URL is up"
+              exit 0
+            fi
+            echo "Waiting for $BASE_URL (attempt $attempt/30)"
+            sleep 10
+          done
+          echo "$BASE_URL did not respond within 5 minutes"
+          exit 1
+
+      - name: Smoke test deployment
+        if: inputs.base_url
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+        run: sh e2e/run-in-container.sh --grep @smoke
+
+      # Snapshots are regenerated rather than only compared, so a visual change
+      # leaves the new x64 baselines on disk for the next two steps.
+      - name: Run full suite
+        if: ${{ !inputs.base_url }}
+        run: sh e2e/run-in-container.sh --update-snapshots=changed
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-${{ github.run_attempt }}
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Detect changed x64 baselines
+        id: baselines
+        if: ${{ !inputs.base_url }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          changed=$(git status --porcelain -- e2e/visual.e2e.ts-snapshots)
+          if [ -n "$changed" ]; then
+            echo "$changed"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload changed x64 baselines
+        if: steps.baselines.outputs.changed
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-snapshots-x64
+          path: e2e/visual.e2e.ts-snapshots/*-x64.png
+          retention-days: 7
+
+      - name: Fail on visual changes
+        if: steps.baselines.outputs.changed
+        run: |
+          echo "::error::Visual snapshots changed. Review them with 'bun run e2e:update:ci', then commit the x64 baselines."
+          exit 1

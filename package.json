@@ -15,6 +15,7 @@
 		"e2e:smoke": "playwright test --grep @smoke",
 		"e2e:docker": "sh e2e/docker.sh",
 		"e2e:update": "sh e2e/docker.sh --grep @visual --update-snapshots=all",
+		"e2e:update:ci": "sh e2e/update-ci-snapshots.sh",
 		"e2e:install": "playwright install chromium",
 		"e2e:serve": "cp -R public .next/standalone/ && cp -R .next/static .next/standalone/.next/ && bun .next/standalone/server.js",
 		"tsc": "tsc --noEmit",

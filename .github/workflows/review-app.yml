@@ -96,12 +96,19 @@ jobs:
         web|helm/app/values-production.yaml|personal-site
         web|helm/app/values-review.yaml|personal-site-review
 
+  e2e:
+    name: E2E
+    if: github.event.action != 'closed'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/e2e.yml
+
   # Every quality and security check converges here. The image is built once,
   # scanned locally, and only the exact image that passed is then published.
   container:
     name: Build, Scan & Push Review Image
     if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
-    needs: [bun-version, build, secret-scan, helm-validate, actionlint]
+    needs: [bun-version, build, e2e, secret-scan, helm-validate, actionlint]
     permissions:
       contents: read
       packages: write
@@ -140,6 +147,18 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
+
+  e2e-review-smoke:
+    name: E2E Review Smoke
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
+    needs: deploy
+    permissions:
+      contents: read
+    uses: ./.github/workflows/e2e.yml
+    with:
+      # review-deploy.yml publishes {application_name}-{review_id}.{review_domain}
+      # but does not output the URL, so it is rebuilt from the same inputs.
+      base_url: https://yongchenglow-pr-${{ github.event.number }}.${{ vars.CLOUDFLARE_DOMAIN }}
 
   cleanup:
     name: Tear Down Review App
