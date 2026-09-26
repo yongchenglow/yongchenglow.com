@@ -54,6 +54,7 @@ export const GET = async (request: NextRequest) => {
 			{avatarSrc && (
 				<div
 					style={{
+						display: "flex",
 						width: "140px",
 						height: "140px",
 						borderRadius: "70px",
