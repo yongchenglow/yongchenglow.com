@@ -3,10 +3,6 @@ name: Docker Build, Scan & Push
 on:
   workflow_call:
     inputs:
-      bun_version:
-        description: "Bun version extracted from package.json"
-        required: true
-        type: string
       dhi_login:
         description: "Whether to authenticate to Docker Hardened Images"
         required: false
@@ -65,6 +61,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+
+      # Resolved here rather than passed in, so callers do not need a job that
+      # only feeds this workflow, and an extra edge in their dependency graph.
+      - name: Get Bun version from package.json
+        id: bun
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -126,7 +128,7 @@ jobs:
       - name: Determine DHI Bun tag
         id: dhi-bun-tag
         env:
-          BUN_VERSION: ${{ inputs.bun_version }}
+          BUN_VERSION: ${{ steps.bun.outputs.bun_version }}
         run: echo "value=$BUN_VERSION" >> "$GITHUB_OUTPUT"
 
       # Loading the image into the local Docker daemon lets Trivy inspect the
@@ -140,7 +142,7 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
           build-args: |
-            BUN_VERSION=${{ inputs.bun_version }}
+            BUN_VERSION=${{ steps.bun.outputs.bun_version }}
             DHI_BUN_TAG=${{ steps.dhi-bun-tag.outputs.value }}
             BUILD_DATE=${{ steps.build-date.outputs.value }}
             REVISION=${{ github.sha }}

@@ -104,14 +104,13 @@ jobs:
   # scanned locally, and only the exact image that passed is then published.
   container:
     name: Build, Scan & Push Docker Image
-    needs: [bun-version, build, e2e, secret-scan, helm-validate, actionlint]
+    needs: [build, e2e, secret-scan, helm-validate, actionlint]
     permissions:
       contents: read
       packages: write
       security-events: write
     uses: ./.github/workflows/docker-build-scan-push.yml
     with:
-      bun_version: ${{ needs.bun-version.outputs.bun_version }}
       dhi_login: true
       platform: linux/amd64
     secrets:
@@ -158,8 +157,10 @@ jobs:
   # deployment is not successful, and `--wait` leaves the old pods serving.
   rollback-production:
     name: Rollback Production
-    needs: [deploy-production, e2e-production-smoke]
-    if: always() && needs.deploy-production.result == 'success' && needs.e2e-production-smoke.result == 'failure'
+    # The smoke test only runs after a successful deploy, so its failure alone
+    # implies the deploy succeeded. Depending on it alone keeps the graph linear.
+    needs: e2e-production-smoke
+    if: always() && needs.e2e-production-smoke.result == 'failure'
     permissions:
       contents: read
       deployments: read
