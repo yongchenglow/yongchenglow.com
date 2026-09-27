@@ -108,14 +108,13 @@ jobs:
   container:
     name: Build, Scan & Push Review Image
     if: github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false
-    needs: [bun-version, build, e2e, secret-scan, helm-validate, actionlint]
+    needs: [build, e2e, secret-scan, helm-validate, actionlint]
     permissions:
       contents: read
       packages: write
       security-events: write
     uses: ./.github/workflows/docker-build-scan-push.yml
     with:
-      bun_version: ${{ needs.bun-version.outputs.bun_version }}
       dhi_login: true
       platform: linux/amd64
       tag_prefix: pr-${{ github.event.number }}
