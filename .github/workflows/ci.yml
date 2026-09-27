@@ -142,8 +142,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_TUNNEL_ID: ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
 
-  # A failure here marks the run red and notifies, but does not roll back.
-  # Use the Production Rollback workflow if the deployment is at fault.
+  # A failure here marks the run red and triggers rollback-production below.
   e2e-production-smoke:
     name: E2E Production Smoke
     needs: deploy-production
@@ -152,3 +151,27 @@ jobs:
     uses: ./.github/workflows/e2e.yml
     with:
       base_url: ${{ needs.deploy-production.outputs.deployment_url }}
+
+  # Undo a deployment that passed every pre-deploy check but fails against the
+  # live site. Rolls back to the previous Helm revision only. A failed deploy
+  # is not rolled back here: the reusable workflow refuses when the latest
+  # deployment is not successful, and `--wait` leaves the old pods serving.
+  rollback-production:
+    name: Rollback Production
+    needs: [deploy-production, e2e-production-smoke]
+    if: always() && needs.deploy-production.result == 'success' && needs.e2e-production-smoke.result == 'failure'
+    permissions:
+      contents: read
+      deployments: read
+    # v2.0.3 resolved on 2026-09-16.
+    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2
+    with:
+      application_name: yongchenglow
+      namespace: personal-site
+      release_name: web
+      production_hostname: ${{ vars.CLOUDFLARE_DOMAIN }}
+    # Rollback changes the Helm release only. It needs no Cloudflare access:
+    # the route already points at the release and does not move.
+    secrets:
+      KUBECONFIG_SERVER: ${{ secrets.KUBECONFIG_SERVER }}
+      KUBECONFIG_TOKEN: ${{ secrets.KUBECONFIG_TOKEN }}
