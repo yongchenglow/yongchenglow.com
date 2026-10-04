@@ -1,26 +1,15 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { SITE_AUTHOR } from "@/src/config/site";
+import { parseOgCardRequest, SITE_HOST } from "@/src/lib/post-metadata";
 
 export const runtime = "edge";
 
-const MAX_TITLE_LENGTH = 200;
-const MAX_TAGS = 6;
-const MAX_TAG_LENGTH = 32;
 const AVATAR_FETCH_TIMEOUT_MS = 3000;
 
 export const GET = async (request: NextRequest) => {
 	const { searchParams } = new URL(request.url);
-	const title = (searchParams.get("title") ?? SITE_AUTHOR.name).slice(
-		0,
-		MAX_TITLE_LENGTH,
-	);
-	const tagsParam = searchParams.get("tags") ?? "";
-	const tags = tagsParam
-		.split(",")
-		.map((t) => t.trim().slice(0, MAX_TAG_LENGTH))
-		.filter(Boolean)
-		.slice(0, MAX_TAGS);
+	const { title, tags } = parseOgCardRequest(searchParams, SITE_AUTHOR.name);
 
 	const avatarUrl = new URL(SITE_AUTHOR.image, request.url).toString();
 	let avatarSrc: string | null = null;
@@ -124,7 +113,7 @@ export const GET = async (request: NextRequest) => {
 						alignSelf: "flex-end",
 					}}
 				>
-					yongchenglow.com
+					{SITE_HOST}
 				</div>
 			</div>
 		</div>,

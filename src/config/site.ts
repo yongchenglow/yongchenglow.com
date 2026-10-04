@@ -1,5 +1,11 @@
 export const SITE_URL = "https://www.yongchenglow.com";
 
+/**
+ * Every published date is written in this offset. The `Article` JSON-LD needs
+ * it to stamp a timezone, and a bare `YYYY-MM-DD` is not a valid dateTime.
+ */
+export const SITE_TIMEZONE_OFFSET = "+08:00";
+
 export const SITE_AUTHOR = {
 	name: "Yong Cheng Low",
 	url: `${SITE_URL}/about`,
