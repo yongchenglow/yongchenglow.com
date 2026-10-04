@@ -35,8 +35,7 @@ describe("sitemap", () => {
 		const posts = entries.filter(
 			(e) =>
 				e.url.startsWith("https://www.yongchenglow.com/blog/") &&
-				e.url !== "https://www.yongchenglow.com/blog/all" &&
-				!e.url.includes("/latest/") &&
+				!e.url.includes("/all/") &&
 				!e.url.includes("/category/") &&
 				!e.url.includes("/tag/"),
 		);
@@ -52,7 +51,7 @@ describe("sitemap", () => {
 		const entries = await sitemap();
 		const listingPages = entries.filter(
 			(e) =>
-				e.url.includes("/latest/") ||
+				e.url.includes("/blog/all/") ||
 				e.url.includes("/category/") ||
 				e.url.includes("/tag/"),
 		);
@@ -60,6 +59,14 @@ describe("sitemap", () => {
 		for (const page of listingPages) {
 			expect(page.priority).toBe(0.5);
 		}
+	});
+
+	it("lists the paginated archive rather than the redirecting bare path", async () => {
+		const entries = await sitemap();
+		const archive = entries.filter((e) => e.url.includes("/blog/all"));
+
+		expect(archive.length).toBeGreaterThan(0);
+		expect(archive.every((e) => /\/blog\/all\/\d+$/.test(e.url))).toBe(true);
 	});
 
 	it("does not include year archive pages", async () => {

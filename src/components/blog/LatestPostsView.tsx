@@ -12,25 +12,32 @@ import type { BlogPost, PaginationResult } from "@/src/types/blog";
 
 interface LatestPostsViewProps {
 	paginationResult: PaginationResult<BlogPost>;
+	/** Page URLs, with the page number appended: `/blog/all/` + 2. */
 	baseUrl: string;
+	/** The JSON endpoint for the same scope, without a page param. */
+	apiUrl: string;
 }
+
+const withPageParam = (apiUrl: string, page: number): string =>
+	`${apiUrl}${apiUrl.includes("?") ? "&" : "?"}page=${page}`;
 
 export const LatestPostsView = ({
 	paginationResult,
 	baseUrl,
+	apiUrl,
 }: LatestPostsViewProps) => {
 	const [useInfiniteScroll, setUseInfiniteScroll] = useState(false);
 
 	const loadMorePosts = useCallback(
 		async (page: number): Promise<BlogPost[]> => {
-			const response = await fetch(`${baseUrl}${page}`);
+			const response = await fetch(withPageParam(apiUrl, page));
 			if (!response.ok) {
 				throw new Error("Failed to fetch posts");
 			}
 			const data: PaginationResult<BlogPost> = await response.json();
 			return data.items;
 		},
-		[baseUrl],
+		[apiUrl],
 	);
 
 	return (

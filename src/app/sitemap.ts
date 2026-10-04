@@ -41,10 +41,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
 		});
 	}
 
-	// All posts archive (timeline)
-	if (posts.length > 0) {
+	// All posts archive, one entry per page
+	const allPostsPageCount = getListingPageCount({ kind: "all" });
+	for (let i = 1; i <= allPostsPageCount; i++) {
 		entries.push({
-			url: `${SITE_URL}/blog/all`,
+			url: `${SITE_URL}/blog/all/${i}`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,
