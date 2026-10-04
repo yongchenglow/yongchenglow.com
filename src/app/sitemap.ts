@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { BLOG_CONFIG } from "@/src/config/blog";
 import { SITE_URL } from "@/src/config/site";
 import { blog } from "@/src/lib/blog";
+import { getAllTags, getListingPageCount } from "@/src/lib/blog-listing";
 
 const sitemap = (): MetadataRoute.Sitemap => {
 	const entries: MetadataRoute.Sitemap = [];
@@ -54,10 +54,10 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	// Category paginated pages
 	const categories = blog.getAllCategories();
 	for (const category of categories) {
-		const categoryPosts = blog.getBlogPostsByCategory(category.slug);
-		const totalCategoryPages = Math.ceil(
-			categoryPosts.length / BLOG_CONFIG.postsPerPage,
-		);
+		const totalCategoryPages = getListingPageCount({
+			kind: "category",
+			slug: category.slug,
+		});
 		for (let i = 1; i <= totalCategoryPages; i++) {
 			entries.push({
 				url: `${SITE_URL}/blog/category/${category.slug}/${i}`,
@@ -69,13 +69,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 
 	// Tag pages
-	const allTagsSet = new Set<string>();
-	for (const post of posts) {
-		for (const tag of post.frontmatter.tags ?? []) {
-			allTagsSet.add(tag);
-		}
-	}
-	for (const tag of allTagsSet) {
+	for (const tag of getAllTags()) {
 		entries.push({
 			url: `${SITE_URL}/blog/tag/${encodeURIComponent(tag)}`,
 			lastModified: new Date(),

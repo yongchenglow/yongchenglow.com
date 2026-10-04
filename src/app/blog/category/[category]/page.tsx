@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { blog } from "@/src/lib/blog";
+import { getListingBaseUrl } from "@/src/lib/blog-listing";
 
 interface CategoryPageProps {
 	params: Promise<{
@@ -25,7 +26,7 @@ export const CategoryPage = async ({ params }: CategoryPageProps) => {
 	}
 
 	// Redirect to page 1
-	redirect(`/blog/category/${category}/1`);
+	redirect(`${getListingBaseUrl({ kind: "category", slug: category })}1`);
 };
 
 export default CategoryPage;

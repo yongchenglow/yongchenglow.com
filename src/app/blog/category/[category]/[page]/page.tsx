@@ -8,9 +8,14 @@ import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
-import { BLOG_CONFIG } from "@/src/config/blog";
-import { BLOG_UI } from "@/src/config/blog-ui";
 import { blog } from "@/src/lib/blog";
+import {
+	getListing,
+	getListingBaseUrl,
+	getListingPageCount,
+	paginationSummary,
+	parsePage,
+} from "@/src/lib/blog-listing";
 
 interface CategoryPageProps {
 	params: Promise<{
@@ -36,10 +41,11 @@ export const generateStaticParams = async () => {
 	const params: { category: string; page: string }[] = [];
 
 	for (const category of categories) {
-		const posts = blog.getBlogPostsByCategory(category.slug);
-		const totalPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
+		const totalPages = getListingPageCount({
+			kind: "category",
+			slug: category.slug,
+		});
 
-		// Generate params for each page
 		for (let i = 1; i <= totalPages; i++) {
 			params.push({
 				category: category.slug,
@@ -59,10 +65,10 @@ export const CategoryPageWithPagination = async ({
 	params,
 }: CategoryPageProps) => {
 	const { category, page } = await params;
-	const pageNumber = Number.parseInt(page, 10);
+	const pageNumber = parsePage(page);
 
-	// Validate page number
-	if (!/^[1-9]\d*$/.test(page) || Number.isNaN(pageNumber)) {
+	// A page param that is not a canonical positive integer is not a URL.
+	if (pageNumber === null) {
 		notFound();
 	}
 
@@ -72,14 +78,12 @@ export const CategoryPageWithPagination = async ({
 		notFound();
 	}
 
-	const paginationResult = blog.getPaginatedPostsByCategory(
-		category,
-		pageNumber,
-	);
+	const scope = { kind: "category", slug: category } as const;
+	const listing = getListing(scope, pageNumber);
 
-	// The data helper clamps API consumers to the final page, but a page route
+	// The listing clamps API consumers to the final page, but a page route
 	// outside the generated range is not a canonical URL.
-	if (pageNumber > Math.max(paginationResult.totalPages, 1)) {
+	if (pageNumber > Math.max(listing.totalPages, 1)) {
 		notFound();
 	}
 
@@ -89,7 +93,7 @@ export const CategoryPageWithPagination = async ({
 				<BlogBreadcrumb
 					current={{
 						label: categoryMetadata.label,
-						href: `/blog/category/${category}/1`,
+						href: getListingBaseUrl(scope) + "1",
 					}}
 				/>
 				<FadeIn>
@@ -99,16 +103,12 @@ export const CategoryPageWithPagination = async ({
 					<PageSubtitle>
 						{categoryMetadata.description}
 						<br />
-						{BLOG_UI.pagination.showingText
-							.replace("{current}", String(paginationResult.items.length))
-							.replace("{total}", String(paginationResult.totalItems))}
-						{paginationResult.totalPages > 1 &&
-							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
+						{paginationSummary(listing)}
 					</PageSubtitle>
 				</FadeIn>
 
 				<PostGrid>
-					{paginationResult.items.map((post, index) => (
+					{listing.items.map((post, index) => (
 						<AnimatedGridItem key={post.slug} index={index}>
 							<PostCard
 								title={post.frontmatter.title}
@@ -123,9 +123,9 @@ export const CategoryPageWithPagination = async ({
 				</PostGrid>
 
 				<Pagination
-					currentPage={paginationResult.currentPage}
-					totalPages={paginationResult.totalPages}
-					baseUrl={`/blog/category/${category}/`}
+					currentPage={listing.currentPage}
+					totalPages={listing.totalPages}
+					baseUrl={getListingBaseUrl(scope)}
 				/>
 			</div>
 		</StandardLayout>

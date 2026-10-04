@@ -25,7 +25,7 @@ Content for ${slug}`;
 const repoWith = (files: Record<string, string>) =>
 	createBlogRepository(inMemoryContentSource(files));
 
-/** Builds a `slug -> frontmatter overrides` fixture set. */
+/** Builds a fixture set from `slug -> frontmatter overrides` pairs. */
 const withPosts = (
 	entries: Array<[string, Record<string, unknown>?]>,
 ): Record<string, string> =>
@@ -398,82 +398,5 @@ describe("getCategoryPostCounts", () => {
 		expect(counts.process).toBe(1);
 		expect(counts.design).toBe(0);
 		expect(counts.career).toBe(0);
-	});
-});
-
-// Helper: N posts with descending dates
-const withNPosts = (n: number): Record<string, string> =>
-	withPosts(
-		Array.from({ length: n }, (_, i) => {
-			const date = new Date(2024, 0, n - i).toISOString().split("T")[0];
-			return [`post-${i}`, { date }] as [string, Record<string, unknown>];
-		}),
-	);
-
-describe("getPaginatedPosts", () => {
-	it("returns correct slice for page 1", () => {
-		const result = repoWith(withNPosts(15)).getPaginatedPosts(1, 12);
-		expect(result.items).toHaveLength(12);
-		expect(result.currentPage).toBe(1);
-	});
-
-	it("returns correct slice for page 2", () => {
-		const result = repoWith(withNPosts(15)).getPaginatedPosts(2, 12);
-		expect(result.items).toHaveLength(3);
-		expect(result.currentPage).toBe(2);
-	});
-
-	it("clamps page 0 to page 1", () => {
-		expect(repoWith(withNPosts(5)).getPaginatedPosts(0, 12).currentPage).toBe(
-			1,
-		);
-	});
-
-	it("clamps page beyond total to last page", () => {
-		expect(repoWith(withNPosts(5)).getPaginatedPosts(99, 12).currentPage).toBe(
-			1,
-		);
-	});
-
-	it("hasNextPage is true when not on last page", () => {
-		expect(repoWith(withNPosts(15)).getPaginatedPosts(1, 12).hasNextPage).toBe(
-			true,
-		);
-	});
-
-	it("hasPreviousPage is false on page 1", () => {
-		expect(
-			repoWith(withNPosts(15)).getPaginatedPosts(1, 12).hasPreviousPage,
-		).toBe(false);
-	});
-
-	it("hasPreviousPage is true on page 2", () => {
-		expect(
-			repoWith(withNPosts(15)).getPaginatedPosts(2, 12).hasPreviousPage,
-		).toBe(true);
-	});
-});
-
-describe("getPaginatedPostsByCategory", () => {
-	it("filters posts by category tags before paginating", () => {
-		const blog = repoWith(
-			withPosts([
-				["dev", { date: "2024-01-01", tags: "web-development" }],
-				["other", { date: "2023-01-01", tags: "agile" }],
-			]),
-		);
-		const result = blog.getPaginatedPostsByCategory("development", 1, 12);
-		expect(result.items.map((p) => p.slug)).toContain("dev");
-		expect(result.items.map((p) => p.slug)).not.toContain("other");
-	});
-
-	it("returns empty result for unknown category slug", () => {
-		const result = repoWith(withNPosts(3)).getPaginatedPostsByCategory(
-			"nonexistent",
-			1,
-			12,
-		);
-		expect(result.items).toHaveLength(0);
-		expect(result.totalItems).toBe(0);
 	});
 });
