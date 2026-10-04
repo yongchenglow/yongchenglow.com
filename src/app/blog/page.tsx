@@ -52,14 +52,7 @@ export const BlogPage = () => {
 							</h2>
 						</FadeIn>
 						<FadeIn delay={0.1}>
-							<FeaturedPostCard
-								title={featuredPost.frontmatter.title}
-								description={featuredPost.frontmatter.description}
-								href={`/blog/${featuredPost.slug}`}
-								readingTime={featuredPost.readingTime}
-								date={featuredPost.frontmatter.date}
-								tags={featuredPost.frontmatter.tags}
-							/>
+							<FeaturedPostCard post={featuredPost} />
 						</FadeIn>
 					</section>
 				)}
@@ -74,14 +67,7 @@ export const BlogPage = () => {
 					<PostGrid>
 						{previousPosts.map((post, index) => (
 							<FadeIn key={post.slug} delay={getStaggerDelay(index)}>
-								<PostCard
-									title={post.frontmatter.title}
-									description={post.frontmatter.description}
-									href={`/blog/${post.slug}`}
-									readingTime={post.readingTime}
-									date={post.frontmatter.date}
-									tags={post.frontmatter.tags}
-								/>
+								<PostCard post={post} />
 							</FadeIn>
 						))}
 					</PostGrid>

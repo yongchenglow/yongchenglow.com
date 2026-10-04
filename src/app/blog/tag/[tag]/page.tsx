@@ -68,14 +68,7 @@ export const TagPage = async ({ params }: TagPageProps) => {
 				<PostGrid>
 					{posts.map((post, index) => (
 						<AnimatedGridItem key={post.slug} index={index}>
-							<PostCard
-								title={post.frontmatter.title}
-								description={post.frontmatter.description}
-								href={`/blog/${post.slug}`}
-								readingTime={post.readingTime}
-								date={post.frontmatter.date}
-								tags={post.frontmatter.tags}
-							/>
+							<PostCard post={post} />
 						</AnimatedGridItem>
 					))}
 				</PostGrid>
