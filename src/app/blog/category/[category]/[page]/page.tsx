@@ -1,9 +1,6 @@
 import { notFound } from "next/navigation";
-import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
 import { BlogBreadcrumb } from "@/src/components/blog/BlogBreadcrumb";
-import { Pagination } from "@/src/components/blog/Pagination";
-import { PostCard } from "@/src/components/post/PostCard";
-import { PostGrid } from "@/src/components/post/PostGrid";
+import { LatestPostsView } from "@/src/components/blog/LatestPostsView";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
@@ -11,6 +8,7 @@ import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { blog } from "@/src/lib/blog";
 import {
 	getListing,
+	getListingApiUrl,
 	getListingBaseUrl,
 	getListingPageCount,
 	paginationSummary,
@@ -80,6 +78,7 @@ export const CategoryPageWithPagination = async ({
 
 	const scope = { kind: "category", slug: category } as const;
 	const listing = getListing(scope, pageNumber);
+	const apiUrl = getListingApiUrl(scope);
 
 	// The listing clamps API consumers to the final page, but a page route
 	// outside the generated range is not a canonical URL.
@@ -93,7 +92,7 @@ export const CategoryPageWithPagination = async ({
 				<BlogBreadcrumb
 					current={{
 						label: categoryMetadata.label,
-						href: getListingBaseUrl(scope) + "1",
+						href: `${getListingBaseUrl(scope)}1`,
 					}}
 				/>
 				<FadeIn>
@@ -107,19 +106,13 @@ export const CategoryPageWithPagination = async ({
 					</PageSubtitle>
 				</FadeIn>
 
-				<PostGrid>
-					{listing.items.map((post, index) => (
-						<AnimatedGridItem key={post.slug} index={index}>
-							<PostCard post={post} />
-						</AnimatedGridItem>
-					))}
-				</PostGrid>
-
-				<Pagination
-					currentPage={listing.currentPage}
-					totalPages={listing.totalPages}
-					baseUrl={getListingBaseUrl(scope)}
-				/>
+				{apiUrl && (
+					<LatestPostsView
+						paginationResult={listing}
+						baseUrl={getListingBaseUrl(scope)}
+						apiUrl={apiUrl}
+					/>
+				)}
 			</div>
 		</StandardLayout>
 	);

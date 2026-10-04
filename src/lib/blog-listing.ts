@@ -43,6 +43,18 @@ export const getListingBaseUrl = (scope: ListingScope): string => {
 	return "/blog/all/";
 };
 
+/**
+ * The API path that returns the same pages as JSON, or `null` for a scope that
+ * renders every post on one page and needs no API.
+ */
+export const getListingApiUrl = (scope: ListingScope): string | null => {
+	if (scope.kind === "all") return "/api/blog/latest";
+	if (scope.kind === "category") {
+		return `/api/blog/category?category=${encodeURIComponent(scope.slug)}`;
+	}
+	return null;
+};
+
 /** How many pages a scope spans, at the configured page size. */
 export const getListingPageCount = (scope: ListingScope): number =>
 	Math.ceil(getListingPosts(scope).length / BLOG_CONFIG.postsPerPage);

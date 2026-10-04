@@ -26,8 +26,16 @@ test.describe("blog browsing", () => {
 		);
 	});
 
-	test("the archive links through to a post", async ({ page }) => {
+	test("the archive paginates and links through to a post", async ({
+		page,
+	}) => {
 		await page.goto("/blog/all");
+
+		// The bare archive path is a redirect: the page number is canonical.
+		await expect(page).toHaveURL("/blog/all/1");
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+			"All Posts",
+		);
 
 		await page
 			.getByRole("link", { name: /Single Source of Truth/ })

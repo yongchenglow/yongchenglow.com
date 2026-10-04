@@ -101,7 +101,12 @@ describe("published blog contracts", () => {
 		const expectedUrls = [SITE_URL, `${SITE_URL}/about`, `${SITE_URL}/blog`];
 
 		expectedUrls.push(...posts.map((post) => `${SITE_URL}/blog/${post.slug}`));
-		if (posts.length > 0) expectedUrls.push(`${SITE_URL}/blog/all`);
+		// The archive is paginated, so the bare path is a redirect and only the
+		// numbered pages are canonical.
+		const allPostsPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
+		for (let page = 1; page <= allPostsPages; page++) {
+			expectedUrls.push(`${SITE_URL}/blog/all/${page}`);
+		}
 
 		for (const category of Object.values(BLOG_CATEGORIES)) {
 			const postCount = posts.filter((post) =>
