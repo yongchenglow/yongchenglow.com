@@ -8,6 +8,7 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_UI } from "@/src/config/blog-ui";
 import { blog } from "@/src/lib/blog";
+import { postCountText } from "@/src/lib/blog-listing";
 
 export const metadata: Metadata = {
 	title: BLOG_UI.allPosts.pageHeading,
@@ -30,9 +31,7 @@ export const AllPostsPage = () => {
 						<PageTitle>{BLOG_UI.allPosts.pageHeading}</PageTitle>
 					</FadeIn>
 					<FadeIn delay={0.1}>
-						<PageSubtitle>
-							{posts.length} {posts.length === 1 ? "post" : "posts"}
-						</PageSubtitle>
+						<PageSubtitle>{postCountText(posts.length)}</PageSubtitle>
 					</FadeIn>
 				</div>
 

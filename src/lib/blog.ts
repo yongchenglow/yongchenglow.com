@@ -2,14 +2,14 @@ import matter from "gray-matter";
 import { cache } from "react";
 import readingTime from "reading-time";
 import { AD_MID_ARTICLE_MIN_WORDS } from "@/src/config/ads";
-import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_CATEGORIES } from "@/src/config/blog";
 import {
 	BLOG_POST_FILENAME_PATTERN,
 	BLOG_SLUG_PATTERN,
 } from "@/src/config/blog-content";
 import { BlogFrontmatterSchema } from "@/src/content/schema";
 import { type ContentSource, fsContentSource } from "@/src/lib/blog-source";
-import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
+import type { BlogPost, Category } from "@/src/types/blog";
 
 /**
  * Slugs map directly onto filenames under `content/blog`, so anything outside
@@ -77,15 +77,6 @@ export interface BlogRepository {
 	getCategoryMetadata(categorySlug: string): Category | null;
 	getBlogPostsByCategory(categorySlug: string): BlogPost[];
 	getCategoryPostCounts(): Record<string, number>;
-	getPaginatedPosts(
-		page: number,
-		postsPerPage?: number,
-	): PaginationResult<BlogPost>;
-	getPaginatedPostsByCategory(
-		categorySlug: string,
-		page: number,
-		postsPerPage?: number,
-	): PaginationResult<BlogPost>;
 }
 
 export const createBlogRepository = (source: ContentSource): BlogRepository => {
@@ -245,44 +236,6 @@ export const createBlogRepository = (source: ContentSource): BlogRepository => {
 		return counts;
 	};
 
-	// Pagination Functions
-	const paginate = (
-		posts: BlogPost[],
-		page: number,
-		postsPerPage: number,
-	): PaginationResult<BlogPost> => {
-		const totalItems = posts.length;
-		const totalPages = Math.ceil(totalItems / postsPerPage);
-
-		// Validate and clamp page number
-		const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-
-		const startIndex = (currentPage - 1) * postsPerPage;
-		const endIndex = startIndex + postsPerPage;
-
-		return {
-			items: posts.slice(startIndex, endIndex),
-			currentPage,
-			totalPages,
-			totalItems,
-			hasNextPage: currentPage < totalPages,
-			hasPreviousPage: currentPage > 1,
-		};
-	};
-
-	const getPaginatedPosts = (
-		page: number,
-		postsPerPage: number = BLOG_CONFIG.postsPerPage,
-	): PaginationResult<BlogPost> =>
-		paginate(getAllBlogPosts(), page, postsPerPage);
-
-	const getPaginatedPostsByCategory = (
-		categorySlug: string,
-		page: number,
-		postsPerPage: number = BLOG_CONFIG.postsPerPage,
-	): PaginationResult<BlogPost> =>
-		paginate(getBlogPostsByCategory(categorySlug), page, postsPerPage);
-
 	return {
 		getAllBlogSlugs,
 		getBlogPost,
@@ -294,8 +247,6 @@ export const createBlogRepository = (source: ContentSource): BlogRepository => {
 		getCategoryMetadata,
 		getBlogPostsByCategory,
 		getCategoryPostCounts,
-		getPaginatedPosts,
-		getPaginatedPostsByCategory,
 	};
 };
 

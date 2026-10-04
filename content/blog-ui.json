@@ -26,5 +26,9 @@
 	},
 	"pagination": {
 		"showingText": "Showing {current} of {total} posts"
+	},
+	"count": {
+		"post": "{count} post",
+		"posts": "{count} posts"
 	}
 }
