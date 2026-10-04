@@ -10,9 +10,8 @@ import { useMDXComponents } from "@/src/components/mdx/MDXComponents";
 import { JsonLd } from "@/src/components/seo/JsonLd";
 import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import {
-	getAllBlogSlugs,
-	getBlogPost,
-	getBlogPostNavigation,
+	BlogFrontmatterError,
+	blog,
 	splitContentForMidAd,
 } from "@/src/lib/blog";
 import type { BlogPost } from "@/src/types/blog";
@@ -25,7 +24,7 @@ interface BlogPostPageProps {
 
 // Generate static params for all blog posts
 export const generateStaticParams = async () => {
-	const slugs = getAllBlogSlugs();
+	const slugs = blog.getAllBlogSlugs();
 	return slugs.map((slug) => ({ slug }));
 };
 
@@ -43,7 +42,7 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
 
 	try {
-		const post = getBlogPost(slug);
+		const post = blog.getBlogPost(slug);
 
 		if (!post) {
 			return {
@@ -74,7 +73,11 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 				images: [ogImage],
 			},
 		};
-	} catch {
+	} catch (error) {
+		// Content errors are authoring mistakes, not missing pages: a slug that
+		// does not resolve is a 404, but invalid frontmatter must fail the build.
+		if (error instanceof BlogFrontmatterError) throw error;
+
 		return {
 			title: "Post Not Found",
 		};
@@ -86,12 +89,13 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 	let post: BlogPost;
 
 	try {
-		post = getBlogPost(slug);
-	} catch {
+		post = blog.getBlogPost(slug);
+	} catch (error) {
+		if (error instanceof BlogFrontmatterError) throw error;
 		notFound();
 	}
 
-	const { previous, next } = getBlogPostNavigation(slug);
+	const { previous, next } = blog.getBlogPostNavigation(slug);
 
 	const articleSchema = {
 		"@context": "https://schema.org",

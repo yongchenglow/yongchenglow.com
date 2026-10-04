@@ -7,7 +7,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const generateMetadata = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
@@ -26,7 +26,7 @@ interface TagPageProps {
 }
 
 export const generateStaticParams = async () => {
-	const posts = getAllBlogPosts();
+	const posts = blog.getAllBlogPosts();
 	const tags = new Set<string>();
 
 	for (const post of posts) {
@@ -48,7 +48,7 @@ export const dynamicParams = false;
 
 export const TagPage = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
-	const posts = getBlogPostsByTag(tag);
+	const posts = blog.getBlogPostsByTag(tag);
 
 	return (
 		<StandardLayout>

@@ -1,13 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import matter from "gray-matter";
-import { BLOG_POST_FILENAME_PATTERN } from "../src/config/blog-content.ts";
+import { createBlogRepository } from "../src/lib/blog.ts";
+import { fsContentSource } from "../src/lib/blog-source.ts";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
 const OUTPUT_PATH = path.join(process.cwd(), "public/search-index.json");
 
 function stripMarkdown(content) {
@@ -34,38 +29,20 @@ function stripMarkdown(content) {
 }
 
 function getAllSearchablePosts() {
-	const files = fs.readdirSync(BLOG_CONTENT_PATH);
-	const posts = [];
+	// Posts come from the blog module, so the index and the site agree on
+	// slugs, frontmatter, and which posts are drafts.
+	const { getAllBlogPosts } = createBlogRepository(fsContentSource);
 
-	for (const file of files) {
-		if (!BLOG_POST_FILENAME_PATTERN.test(file)) continue;
-
-		const slug = file.replace(/\.mdx?$/, "");
-		const fullPath = path.join(BLOG_CONTENT_PATH, file);
-		const fileContents = fs.readFileSync(fullPath, "utf8");
-
-		const { data, content } = matter(fileContents);
-
-		// Always skip drafts — this script runs as part of the production build
-		if (data.draft) {
-			continue;
-		}
-
-		const plainTextContent = stripMarkdown(content);
-
-		posts.push({
-			id: slug,
-			title: data.title || "",
-			subtitle: data.subtitle || "",
-			description: data.description || "",
-			content: plainTextContent,
-			tags: data.tags || [],
-			date: data.date || "",
-			url: `/blog/${slug}`,
-		});
-	}
-
-	return posts;
+	return getAllBlogPosts().map((post) => ({
+		id: post.slug,
+		title: post.frontmatter.title,
+		subtitle: post.frontmatter.subtitle ?? "",
+		description: post.frontmatter.description,
+		content: stripMarkdown(post.content),
+		tags: post.frontmatter.tags ?? [],
+		date: post.frontmatter.date,
+		url: `/blog/${post.slug}`,
+	}));
 }
 
 function generateSearchIndex() {

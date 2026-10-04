@@ -1,49 +1,13 @@
-import { afterAll, beforeEach, describe, expect, it, mock } from "bun:test";
-import { vi } from "../bun-test-utils";
-
-// Must mock before importing the module under test
-const actualFs = await import("node:fs");
-const actualPath = await import("node:path");
-const realReaddirSync = actualFs.default.readdirSync.bind(actualFs.default);
-const realExistsSync = actualFs.default.existsSync.bind(actualFs.default);
-const realReadFileSync = actualFs.default.readFileSync.bind(actualFs.default);
-
-const fs = {
-	...actualFs.default,
-	readdirSync: vi.fn(),
-	existsSync: vi.fn(),
-	readFileSync: vi.fn(),
-};
-
-mock.module("node:fs", () => ({ ...fs, default: fs }));
-
-mock.module("node:path", () => {
-	const mocked = {
-		...actualPath.default,
-		join: (...args: string[]) => args.join("/"),
-	};
-	return { ...mocked, default: mocked };
-});
-
-const {
+import { describe, expect, it } from "bun:test";
+import {
 	BlogFrontmatterError,
 	BlogPostNotFoundError,
+	createBlogRepository,
 	InvalidBlogSlugError,
-	getAllBlogPosts,
-	getAllBlogSlugs,
-	getBlogPost,
-	getBlogPostNavigation,
-	getBlogPostsByCategory,
-	getBlogPostsByTag,
-	getCategoryMetadata,
-	getCategoryPostCounts,
-	getFeaturedPost,
-	getPaginatedPosts,
-	getPaginatedPostsByCategory,
-	resetBlogCache,
-} = await import("@/src/lib/blog");
+} from "@/src/lib/blog";
+import { inMemoryContentSource } from "@/src/lib/blog-source";
 
-const mockPost = (
+const postFile = (
 	slug: string,
 	overrides: Record<string, unknown> = {},
 ): string => `---
@@ -57,93 +21,75 @@ tags: [${overrides.tags ?? ""}]
 ---
 Content for ${slug}`;
 
-beforeEach(() => {
-	fs.readdirSync.mockReset();
-	fs.existsSync.mockReset();
-	fs.readFileSync.mockReset();
-	// Blog data is memoized at module scope; clear it so each test's fs
-	// fixtures are actually read rather than served from a previous test.
-	resetBlogCache();
-});
+/** A repository over in-memory content, one per case. */
+const repoWith = (files: Record<string, string>) =>
+	createBlogRepository(inMemoryContentSource(files));
 
-afterAll(() => {
-	fs.readdirSync.mockImplementation(realReaddirSync);
-	fs.existsSync.mockImplementation(realExistsSync);
-	fs.readFileSync.mockImplementation(realReadFileSync);
-	resetBlogCache();
-});
+/** Builds a `slug -> frontmatter overrides` fixture set. */
+const withPosts = (
+	entries: Array<[string, Record<string, unknown>?]>,
+): Record<string, string> =>
+	Object.fromEntries(
+		entries.map(([slug, overrides]) => [
+			`${slug}.mdx`,
+			postFile(slug, overrides ?? {}),
+		]),
+	);
 
 describe("getAllBlogSlugs", () => {
 	it("returns slugs for .mdx files", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"post-a.mdx",
-			"post-b.mdx",
-		] as never);
-		expect(getAllBlogSlugs()).toEqual(["post-a", "post-b"]);
+		const blog = repoWith(withPosts([["post-a"], ["post-b"]]));
+		expect(blog.getAllBlogSlugs()).toEqual(["post-a", "post-b"]);
 	});
 
 	it("returns slugs for .md files", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue(["post-a.md"] as never);
-		expect(getAllBlogSlugs()).toEqual(["post-a"]);
+		const blog = repoWith({ "post-a.md": postFile("post-a") });
+		expect(blog.getAllBlogSlugs()).toEqual(["post-a"]);
 	});
 
 	it("ignores files without .mdx or .md extension", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"image.png",
-			"post-a.mdx",
-		] as never);
-		expect(getAllBlogSlugs()).toEqual(["post-a"]);
+		const blog = repoWith({
+			"image.png": "not a post",
+			...withPosts([["post-a"]]),
+		});
+		expect(blog.getAllBlogSlugs()).toEqual(["post-a"]);
 	});
 
 	it("ignores blog instruction files", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"AGENTS.md",
-			"CLAUDE.md",
-			"post-a.mdx",
-		] as never);
-		expect(getAllBlogSlugs()).toEqual(["post-a"]);
+		const blog = repoWith({
+			"AGENTS.md": "instructions",
+			"CLAUDE.md": "instructions",
+			...withPosts([["post-a"]]),
+		});
+		expect(blog.getAllBlogSlugs()).toEqual(["post-a"]);
 	});
 });
 
 describe("getAllBlogPosts", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue(["old.mdx", "new.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("new"))
-				return mockPost("new", { date: "2024-06-01" });
-			return mockPost("old", { date: "2023-01-01" });
-		});
-	});
-
 	it("sorts posts by date descending", () => {
-		const posts = getAllBlogPosts();
+		const blog = repoWith(
+			withPosts([
+				["old", { date: "2023-01-01" }],
+				["new", { date: "2024-06-01" }],
+			]),
+		);
+		const posts = blog.getAllBlogPosts();
 		expect(posts[0].slug).toBe("new");
 		expect(posts[1].slug).toBe("old");
 	});
 
 	it("filters out draft posts by default", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"draft.mdx",
-			"published.mdx",
-		] as never);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("draft"))
-				return mockPost("draft", { draft: true });
-			return mockPost("published");
-		});
-		const posts = getAllBlogPosts();
+		const blog = repoWith(
+			withPosts([["draft", { draft: true }], ["published"]]),
+		);
+		const posts = blog.getAllBlogPosts();
 		expect(posts.map((p) => p.slug)).not.toContain("draft");
 		expect(posts.map((p) => p.slug)).toContain("published");
 	});
 
 	it("includes draft posts when includesDrafts is true", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue(["draft.mdx"] as never);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("draft", { draft: true }),
-		);
-		const posts = getAllBlogPosts(true);
-		expect(posts.map((p) => p.slug)).toContain("draft");
+		const blog = repoWith(withPosts([["draft", { draft: true }]]));
+		expect(blog.getAllBlogPosts(true).map((p) => p.slug)).toContain("draft");
 	});
 
 	it("reflects frontmatter changes immediately during development", () => {
@@ -152,13 +98,18 @@ describe("getAllBlogPosts", () => {
 		mutableEnv.NODE_ENV = "development";
 
 		try {
-			vi.mocked(fs.readdirSync).mockReturnValue(["changing.mdx"] as never);
-			vi.mocked(fs.readFileSync)
-				.mockReturnValueOnce(mockPost("changing", { draft: true }))
-				.mockReturnValue(mockPost("changing"));
+			let source = withPosts([["changing", { draft: true }]]);
+			const blog = createBlogRepository({
+				listFiles: () => Object.keys(source),
+				readFile: (fileName) => source[fileName],
+			});
 
-			expect(getAllBlogPosts()).toHaveLength(0);
-			expect(getAllBlogPosts().map((post) => post.slug)).toEqual(["changing"]);
+			expect(blog.getAllBlogPosts()).toHaveLength(0);
+
+			source = withPosts([["changing"]]);
+			expect(blog.getAllBlogPosts().map((post) => post.slug)).toEqual([
+				"changing",
+			]);
 		} finally {
 			mutableEnv.NODE_ENV = originalNodeEnv;
 		}
@@ -167,93 +118,72 @@ describe("getAllBlogPosts", () => {
 
 describe("getFeaturedPost", () => {
 	it("returns the post with featured: true when one exists", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"a.mdx",
-			"featured.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("featured"))
-				return mockPost("featured", { date: "2024-01-01", featured: true });
-			return mockPost("a", { date: "2023-01-01" });
-		});
-		expect(getFeaturedPost()?.slug).toBe("featured");
+		const blog = repoWith(
+			withPosts([
+				["a", { date: "2023-01-01" }],
+				["featured", { date: "2024-01-01", featured: true }],
+			]),
+		);
+		expect(blog.getFeaturedPost()?.slug).toBe("featured");
 	});
 
 	it("falls back to the first (most recent) post when no featured post exists", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue(["old.mdx", "new.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("new"))
-				return mockPost("new", { date: "2024-06-01" });
-			return mockPost("old", { date: "2023-01-01" });
-		});
-		expect(getFeaturedPost()?.slug).toBe("new");
+		const blog = repoWith(
+			withPosts([
+				["old", { date: "2023-01-01" }],
+				["new", { date: "2024-06-01" }],
+			]),
+		);
+		expect(blog.getFeaturedPost()?.slug).toBe("new");
 	});
 
 	it("returns null when there are no posts", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([] as never);
-		expect(getFeaturedPost()).toBeNull();
+		expect(repoWith({}).getFeaturedPost()).toBeNull();
 	});
 });
 
 describe("getBlogPostsByTag", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue(["a.mdx", "b.mdx"] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			// Match on the filename only: the repo path itself may contain "/a".
-			if (String(filePath).endsWith("/a.mdx"))
-				return mockPost("a", { date: "2024-01-01", tags: "react, typescript" });
-			return mockPost("b", { date: "2023-01-01", tags: "vue" });
-		});
-	});
+	const blog = repoWith(
+		withPosts([
+			["a", { date: "2024-01-01", tags: "react, typescript" }],
+			["b", { date: "2023-01-01", tags: "vue" }],
+		]),
+	);
 
 	it("returns posts that include the given tag", () => {
-		const posts = getBlogPostsByTag("react");
-		expect(posts.map((p) => p.slug)).toContain("a");
+		expect(blog.getBlogPostsByTag("react").map((p) => p.slug)).toContain("a");
 	});
 
 	it("returns empty array when no posts match the tag", () => {
-		expect(getBlogPostsByTag("angular")).toHaveLength(0);
+		expect(blog.getBlogPostsByTag("angular")).toHaveLength(0);
 	});
 });
 
 describe("getBlogPostNavigation", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"newest.mdx",
-			"middle.mdx",
-			"oldest.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("newest"))
-				return mockPost("newest", { date: "2024-03-01" });
-			if (String(filePath).includes("middle"))
-				return mockPost("middle", { date: "2024-02-01" });
-			return mockPost("oldest", { date: "2024-01-01" });
-		});
-	});
+	const blog = repoWith(
+		withPosts([
+			["newest", { date: "2024-03-01" }],
+			["middle", { date: "2024-02-01" }],
+			["oldest", { date: "2024-01-01" }],
+		]),
+	);
 
 	it("returns correct previous and next for a middle post", () => {
-		const nav = getBlogPostNavigation("middle");
+		const nav = blog.getBlogPostNavigation("middle");
 		expect(nav.previous?.slug).toBe("oldest");
 		expect(nav.next?.slug).toBe("newest");
 	});
 
 	it("returns null for previous on the first (oldest) post", () => {
-		const nav = getBlogPostNavigation("oldest");
-		expect(nav.previous).toBeNull();
+		expect(blog.getBlogPostNavigation("oldest").previous).toBeNull();
 	});
 
 	it("returns null for next on the last (newest) post", () => {
-		const nav = getBlogPostNavigation("newest");
-		expect(nav.next).toBeNull();
+		expect(blog.getBlogPostNavigation("newest").next).toBeNull();
 	});
 
 	it("returns no navigation for a slug outside the published collection", () => {
-		expect(getBlogPostNavigation("missing-post")).toEqual({
+		expect(blog.getBlogPostNavigation("missing-post")).toEqual({
 			previous: null,
 			next: null,
 		});
@@ -262,54 +192,36 @@ describe("getBlogPostNavigation", () => {
 
 describe("getBlogPost", () => {
 	it("returns a BlogPost with the correct slug", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("test-slug", { date: "2024-01-01" }),
-		);
-		const post = getBlogPost("test-slug");
+		const post = repoWith(withPosts([["test-slug"]])).getBlogPost("test-slug");
 		expect(post.slug).toBe("test-slug");
 	});
 
-	it("reads .mdx file when it exists", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("mdx-post", { date: "2024-01-01" }),
-		);
-		const post = getBlogPost("mdx-post");
-		expect(post.slug).toBe("mdx-post");
-		expect(vi.mocked(fs.existsSync)).toHaveBeenCalled();
+	it("prefers the .mdx file when both extensions exist", () => {
+		const blog = repoWith({
+			"dual.mdx": postFile("dual", { title: "from mdx" }),
+			"dual.md": postFile("dual", { title: "from md" }),
+		});
+		expect(blog.getBlogPost("dual").frontmatter.title).toBe("from mdx");
 	});
 
-	it("falls back to .md file when .mdx does not exist", () => {
-		vi.mocked(fs.existsSync).mockImplementation((filePath: unknown) =>
-			String(filePath).endsWith(".md"),
-		);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("md-post", { date: "2024-01-01" }),
-		);
-		const post = getBlogPost("md-post");
-		expect(post.slug).toBe("md-post");
-		expect(vi.mocked(fs.readFileSync).mock.calls.at(-1)?.[0]).toStrictEqual(
-			expect.stringContaining("md-post.md"),
-		);
+	it("falls back to .md when no .mdx file exists", () => {
+		const blog = repoWith({ "md-post.md": postFile("md-post") });
+		expect(blog.getBlogPost("md-post").slug).toBe("md-post");
 	});
 
 	it("truncates excerpt to 200 characters", () => {
 		const longContent = "A".repeat(300);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			`---\ntitle: test\ndescription: desc\ndate: 2024-01-01\nauthor: Test\ntags: []\n---\n${longContent}`,
-		);
-		const post = getBlogPost("long-excerpt");
+		const blog = repoWith({
+			"long-excerpt.mdx": `---\ntitle: test\ndescription: desc\ndate: 2024-01-01\nauthor: Test\ntags: []\n---\n${longContent}`,
+		});
+		const post = blog.getBlogPost("long-excerpt");
 		expect(post.excerpt?.length).toBeLessThanOrEqual(200);
 	});
 
 	it("sets readingTime as non-empty string", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("reading-test", { date: "2024-01-01" }),
+		const post = repoWith(withPosts([["reading-test"]])).getBlogPost(
+			"reading-test",
 		);
-		const post = getBlogPost("reading-test");
 		expect(typeof post.readingTime).toBe("string");
 		expect(post.readingTime.length).toBeGreaterThan(0);
 	});
@@ -317,17 +229,29 @@ describe("getBlogPost", () => {
 
 describe("getBlogPost validation", () => {
 	it("throws BlogPostNotFoundError when no content file exists", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(false);
-		expect(() => getBlogPost("no-such-post")).toThrow(BlogPostNotFoundError);
-		expect(() => getBlogPost("no-such-post")).toThrow(
+		const blog = repoWith({});
+		expect(() => blog.getBlogPost("no-such-post")).toThrow(
+			BlogPostNotFoundError,
+		);
+		expect(() => blog.getBlogPost("no-such-post")).toThrow(
 			'Blog post not found: "no-such-post"',
 		);
 	});
 
-	it("does not touch the filesystem when the post is missing", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(false);
-		expect(() => getBlogPost("no-such-post")).toThrow(BlogPostNotFoundError);
-		expect(vi.mocked(fs.readFileSync)).not.toHaveBeenCalled();
+	it("does not read any file when the post is missing", () => {
+		let readCount = 0;
+		const blog = createBlogRepository({
+			listFiles: () => ["post-a.mdx"],
+			readFile: () => {
+				readCount += 1;
+				return postFile("post-a");
+			},
+		});
+
+		expect(() => blog.getBlogPost("no-such-post")).toThrow(
+			BlogPostNotFoundError,
+		);
+		expect(readCount).toBe(0);
 	});
 
 	it.each([
@@ -337,27 +261,40 @@ describe("getBlogPost validation", () => {
 		["has_underscore", "underscore"],
 		["", "empty string"],
 	])("rejects %s (%s) with InvalidBlogSlugError", (slug) => {
-		expect(() => getBlogPost(slug)).toThrow(InvalidBlogSlugError);
+		const blog = repoWith(withPosts([["post-a"]]));
+		expect(() => blog.getBlogPost(slug)).toThrow(InvalidBlogSlugError);
 	});
 
-	it("rejects an invalid slug before building a path", () => {
-		expect(() => getBlogPost("../../etc/passwd")).toThrow(InvalidBlogSlugError);
-		expect(vi.mocked(fs.existsSync)).not.toHaveBeenCalled();
-		expect(vi.mocked(fs.readFileSync)).not.toHaveBeenCalled();
+	it("rejects an invalid slug before reading anything", () => {
+		let readCount = 0;
+		const blog = createBlogRepository({
+			listFiles: () => ["post-a.mdx"],
+			readFile: () => {
+				readCount += 1;
+				return postFile("post-a");
+			},
+		});
+
+		expect(() => blog.getBlogPost("../../etc/passwd")).toThrow(
+			InvalidBlogSlugError,
+		);
+		expect(readCount).toBe(0);
 	});
 
 	it("throws BlogFrontmatterError naming the file and the missing field", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
 		// `description` and `author` are required by BlogFrontmatterSchema.
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			'---\ntitle: "Only a title"\ndate: "2024-01-01"\n---\nBody',
-		);
+		const blog = repoWith({
+			"bad-frontmatter.mdx":
+				'---\ntitle: "Only a title"\ndate: "2024-01-01"\n---\nBody',
+		});
 
-		expect(() => getBlogPost("bad-frontmatter")).toThrow(BlogFrontmatterError);
+		expect(() => blog.getBlogPost("bad-frontmatter")).toThrow(
+			BlogFrontmatterError,
+		);
 
 		let message = "";
 		try {
-			getBlogPost("bad-frontmatter");
+			blog.getBlogPost("bad-frontmatter");
 		} catch (error) {
 			message = (error as Error).message;
 		}
@@ -368,14 +305,14 @@ describe("getBlogPost validation", () => {
 	});
 
 	it("reports the offending field for a wrong-typed value", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			'---\ntitle: "T"\ndescription: "D"\ndate: "2024-01-01"\nauthor: "A"\ntags: "not-an-array"\n---\nBody',
-		);
+		const blog = repoWith({
+			"bad-tags.mdx":
+				'---\ntitle: "T"\ndescription: "D"\ndate: "2024-01-01"\nauthor: "A"\ntags: "not-an-array"\n---\nBody',
+		});
 
 		let message = "";
 		try {
-			getBlogPost("bad-tags");
+			blog.getBlogPost("bad-tags");
 		} catch (error) {
 			message = (error as Error).message;
 		}
@@ -384,94 +321,71 @@ describe("getBlogPost validation", () => {
 		expect(message).toContain("tags");
 	});
 
+	it("normalises an unquoted YAML date to YYYY-MM-DD", () => {
+		const blog = repoWith({
+			"unquoted.mdx":
+				'---\ntitle: "T"\ndescription: "D"\ndate: 2024-03-04\nauthor: "A"\n---\nBody',
+		});
+		expect(blog.getBlogPost("unquoted").frontmatter.date).toBe("2024-03-04");
+	});
+
 	it("accepts frontmatter that satisfies the schema", () => {
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockReturnValue(
-			mockPost("good-post", { date: "2024-01-01" }),
-		);
-		expect(getBlogPost("good-post").frontmatter.title).toBe("good-post");
+		const blog = repoWith(withPosts([["good-post"]]));
+		expect(blog.getBlogPost("good-post").frontmatter.title).toBe("good-post");
 	});
 });
 
 describe("getCategoryMetadata", () => {
+	const blog = repoWith({});
+
 	it("returns metadata for known category slug", () => {
-		const metadata = getCategoryMetadata("development");
+		const metadata = blog.getCategoryMetadata("development");
 		expect(metadata).not.toBeNull();
 		expect(metadata?.slug).toBe("development");
 		expect(metadata?.label).toBe("Development");
 	});
 
 	it("returns null for unknown slug", () => {
-		const metadata = getCategoryMetadata("nonexistent-category");
-		expect(metadata).toBeNull();
+		expect(blog.getCategoryMetadata("nonexistent-category")).toBeNull();
 	});
 });
 
 describe("getBlogPostsByCategory", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"dev-post.mdx",
-			"process-post.mdx",
-			"other-post.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("dev-post"))
-				return mockPost("dev-post", {
-					date: "2024-01-01",
-					tags: "web-development",
-				});
-			if (String(filePath).includes("process-post"))
-				return mockPost("process-post", {
-					date: "2024-01-01",
-					tags: "agile",
-				});
-			return mockPost("other-post", {
-				date: "2024-01-01",
-				tags: "random-tag",
-			});
-		});
-	});
+	const blog = repoWith(
+		withPosts([
+			["dev-post", { date: "2024-01-01", tags: "web-development" }],
+			["process-post", { date: "2024-01-01", tags: "agile" }],
+			["other-post", { date: "2024-01-01", tags: "random-tag" }],
+		]),
+	);
 
 	it("returns posts matching category tags", () => {
-		const posts = getBlogPostsByCategory("development");
+		const posts = blog.getBlogPostsByCategory("development");
 		expect(posts.map((p) => p.slug)).toContain("dev-post");
 		expect(posts.map((p) => p.slug)).not.toContain("process-post");
 	});
 
 	it("returns empty array for unknown category", () => {
-		const posts = getBlogPostsByCategory("nonexistent-category");
-		expect(posts).toHaveLength(0);
+		expect(blog.getBlogPostsByCategory("nonexistent-category")).toHaveLength(0);
 	});
 
 	it("excludes posts that don't match category tags", () => {
-		const posts = getBlogPostsByCategory("development");
-		expect(posts.map((p) => p.slug)).not.toContain("other-post");
+		expect(
+			blog.getBlogPostsByCategory("development").map((p) => p.slug),
+		).not.toContain("other-post");
 	});
 });
 
 describe("getCategoryPostCounts", () => {
-	beforeEach(() => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"dev-post.mdx",
-			"process-post.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("dev-post"))
-				return mockPost("dev-post", {
-					date: "2024-01-01",
-					tags: "web-development",
-				});
-			return mockPost("process-post", {
-				date: "2024-01-01",
-				tags: "agile",
-			});
-		});
-	});
+	const blog = repoWith(
+		withPosts([
+			["dev-post", { date: "2024-01-01", tags: "web-development" }],
+			["process-post", { date: "2024-01-01", tags: "agile" }],
+		]),
+	);
 
 	it("returns counts keyed by category slug", () => {
-		const counts = getCategoryPostCounts();
+		const counts = blog.getCategoryPostCounts();
 		expect(counts).toHaveProperty("development");
 		expect(counts).toHaveProperty("process");
 		expect(counts).toHaveProperty("design");
@@ -479,91 +393,86 @@ describe("getCategoryPostCounts", () => {
 	});
 
 	it("returns 0 for categories with no posts", () => {
-		const counts = getCategoryPostCounts();
+		const counts = blog.getCategoryPostCounts();
+		expect(counts.development).toBe(1);
+		expect(counts.process).toBe(1);
 		expect(counts.design).toBe(0);
 		expect(counts.career).toBe(0);
 	});
 });
 
-// Helper: generate N mock slugs with descending dates
-const setupNPosts = (n: number) => {
-	const files = Array.from({ length: n }, (_, i) => `post-${i}.mdx`);
-	vi.mocked(fs.readdirSync).mockReturnValue(files as never);
-	vi.mocked(fs.existsSync).mockReturnValue(true);
-	vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-		const match = String(filePath).match(/post-(\d+)/);
-		const idx = match ? Number(match[1]) : 0;
-		const date = new Date(2024, 0, n - idx).toISOString().split("T")[0];
-		return mockPost(`post-${idx}`, { date });
-	});
-};
+// Helper: N posts with descending dates
+const withNPosts = (n: number): Record<string, string> =>
+	withPosts(
+		Array.from({ length: n }, (_, i) => {
+			const date = new Date(2024, 0, n - i).toISOString().split("T")[0];
+			return [`post-${i}`, { date }] as [string, Record<string, unknown>];
+		}),
+	);
 
 describe("getPaginatedPosts", () => {
 	it("returns correct slice for page 1", () => {
-		setupNPosts(15);
-		const result = getPaginatedPosts(1, 12);
+		const result = repoWith(withNPosts(15)).getPaginatedPosts(1, 12);
 		expect(result.items).toHaveLength(12);
 		expect(result.currentPage).toBe(1);
 	});
 
 	it("returns correct slice for page 2", () => {
-		setupNPosts(15);
-		const result = getPaginatedPosts(2, 12);
+		const result = repoWith(withNPosts(15)).getPaginatedPosts(2, 12);
 		expect(result.items).toHaveLength(3);
 		expect(result.currentPage).toBe(2);
 	});
 
 	it("clamps page 0 to page 1", () => {
-		setupNPosts(5);
-		const result = getPaginatedPosts(0, 12);
-		expect(result.currentPage).toBe(1);
+		expect(repoWith(withNPosts(5)).getPaginatedPosts(0, 12).currentPage).toBe(
+			1,
+		);
 	});
 
 	it("clamps page beyond total to last page", () => {
-		setupNPosts(5);
-		const result = getPaginatedPosts(99, 12);
-		expect(result.currentPage).toBe(1);
+		expect(repoWith(withNPosts(5)).getPaginatedPosts(99, 12).currentPage).toBe(
+			1,
+		);
 	});
 
 	it("hasNextPage is true when not on last page", () => {
-		setupNPosts(15);
-		const result = getPaginatedPosts(1, 12);
-		expect(result.hasNextPage).toBe(true);
+		expect(repoWith(withNPosts(15)).getPaginatedPosts(1, 12).hasNextPage).toBe(
+			true,
+		);
 	});
 
 	it("hasPreviousPage is false on page 1", () => {
-		setupNPosts(15);
-		const result = getPaginatedPosts(1, 12);
-		expect(result.hasPreviousPage).toBe(false);
+		expect(
+			repoWith(withNPosts(15)).getPaginatedPosts(1, 12).hasPreviousPage,
+		).toBe(false);
 	});
 
 	it("hasPreviousPage is true on page 2", () => {
-		setupNPosts(15);
-		const result = getPaginatedPosts(2, 12);
-		expect(result.hasPreviousPage).toBe(true);
+		expect(
+			repoWith(withNPosts(15)).getPaginatedPosts(2, 12).hasPreviousPage,
+		).toBe(true);
 	});
 });
 
 describe("getPaginatedPostsByCategory", () => {
 	it("filters posts by category tags before paginating", () => {
-		vi.mocked(fs.readdirSync).mockReturnValue([
-			"dev.mdx",
-			"other.mdx",
-		] as never);
-		vi.mocked(fs.existsSync).mockReturnValue(true);
-		vi.mocked(fs.readFileSync).mockImplementation((filePath: unknown) => {
-			if (String(filePath).includes("dev"))
-				return mockPost("dev", { date: "2024-01-01", tags: "web-development" });
-			return mockPost("other", { date: "2023-01-01", tags: "agile" });
-		});
-		const result = getPaginatedPostsByCategory("development", 1, 12);
+		const blog = repoWith(
+			withPosts([
+				["dev", { date: "2024-01-01", tags: "web-development" }],
+				["other", { date: "2023-01-01", tags: "agile" }],
+			]),
+		);
+		const result = blog.getPaginatedPostsByCategory("development", 1, 12);
 		expect(result.items.map((p) => p.slug)).toContain("dev");
 		expect(result.items.map((p) => p.slug)).not.toContain("other");
 	});
 
 	it("returns empty result for unknown category slug", () => {
-		setupNPosts(3);
-		const result = getPaginatedPostsByCategory("nonexistent", 1, 12);
+		const result = repoWith(withNPosts(3)).getPaginatedPostsByCategory(
+			"nonexistent",
+			1,
+			12,
+		);
 		expect(result.items).toHaveLength(0);
 		expect(result.totalItems).toBe(0);
 	});

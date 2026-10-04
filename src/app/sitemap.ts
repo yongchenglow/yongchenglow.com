@@ -1,11 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { SITE_URL } from "@/src/config/site";
-import {
-	getAllBlogPosts,
-	getAllCategories,
-	getBlogPostsByCategory,
-} from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 const sitemap = (): MetadataRoute.Sitemap => {
 	const entries: MetadataRoute.Sitemap = [];
@@ -33,7 +29,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	);
 
 	// Blog posts
-	const posts = getAllBlogPosts();
+	const posts = blog.getAllBlogPosts();
 	for (const post of posts) {
 		entries.push({
 			url: `${SITE_URL}/blog/${post.slug}`,
@@ -56,9 +52,9 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 
 	// Category paginated pages
-	const categories = getAllCategories();
+	const categories = blog.getAllCategories();
 	for (const category of categories) {
-		const categoryPosts = getBlogPostsByCategory(category.slug);
+		const categoryPosts = blog.getBlogPostsByCategory(category.slug);
 		const totalCategoryPages = Math.ceil(
 			categoryPosts.length / BLOG_CONFIG.postsPerPage,
 		);

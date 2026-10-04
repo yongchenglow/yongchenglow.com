@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import { useMDXComponents } from "@/src/components/mdx/MDXComponents";
-import { getAllBlogPosts } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 import { vi } from "../../bun-test-utils";
 
 // biome-ignore lint/correctness/useHookAtTopLevel: MDX names this pure component-map factory like a hook.
@@ -43,7 +43,7 @@ describe("MDXComponents", () => {
 		let diagnostics = "";
 
 		try {
-			for (const post of getAllBlogPosts(true)) {
+			for (const post of blog.getAllBlogPosts(true)) {
 				const view = await renderMdx(post.content);
 				view.unmount();
 			}
