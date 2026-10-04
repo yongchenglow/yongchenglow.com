@@ -12,7 +12,7 @@ import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { Button } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
 import { getStaggerDelay } from "@/src/lib/animation";
-import { getAllBlogPosts, getFeaturedPost } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const metadata: Metadata = {
 	title: "Blog",
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 };
 
 export const BlogPage = () => {
-	const featuredPost = getFeaturedPost();
-	const allPosts = getAllBlogPosts();
+	const featuredPost = blog.getFeaturedPost();
+	const allPosts = blog.getAllBlogPosts();
 	const previousPosts = allPosts
 		.filter((post) => post.slug !== featuredPost?.slug)
 		.slice(0, 4);

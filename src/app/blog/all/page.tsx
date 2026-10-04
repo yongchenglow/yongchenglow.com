@@ -7,7 +7,7 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { getAllBlogPosts } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const metadata: Metadata = {
 	title: BLOG_UI.allPosts.pageHeading,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export const AllPostsPage = () => {
-	const posts = getAllBlogPosts();
+	const posts = blog.getAllBlogPosts();
 
 	return (
 		<StandardLayout>

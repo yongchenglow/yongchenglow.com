@@ -4,10 +4,10 @@ import { IntroSection } from "@/src/components/home/IntroSection";
 import { LatestPostsSection } from "@/src/components/home/LatestPostsSection";
 import { ProjectsSection } from "@/src/components/home/ProjectsSection";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
-import { getFeaturedPost } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const HomePage = () => {
-	const featuredPost = getFeaturedPost();
+	const featuredPost = blog.getFeaturedPost();
 
 	return (
 		<StandardLayout>

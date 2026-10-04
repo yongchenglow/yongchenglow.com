@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import { CategoryNavigation } from "@/src/components/blog/CategoryNavigation";
-import { getAllCategories, getCategoryPostCounts } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 // Render against real content. `mock.module` replaces a module for the whole
 // process, so mocking `@/src/lib/blog` here leaked fake categories into every
 // test file that ran afterwards.
-const categories = getAllCategories();
-const counts = getCategoryPostCounts();
+const categories = blog.getAllCategories();
+const counts = blog.getCategoryPostCounts();
 
 describe("CategoryNavigation", () => {
 	it("renders a link to page 1 of each category", () => {

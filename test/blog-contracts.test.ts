@@ -5,11 +5,7 @@ import { join } from "node:path";
 import sitemap from "@/src/app/sitemap";
 import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
 import { SITE_URL } from "@/src/config/site";
-import {
-	getAllBlogPosts,
-	getBlogPostsByCategory,
-	getCategoryPostCounts,
-} from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 import type { SerializedSearchIndex } from "@/src/types/search";
 import { readPublishedBlogContent } from "./helpers/blog-content";
 
@@ -49,7 +45,8 @@ describe("published blog contracts", () => {
 		const expectedSlugs = readPublishedBlogContent()
 			.map((post) => post.slug)
 			.sort();
-		const actualSlugs = getAllBlogPosts()
+		const actualSlugs = blog
+			.getAllBlogPosts()
 			.map((post) => post.slug)
 			.sort();
 
@@ -58,7 +55,7 @@ describe("published blog contracts", () => {
 
 	it("keeps category collections and displayed counts aligned with content", () => {
 		const posts = readPublishedBlogContent();
-		const actualCounts = getCategoryPostCounts();
+		const actualCounts = blog.getCategoryPostCounts();
 
 		for (const category of Object.values(BLOG_CATEGORIES)) {
 			const expectedSlugs = posts
@@ -67,7 +64,8 @@ describe("published blog contracts", () => {
 				)
 				.map((post) => post.slug)
 				.sort();
-			const actualSlugs = getBlogPostsByCategory(category.slug)
+			const actualSlugs = blog
+				.getBlogPostsByCategory(category.slug)
 				.map((post) => post.slug)
 				.sort();
 

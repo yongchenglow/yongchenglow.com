@@ -10,12 +10,7 @@ import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_CONFIG } from "@/src/config/blog";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import {
-	getAllCategories,
-	getBlogPostsByCategory,
-	getCategoryMetadata,
-	getPaginatedPostsByCategory,
-} from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 interface CategoryPageProps {
 	params: Promise<{
@@ -26,7 +21,7 @@ interface CategoryPageProps {
 
 export const generateMetadata = async ({ params }: CategoryPageProps) => {
 	const { category, page } = await params;
-	const categoryMetadata = getCategoryMetadata(category);
+	const categoryMetadata = blog.getCategoryMetadata(category);
 	const label = categoryMetadata?.label ?? category;
 	return {
 		title: `${label} - Page ${page}`,
@@ -37,11 +32,11 @@ export const generateMetadata = async ({ params }: CategoryPageProps) => {
 };
 
 export const generateStaticParams = async () => {
-	const categories = getAllCategories();
+	const categories = blog.getAllCategories();
 	const params: { category: string; page: string }[] = [];
 
 	for (const category of categories) {
-		const posts = getBlogPostsByCategory(category.slug);
+		const posts = blog.getBlogPostsByCategory(category.slug);
 		const totalPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
 
 		// Generate params for each page
@@ -71,13 +66,16 @@ export const CategoryPageWithPagination = async ({
 		notFound();
 	}
 
-	const categoryMetadata = getCategoryMetadata(category);
+	const categoryMetadata = blog.getCategoryMetadata(category);
 
 	if (!categoryMetadata) {
 		notFound();
 	}
 
-	const paginationResult = getPaginatedPostsByCategory(category, pageNumber);
+	const paginationResult = blog.getPaginatedPostsByCategory(
+		category,
+		pageNumber,
+	);
 
 	// The data helper clamps API consumers to the final page, but a page route
 	// outside the generated range is not a canonical URL.

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getPaginatedPostsByCategory } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
@@ -19,7 +19,7 @@ export const GET = async (request: Request) => {
 	}
 
 	try {
-		const result = getPaginatedPostsByCategory(category, page);
+		const result = blog.getPaginatedPostsByCategory(category, page);
 		return NextResponse.json(result);
 	} catch (error) {
 		console.error("Error fetching posts:", error);
