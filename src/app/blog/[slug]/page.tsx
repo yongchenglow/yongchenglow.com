@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import type { ComponentProps } from "react";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
@@ -8,13 +9,27 @@ import { BlogPostLayout } from "@/src/components/blog/BlogPostLayout";
 import { MdxImage, MdxLink } from "@/src/components/blog/MdxImage";
 import { useMDXComponents } from "@/src/components/mdx/MDXComponents";
 import { JsonLd } from "@/src/components/seo/JsonLd";
-import { SITE_AUTHOR, SITE_URL } from "@/src/config/site";
 import {
 	BlogFrontmatterError,
 	blog,
 	splitContentForMidAd,
 } from "@/src/lib/blog";
+import { getArticleSchema, getPostMetadata } from "@/src/lib/post-metadata";
 import type { BlogPost } from "@/src/types/blog";
+
+/**
+ * Both halves of a mid-article split render through the same pipeline, so the
+ * options live here: adding a plugin in one branch and forgetting the other
+ * would render the two halves of one post differently.
+ */
+type MdxOptions = NonNullable<ComponentProps<typeof MDXRemote>["options"]>;
+
+const MDX_OPTIONS: MdxOptions = {
+	mdxOptions: {
+		remarkPlugins: [remarkGfm],
+		rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
+	},
+};
 
 interface BlogPostPageProps {
 	params: Promise<{
@@ -42,37 +57,7 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 	const { slug } = await params;
 
 	try {
-		const post = blog.getBlogPost(slug);
-
-		if (!post) {
-			return {
-				title: "Post Not Found",
-			};
-		}
-
-		const ogImage =
-			post.frontmatter.image ??
-			`/og?title=${encodeURIComponent(post.frontmatter.title)}&tags=${encodeURIComponent((post.frontmatter.tags ?? []).join(","))}`;
-
-		return {
-			title: post.frontmatter.title,
-			description: post.frontmatter.description,
-			alternates: {
-				canonical: `/blog/${slug}`,
-			},
-			openGraph: {
-				title: post.frontmatter.title,
-				description: post.frontmatter.description,
-				type: "article",
-				publishedTime: post.frontmatter.date,
-				modifiedTime: post.frontmatter.lastUpdated,
-				images: [ogImage],
-			},
-			twitter: {
-				card: "summary_large_image",
-				images: [ogImage],
-			},
-		};
+		return getPostMetadata(blog.getBlogPost(slug));
 	} catch (error) {
 		// Content errors are authoring mistakes, not missing pages: a slug that
 		// does not resolve is a 404, but invalid frontmatter must fail the build.
@@ -97,31 +82,7 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 
 	const { previous, next } = blog.getBlogPostNavigation(slug);
 
-	const articleSchema = {
-		"@context": "https://schema.org",
-		"@type": "Article",
-		headline: post.frontmatter.title,
-		description: post.frontmatter.description,
-		datePublished: `${post.frontmatter.date}T00:00:00+08:00`,
-		dateModified: `${post.frontmatter.lastUpdated ?? post.frontmatter.date}T00:00:00+08:00`,
-		url: `${SITE_URL}/blog/${slug}`,
-		image: {
-			"@type": "ImageObject",
-			url: post.frontmatter.image ?? `${SITE_URL}${SITE_AUTHOR.image}`,
-			width: 1200,
-			height: 630,
-		},
-		author: {
-			"@type": "Person",
-			name: SITE_AUTHOR.name,
-			url: SITE_AUTHOR.url,
-		},
-		publisher: {
-			"@type": "Person",
-			name: SITE_AUTHOR.name,
-			url: SITE_URL,
-		},
-	};
+	const articleSchema = getArticleSchema(post);
 
 	const mdxComponents = useMDXComponents({
 		img: MdxImage,
@@ -136,15 +97,7 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 			<MDXRemote
 				source={before}
 				components={mdxComponents}
-				options={{
-					mdxOptions: {
-						remarkPlugins: [remarkGfm],
-						rehypePlugins: [
-							rehypeSlug,
-							[rehypeAutolinkHeadings, { behavior: "wrap" }],
-						],
-					},
-				}}
+				options={MDX_OPTIONS}
 			/>
 			{after && (
 				<>
@@ -152,15 +105,7 @@ export const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 					<MDXRemote
 						source={after}
 						components={mdxComponents}
-						options={{
-							mdxOptions: {
-								remarkPlugins: [remarkGfm],
-								rehypePlugins: [
-									rehypeSlug,
-									[rehypeAutolinkHeadings, { behavior: "wrap" }],
-								],
-							},
-						}}
+						options={MDX_OPTIONS}
 					/>
 				</>
 			)}
