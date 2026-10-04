@@ -66,14 +66,7 @@ export const LatestPostsView = ({
 							delay={getStaggerDelay(index)}
 							className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 						>
-							<PostCard
-								title={post.frontmatter.title}
-								description={post.frontmatter.description}
-								href={`/blog/${post.slug}`}
-								readingTime={post.readingTime}
-								date={post.frontmatter.date}
-								tags={post.frontmatter.tags}
-							/>
+							<PostCard post={post} />
 						</FadeIn>
 					))
 				)}

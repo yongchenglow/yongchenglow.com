@@ -1,6 +1,8 @@
-import { Calendar, Clock } from "lucide-react";
+import {
+	PostCardMeta,
+	PostCardTags,
+} from "@/src/components/post/PostCardParts";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
-import { Badge } from "@/src/components/shared/ui/badge";
 import {
 	Card,
 	CardContent,
@@ -8,66 +10,32 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/src/components/shared/ui/card";
-import { formatDate } from "@/src/lib/utils";
+import type { BlogPost } from "@/src/types/blog";
 
 interface PostCardProps {
-	title: string;
-	description: string;
-	href: string;
-	readingTime?: string;
-	date?: string;
-	tags?: string[];
+	post: BlogPost;
 	className?: string;
 }
 
-export const PostCard = ({
-	title,
-	description,
-	href,
-	readingTime,
-	date,
-	tags,
-	className,
-}: PostCardProps) => {
+export const PostCard = ({ post, className }: PostCardProps) => {
+	const { frontmatter, readingTime } = post;
+
 	return (
 		<div className={className}>
-			<InternalLink href={href} className="no-underline group">
+			<InternalLink href={`/blog/${post.slug}`} className="no-underline group">
 				<Card className="h-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
 					<CardHeader>
 						<CardTitle className="group-hover:text-primary transition-colors duration-200">
-							{title}
+							{frontmatter.title}
 						</CardTitle>
-						<CardDescription>{description}</CardDescription>
+						<CardDescription>{frontmatter.description}</CardDescription>
 					</CardHeader>
 					<CardContent>
 						{/* Metadata */}
-						{(date || readingTime) && (
-							<div className="flex gap-4 text-sm text-muted-foreground mb-3">
-								{date && (
-									<div className="flex items-center gap-1">
-										<Calendar className="h-4 w-4" />
-										{formatDate(date)}
-									</div>
-								)}
-								{readingTime && (
-									<div className="flex items-center gap-1">
-										<Clock className="h-4 w-4" />
-										{readingTime}
-									</div>
-								)}
-							</div>
-						)}
+						<PostCardMeta date={frontmatter.date} readingTime={readingTime} />
 
 						{/* Tags */}
-						{tags && tags.length > 0 && (
-							<div className="flex flex-wrap gap-2">
-								{tags.map((tag) => (
-									<Badge key={tag} variant="secondary">
-										{tag}
-									</Badge>
-								))}
-							</div>
-						)}
+						<PostCardTags tags={frontmatter.tags} />
 					</CardContent>
 				</Card>
 			</InternalLink>
