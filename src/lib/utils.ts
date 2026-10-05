@@ -27,7 +27,7 @@ export const cn = (...inputs: ClassValue[]) => {
  * Using an SVG with gradient creates a more visible blur effect.
  * @param color - Hex color (default: neutral gray)
  */
-export const getBlurDataURL = (color = "#888888"): string => {
+const getBlurDataURL = (color = "#888888"): string => {
 	// Create a slightly more complex SVG with a gradient for better blur visibility
 	const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
 		<defs>
@@ -45,11 +45,16 @@ export const getBlurDataURL = (color = "#888888"): string => {
 };
 
 /**
- * Get placeholder color for an image path.
- * Returns LQIP map entry if available, otherwise returns default gray.
+ * The `blurDataURL` for an image: its low-quality placeholder when the map has
+ * one, otherwise a generated solid-colour SVG.
+ *
+ * Callers must not reach for `lqip` themselves. The placeholder is a data URL,
+ * not a colour, and feeding one to `getBlurDataURL` produces a `stop-color` no
+ * browser can parse.
  */
-export const getImagePlaceholder = (src: string): string => {
-	return lqip[src] ?? "#888888";
+export const blurDataURLFor = (src: string): string => {
+	const placeholder = lqip[src];
+	return placeholder ?? getBlurDataURL();
 };
 
 /**

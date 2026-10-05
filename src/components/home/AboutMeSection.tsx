@@ -5,7 +5,7 @@ import homeData from "@/content/home.json";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { Section } from "@/src/components/shared/molecules/Section";
 import { tokenizeWithLinks } from "@/src/lib/text";
-import { getImagePlaceholder } from "@/src/lib/utils";
+import { blurDataURLFor } from "@/src/lib/utils";
 
 export const AboutMeSection = () => {
 	const { about } = homeData;
@@ -28,7 +28,7 @@ export const AboutMeSection = () => {
 									height={about.image.height}
 									className="w-full h-auto rounded-2xl shadow-md max-w-sm image-loading"
 									placeholder="blur"
-									blurDataURL={getImagePlaceholder(about.image.src)}
+									blurDataURL={blurDataURLFor(about.image.src)}
 									quality={85}
 									sizes="(max-width: 640px) 100vw, 384px"
 									loading="lazy"

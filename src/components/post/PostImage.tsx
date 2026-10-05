@@ -3,7 +3,7 @@
 import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 import { ImageSkeleton } from "@/src/components/shared/atoms/ImageSkeleton";
-import { cn, getBlurDataURL, getImagePlaceholder } from "@/src/lib/utils";
+import { blurDataURLFor, cn } from "@/src/lib/utils";
 
 interface PostImageProps extends Omit<ImageProps, "width" | "height"> {
 	src: string;
@@ -40,7 +40,7 @@ export const PostImage = ({
 				style={{ width: "100%", height: "auto" }}
 				sizes={sizes}
 				placeholder="blur"
-				blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
+				blurDataURL={blurDataURLFor(src)}
 				quality={85}
 				loading={priority ? "eager" : "lazy"}
 				className={cn(

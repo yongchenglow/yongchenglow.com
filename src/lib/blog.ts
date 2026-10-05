@@ -1,18 +1,15 @@
-import fs from "node:fs";
-import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
 import readingTime from "reading-time";
 import { AD_MID_ARTICLE_MIN_WORDS } from "@/src/config/ads";
-import { BLOG_CATEGORIES, BLOG_CONFIG } from "@/src/config/blog";
+import { BLOG_CATEGORIES } from "@/src/config/blog";
 import {
 	BLOG_POST_FILENAME_PATTERN,
 	BLOG_SLUG_PATTERN,
 } from "@/src/config/blog-content";
 import { BlogFrontmatterSchema } from "@/src/content/schema";
-import type { BlogPost, Category, PaginationResult } from "@/src/types/blog";
-
-const BLOG_CONTENT_PATH = path.join(process.cwd(), "content/blog");
+import { type ContentSource, fsContentSource } from "@/src/lib/blog-source";
+import type { BlogPost, Category } from "@/src/types/blog";
 
 /**
  * Slugs map directly onto filenames under `content/blog`, so anything outside
@@ -62,228 +59,203 @@ const assertValidSlug = (slug: string): void => {
 	if (!BLOG_SLUG_PATTERN.test(slug)) throw new InvalidBlogSlugError(slug);
 };
 
-const parsePost = (slug: string): BlogPost => {
-	assertValidSlug(slug);
-
-	const mdxPath = path.join(BLOG_CONTENT_PATH, `${slug}.mdx`);
-	const mdPath = path.join(BLOG_CONTENT_PATH, `${slug}.md`);
-
-	let fullPath: string;
-	if (fs.existsSync(mdxPath)) fullPath = mdxPath;
-	else if (fs.existsSync(mdPath)) fullPath = mdPath;
-	else throw new BlogPostNotFoundError(slug);
-
-	const fileContents = fs.readFileSync(fullPath, "utf8");
-
-	const { data, content } = matter(fileContents);
-
-	const parsed = BlogFrontmatterSchema.safeParse(data);
-	if (!parsed.success) {
-		const issues = parsed.error.issues
-			.map((issue) => {
-				const at = issue.path.length > 0 ? issue.path.join(".") : "(root)";
-				return `  - ${at}: ${issue.message}`;
-			})
-			.join("\n");
-		throw new BlogFrontmatterError(slug, fullPath, issues);
-	}
-	const frontmatter = parsed.data;
-
-	// Calculate reading time
-	const { text: readingTimeText, words: wordCount } = readingTime(content);
-
-	// Extract excerpt (first paragraph)
-	const excerpt = content.split("\n\n")[0].substring(0, 200);
-
-	return {
-		slug,
-		frontmatter,
-		content,
-		readingTime: readingTimeText,
-		wordCount,
-		excerpt,
-	};
-};
-
 /**
- * Memoized scan of the content directory.
- *
- * Blog content is static: files are fixed at build time and never mutated at
- * runtime, so results are memoized at module scope for the lifetime of the
- * process. `cache()` alone is not sufficient here — it only dedupes within a
- * single React render pass, and the hottest callers (route handlers, `sitemap.ts`)
- * run outside one, where it is a no-op.
+ * The blog content module: one interface for reading, validating, and querying
+ * posts, backed by a `ContentSource`.
  */
-let slugCache: string[] | undefined;
-let postCache: Map<string, BlogPost> | undefined;
-
-const readAllSlugs = (): string[] =>
-	fs
-		.readdirSync(BLOG_CONTENT_PATH)
-		.filter((file) => BLOG_POST_FILENAME_PATTERN.test(file))
-		.map((file) => file.replace(/\.mdx?$/, ""));
-
-const loadAllSlugs = (): string[] => {
-	if (process.env.NODE_ENV === "development") return readAllSlugs();
-
-	if (slugCache === undefined) {
-		slugCache = readAllSlugs();
-	}
-
-	return slugCache;
-};
-
-const loadPost = (slug: string): BlogPost => {
-	if (process.env.NODE_ENV === "development") return parsePost(slug);
-
-	if (postCache === undefined) postCache = new Map();
-
-	const cached = postCache.get(slug);
-	if (cached !== undefined) return cached;
-
-	const post = parsePost(slug);
-	postCache.set(slug, post);
-	return post;
-};
-
-/**
- * Clears the module-scope caches. Exists so tests can swap `fs` fixtures between
- * cases; production code never needs it, since content cannot change at runtime.
- */
-export const resetBlogCache = (): void => {
-	slugCache = undefined;
-	postCache = undefined;
-};
-
-export const getAllBlogSlugs = cache((): string[] => loadAllSlugs());
-
-export const getBlogPost = cache((slug: string): BlogPost => loadPost(slug));
-
-export const getAllBlogPosts = cache((includesDrafts = false): BlogPost[] =>
-	loadAllSlugs()
-		.map((slug) => loadPost(slug))
-		.filter((post) => includesDrafts || !post.frontmatter.draft)
-		.sort((a, b) => {
-			// Sort by date descending (newest first)
-			return (
-				new Date(b.frontmatter.date).getTime() -
-				new Date(a.frontmatter.date).getTime()
-			);
-		}),
-);
-
-export const getFeaturedPost = (): BlogPost | null => {
-	const posts = getAllBlogPosts();
-	return posts.find((post) => post.frontmatter.featured) || posts[0] || null;
-};
-
-export const getBlogPostsByTag = (tag: string): BlogPost[] => {
-	const posts = getAllBlogPosts();
-	return posts.filter((post) => post.frontmatter.tags?.includes(tag));
-};
-
-export const getBlogPostNavigation = (
-	currentSlug: string,
-): {
-	previous: BlogPost | null;
-	next: BlogPost | null;
-} => {
-	const allPosts = getAllBlogPosts();
-	const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
-	if (currentIndex === -1) return { previous: null, next: null };
-
-	// Posts are sorted newest-first, while navigation follows publication order.
-	// The previous post is older (a higher index), and the next post is newer.
-	return {
-		previous:
-			currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
-		next: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
+export interface BlogRepository {
+	getAllBlogSlugs(): string[];
+	getBlogPost(slug: string): BlogPost;
+	getAllBlogPosts(includesDrafts?: boolean): BlogPost[];
+	getFeaturedPost(): BlogPost | null;
+	getBlogPostsByTag(tag: string): BlogPost[];
+	getBlogPostNavigation(currentSlug: string): {
+		previous: BlogPost | null;
+		next: BlogPost | null;
 	};
-};
+	getAllCategories(): Category[];
+	getCategoryMetadata(categorySlug: string): Category | null;
+	getBlogPostsByCategory(categorySlug: string): BlogPost[];
+	getCategoryPostCounts(): Record<string, number>;
+}
 
-// Category Functions
-export const getAllCategories = (): Category[] => {
-	return Object.values(BLOG_CATEGORIES);
-};
+export const createBlogRepository = (source: ContentSource): BlogRepository => {
+	const assertValidSlugAndResolveFile = (slug: string): string => {
+		assertValidSlug(slug);
+		const file = loadFiles().find(
+			(candidate) => candidate.replace(/\.mdx?$/, "") === slug,
+		);
+		if (file === undefined) throw new BlogPostNotFoundError(slug);
+		return file;
+	};
 
-export const getCategoryMetadata = (categorySlug: string): Category | null => {
-	return BLOG_CATEGORIES[categorySlug] || null;
-};
+	const parsePost = (slug: string): BlogPost => {
+		const file = assertValidSlugAndResolveFile(slug);
+		const { data, content } = matter(source.readFile(file));
 
-export const getBlogPostsByCategory = (categorySlug: string): BlogPost[] => {
-	const category = getCategoryMetadata(categorySlug);
-	if (!category) return [];
+		const parsed = BlogFrontmatterSchema.safeParse(data);
+		if (!parsed.success) {
+			const issues = parsed.error.issues
+				.map((issue) => {
+					const at = issue.path.length > 0 ? issue.path.join(".") : "(root)";
+					return `  - ${at}: ${issue.message}`;
+				})
+				.join("\n");
+			throw new BlogFrontmatterError(slug, file, issues);
+		}
+		const frontmatter = parsed.data;
 
-	const posts = getAllBlogPosts();
-	return posts.filter((post) =>
-		post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
+		// Calculate reading time
+		const { text: readingTimeText, words: wordCount } = readingTime(content);
+
+		// Extract excerpt (first paragraph)
+		const excerpt = content.split("\n\n")[0].substring(0, 200);
+
+		return {
+			slug,
+			frontmatter,
+			content,
+			readingTime: readingTimeText,
+			wordCount,
+			excerpt,
+		};
+	};
+
+	/**
+	 * Parsed content is memoized for the lifetime of the repository.
+	 *
+	 * Blog content is static: files are fixed at build time and never mutated at
+	 * runtime, so results are cached for the life of the process. `cache()`
+	 * alone is not sufficient here — it only dedupes within a single React
+	 * render pass, and the hottest callers (route handlers, `sitemap.ts`) run
+	 * outside one, where it is a no-op. Development skips the cache so edits to
+	 * a post show up without restarting the server.
+	 */
+	let files: string[] | undefined;
+	let posts: Map<string, BlogPost> | undefined;
+
+	const readFiles = (): string[] =>
+		source.listFiles().filter((file) => BLOG_POST_FILENAME_PATTERN.test(file));
+
+	const loadFiles = (): string[] => {
+		if (process.env.NODE_ENV === "development") return readFiles();
+		if (files === undefined) files = readFiles();
+		return files;
+	};
+
+	const loadSlugs = (): string[] =>
+		loadFiles().map((file) => file.replace(/\.mdx?$/, ""));
+
+	const loadPost = (slug: string): BlogPost => {
+		if (process.env.NODE_ENV === "development") return parsePost(slug);
+
+		if (posts === undefined) posts = new Map();
+
+		const cached = posts.get(slug);
+		if (cached !== undefined) return cached;
+
+		const post = parsePost(slug);
+		posts.set(slug, post);
+		return post;
+	};
+
+	const getAllBlogSlugs = cache((): string[] => loadSlugs());
+
+	const getBlogPost = cache((slug: string): BlogPost => loadPost(slug));
+
+	const getAllBlogPosts = cache((includesDrafts = false): BlogPost[] =>
+		loadSlugs()
+			.map((slug) => loadPost(slug))
+			.filter((post) => includesDrafts || !post.frontmatter.draft)
+			.sort((a, b) => {
+				// Sort by date descending (newest first)
+				return (
+					new Date(b.frontmatter.date).getTime() -
+					new Date(a.frontmatter.date).getTime()
+				);
+			}),
 	);
-};
 
-export const getCategoryPostCounts = (): Record<string, number> => {
-	const counts: Record<string, number> = {};
-	const categories = getAllCategories();
-	const allPosts = getAllBlogPosts();
+	const getFeaturedPost = (): BlogPost | null => {
+		const posts = getAllBlogPosts();
+		return posts.find((post) => post.frontmatter.featured) || posts[0] || null;
+	};
 
-	for (const category of categories) {
-		counts[category.slug] = allPosts.filter((post) =>
-			post.frontmatter.tags?.some((tag) => category.tags.includes(tag)),
-		).length;
-	}
+	const getBlogPostsByTag = (tag: string): BlogPost[] => {
+		const posts = getAllBlogPosts();
+		return posts.filter((post) => post.frontmatter.tags?.includes(tag));
+	};
 
-	return counts;
-};
+	const getBlogPostNavigation = (
+		currentSlug: string,
+	): {
+		previous: BlogPost | null;
+		next: BlogPost | null;
+	} => {
+		const allPosts = getAllBlogPosts();
+		const currentIndex = allPosts.findIndex(
+			(post) => post.slug === currentSlug,
+		);
+		if (currentIndex === -1) return { previous: null, next: null };
 
-// Pagination Functions
-export const getPaginatedPosts = (
-	page: number,
-	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> => {
-	const allPosts = getAllBlogPosts();
-	const totalItems = allPosts.length;
-	const totalPages = Math.ceil(totalItems / postsPerPage);
+		// Posts are sorted newest-first, while navigation follows publication order.
+		// The previous post is older (a higher index), and the next post is newer.
+		return {
+			previous:
+				currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
+			next: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
+		};
+	};
 
-	// Validate and clamp page number
-	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+	// Category Functions
+	const getAllCategories = (): Category[] => Object.values(BLOG_CATEGORIES);
 
-	const startIndex = (currentPage - 1) * postsPerPage;
-	const endIndex = startIndex + postsPerPage;
-	const items = allPosts.slice(startIndex, endIndex);
+	const getCategoryMetadata = (categorySlug: string): Category | null =>
+		BLOG_CATEGORIES[categorySlug] || null;
+
+	const isInCategory = (post: BlogPost, category: Category): boolean =>
+		post.frontmatter.tags?.some((tag) => category.tags.includes(tag)) ?? false;
+
+	const getBlogPostsByCategory = (categorySlug: string): BlogPost[] => {
+		const category = getCategoryMetadata(categorySlug);
+		if (!category) return [];
+
+		return getAllBlogPosts().filter((post) => isInCategory(post, category));
+	};
+
+	const getCategoryPostCounts = (): Record<string, number> => {
+		const counts: Record<string, number> = {};
+		const allPosts = getAllBlogPosts();
+
+		for (const category of getAllCategories()) {
+			counts[category.slug] = allPosts.filter((post) =>
+				isInCategory(post, category),
+			).length;
+		}
+
+		return counts;
+	};
 
 	return {
-		items,
-		currentPage,
-		totalPages,
-		totalItems,
-		hasNextPage: currentPage < totalPages,
-		hasPreviousPage: currentPage > 1,
+		getAllBlogSlugs,
+		getBlogPost,
+		getAllBlogPosts,
+		getFeaturedPost,
+		getBlogPostsByTag,
+		getBlogPostNavigation,
+		getAllCategories,
+		getCategoryMetadata,
+		getBlogPostsByCategory,
+		getCategoryPostCounts,
 	};
 };
 
-export const getPaginatedPostsByCategory = (
-	categorySlug: string,
-	page: number,
-	postsPerPage: number = BLOG_CONFIG.postsPerPage,
-): PaginationResult<BlogPost> => {
-	const allPosts = getBlogPostsByCategory(categorySlug);
-	const totalItems = allPosts.length;
-	const totalPages = Math.ceil(totalItems / postsPerPage);
-
-	const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-
-	const startIndex = (currentPage - 1) * postsPerPage;
-	const endIndex = startIndex + postsPerPage;
-	const items = allPosts.slice(startIndex, endIndex);
-
-	return {
-		items,
-		currentPage,
-		totalPages,
-		totalItems,
-		hasNextPage: currentPage < totalPages,
-		hasPreviousPage: currentPage > 1,
-	};
-};
+/**
+ * Blog content is static at build time, so reads are served from the filesystem
+ * adapter and memoized. Tests build their own repository over
+ * `inMemoryContentSource` instead of swapping filesystem fixtures.
+ */
+export const blog: BlogRepository = createBlogRepository(fsContentSource);
 
 /**
  * Splits post content at the first top-level section break past the midpoint,

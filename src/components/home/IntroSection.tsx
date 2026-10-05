@@ -6,7 +6,7 @@ import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Button } from "@/src/components/shared/ui/button";
 import { tokenizeWithLinks } from "@/src/lib/text";
-import { getImagePlaceholder } from "@/src/lib/utils";
+import { blurDataURLFor } from "@/src/lib/utils";
 
 export const IntroSection = () => {
 	const { intro } = homeData;
@@ -63,7 +63,7 @@ export const IntroSection = () => {
 								className="w-full h-auto rounded-2xl shadow-md max-w-sm image-loading"
 								priority
 								placeholder="blur"
-								blurDataURL={getImagePlaceholder(intro.image.src)}
+								blurDataURL={blurDataURLFor(intro.image.src)}
 								quality={85}
 								sizes="(max-width: 640px) 100vw, 384px"
 							/>

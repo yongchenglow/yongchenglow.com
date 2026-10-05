@@ -4,7 +4,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { cn, getBlurDataURL, getImagePlaceholder } from "@/src/lib/utils";
+import { blurDataURLFor, cn } from "@/src/lib/utils";
 
 interface ImageModalProps {
 	src: string;
@@ -63,7 +63,7 @@ export const ImageModal = ({
 							style={{ width: "100%", height: "auto" }}
 							unoptimized={!src.startsWith("/")}
 							placeholder="blur"
-							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
+							blurDataURL={blurDataURLFor(src)}
 							quality={85}
 							loading="lazy"
 						/>
@@ -109,7 +109,7 @@ export const ImageModal = ({
 							className="max-h-[80vh] w-full object-contain rounded-sm"
 							unoptimized={!src.startsWith("/")}
 							placeholder="blur"
-							blurDataURL={getBlurDataURL(getImagePlaceholder(src))}
+							blurDataURL={blurDataURLFor(src)}
 							quality={85}
 						/>
 

@@ -3,11 +3,11 @@ import Link from "next/link";
 import FilterPanel from "@/src/components/blog/FilterPanel";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { getAllCategories, getCategoryPostCounts } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
 
 export const CategoryNavigation = () => {
-	const categories = getAllCategories();
-	const counts = getCategoryPostCounts();
+	const categories = blog.getAllCategories();
+	const counts = blog.getCategoryPostCounts();
 
 	return (
 		<FilterPanel icon={Folder} heading={BLOG_UI.categoryNavigation.heading}>
