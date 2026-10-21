@@ -3,7 +3,7 @@
 	"packageManager": "bun@1.4.3",
 	"engines": {
 		"bun": ">=1.4.2",
-		"node": "26.12.0"
+		"node": "26.12.1"
 	},
 	"scripts": {
 		"dev": "bun run generate-search-index && bun --bun next dev",
