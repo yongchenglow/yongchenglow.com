@@ -48,7 +48,16 @@ export const LatestPostsView = ({
 					<Button
 						variant="outline"
 						size="sm"
-						onClick={() => setUseInfiniteScroll(!useInfiniteScroll)}
+						onClick={() => {
+							if (useInfiniteScroll) {
+								window.history.replaceState(
+									null,
+									"",
+									`${baseUrl}${paginationResult.currentPage}`,
+								);
+							}
+							setUseInfiniteScroll(!useInfiniteScroll);
+						}}
 					>
 						{useInfiniteScroll
 							? "Switch to Pagination"

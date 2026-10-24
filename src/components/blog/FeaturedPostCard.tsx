@@ -7,6 +7,7 @@ import { InternalLink } from "@/src/components/shared/atoms/InternalLink";
 import { Badge } from "@/src/components/shared/ui/badge";
 import { buttonVariants } from "@/src/components/shared/ui/button";
 import { BLOG_UI } from "@/src/config/blog-ui";
+import { getPostHref } from "@/src/lib/post-metadata";
 import type { BlogPost } from "@/src/types/blog";
 
 interface FeaturedPostCardProps {
@@ -17,7 +18,7 @@ export const FeaturedPostCard = ({ post }: FeaturedPostCardProps) => {
 	const { frontmatter, readingTime } = post;
 
 	return (
-		<InternalLink href={`/blog/${post.slug}`} className="no-underline group">
+		<InternalLink href={getPostHref(post.slug)} className="no-underline group">
 			<div className="rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer">
 				<div className="flex flex-col sm:flex-row">
 					{/* Gradient left panel */}

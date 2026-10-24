@@ -82,8 +82,9 @@ export interface BlogRepository {
 export const createBlogRepository = (source: ContentSource): BlogRepository => {
 	const assertValidSlugAndResolveFile = (slug: string): string => {
 		assertValidSlug(slug);
-		const file = loadFiles().find(
-			(candidate) => candidate.replace(/\.mdx?$/, "") === slug,
+		const files = loadFiles();
+		const file = [`${slug}.mdx`, `${slug}.md`].find((candidate) =>
+			files.includes(candidate),
 		);
 		if (file === undefined) throw new BlogPostNotFoundError(slug);
 		return file;

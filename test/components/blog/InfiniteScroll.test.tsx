@@ -1,6 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import {
+	act,
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+} from "@testing-library/react";
 import { InfiniteScroll } from "@/src/components/blog/InfiniteScroll";
+import { LatestPostsView } from "@/src/components/blog/LatestPostsView";
 import type { BlogPost } from "@/src/types/blog";
 import { vi } from "../../bun-test-utils";
 
@@ -33,7 +40,7 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={1}
 				totalPages={3}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={vi.fn()}
 			/>,
 		);
@@ -50,7 +57,7 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={1}
 				totalPages={3}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={vi.fn()}
 			/>,
 		);
@@ -66,7 +73,7 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={3}
 				totalPages={3}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={vi.fn()}
 			/>,
 		);
@@ -83,7 +90,7 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={1}
 				totalPages={1}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={vi.fn()}
 			/>,
 		);
@@ -97,7 +104,7 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={2}
 				totalPages={2}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={vi.fn()}
 			/>,
 		);
@@ -139,10 +146,12 @@ describe("InfiniteScroll", () => {
 				initialPosts={initialPosts}
 				currentPage={1}
 				totalPages={3}
-				baseUrl="/blog/latest/"
+				baseUrl="/blog/all/"
 				loadMorePosts={loadMorePosts}
 			/>,
 		);
+
+		window.history.replaceState(null, "", "/blog/all/1");
 
 		// Verify initial post is rendered
 		expect(screen.getByText("Initial Post")).toBeInTheDocument();
@@ -171,7 +180,71 @@ describe("InfiniteScroll", () => {
 			expect(screen.getByText("Loaded Post 2")).toBeInTheDocument();
 		});
 
+		expect(window.location.pathname).toBe("/blog/all/2");
+		expect(screen.getByText("Initial Post")).toBeInTheDocument();
+
 		// Restore original IntersectionObserver
 		window.IntersectionObserver = OriginalObserver;
+	});
+});
+
+describe("LatestPostsView infinite scrolling", () => {
+	it("keeps loaded posts and restores the pagination URL when switching modes", async () => {
+		let onIntersect: IntersectionObserverCallback;
+		const OriginalObserver = window.IntersectionObserver;
+		const originalUrl = window.location.href;
+		window.IntersectionObserver = class {
+			constructor(callback: IntersectionObserverCallback) {
+				onIntersect = callback;
+			}
+			observe() {}
+			unobserve() {}
+			disconnect() {}
+		} as unknown as typeof IntersectionObserver;
+		const fetchMock = vi
+			.spyOn(globalThis, "fetch")
+			.mockResolvedValue(
+				Response.json({ items: [makePost("loaded", "Loaded Post")] }),
+			);
+		try {
+			window.history.replaceState(null, "", "/blog/all/1");
+			render(
+				<LatestPostsView
+					paginationResult={{
+						items: [makePost("initial", "Initial Post")],
+						currentPage: 1,
+						totalPages: 2,
+						totalItems: 2,
+						hasNextPage: true,
+						hasPreviousPage: false,
+					}}
+					baseUrl="/blog/all/"
+					apiUrl="/api/blog/latest"
+				/>,
+			);
+			fireEvent.click(
+				screen.getByRole("button", { name: "Switch to Infinite Scroll" }),
+			);
+			await act(async () => {
+				onIntersect(
+					[{ isIntersecting: true } as IntersectionObserverEntry],
+					{} as IntersectionObserver,
+				);
+			});
+			expect(fetchMock).toHaveBeenCalledWith("/api/blog/latest?page=2");
+			expect(window.location.pathname).toBe("/blog/all/2");
+			expect(screen.getByText("Initial Post")).toBeInTheDocument();
+			expect(screen.getByText("Loaded Post")).toBeInTheDocument();
+			fireEvent.click(
+				screen.getByRole("button", { name: "Switch to Pagination" }),
+			);
+			expect(window.location.pathname).toBe("/blog/all/1");
+			expect(screen.getByText("Initial Post")).toBeInTheDocument();
+			expect(screen.queryByText("Loaded Post")).not.toBeInTheDocument();
+		} finally {
+			fetchMock.mockRestore();
+			window.IntersectionObserver = OriginalObserver;
+			window.history.replaceState(null, "", originalUrl);
+		}
 	});
 });

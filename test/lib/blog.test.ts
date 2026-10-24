@@ -198,8 +198,8 @@ describe("getBlogPost", () => {
 
 	it("prefers the .mdx file when both extensions exist", () => {
 		const blog = repoWith({
-			"dual.mdx": postFile("dual", { title: "from mdx" }),
 			"dual.md": postFile("dual", { title: "from md" }),
+			"dual.mdx": postFile("dual", { title: "from mdx" }),
 		});
 		expect(blog.getBlogPost("dual").frontmatter.title).toBe("from mdx");
 	});

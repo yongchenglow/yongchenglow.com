@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createBlogRepository } from "../src/lib/blog.ts";
 import { fsContentSource } from "../src/lib/blog-source.ts";
+import { getPostHref } from "../src/lib/post-metadata.ts";
 
 const OUTPUT_PATH = path.join(process.cwd(), "public/search-index.json");
 
@@ -41,7 +42,7 @@ function getAllSearchablePosts() {
 		content: stripMarkdown(post.content),
 		tags: post.frontmatter.tags ?? [],
 		date: post.frontmatter.date,
-		url: `/blog/${post.slug}`,
+		url: getPostHref(post.slug),
 	}));
 }
 

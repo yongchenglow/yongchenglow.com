@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/src/config/site";
 import { blog } from "@/src/lib/blog";
 import { getAllTags, getListingPageCount } from "@/src/lib/blog-listing";
+import { getPostHref } from "@/src/lib/post-metadata";
 
 const sitemap = (): MetadataRoute.Sitemap => {
 	const entries: MetadataRoute.Sitemap = [];
@@ -32,7 +33,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	const posts = blog.getAllBlogPosts();
 	for (const post of posts) {
 		entries.push({
-			url: `${SITE_URL}/blog/${post.slug}`,
+			url: `${SITE_URL}${getPostHref(post.slug)}`,
 			lastModified: new Date(
 				post.frontmatter.lastUpdated ?? post.frontmatter.date,
 			),
