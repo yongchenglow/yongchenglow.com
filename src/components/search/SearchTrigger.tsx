@@ -23,7 +23,7 @@ export const SearchTrigger = () => {
 			variant="outline"
 			size="sm"
 			onClick={handleClick}
-			aria-label="Search"
+			aria-label="Search ⌘K"
 			className="gap-2"
 		>
 			<Search className="h-4 w-4" />
