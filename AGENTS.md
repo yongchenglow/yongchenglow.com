@@ -4,14 +4,20 @@ This repository powers <https://www.yongchenglow.com>. It uses the Next.js App R
 
 Use Bun throughout, `bun` for the runtime and package scripts, and `bunx` for one-off package binaries. Keep `bun.lock` authoritative.
 
-## Completion gates
+## Completion and pull request gates
 
-Call work complete only after every gate passes:
+Before opening a pull request, pushing updates to it, or calling work complete, run these gates on the final changes using the Bun version pinned in `package.json`:
 
 1. `bun run check:all` exits successfully.
 2. `bun test` reports zero failures.
-3. `git diff --check` exits successfully with no output.
-4. The final diff contains only intended changes.
+3. For application code, content, dependency, build configuration, or E2E changes, `bun run e2e:docker` reports zero failures. This includes the sitemap accessibility scan, browser flows, and visual snapshots. Documentation-only changes may skip this gate. Read `e2e/AGENTS.md` before running it or updating snapshots.
+4. After staging the intended changes, `gitleaks git --pre-commit --staged --redact --no-banner` reports no leaks.
+5. `git diff --check` and `git diff --cached --check` exit successfully with no output.
+6. The final diff contains only intended changes, including any rewrites from checks.
+
+Dependency upgrades must pass the browser gate even when no application source changed: updated UI libraries, browsers, and axe can expose accessibility regressions that unit tests do not catch. Fix blocking accessibility findings in the markup and review intended snapshot changes using `e2e/AGENTS.md`.
+
+If a required gate cannot run, report the command and blocker and keep the PR in draft until the missing validation passes. In the PR body, distinguish local results from CI results and identify any pending checks.
 
 `check:all` runs TypeScript, Biome, and Knip. Biome may rewrite files. Both `bun run dev` and `bun run build` regenerate the search index before starting Next.js.
 
@@ -41,7 +47,7 @@ Adding, editing, renaming, or removing a blog post: read `src/app/blog/AGENTS.md
 
 Writing or debugging a test, read `test/AGENTS.md` for Bun test setup, the Vitest-shaped compatibility shim, module mocking, and cache isolation.
 
-Writing or debugging an end-to-end test, or changing a page that visual snapshots capture: read `e2e/AGENTS.md` for the Playwright commands, fixtures, snapshot workflow, and accessibility gate.
+Running, writing, or debugging an end-to-end test, upgrading dependencies, or changing a page that visual snapshots capture: read `e2e/AGENTS.md` for the Playwright commands, fixtures, snapshot workflow, and accessibility gate.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
