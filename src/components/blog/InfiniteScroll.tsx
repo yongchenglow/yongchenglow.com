@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PostCard } from "@/src/components/post/PostCard";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
@@ -27,7 +26,6 @@ export const InfiniteScroll = ({
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasMore, setHasMore] = useState(currentPage < totalPages);
 	const observerTarget = useRef<HTMLDivElement>(null);
-	const router = useRouter();
 
 	// Use refs to access latest state values in callback without causing re-creation
 	const hasMoreRef = useRef(hasMore);
@@ -59,14 +57,14 @@ export const InfiniteScroll = ({
 			setPage(nextPage);
 			setHasMore(nextPage < totalPages);
 
-			// Update URL without full page reload
-			router.replace(`${baseUrl}${nextPage}`, { scroll: false });
+			// Keep accumulated posts mounted while updating the shareable page URL.
+			window.history.replaceState(null, "", `${baseUrl}${nextPage}`);
 		} catch (error) {
 			console.error("Failed to load more posts:", error);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [totalPages, baseUrl, router, loadMorePosts]);
+	}, [totalPages, baseUrl, loadMorePosts]);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -96,14 +94,7 @@ export const InfiniteScroll = ({
 					delay={getStaggerDelay(index)}
 					className="w-full md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(25%-1.125rem)]"
 				>
-					<PostCard
-						title={post.frontmatter.title}
-						description={post.frontmatter.description}
-						href={`/blog/${post.slug}`}
-						readingTime={post.readingTime}
-						date={post.frontmatter.date}
-						tags={post.frontmatter.tags}
-					/>
+					<PostCard post={post} />
 				</FadeIn>
 			))}
 

@@ -35,9 +35,9 @@ Add only suite-wide setup there; keep test-specific mocks beside the test.
 
 Type declarations for the jest-dom matchers live in `test/matchers.d.ts`, which augments `bun:test` directly.
 
-## Blog data is cached at module scope
+## Blog data comes from a content source
 
-`src/lib/blog.ts` memoizes parsed posts for the process lifetime. When a test changes filesystem fixtures between cases, call `resetBlogCache()` in `beforeEach` so each case observes its own content.
+`src/lib/blog.ts` exposes `createBlogRepository(source)`. Production and the search-index build use `fsContentSource`; tests that need synthetic posts build their own repository over `inMemoryContentSource(files)` — one map per case, no filesystem mocking and no cache reset. The default export `blog` reads real content, so page tests and `test/helpers/blog-content.ts` can assert against the posts on disk.
 
 ## Finish a test change
 

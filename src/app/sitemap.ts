@@ -1,11 +1,8 @@
 import type { MetadataRoute } from "next";
-import { BLOG_CONFIG } from "@/src/config/blog";
 import { SITE_URL } from "@/src/config/site";
-import {
-	getAllBlogPosts,
-	getAllCategories,
-	getBlogPostsByCategory,
-} from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
+import { getAllTags, getListingPageCount } from "@/src/lib/blog-listing";
+import { getPostHref } from "@/src/lib/post-metadata";
 
 const sitemap = (): MetadataRoute.Sitemap => {
 	const entries: MetadataRoute.Sitemap = [];
@@ -33,10 +30,10 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	);
 
 	// Blog posts
-	const posts = getAllBlogPosts();
+	const posts = blog.getAllBlogPosts();
 	for (const post of posts) {
 		entries.push({
-			url: `${SITE_URL}/blog/${post.slug}`,
+			url: `${SITE_URL}${getPostHref(post.slug)}`,
 			lastModified: new Date(
 				post.frontmatter.lastUpdated ?? post.frontmatter.date,
 			),
@@ -45,10 +42,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
 		});
 	}
 
-	// All posts archive (timeline)
-	if (posts.length > 0) {
+	// All posts archive, one entry per page
+	const allPostsPageCount = getListingPageCount({ kind: "all" });
+	for (let i = 1; i <= allPostsPageCount; i++) {
 		entries.push({
-			url: `${SITE_URL}/blog/all`,
+			url: `${SITE_URL}/blog/all/${i}`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,
@@ -56,12 +54,12 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 
 	// Category paginated pages
-	const categories = getAllCategories();
+	const categories = blog.getAllCategories();
 	for (const category of categories) {
-		const categoryPosts = getBlogPostsByCategory(category.slug);
-		const totalCategoryPages = Math.ceil(
-			categoryPosts.length / BLOG_CONFIG.postsPerPage,
-		);
+		const totalCategoryPages = getListingPageCount({
+			kind: "category",
+			slug: category.slug,
+		});
 		for (let i = 1; i <= totalCategoryPages; i++) {
 			entries.push({
 				url: `${SITE_URL}/blog/category/${category.slug}/${i}`,
@@ -73,13 +71,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 	}
 
 	// Tag pages
-	const allTagsSet = new Set<string>();
-	for (const post of posts) {
-		for (const tag of post.frontmatter.tags ?? []) {
-			allTagsSet.add(tag);
-		}
-	}
-	for (const tag of allTagsSet) {
+	for (const tag of getAllTags()) {
 		entries.push({
 			url: `${SITE_URL}/blog/tag/${encodeURIComponent(tag)}`,
 			lastModified: new Date(),

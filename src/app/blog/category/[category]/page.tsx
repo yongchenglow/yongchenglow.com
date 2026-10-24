@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
-import { getAllCategories, getCategoryMetadata } from "@/src/lib/blog";
+import { blog } from "@/src/lib/blog";
+import { getListingBaseUrl } from "@/src/lib/blog-listing";
 
 interface CategoryPageProps {
 	params: Promise<{
@@ -8,7 +9,7 @@ interface CategoryPageProps {
 }
 
 export const generateStaticParams = async () => {
-	const categories = getAllCategories();
+	const categories = blog.getAllCategories();
 	return categories.map((category) => ({ category: category.slug }));
 };
 
@@ -18,14 +19,14 @@ export const dynamicParams = false;
 
 export const CategoryPage = async ({ params }: CategoryPageProps) => {
 	const { category } = await params;
-	const categoryMetadata = getCategoryMetadata(category);
+	const categoryMetadata = blog.getCategoryMetadata(category);
 
 	if (!categoryMetadata) {
 		notFound();
 	}
 
 	// Redirect to page 1
-	redirect(`/blog/category/${category}/1`);
+	redirect(`${getListingBaseUrl({ kind: "category", slug: category })}1`);
 };
 
 export default CategoryPage;

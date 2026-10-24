@@ -1,21 +1,19 @@
 import { notFound } from "next/navigation";
-import { AnimatedGridItem } from "@/src/components/blog/AnimatedGridItem";
 import { BlogBreadcrumb } from "@/src/components/blog/BlogBreadcrumb";
-import { Pagination } from "@/src/components/blog/Pagination";
-import { PostCard } from "@/src/components/post/PostCard";
-import { PostGrid } from "@/src/components/post/PostGrid";
+import { LatestPostsView } from "@/src/components/blog/LatestPostsView";
 import { FadeIn } from "@/src/components/shared/atoms/FadeIn";
 import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
-import { BLOG_CONFIG } from "@/src/config/blog";
-import { BLOG_UI } from "@/src/config/blog-ui";
+import { blog } from "@/src/lib/blog";
 import {
-	getAllCategories,
-	getBlogPostsByCategory,
-	getCategoryMetadata,
-	getPaginatedPostsByCategory,
-} from "@/src/lib/blog";
+	getListing,
+	getListingApiUrl,
+	getListingBaseUrl,
+	getListingPageCount,
+	paginationSummary,
+	parsePage,
+} from "@/src/lib/blog-listing";
 
 interface CategoryPageProps {
 	params: Promise<{
@@ -26,7 +24,7 @@ interface CategoryPageProps {
 
 export const generateMetadata = async ({ params }: CategoryPageProps) => {
 	const { category, page } = await params;
-	const categoryMetadata = getCategoryMetadata(category);
+	const categoryMetadata = blog.getCategoryMetadata(category);
 	const label = categoryMetadata?.label ?? category;
 	return {
 		title: `${label} - Page ${page}`,
@@ -37,14 +35,15 @@ export const generateMetadata = async ({ params }: CategoryPageProps) => {
 };
 
 export const generateStaticParams = async () => {
-	const categories = getAllCategories();
+	const categories = blog.getAllCategories();
 	const params: { category: string; page: string }[] = [];
 
 	for (const category of categories) {
-		const posts = getBlogPostsByCategory(category.slug);
-		const totalPages = Math.ceil(posts.length / BLOG_CONFIG.postsPerPage);
+		const totalPages = getListingPageCount({
+			kind: "category",
+			slug: category.slug,
+		});
 
-		// Generate params for each page
 		for (let i = 1; i <= totalPages; i++) {
 			params.push({
 				category: category.slug,
@@ -64,24 +63,26 @@ export const CategoryPageWithPagination = async ({
 	params,
 }: CategoryPageProps) => {
 	const { category, page } = await params;
-	const pageNumber = Number.parseInt(page, 10);
+	const pageNumber = parsePage(page);
 
-	// Validate page number
-	if (!/^[1-9]\d*$/.test(page) || Number.isNaN(pageNumber)) {
+	// A page param that is not a canonical positive integer is not a URL.
+	if (pageNumber === null) {
 		notFound();
 	}
 
-	const categoryMetadata = getCategoryMetadata(category);
+	const categoryMetadata = blog.getCategoryMetadata(category);
 
 	if (!categoryMetadata) {
 		notFound();
 	}
 
-	const paginationResult = getPaginatedPostsByCategory(category, pageNumber);
+	const scope = { kind: "category", slug: category } as const;
+	const listing = getListing(scope, pageNumber);
+	const apiUrl = getListingApiUrl(scope);
 
-	// The data helper clamps API consumers to the final page, but a page route
+	// The listing clamps API consumers to the final page, but a page route
 	// outside the generated range is not a canonical URL.
-	if (pageNumber > Math.max(paginationResult.totalPages, 1)) {
+	if (pageNumber > Math.max(listing.totalPages, 1)) {
 		notFound();
 	}
 
@@ -91,7 +92,7 @@ export const CategoryPageWithPagination = async ({
 				<BlogBreadcrumb
 					current={{
 						label: categoryMetadata.label,
-						href: `/blog/category/${category}/1`,
+						href: `${getListingBaseUrl(scope)}1`,
 					}}
 				/>
 				<FadeIn>
@@ -101,34 +102,17 @@ export const CategoryPageWithPagination = async ({
 					<PageSubtitle>
 						{categoryMetadata.description}
 						<br />
-						{BLOG_UI.pagination.showingText
-							.replace("{current}", String(paginationResult.items.length))
-							.replace("{total}", String(paginationResult.totalItems))}
-						{paginationResult.totalPages > 1 &&
-							` (Page ${paginationResult.currentPage} of ${paginationResult.totalPages})`}
+						{paginationSummary(listing)}
 					</PageSubtitle>
 				</FadeIn>
 
-				<PostGrid>
-					{paginationResult.items.map((post, index) => (
-						<AnimatedGridItem key={post.slug} index={index}>
-							<PostCard
-								title={post.frontmatter.title}
-								description={post.frontmatter.description}
-								href={`/blog/${post.slug}`}
-								readingTime={post.readingTime}
-								date={post.frontmatter.date}
-								tags={post.frontmatter.tags}
-							/>
-						</AnimatedGridItem>
-					))}
-				</PostGrid>
-
-				<Pagination
-					currentPage={paginationResult.currentPage}
-					totalPages={paginationResult.totalPages}
-					baseUrl={`/blog/category/${category}/`}
-				/>
+				{apiUrl && (
+					<LatestPostsView
+						paginationResult={listing}
+						baseUrl={getListingBaseUrl(scope)}
+						apiUrl={apiUrl}
+					/>
+				)}
 			</div>
 		</StandardLayout>
 	);

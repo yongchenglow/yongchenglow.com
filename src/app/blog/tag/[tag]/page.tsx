@@ -7,7 +7,11 @@ import { PageSubtitle } from "@/src/components/shared/atoms/PageSubtitle";
 import { PageTitle } from "@/src/components/shared/atoms/PageTitle";
 import StandardLayout from "@/src/components/shared/layouts/StandardLayout";
 import { BLOG_UI } from "@/src/config/blog-ui";
-import { getAllBlogPosts, getBlogPostsByTag } from "@/src/lib/blog";
+import {
+	getAllTags,
+	getListingPosts,
+	postCountText,
+} from "@/src/lib/blog-listing";
 
 export const generateMetadata = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
@@ -26,16 +30,7 @@ interface TagPageProps {
 }
 
 export const generateStaticParams = async () => {
-	const posts = getAllBlogPosts();
-	const tags = new Set<string>();
-
-	for (const post of posts) {
-		for (const tag of post.frontmatter.tags ?? []) {
-			tags.add(tag);
-		}
-	}
-
-	return Array.from(tags).map((tag) => ({ tag }));
+	return getAllTags().map((tag) => ({ tag }));
 };
 
 /**
@@ -48,7 +43,7 @@ export const dynamicParams = false;
 
 export const TagPage = async ({ params }: TagPageProps) => {
 	const { tag } = await params;
-	const posts = getBlogPostsByTag(tag);
+	const posts = getListingPosts({ kind: "tag", slug: tag });
 
 	return (
 		<StandardLayout>
@@ -60,26 +55,20 @@ export const TagPage = async ({ params }: TagPageProps) => {
 					}}
 				/>
 				<FadeIn>
-					<PageTitle>Tag: {tag}</PageTitle>
+					<PageTitle>
+						{BLOG_UI.breadcrumbs.tagPrefix} {tag}
+					</PageTitle>
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<PageSubtitle>
-						{posts.length} post{posts.length !== 1 ? "s" : ""} tagged with "
-						{tag}"
+						{postCountText(posts.length)} tagged with "{tag}"
 					</PageSubtitle>
 				</FadeIn>
 
 				<PostGrid>
 					{posts.map((post, index) => (
 						<AnimatedGridItem key={post.slug} index={index}>
-							<PostCard
-								title={post.frontmatter.title}
-								description={post.frontmatter.description}
-								href={`/blog/${post.slug}`}
-								readingTime={post.readingTime}
-								date={post.frontmatter.date}
-								tags={post.frontmatter.tags}
-							/>
+							<PostCard post={post} />
 						</AnimatedGridItem>
 					))}
 				</PostGrid>

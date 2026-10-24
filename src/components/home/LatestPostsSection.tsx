@@ -20,14 +20,7 @@ export const LatestPostsSection = ({ post }: LatestPostsSectionProps) => {
 			<Section title="Latest Tech Posts">
 				<div className="grid grid-cols-12">
 					<FadeIn className="col-span-12 sm:col-span-8 sm:col-start-3 lg:col-span-6 lg:col-start-4 w-full">
-						<PostCard
-							title={post.frontmatter.title}
-							description={post.frontmatter.description}
-							href={`/blog/${post.slug}`}
-							readingTime={post.readingTime}
-							date={post.frontmatter.date}
-							tags={post.frontmatter.tags}
-						/>
+						<PostCard post={post} />
 					</FadeIn>
 				</div>
 				<FadeIn delay={0.2}>

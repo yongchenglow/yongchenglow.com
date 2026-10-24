@@ -1,18 +1,16 @@
 import { NextResponse } from "next/server";
-import { getPaginatedPosts } from "@/src/lib/blog";
+import { getListing, parsePage } from "@/src/lib/blog-listing";
 
 export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
-	const pageParam = searchParams.get("page") || "1";
-	const page = Number.parseInt(pageParam, 10);
+	const page = parsePage(searchParams.get("page") ?? "1");
 
-	if (!/^[1-9]\d*$/.test(pageParam) || Number.isNaN(page)) {
+	if (page === null) {
 		return NextResponse.json({ error: "Invalid page number" }, { status: 400 });
 	}
 
 	try {
-		const result = getPaginatedPosts(page);
-		return NextResponse.json(result);
+		return NextResponse.json(getListing({ kind: "all" }, page));
 	} catch (error) {
 		console.error("Error fetching posts:", error);
 		return NextResponse.json(
