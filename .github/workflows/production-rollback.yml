@@ -18,8 +18,7 @@ jobs:
     permissions:
       contents: read
       deployments: read
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2.2.0
     with:
       application_name: yongchenglow
       namespace: personal-site

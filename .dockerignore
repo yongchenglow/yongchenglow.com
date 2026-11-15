@@ -1,15 +1,43 @@
-.next
-.github
-.huskey
-.cache
+# The builder runs `COPY . .`, so everything not listed here enters the build
+# context. Keep `.env.production`: `next build` inlines its public IDs.
 
-# dependencies
+# Version control, local tooling, and nested checkouts
+.git
+.worktrees
+.claude
+.vscode
+.husky
+.github
+.DS_Store
+
+# Local secrets
+.env
+.env*.local
+
+# Build output and caches
+.next
+.cache
+/out
+/build
+tsconfig.tsbuildinfo
+
+# Dependencies
 /node_modules
 
-# testing
+# Tests and test output. Keep `/test`: `next build` type-checks the tests
+# colocated in `src/`, and their jest-dom matcher types live in
+# `test/matchers.d.ts`.
+/e2e
 /coverage
-
-# Playwright
 /test-results
 /playwright-report
 /blob-report
+
+# Documentation, deployment, and agent instructions
+/docs
+/helm
+**/AGENTS.md
+**/CLAUDE.md
+README.md
+SECURITY.md
+Dockerfile
