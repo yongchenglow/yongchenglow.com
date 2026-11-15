@@ -29,7 +29,7 @@ Chromium antialiases text differently on arm64 and x64, so each architecture kee
 
 ## CI
 
-`.github/workflows/e2e.yml` runs the full suite on every pull request and on `main`, gating the container build. After each review-app and production deploy it runs `@smoke` against the deployed URL. A failing production smoke run does not roll back; use the Production Rollback workflow.
+`.github/workflows/e2e.yml` runs the full suite on every pull request and on `main`, gating the container build. After each review-app and production deploy it runs `@smoke` against the deployed URL. A failing production smoke run rolls production back to the previous Helm revision automatically; the manual Production Rollback workflow covers other cases.
 
 ## Accessibility
 
