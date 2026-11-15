@@ -19,13 +19,12 @@
 		"e2e:serve": "cp -R public .next/standalone/ && cp -R .next/static .next/standalone/.next/ && bun .next/standalone/server.js",
 		"tsc": "tsc --noEmit",
 		"typecheck": "tsc --noEmit",
-		"lint": "biome lint --write",
+		"lint": "biome ci .",
 		"start": "bun --bun next start",
 		"analyze": "ANALYZE=true bun --bun next build",
 		"format": "biome format --write",
 		"check": "biome check --write",
 		"check:all": "bun run tsc && bun run check && bun run knip",
-		"check:ci": "biome check --write",
 		"knip": "knip",
 		"knip:production": "knip --production",
 		"update:packages": "bun update --latest",
@@ -34,7 +33,7 @@
 		"images": "bun scripts/optimize-images.ts && bun run lqip"
 	},
 	"lint-staged": {
-		"*.{ts,tsx,js,jsx,json,css}": "biome check --write --no-errors-on-unmatched"
+		"*.{ts,tsx,js,jsx,json,jsonc,css,md,yml,yaml}": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "^3.1.1",

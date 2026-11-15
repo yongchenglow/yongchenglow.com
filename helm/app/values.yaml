@@ -35,7 +35,7 @@ securityContext:
   allowPrivilegeEscalation: false
   capabilities:
     drop:
-    - ALL
+      - ALL
   readOnlyRootFilesystem: true
 
 service:
@@ -86,14 +86,12 @@ env: []
   #   value: "https://api.example.com"
   # - name: NODE_ENV
   #   value: "production"
-
 # Environment variables from secrets/configmaps
 envFrom: []
   # - secretRef:
   #     name: nextjs-secrets
   # - configMapRef:
   #     name: nextjs-config
-
 # Liveness probe configuration
 livenessProbe:
   httpGet:
@@ -129,7 +127,6 @@ podDisruptionBudget:
   enabled: false
   minAvailable: 1
   # maxUnavailable: 1
-
 # Feature branch configuration
 featureBranch:
   enabled: false
