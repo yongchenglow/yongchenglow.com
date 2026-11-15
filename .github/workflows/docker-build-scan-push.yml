@@ -60,20 +60,20 @@ jobs:
       image_name: ${{ steps.image-name.outputs.value }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       # Resolved here rather than passed in, so callers do not need a job that
       # only feeds this workflow, and an extra edge in their dependency graph.
       - name: Get Bun version from package.json
         id: bun
-        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2.2.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
 
       - name: Log in to Docker Hardened Images registry
         if: inputs.dhi_login
-        uses: docker/login-action@v4
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
         with:
           registry: dhi.io
           username: ${{ secrets.DHI_REGISTRY_USERNAME }}
@@ -104,7 +104,7 @@ jobs:
 
       - name: Extract image metadata
         id: metadata
-        uses: docker/metadata-action@v6
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
         with:
           images: ${{ steps.image-name.outputs.value }}
           tags: |
@@ -134,7 +134,7 @@ jobs:
       # Loading the image into the local Docker daemon lets Trivy inspect the
       # exact image that will be pushed. Nothing is published before the scan.
       - name: Build Docker image
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
         with:
           context: .
           load: true
@@ -154,7 +154,7 @@ jobs:
           platforms: ${{ inputs.platform }}
 
       - name: Scan local image
-        uses: aquasecurity/trivy-action@v0.36.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           image-ref: ${{ steps.image-name.outputs.value }}:${{ steps.generate-tag.outputs.tag }}
           format: "json"
@@ -166,7 +166,7 @@ jobs:
         run: trivy convert --format sarif --output trivy-image-results.sarif trivy-image-results.json
 
       - name: Upload scan results
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
         with:
           sarif_file: "trivy-image-results.sarif"
 
@@ -199,7 +199,7 @@ jobs:
       # Registry credentials are deliberately unavailable until the local
       # image has passed its vulnerability policy.
       - name: Log in to Container Registry
-        uses: docker/login-action@v4
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
         with:
           registry: ${{ inputs.registry }}
           username: ${{ github.actor }}

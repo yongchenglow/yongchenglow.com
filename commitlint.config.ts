@@ -1,29 +1,9 @@
-const ERROR = 2;
-
-module.exports = {
+// The conventional preset already enforces the type list, lowercase types,
+// a non sentence-case subject, and non-empty type and subject. Only deliberate
+// departures from it belong here.
+export default {
 	extends: ["@commitlint/config-conventional"],
 	rules: {
-		"subject-empty": [ERROR, "never"],
-		"type-empty": [ERROR, "never"],
-		"type-case": [ERROR, "never"],
-		"subject-case": [ERROR, "never"],
 		"header-max-length": [2, "always", 72],
-		"type-enum": [
-			2,
-			"always",
-			[
-				"docs",
-				"build",
-				"ci",
-				"style",
-				"refactor",
-				"revert",
-				"feat",
-				"fix",
-				"perf",
-				"test",
-				"chore",
-			],
-		],
 	},
 };

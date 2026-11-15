@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.6.2/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -18,6 +18,17 @@
 			"*.tsx",
 			"*.jsx",
 			"*.json",
+			"*.md",
+			"*.yml",
+			"*.yaml",
+			".github/**/*",
+			"docs/**/*",
+			"helm/**/*",
+			"content/**/*.md",
+			"content/**/*.json",
+			"lib/**/*",
+			"scripts/**/*",
+			"!helm/app/templates",
 			"!.claude/worktrees",
 			"!.worktrees",
 			"!node_modules",
@@ -57,6 +68,20 @@
 			"enabled": true
 		}
 	},
+	"markdown": {
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "space",
+			"indentWidth": 2,
+			"proseWrap": "preserve"
+		}
+	},
+	"yaml": {
+		"formatter": {
+			"enabled": true,
+			"indentWidth": 2
+		}
+	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
@@ -66,7 +91,9 @@
 		{
 			"includes": ["test/**"],
 			"linter": {
-				"domains": { "playwright": "none" }
+				"domains": {
+					"playwright": "none"
+				}
 			}
 		},
 		{

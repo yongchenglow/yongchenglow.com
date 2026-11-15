@@ -4,8 +4,13 @@ on:
   push:
     branches: [main]
     # Documentation-only pushes should not build and publish a container image.
+    # Markdown is ignored by name, not by `**/*.md`: the blog loader also serves
+    # `content/blog/*.md` posts, and those must deploy.
     paths-ignore:
-      - "**/*.md"
+      - "*.md"
+      - "**/AGENTS.md"
+      - "**/CLAUDE.md"
+      - "helm/**/*.md"
       - "docs/**"
       - "LICENSE"
       - ".gitignore"
@@ -34,14 +39,14 @@ jobs:
       bun_version: ${{ steps.bun.outputs.bun_version }}
     steps:
       - name: Checkout package.json
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           sparse-checkout: package.json
           sparse-checkout-cone-mode: false
 
       - name: Get Bun version from package.json
         id: bun
-        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2.2.0
 
   actionlint:
     name: Lint Workflows
@@ -51,10 +56,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Run actionlint
-        uses: raven-actions/actionlint@v2
+        uses: raven-actions/actionlint@3d39aea434753780c3b3d4a1a31c854b4dbf49d7 # v2
 
   build:
     name: Quality Checks
@@ -62,8 +67,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v2.2.0
     with:
       bun_version: ${{ needs.bun-version.outputs.bun_version }}
 
@@ -72,15 +76,13 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@v2.2.0
 
   helm-validate:
     name: Helm Lint & Render
     permissions:
       contents: read
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/helm-lint.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/helm-lint.yml@v2.2.0
     with:
       chart_path: helm/app
       # The chart requires a {branch}-{40-char-sha} tag, which the committed
@@ -124,8 +126,7 @@ jobs:
       contents: read
       packages: read
       deployments: write
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/production-deploy.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/production-deploy.yml@v2.2.0
     with:
       image_tag: ${{ needs.container.outputs.image_tag }}
       application_name: yongchenglow
@@ -164,8 +165,7 @@ jobs:
     permissions:
       contents: read
       deployments: read
-    # v2.0.3 resolved on 2026-09-16.
-    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2
+    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2.2.0
     with:
       application_name: yongchenglow
       namespace: personal-site

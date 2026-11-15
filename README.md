@@ -4,7 +4,7 @@ This repository contains the source for [yongchenglow.com](https://www.yongcheng
 
 ## Requirements
 
-- [Bun](https://bun.sh/) 1.4.2 or newer
+- [Bun](https://bun.sh/) 1.4.4 or newer (the version in `package.json` `packageManager`)
 - Git
 
 Docker, Helm, and Kubernetes are only needed for container or cluster deployment.
@@ -24,20 +24,21 @@ No environment variables are required for local development. Advertising is hidd
 
 ## Common commands
 
-| Command | Purpose |
-| --- | --- |
-| `bun run dev` | Generate the search data and start the development server |
-| `bun run build` | Generate the search data and create a production build |
-| `bun start` | Start an existing production build |
-| `bun test` | Run all Bun tests |
-| `bun run typecheck` | Check TypeScript types without emitting files |
-| `bun run check` | Apply Biome formatting and lint fixes |
-| `bun run check:all` | Run TypeScript, Biome, and Knip checks |
-| `bun run generate-search-index` | Rebuild `public/search-index.json` |
-| `bun run lqip` | Generate low quality image placeholders for blog images |
-| `bun run analyze` | Build the app and open the bundle analyzer |
+| Command                         | Purpose                                                   |
+| ------------------------------- | --------------------------------------------------------- |
+| `bun run dev`                   | Generate the search data and start the development server |
+| `bun run build`                 | Generate the search data and create a production build    |
+| `bun start`                     | Start an existing production build                        |
+| `bun test`                      | Run all Bun tests                                         |
+| `bun run typecheck`             | Check TypeScript types without emitting files             |
+| `bun run check`                 | Apply Biome formatting and lint fixes                     |
+| `bun run lint`                  | Report Biome formatting and lint problems without fixing  |
+| `bun run check:all`             | Run TypeScript, Biome, and Knip checks                    |
+| `bun run generate-search-index` | Rebuild `public/search-index.json`                        |
+| `bun run lqip`                  | Generate low quality image placeholders for blog images   |
+| `bun run analyze`               | Build the app and open the bundle analyzer                |
 
-`bun run lint`, `bun run format`, `bun run check`, and `bun run check:ci` can change files. Review their changes before committing.
+`bun run format` and `bun run check` can change files. Review their changes before committing. `bun run lint` runs `biome ci .`, which only reports problems; CI runs the same command.
 
 ## Project structure
 
@@ -49,7 +50,9 @@ content/
   blog-ui.json             Blog interface labels
   home.json                Home page content
 docs/                      API, integration, and feature guides
+e2e/                       Playwright end-to-end tests and visual baselines
 helm/app/                  Kubernetes Helm chart
+lib/utils.ts               shadcn `cn` class name helper
 public/                    Static assets and generated search data
 scripts/                   Search and image helper scripts
 src/
@@ -190,7 +193,11 @@ bun run build
 
 The test setup uses Happy DOM and Testing Library. `bunfig.toml` loads `test/setup.ts` before tests.
 
-The repository uses Biome for formatting and linting, TypeScript for type checks, and Knip for unused code checks. Husky installs Git hooks through `bun run prepare`. Commitlint checks commit messages against the Conventional Commits format.
+The repository uses Biome for formatting and linting (TypeScript, JavaScript, JSON, CSS, Markdown, and YAML), TypeScript for type checks, and Knip for unused code checks. Husky installs Git hooks through `bun run prepare`.
+
+- `pre-commit` scans staged changes with [gitleaks](https://github.com/gitleaks/gitleaks), then formats staged files with Biome. Install gitleaks first, for example with `brew install gitleaks`.
+- `commit-msg` checks the message against the Conventional Commits format with Commitlint.
+- `pre-push` runs the type check, `bun run lint`, Knip, and the tests.
 
 Example commit messages include `feat: add category filter` and `docs: clarify local setup`.
 

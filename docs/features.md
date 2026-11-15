@@ -4,62 +4,62 @@ This guide connects the main user features to the files that implement them. Sta
 
 ## Pages
 
-| Feature | Behavior | Main source |
-| --- | --- | --- |
-| Home | Shows the introduction, featured or latest post, projects, an ad placement, and an about summary | `src/app/page.tsx` and `content/home.json` |
-| About | Shows profile details and a work, education, and military timeline | `src/app/about/page.tsx` and `content/about.json` |
-| Blog landing | Shows category and year navigation, one featured post, a four-post grid, and a link to all posts | `src/app/blog/page.tsx` |
-| All posts | Shows every published post in a timeline | `src/app/blog/all/page.tsx` |
-| Blog post | Renders MDX, metadata, structured data, reading tools, images, code, diagrams, navigation, and ads | `src/app/blog/[slug]/page.tsx` |
-| Category pages | Groups posts when any post tag matches a category tag | `src/app/blog/category/[category]/[page]/page.tsx` |
-| Year pages | Groups posts by the year in `frontmatter.date` | `src/app/blog/year/[year]/[page]/page.tsx` |
-| Tag pages | Shows posts with one exact tag | `src/app/blog/tag/[tag]/page.tsx` |
+| Feature        | Behavior                                                                                           | Main source                                        |
+| -------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| Home           | Shows the introduction, featured or latest post, projects, an ad placement, and an about summary   | `src/app/page.tsx` and `content/home.json`         |
+| About          | Shows profile details and a work, education, and military timeline                                 | `src/app/about/page.tsx` and `content/about.json`  |
+| Blog landing   | Shows category and year navigation, one featured post, a four-post grid, and a link to all posts   | `src/app/blog/page.tsx`                            |
+| All posts      | Shows every published post in a timeline                                                           | `src/app/blog/all/page.tsx`                        |
+| Blog post      | Renders MDX, metadata, structured data, reading tools, images, code, diagrams, navigation, and ads | `src/app/blog/[slug]/page.tsx`                     |
+| Category pages | Groups posts when any post tag matches a category tag                                              | `src/app/blog/category/[category]/[page]/page.tsx` |
+| Year pages     | Groups posts by the year in `frontmatter.date`                                                     | `src/app/blog/year/[year]/[page]/page.tsx`         |
+| Tag pages      | Shows posts with one exact tag                                                                     | `src/app/blog/tag/[tag]/page.tsx`                  |
 
 ## Blog reading
 
-| Feature | Behavior | Main source |
-| --- | --- | --- |
-| Reading time | Calculates an estimate and word count when a post is loaded | `src/lib/blog.ts` |
-| Table of contents | Builds navigation from post headings and tracks the visible section | `src/components/blog/TableOfContents.tsx` |
-| Reading progress | Shows progress through the article | `src/components/blog/ReadingProgress.tsx` |
-| Previous and next posts | Links to the newer and older post in date order | `src/lib/blog.ts` and `src/components/blog/BlogNavigation.tsx` |
-| Code highlighting | Renders fenced code with light and dark Highlight.js themes | `src/components/post/PostCodeBlock.tsx` |
-| Mermaid diagrams | Renders `mermaid` fenced blocks on the client | `src/components/mdx/MermaidDiagram.tsx` |
-| Image modal | Opens post images in a larger dialog | `src/components/blog/ImageModal.tsx` |
-| Markdown extensions | Supports tables, task lists, strikethrough, and linked headings | `src/app/blog/[slug]/page.tsx` |
+| Feature                 | Behavior                                                            | Main source                                                    |
+| ----------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Reading time            | Calculates an estimate and word count when a post is loaded         | `src/lib/blog.ts`                                              |
+| Table of contents       | Builds navigation from post headings and tracks the visible section | `src/components/blog/TableOfContents.tsx`                      |
+| Reading progress        | Shows progress through the article                                  | `src/components/blog/ReadingProgress.tsx`                      |
+| Previous and next posts | Links to the newer and older post in date order                     | `src/lib/blog.ts` and `src/components/blog/BlogNavigation.tsx` |
+| Code highlighting       | Renders fenced code with light and dark Highlight.js themes         | `src/components/post/PostCodeBlock.tsx`                        |
+| Mermaid diagrams        | Renders `mermaid` fenced blocks on the client                       | `src/components/mdx/MermaidDiagram.tsx`                        |
+| Image modal             | Opens post images in a larger dialog                                | `src/components/blog/ImageModal.tsx`                           |
+| Markdown extensions     | Supports tables, task lists, strikethrough, and linked headings     | `src/app/blog/[slug]/page.tsx`                                 |
 
 ## Discovery
 
-| Feature | Behavior | Main source |
-| --- | --- | --- |
-| Search | Lazily loads generated post data and searches five fields with FlexSearch | `src/hooks/useSearch.ts` |
-| Search dialog | Opens from the navigation or keyboard shortcut and displays results | `src/components/search/SearchDialog.tsx` |
-| Categories | Maps configured groups of tags to category pages | `src/config/blog.ts` |
-| Years | Derives available years from published posts | `src/lib/blog.ts` |
-| Tags | Derives tag routes from published post frontmatter | `src/app/blog/tag/[tag]/page.tsx` |
+| Feature       | Behavior                                                                  | Main source                              |
+| ------------- | ------------------------------------------------------------------------- | ---------------------------------------- |
+| Search        | Lazily loads generated post data and searches five fields with FlexSearch | `src/hooks/useSearch.ts`                 |
+| Search dialog | Opens from the navigation or keyboard shortcut and displays results       | `src/components/search/SearchDialog.tsx` |
+| Categories    | Maps configured groups of tags to category pages                          | `src/config/blog.ts`                     |
+| Years         | Derives available years from published posts                              | `src/lib/blog.ts`                        |
+| Tags          | Derives tag routes from published post frontmatter                        | `src/app/blog/tag/[tag]/page.tsx`        |
 
 Search data is generated by `scripts/generate-search-index.mjs`. It excludes drafts and is refreshed before `bun run dev` and `bun run build`.
 
 ## Interface
 
-| Feature | Behavior | Main source |
-| --- | --- | --- |
-| Responsive navigation | Provides desktop navigation, mobile navigation, search, and theme controls | `src/components/shared/organisms/Navigationbar.tsx` |
-| Theme | Supports light, dark, and system themes | `src/components/theme/ThemeProvider.tsx` and `src/components/theme/ThemeToggle.tsx` |
-| Motion | Applies reusable fade and stagger effects | `src/components/shared/atoms/FadeIn.tsx` and `src/lib/animation.ts` |
-| Loading placeholders | Reserves image and card space while content loads | `src/components/shared/atoms/ImageSkeleton.tsx` and `src/components/post/PostCardSkeleton.tsx` |
-| Image blur data | Uses generated base64 placeholders for known local images | `scripts/generate-lqip.ts` and `src/lib/lqip.ts` |
-| Shared UI | Provides reusable controls built on Radix UI and Tailwind CSS | `src/components/shared/ui/` |
+| Feature               | Behavior                                                                   | Main source                                                                                    |
+| --------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Responsive navigation | Provides desktop navigation, mobile navigation, search, and theme controls | `src/components/shared/organisms/Navigationbar.tsx`                                            |
+| Theme                 | Supports light, dark, and system themes                                    | `src/components/theme/ThemeProvider.tsx` and `src/components/theme/ThemeToggle.tsx`            |
+| Motion                | Applies reusable fade and stagger effects                                  | `src/components/shared/atoms/FadeIn.tsx` and `src/lib/animation.ts`                            |
+| Loading placeholders  | Reserves image and card space while content loads                          | `src/components/shared/atoms/ImageSkeleton.tsx` and `src/components/post/PostCardSkeleton.tsx` |
+| Image blur data       | Uses generated base64 placeholders for known local images                  | `scripts/generate-lqip.ts` and `src/lib/lqip.ts`                                               |
+| Shared UI             | Provides reusable controls built on Radix UI and Tailwind CSS              | `src/components/shared/ui/`                                                                    |
 
 ## Metadata and discovery files
 
-| Feature | Behavior | Main source |
-| --- | --- | --- |
-| Page metadata | Defines titles, descriptions, canonical links, and social images | Page files under `src/app/` |
-| Structured data | Adds article and breadcrumb JSON-LD | `src/components/seo/JsonLd.tsx` |
-| Open Graph images | Creates a dynamic social image with a title, tags, and optional avatar | `src/app/og/route.tsx` |
-| Sitemap | Lists core pages, blog posts, categories, years, and tags | `src/app/sitemap.ts` |
-| Robots rules | Allows normal crawling, blocks API paths, and links the sitemap | `src/app/robots.ts` |
+| Feature           | Behavior                                                               | Main source                     |
+| ----------------- | ---------------------------------------------------------------------- | ------------------------------- |
+| Page metadata     | Defines titles, descriptions, canonical links, and social images       | Page files under `src/app/`     |
+| Structured data   | Adds article and breadcrumb JSON-LD                                    | `src/components/seo/JsonLd.tsx` |
+| Open Graph images | Creates a dynamic social image with a title, tags, and optional avatar | `src/app/og/route.tsx`          |
+| Sitemap           | Lists core pages, blog posts, categories, years, and tags              | `src/app/sitemap.ts`            |
+| Robots rules      | Allows normal crawling, blocks API paths, and links the sitemap        | `src/app/robots.ts`             |
 
 ## Advertising
 
@@ -69,15 +69,15 @@ The home, about, blog index, article midpoint, and article end positions have se
 
 ## Content configuration
 
-| Change | Source of truth |
-| --- | --- |
-| Home copy and projects | `content/home.json` |
-| About profile and timeline | `content/about.json` |
-| Blog labels | `content/blog-ui.json` |
-| Blog posts | `content/blog/` |
-| Categories and page size | `src/config/blog.ts` |
-| Site URL, author, navigation, and social links | `src/config/site.ts` |
-| Ad placements | `src/config/ads.ts` |
-| Content validation | `src/content/schema.ts` |
+| Change                                         | Source of truth         |
+| ---------------------------------------------- | ----------------------- |
+| Home copy and projects                         | `content/home.json`     |
+| About profile and timeline                     | `content/about.json`    |
+| Blog labels                                    | `content/blog-ui.json`  |
+| Blog posts                                     | `content/blog/`         |
+| Categories and page size                       | `src/config/blog.ts`    |
+| Site URL, author, navigation, and social links | `src/config/site.ts`    |
+| Ad placements                                  | `src/config/ads.ts`     |
+| Content validation                             | `src/content/schema.ts` |
 
 Prefer changing these files over copying their values into a component. Shared configuration keeps labels and behavior consistent.

@@ -1,2 +1,4 @@
 bun run tsc
+bun run lint
+bun run knip
 bun test

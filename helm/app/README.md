@@ -94,26 +94,26 @@ Open [http://localhost:8080](http://localhost:8080).
 
 Defaults come from `values.yaml`.
 
-| Value | Default | Purpose |
-| --- | --- | --- |
-| `replicaCount` | `2` | Fixed pod count when autoscaling is off |
-| `image.repository` | `nextjs-frontend-template` | Container repository |
-| `image.tag` | `latest` | Container tag, which must be overridden with a valid immutable tag |
-| `image.pullPolicy` | `IfNotPresent` | Image pull behavior |
-| `imagePullSecrets` | `[{name: ghcr-secret}]` | Registry credentials |
-| `serviceAccount.create` | `true` | Create a service account for the pods |
-| `service.type` | `NodePort` | Kubernetes service type |
-| `service.port` | `3000` | Port exposed by the service |
-| `service.targetPort` | `3000` | Container port targeted by the service |
-| `ingress.enabled` | `false` | Create an ingress resource |
-| `autoscaling.enabled` | `false` | Create a CPU and memory based autoscaler |
-| `podDisruptionBudget.enabled` | `false` | Create a pod disruption budget |
-| `resources.requests.cpu` | `250m` | Requested CPU per pod |
-| `resources.requests.memory` | `512Mi` | Requested memory per pod |
-| `resources.limits.cpu` | `500m` | CPU limit per pod |
-| `resources.limits.memory` | `512Mi` | Memory limit per pod |
-| `env` | `[]` | Explicit container environment variables |
-| `envFrom` | `[]` | Environment variables from Secrets or ConfigMaps |
+| Value                         | Default                    | Purpose                                                            |
+| ----------------------------- | -------------------------- | ------------------------------------------------------------------ |
+| `replicaCount`                | `2`                        | Fixed pod count when autoscaling is off                            |
+| `image.repository`            | `nextjs-frontend-template` | Container repository                                               |
+| `image.tag`                   | `latest`                   | Container tag, which must be overridden with a valid immutable tag |
+| `image.pullPolicy`            | `IfNotPresent`             | Image pull behavior                                                |
+| `imagePullSecrets`            | `[{name: ghcr-secret}]`    | Registry credentials                                               |
+| `serviceAccount.create`       | `true`                     | Create a service account for the pods                              |
+| `service.type`                | `NodePort`                 | Kubernetes service type                                            |
+| `service.port`                | `3000`                     | Port exposed by the service                                        |
+| `service.targetPort`          | `3000`                     | Container port targeted by the service                             |
+| `ingress.enabled`             | `false`                    | Create an ingress resource                                         |
+| `autoscaling.enabled`         | `false`                    | Create a CPU and memory based autoscaler                           |
+| `podDisruptionBudget.enabled` | `false`                    | Create a pod disruption budget                                     |
+| `resources.requests.cpu`      | `250m`                     | Requested CPU per pod                                              |
+| `resources.requests.memory`   | `512Mi`                    | Requested memory per pod                                           |
+| `resources.limits.cpu`        | `500m`                     | CPU limit per pod                                                  |
+| `resources.limits.memory`     | `512Mi`                    | Memory limit per pod                                               |
+| `env`                         | `[]`                       | Explicit container environment variables                           |
+| `envFrom`                     | `[]`                       | Environment variables from Secrets or ConfigMaps                   |
 
 Read `values.yaml` for probe settings, scheduling controls, labels, annotations, naming overrides, and the full ingress structure.
 

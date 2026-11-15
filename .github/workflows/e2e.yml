@@ -28,7 +28,7 @@ jobs:
       playwright: ${{ steps.playwright.outputs.version }}
     steps:
       - name: Checkout package.json
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           sparse-checkout: package.json
           sparse-checkout-cone-mode: false
@@ -51,7 +51,7 @@ jobs:
       options: --ipc=host
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       # A fresh deployment can take a minute to become routable through the
       # Cloudflare tunnel. Testing before then would report a false failure.
@@ -85,7 +85,7 @@ jobs:
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: playwright-report-${{ github.run_attempt }}
           path: playwright-report/
@@ -104,7 +104,7 @@ jobs:
 
       - name: Upload changed x64 baselines
         if: steps.baselines.outputs.changed
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: visual-snapshots-x64
           path: e2e/visual.e2e.ts-snapshots/*-x64.png

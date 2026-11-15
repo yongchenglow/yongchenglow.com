@@ -2,7 +2,7 @@
 
 ## Report a vulnerability
 
-Create a [security issue](https://github.com/yongchenglow/yongchenglow.com/issues/new/choose). If the controls are available, assign it to [@yongchenglow](https://github.com/yongchenglow) and add the `vulnerability` label.
+Report vulnerabilities privately through [GitHub private vulnerability reporting](https://github.com/yongchenglow/yongchenglow.com/security/advisories/new). Do not open a public issue, pull request, or discussion for a suspected vulnerability: public reports disclose the problem before a fix exists.
 
 Include the following information.
 
@@ -12,4 +12,4 @@ Include the following information.
 - The possible impact
 - A suggested fix or mitigation when known
 
-Do not include passwords, access tokens, private keys, personal data, or instructions that could harm other systems. The maintainer will review the report and use the issue for follow-up.
+Do not include passwords, access tokens, private keys, personal data, or instructions that could harm other systems. The maintainer will review the report and follow up in the private advisory.
