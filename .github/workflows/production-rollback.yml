@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
       deployments: read
-    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/production-rollback.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
     with:
       application_name: yongchenglow
       namespace: personal-site
