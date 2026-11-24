@@ -66,7 +66,7 @@ jobs:
       # only feeds this workflow, and an extra edge in their dependency graph.
       - name: Get Bun version from package.json
         id: bun
-        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2.2.0
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
@@ -166,7 +166,7 @@ jobs:
         run: trivy convert --format sarif --output trivy-image-results.sarif trivy-image-results.json
 
       - name: Upload scan results
-        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
+        uses: github/codeql-action/upload-sarif@915412ff23e8b7659517e607487dbeae018f2934 # v4
         with:
           sarif_file: "trivy-image-results.sarif"
 
