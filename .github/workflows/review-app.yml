@@ -39,7 +39,7 @@ jobs:
 
       - name: Get Bun version from package.json
         id: bun
-        uses: yongchenglow/ci-workflows/.github/actions/bun-version@v2.2.0
+        uses: yongchenglow/ci-workflows/.github/actions/bun-version@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
 
   actionlint:
     name: Lint Workflows
@@ -62,7 +62,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-build.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
     with:
       bun_version: ${{ needs.bun-version.outputs.bun_version }}
 
@@ -72,14 +72,14 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/reusable-secret-scan.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
 
   helm-validate:
     name: Helm Lint & Render
     if: github.event.action != 'closed'
     permissions:
       contents: read
-    uses: yongchenglow/ci-workflows/.github/workflows/helm-lint.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/helm-lint.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
     with:
       chart_path: helm/app
       # The chart requires a {branch}-{40-char-sha} tag, which the committed
@@ -127,7 +127,7 @@ jobs:
       contents: read
       packages: read
       deployments: write
-    uses: yongchenglow/ci-workflows/.github/workflows/review-deploy.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/review-deploy.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
     with:
       image_tag: ${{ needs.container.outputs.image_tag }}
       review_id: pr-${{ github.event.number }}
@@ -161,7 +161,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
-    uses: yongchenglow/ci-workflows/.github/workflows/review-cleanup.yml@v2.2.0
+    uses: yongchenglow/ci-workflows/.github/workflows/review-cleanup.yml@aa0ecb8d7624181eea0d7a55d3665a80b2da34f0 # v2.2.1
     with:
       review_id: pr-${{ github.event.number }}
       application_name: yongchenglow
